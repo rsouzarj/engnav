@@ -36,6 +36,8 @@ import Lugar.Lugar;
 import Lugar.LugarService;
 import MaterialPreco.MaterialPreco;
 import MaterialPreco.MaterialPrecoService;
+import Material.Material;
+import Material.MaterialService;
 import NvEmbarcacao.NvEmbarcacao;
 import NvEmbarcacao.NvEmbarcacaoService;
 import NvEmbarcacaoParceiro.NvEmbarcacaoParceiro;
@@ -157,6 +159,7 @@ public class DocumentoController {
 	String idTipoDocumento;
 	String url;
 	String naturezaLancamento;
+        String caminho;
 	ProjecaoTributariaService projecaoTributariaService = new ProjecaoTributariaService();
 	List<ProjecaoTributaria> listaProjecaoTributaria = new ArrayList();
 
@@ -207,6 +210,10 @@ public class DocumentoController {
 	List<MaterialPreco> listaMaterialReferencia = new ArrayList();
 	List<MaterialPreco> listaMaterialPreco = new ArrayList();
 	MaterialPreco materialPreco = new MaterialPreco();
+        
+	MaterialService materialService = new MaterialService();
+	List<Material> listaMaterial = new ArrayList();
+	Material material = new Material();        
 
 	CondicaoPagamentoService condicaoPagamentoService = new CondicaoPagamentoService();
 	List<CondicaoPagamento> listaCondicaoPagamento = new ArrayList();
@@ -264,8 +271,25 @@ public class DocumentoController {
 			this.loginController.mudarPagina("/organizacional/acessonegado.jsf");
 			return;
 		}
+                 if (this.documento.getValidade()!= null) {
+                    this.documento.setValidade(this.documento.getValidade());
+                } else {
+                    this.documento.setValidade("Proposta válida por 60 (sessenta) dias a partir da data de emissão.");
+                }                
+                
+                /*this.documento.setCondicoesGerais("As despesas de hospedagem, transporte, alimentação e outras para atendimento fora do município do Rio de Janeiro e Niterói, são de \n" +
+"responsabilidade do cliente e devem ser providenciadas preferencialmente pelo mesmo, quando não, serão aplicadas as seguintes condições:\n" +
+" \n" +
+"a)    R$ 1,50 (Um real e cinquenta centavos) /Km rodado considerando-se a partida da sede ou escritório regional da empresa e os municípios visitados, e retorno a sede ou escritório regional da empresa;\n" +
+"b)    Reembolso de pedágios e estacionamentos, mediante a apresentação do recibo original, acrescidos de 15% a título de \n" +
+"administração, acrescidas de impostos;\n" +
+"c)    Valor de alimentação R$ 100,00 (cem reais) dia/homem;\n" +
+"d)    Diária de hospedagem R$ 200,00 (duzentos reais) dia/homem;\n" +
+"e)    Reembolso de transporte aéreo, quando aplicado, mediante aprovação prévia do contratante e apresentação de \n" +
+"comprovante;");*/                
 		this.listaTipoDocumento = this.tipoDocumentoService.listar(this.loginController.getEmpresa().getSeqEmpresa(),
 				"", Situacao.ATIVO, this.loginController.getUsuario().getSeqUsuario());
+
 	}
 
 	public void carregarTelaDocumento() {
@@ -302,6 +326,7 @@ public class DocumentoController {
 		this.usuarioTipoDocumento = this.usuarioTipoDocumentoService
 				.listarDocumento(this.loginController.getUsuario().getSeqUsuario(), "401");
 		this.listaTipoDocumentoGerar = this.tipoDocumentoGerarService.listar(this.idTipoDocumento, this.idDocumento);
+                this.listaMaterial = this.materialService.listar(this.loginController.getUsuario().getSeqEmpresa(),"",Situacao.ATIVO);
 
 		for (int i = 0; i < this.listaTipoDocumentoGerar.size(); i++) {
 			if ((((TipoDocumentoGerar) this.listaTipoDocumentoGerar.get(i)).getSeqTipoDocumentoPai().equals("301"))
@@ -350,7 +375,7 @@ public class DocumentoController {
 
 		if (this.idTipoDocumento.equals("401")) {
 			this.listaParceiro = this.parceiroService
-                                .listarParceiro(this.loginController.getUsuario().getSeqUsuario(),"");
+                                .listarParceiroTipoDoc(this.loginController.getEmpresa().getSeqEmpresa());
 			this.listaTipoMovimentoFinanceiro = this.tipoMovimentoFinanceiroService.listarPorOperacao(
 					this.loginController.getEmpresa().getSeqEmpresa(),Situacao.ATIVO, "Crédito");
 			
@@ -367,8 +392,8 @@ public class DocumentoController {
 
 			}
 		} else {
-			this.listaParceiro = this.parceiroService.listarParceiro(this.loginController.getUsuario().getSeqUsuario(),
-					"");
+			this.listaParceiro = this.parceiroService.listarParceiroTipoDoc(this.loginController.getUsuario().getSeqEmpresa()
+					);
 		}
 
 		if (this.documento.getSeqParceiro() != null) {
@@ -515,6 +540,22 @@ public class DocumentoController {
 		} else {
 			this.msgCancelamentoAnterior = "";
 		}
+                
+                /*if (this.documento.getCondicoesGerais()!= null) {
+                    this.documento.setCondicoesGerais(this.documento.getCondicoesGerais());
+                } else {
+                    this.documento.setCondicoesGerais("As despesas de hospedagem, transporte, alimentação e outras para atendimento fora do município do Rio de Janeiro e Niterói, são de responsabilidade do cliente e devem ser providenciadas preferencialmente pelo mesmo, quando não, serão aplicadas as seguintes condições: <br/>" +
+"a)    R$ 1,50 (Um real e cinquenta centavos) /Km rodado considerando-se a partida da sede ou escritório regional da empresa e os municípios visitados, e retorno a sede ou escritório regional da empresa;" +
+"b)    Reembolso de pedágios e estacionamentos, mediante a apresentação do recibo original, acrescidos de 15% a título de administração, acrescidas de impostos; <br/> " +
+"c)    Valor de alimentação R$ 100,00 (cem reais) dia/homem; <br/> " +
+"d)    Diária de hospedagem R$ 200,00 (duzentos reais) dia/homem; <br/> " +
+"e)    Reembolso de transporte aéreo, quando aplicado, mediante aprovação prévia do contratante e apresentação de comprovante;");
+                }*/
+                if (this.documento.getValidade()!= null) {
+                    this.documento.setValidade(this.documento.getValidade());
+                } else {
+                    this.documento.setValidade("Proposta válida por 60 (sessenta) dias a partir da data de emissão.");
+                }                
 	}
 
 	public void carregarModelo2() {
@@ -607,7 +648,7 @@ public class DocumentoController {
 		this.documento.setGrupoServico(this.pGrupoServico);
 
 		if ((this.idTipoDocumento != null) && (this.idTipoDocumento.equals("401"))) {
-			if (this.documento.getIdComplementar().longValue() > 0L) {
+			if (this.documento.getIdComplementar() > 0L) {
 				if (this.documentoItemMaterial.getQtdePeriodo().add(this.documentoItemMaterial.getQtdeAnterior())
 						.compareTo(this.documentoItemMaterial.getQtde()) == 1) {
 					FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -756,15 +797,11 @@ public class DocumentoController {
 	}
 
 	public void buscarServicoNome() {
-		if (this.pGrupoServico.equals("todos")) {
-			this.listaMaterialPreco = this.materialPrecoService.listarTodosServicos(
-					this.loginController.getUsuario().getSeqEmpresa(), this.documento.getSeqParceiro());
-		} else {
+
 			this.listaMaterialPreco = this.materialPrecoService.listarNomeGrupoServico(
-					this.loginController.getUsuario().getSeqEmpresa(), this.documento.getSeqParceiro(),
-					this.pGrupoServico);
-			this.documento.setGrupoServico(this.pGrupoServico);
-		}
+					this.loginController.getUsuario().getSeqEmpresa(),"", this.documento.getSeqParceiro());
+			
+		
 	}
 
 	public void calcularTotalItem() {
@@ -845,19 +882,44 @@ public class DocumentoController {
 						
                 
                 }
-                if (this.documento.getObservacao().contains("font-size: 13.3333px;")) {
+                if (this.documento.getObservacao() != null) {
 			this.documento.setObservacao(this.documento.getObservacao().replace("font-size: 13.3333px;", ""));
 			this.documento.setObservacao(this.documento.getObservacao().replace("font-size: 10pt;", ""));
 		}
 
-		if (this.documento.getDescricao().contains("font-size: 13.3333px;")) {
+		if (this.documento.getDescricao() != null) {
 			this.documento.setDescricao(this.documento.getDescricao().replace("font-size: 13.3333px;", ""));
 			this.documento.setDescricao(this.documento.getDescricao().replace("font-size: 10pt;", ""));
 		}
 
-		if (this.documento.getEscopo().contains("font-size: 13.3333px;")) {
+		if (this.documento.getEscopo() != null) {
 			this.documento.setEscopo(this.documento.getEscopo().replace("font-size: 13.3333px;", ""));
 			this.documento.setEscopo(this.documento.getEscopo().replace("font-size: 10pt;", ""));
+		}
+
+                if (this.documento.getObjetivo() != null) {
+			this.documento.setObjetivo(this.documento.getObjetivo().replace("font-size: 13.3333px;", ""));
+			this.documento.setObjetivo(this.documento.getObjetivo().replace("font-size: 10pt;", ""));
+		}
+                
+                if (this.documento.getCondicoesGerais() != null) {
+			this.documento.setCondicoesGerais(this.documento.getCondicoesGerais().replace("font-size: 13.3333px;", ""));
+			this.documento.setCondicoesGerais(this.documento.getCondicoesGerais().replace("font-size: 10pt;", ""));
+		}
+
+                if (this.documento.getDescRemuneracao() != null) {
+			this.documento.setDescRemuneracao(this.documento.getDescRemuneracao().replace("font-size: 13.3333px;", ""));
+			this.documento.setDescRemuneracao(this.documento.getDescRemuneracao().replace("font-size: 10pt;", ""));
+		}
+
+                if (this.documento.getValidade() != null) {
+			this.documento.setValidade(this.documento.getValidade().replace("font-size: 13.3333px;", ""));
+			this.documento.setValidade(this.documento.getValidade().replace("font-size: 10pt;", ""));
+		}
+
+                if (this.documento.getCondpag() != null) {
+			this.documento.setCondpag(this.documento.getCondpag().replace("font-size: 13.3333px;", ""));
+			this.documento.setCondpag(this.documento.getCondpag().replace("font-size: 10pt;", ""));
 		}                
                               
 		this.documento = this.documentoService.salvar(this.documento);
@@ -888,7 +950,9 @@ public class DocumentoController {
 	}
 
 	public void imprimir() throws IOException, JRException {
-		try{
+		
+            String caminho = this.tipoDocumento.getCaminhorel();
+                try{
 			Conexao conexao = new Conexao();
 			Connection conn = Conexao.getConnection();
 			Util util = new Util();
@@ -906,26 +970,25 @@ public class DocumentoController {
 			JasperPrint jasperPrint = new JasperPrint();
 			System.out.println("===> " + this.documento.getTemplate());
 			if (this.documento.getTemplate().equals("M1")) {
-				pTipoDocumento = "EquipamentoAcessorios";
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P1/P1.jasper"), parametro,
-						conn);
+				pTipoDocumento = "Proposta";
+                                jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+				/*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P1/P1.jasper"), parametro,conn);*/
 			} else if (this.documento.getTemplate().equals("M2")) {
 				pTipoDocumento = "SalvageMaster";
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P2/P2.jasper"), parametro,
-						conn);
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P2/P2.jasper"), parametro,conn);*/
 			} else if (this.documento.getTemplate().equals("M3")) {
 				pTipoDocumento = "Engenharia";
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P3/P3.jasper"), parametro,
-						conn);
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P3/P3_EV.jasper"), parametro,conn);*/
 			} else if (this.documento.getTemplate().equals("M4")) {
 				pTipoDocumento = "RegularizacaoEstatutaria";
-	
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P4/P4.jasper"), parametro,
-						conn);
+                                jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+				/*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P4/P4.jasper"), parametro,conn);*/
 			} else if (this.documento.getTemplate().equals("M5")) {
 				pTipoDocumento = "OrdemServico";
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P5/P5.jasper"), parametro,
-						conn);
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P5/P5.jasper"), parametro,conn);*/
 			} else if (this.documento.getTemplate().equals("M6")) {
 				pTipoDocumento = "OrdemCobranca";
 				if (this.documento.getDocDonoSeqTipo().equals("301")) {
@@ -952,25 +1015,30 @@ public class DocumentoController {
 							.listarPorTipoSeq("301", this.documento.getSeqDocumentoDono()).get(0);
 					parametro.put("pSeqOrdemServico", Integer.valueOf(pDocumento.getSeqDocumento()));
 				}
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P6/P6.jasper"), parametro,
-						conn);
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P6/P6.jasper"), parametro,conn);*/
 			} else if (this.documento.getTemplate().equals("M7")) {
 				pTipoDocumento = "VistoriaSeguro";
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P7/P7.jasper"), parametro,
-						conn);
+                                jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+				/*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P7/P7.jasper"), parametro,conn);*/
 			} else if (this.documento.getTemplate().equals("M8")) {
 				pTipoDocumento = "Auditoria";
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P8/P8.jasper"), parametro,
-						conn);
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P8/P8.jasper"), parametro,conn);*/
 			} else if (this.documento.getTemplate().equals("M9")) {
 				pTipoDocumento = "ConditionSurvey";
-				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P9/P9.jasper"), parametro,
-						conn);
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P9/P9.jasper"), parametro,
+						conn);*/
+                        }  else if (this.documento.getTemplate().equals("M10")) {
+				/*pTipoDocumento = "ServicoJarle";*/
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P10/P10.jasper"), parametro, conn);*/
 			} else if (this.documento.getTemplate().equals("BM")) {
 				pTipoDocumento = "BoletimMedicao";
 				parametro.put("pSeqUnidadeNegocio", Integer.valueOf(this.unidadeNegocio.getSeqUnidadeNegocio()));
-				jasperPrint = JasperFillManager.fillReport(
-						scontext.getRealPath("/relatorio/aws/BoletimMedicao/BoletimMedicao.jasper"), parametro, conn);
+			        jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorel()), parametro,conn);
+                                /*JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/BoletimMedicao/BoletimMedicao.jasper"), parametro, conn);*/
 			}
 	
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -996,6 +1064,122 @@ public class DocumentoController {
 		}
 		
 	}
+        
+	public void imprimirIngles() throws IOException, JRException {
+		
+            String caminho = this.tipoDocumento.getCaminhorel();
+                try{
+			Conexao conexao = new Conexao();
+			Connection conn = Conexao.getConnection();
+			Util util = new Util();
+			Documento pDocumento = new Documento();
+			String pTipoDocumento = "";
+	
+			System.out.println(this.documento.getObservacao());
+			HashMap parametro = new HashMap();
+			parametro.put("pSeqDocumento", Integer.valueOf(this.documento.getSeqDocumento()));
+	
+			FacesContext facesContext = FacesContext.getCurrentInstance();
+			facesContext.responseComplete();
+			ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+	
+			JasperPrint jasperPrint = new JasperPrint();
+			System.out.println("===> " + this.documento.getTemplate());
+			if (this.documento.getTemplate().equals("M1")) {
+				pTipoDocumento = "EquipamentoAcessorios";
+                                jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+				/*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P1/P1.jasper"), parametro,conn);*/
+			} else if (this.documento.getTemplate().equals("M2")) {
+				pTipoDocumento = "SalvageMaster";
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P2/P2.jasper"), parametro,conn);*/
+			} else if (this.documento.getTemplate().equals("M3")) {
+				pTipoDocumento = "Engenharia";
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P3/P3_EV.jasper"), parametro,conn);*/
+			} else if (this.documento.getTemplate().equals("M4")) {
+				pTipoDocumento = "RegularizacaoEstatutaria";
+                                jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+				/*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P4/P4.jasper"), parametro,conn);*/
+			} else if (this.documento.getTemplate().equals("M5")) {
+				pTipoDocumento = "OrdemServico";
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P5/P5.jasper"), parametro,conn);*/
+			} else if (this.documento.getTemplate().equals("M6")) {
+				pTipoDocumento = "OrdemCobranca";
+				if (this.documento.getDocDonoSeqTipo().equals("301")) {
+					parametro.put("pSeqOrdemServico", Integer.valueOf(this.documento.getSeqDocumentoDono()));
+					pDocumento = this.documentoService.buscarPorID(this.loginController.getUsuario().getSeqEmpresa(),
+							this.documento.getSeqDocumentoDono());
+					parametro.put("pSeqProposta", Integer.valueOf(pDocumento.getSeqDocumentoDono()));
+				} else if (this.documento.getDocDonoSeqTipo().equals(this.documento.getSeqTipoDocumento())) {
+					pDocumento = this.documentoService.buscarPorID(this.loginController.getUsuario().getSeqEmpresa(),
+							this.documento.getSeqDocumentoDono());
+	
+					while (pDocumento.getSeqTipoDocumento().equals(this.documento.getSeqTipoDocumento())) {
+						pDocumento = this.documentoService.buscarPorID(this.loginController.getUsuario().getSeqEmpresa(),
+								pDocumento.getSeqDocumentoDono());
+					}
+	
+					parametro.put("pSeqProposta", Integer.valueOf(pDocumento.getSeqDocumento()));
+					pDocumento = (Documento) this.documentoService.listarPorTipoSeq("301", pDocumento.getSeqDocumento())
+							.get(0);
+					parametro.put("pSeqOrdemServico", Integer.valueOf(pDocumento.getSeqDocumento()));
+				} else {
+					parametro.put("pSeqProposta", Integer.valueOf(this.documento.getSeqDocumentoDono()));
+					pDocumento = (Documento) this.documentoService
+							.listarPorTipoSeq("301", this.documento.getSeqDocumentoDono()).get(0);
+					parametro.put("pSeqOrdemServico", Integer.valueOf(pDocumento.getSeqDocumento()));
+				}
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P6/P6.jasper"), parametro,conn);*/
+			} else if (this.documento.getTemplate().equals("M7")) {
+				pTipoDocumento = "VistoriaSeguro";
+                                jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+				/*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P7/P7.jasper"), parametro,conn);*/
+			} else if (this.documento.getTemplate().equals("M8")) {
+				pTipoDocumento = "Auditoria";
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P8/P8.jasper"), parametro,conn);*/
+			} else if (this.documento.getTemplate().equals("M9")) {
+				pTipoDocumento = "ConditionSurvey";
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P9/P9.jasper"), parametro,
+						conn);*/
+                        }  else if (this.documento.getTemplate().equals("M10")) {
+				pTipoDocumento = "ServicoJarle";
+				jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+                                /*jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/P10/P10.jasper"), parametro, conn);*/
+			} else if (this.documento.getTemplate().equals("BM")) {
+				pTipoDocumento = "BoletimMedicao";
+				parametro.put("pSeqUnidadeNegocio", Integer.valueOf(this.unidadeNegocio.getSeqUnidadeNegocio()));
+			        jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(this.tipoDocumento.getCaminhorelI()), parametro,conn);
+                                /*JasperFillManager.fillReport(scontext.getRealPath("/relatorio/aws/BoletimMedicao/BoletimMedicao.jasper"), parametro, conn);*/
+			}
+	
+			ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			JRPdfExporter exporter = new JRPdfExporter();
+			exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+			exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+			exporter.exportReport();
+			byte[] bytes = baos.toByteArray();
+	
+			if ((bytes != null) && (bytes.length > 0)) {
+				HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
+				response.setContentType("application/pdf");
+				response.setHeader("Content-disposition",
+						"inline; filename=\"" + pTipoDocumento + "_" + this.documento.getCodigo() + ".pdf\"");
+				response.setContentLength(bytes.length);
+				ServletOutputStream outputStream = response.getOutputStream();
+				outputStream.write(bytes, 0, bytes.length);
+				outputStream.flush();
+				outputStream.close();
+			}
+		}catch (Exception ex){
+			Logger.getLogger(DocumentoController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+	}        
 
 	public void novo() {
 		this.loginController.mudarPagina("/documento/documento.jsf?id=0");
@@ -1206,8 +1390,13 @@ public class DocumentoController {
         }
       }
     }
+    if (documentoNovo.getSeqTipoDocumento().equals("401")) {
+      documentoNovo.setObservacao(this.documento.getObservacao());
+    }
+    
     if (documentoNovo.getSeqTipoDocumento().equals("301")) {
       documentoNovo.setDescricao(this.documento.getDescricao());
+      documentoNovo.setEscopo(this.documento.getEscopo());
       if (!this.embarcacaoSelecionado.isEmpty()) {
         for (NvEmbarcacaoParceiro nvEmbarcacaoParceiro : this.listaNvEmbarcacaoParceiro) {
           for (String embarcacaoParceiro : this.embarcacaoSelecionado) {
@@ -1226,7 +1415,11 @@ public class DocumentoController {
           }
         }
       }
-    } else {
+    } 
+     if (documentoNovo.getSeqTipoDocumento().equals("381")) {
+      documentoNovo.setDescricao(this.documento.getDescricao());
+     }
+      else {
       documentoNovo.setDescricao("");
     }
     documentoNovo = this.documentoService.salvar(documentoNovo);
@@ -1789,6 +1982,48 @@ public class DocumentoController {
 		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
 				this.documento.getSeqDocumento());
 	}
+        
+        
+        
+        public List<String> completeArea(String query) {
+        List<String> results = new ArrayList<>();
+
+        if ("A".equals(query)) {
+            results.add("As despesas de hospedagem, transporte, alimentação e outras para atendimento fora do município do Rio de Janeiro e Niterói, são de \n" +
+"responsabilidade do cliente e devem ser providenciadas preferencialmente pelo mesmo, quando não, serão aplicadas as seguintes condições:\n" +
+" \n" +
+"a)    R$ 1,50 (Um real e cinquenta centavos) /Km rodado considerando-se a partida da sede ou escritório regional da empresa e os municípios visitados, e retorno a sede ou escritório regional da empresa;\n" +
+"b)    Reembolso de pedágios e estacionamentos, mediante a apresentação do recibo original, acrescidos de 15% a título de \n" +
+"administração, acrescidas de impostos;\n" +
+"c)    Valor de alimentação R$ 100,00 (cem reais) dia/homem;\n" +
+"d)    Diária de hospedagem R$ 200,00 (duzentos reais) dia/homem;\n" +
+"e)    Reembolso de transporte aéreo, quando aplicado, mediante aprovação prévia do contratante e apresentação de \n" +
+"comprovante;");
+            results.add("Accommodation, transport, meals and other expenses for service outside the city of Rio de Janeiro and Niterói are the responsibility of the customer and should preferably be provided by the same, if not, the following conditions will apply:\n" +
+"\n" +
+"a)	BRL 1.50 (one real and fifty cents) / km driven considering the departure from the company's headquarters or regional office and the cities visited, and return to the company's headquarters or regional office;\n" +
+"b)	Reimbursement of tolls and parking, upon presentation of the original receipt, plus 15% by way of administration, plus taxes;\n" +
+"c)	   Meal fee BRL 100.00 (one hundred reais) day/man;\n" +
+"d)	Accommodation of BRL 200.00 (two hundred reais) day/man;\n" +
+"e)	Reimbursement for air ticket, when applied, upon prior approval by the contracting party and presentation of proof;");
+
+        }
+        else {
+            
+        }
+
+        return results;
+    }   
+        
+        
+       /* public void onSelect(SelectEvent<String> event) {
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "select", event.getObject()));
+    }*/
+        
+        
+        
+        
 
 	public void iniciarVisualizacao() {
 	}
@@ -2408,6 +2643,14 @@ public class DocumentoController {
 	public void setListaMaterialReferencia(List<MaterialPreco> listaMaterialReferencia) {
 		this.listaMaterialReferencia = listaMaterialReferencia;
 	}
+        
+	public List<Material> getListaMaterial() {
+		return this.listaMaterial;
+	}
+
+	public void setListaMaterial(List<Material> listaMaterial) {
+		this.listaMaterial = listaMaterial;
+	}        
 
 	public List<ParceiroContato> getListaParceiroContato() {
 		return this.listaParceiroContato;
@@ -2687,5 +2930,13 @@ public class DocumentoController {
 
 	public void setUrl(String url) {
 		this.url = url;
+	}
+        
+        public String getCaminho() {
+		return this.caminho;
+	}
+
+	public void setCaminho(String caminho) {
+		this.caminho = caminho;
 	}
 }
