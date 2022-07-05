@@ -7,28 +7,7 @@
 /*     */ import java.util.Date;
 /*     */ import java.util.List;
 /*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class Financeiro
 /*     */ {
 /*     */   private String seqFinanceiro;
@@ -54,6 +33,7 @@
 /*     */   private String operacao;
 /*     */   private String seqUsuario;
 /*     */   private String responsavel;
+/*     */   private String aprovador;
 /*     */   private String descricao;
 /*     */   private String seqUnidadeNegocio;
 /*     */   private String UnidadeNegocioRazao;
@@ -285,6 +265,13 @@
 /*     */   
 /*     */   public void setResponsavel(String responsavel) {
 /* 287 */     this.responsavel = responsavel;
+/*     */   }
+/*     */   public String getAprovador() {
+/* 283 */     return this.aprovador;
+/*     */   }
+/*     */   
+/*     */   public void setAprovador(String aprovador) {
+/* 287 */     this.aprovador = aprovador;
 /*     */   }
 /*     */   
 /*     */   public String getUnidadeNegocioRazao() {
@@ -831,9 +818,3 @@
 /* 831 */     this.dataPeriodoInicialRLBM = dataPeriodoInicialRLBM;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Financeiro/Financeiro.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

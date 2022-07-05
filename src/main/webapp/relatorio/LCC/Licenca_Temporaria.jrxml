@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LICENÇA, AWS" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a368b2b9-fb02-481f-a5a0-d04e0981993d">
-	<property name="ireport.zoom" value="1.1000000000000008"/>
-	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.zoom" value="1.331000000000001"/>
+	<property name="ireport.x" value="61"/>
+	<property name="ireport.y" value="480"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -90,6 +90,7 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 	<field name="STATUS" class="java.lang.String"/>
 	<field name="OBSERVACAO" class="oracle.sql.CLOB"/>
 	<field name="ASSINATURA_DIGITAL" class="java.lang.String"/>
+	<field name="SEQ_UNIDADE_NEGOCIO" class="java.math.BigDecimal"/>
 	<field name="NOME" class="java.lang.String"/>
 	<field name="NUMERO_INSCRICAO" class="java.lang.String"/>
 	<field name="DATA_INSCRICAO" class="java.sql.Timestamp"/>
@@ -168,6 +169,8 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 	<field name="AREA_EMBARCACAO_3" class="java.lang.String"/>
 	<field name="TIPO_PLANTA_PROPULSORA" class="java.lang.String"/>
 	<field name="COMPRIMENTO_REGRA" class="java.lang.String"/>
+	<field name="BANDEIRA" class="java.lang.String"/>
+	<field name="SEQ_USUARIO" class="java.math.BigDecimal"/>
 	<field name="TIPO_EMBARCACAO" class="java.lang.String"/>
 	<field name="FANTASIA" class="java.lang.String"/>
 	<field name="NOME_ASSINATURA" class="java.lang.String"/>
@@ -297,13 +300,6 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
 			</textField>
-			<textField isBlankWhenNull="true">
-				<reportElement x="220" y="233" width="54" height="22" uuid="8e5c78ea-d976-41b8-be46-58b23b7240ac"/>
-				<textElement textAlignment="Right" verticalAlignment="Middle" markup="rtf">
-					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
-				</textElement>
-				<textFieldExpression><![CDATA[($F{CASCO_NUMERO} != null) ? $F{CASCO_NUMERO} : "------"]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="25" y="178" width="166" height="22" uuid="51db3812-dc23-4245-a686-40a23ccf5132"/>
 				<textElement verticalAlignment="Middle">
@@ -319,7 +315,7 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 				<text><![CDATA[c)  COMPRIMENTO TOTAL:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="221" y="253" width="52" height="20" uuid="424c4047-fc53-492c-946d-0fe6a7f0ac2c"/>
+				<reportElement x="221" y="253" width="126" height="20" uuid="424c4047-fc53-492c-946d-0fe6a7f0ac2c"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
 				</textElement>
@@ -333,7 +329,7 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 				<text><![CDATA[d)  BOCA MOLDADO:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="221" y="272" width="53" height="20" uuid="45cc379e-23d3-496c-9a57-f4b9e16ff257"/>
+				<reportElement x="221" y="272" width="126" height="20" uuid="45cc379e-23d3-496c-9a57-f4b9e16ff257"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
 				</textElement>
@@ -347,7 +343,7 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 				<text><![CDATA[e)  PONTAL MOLDADO: ]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="221" y="292" width="53" height="20" uuid="8a48a522-f56a-4a48-9302-8c1482c94056"/>
+				<reportElement x="221" y="292" width="126" height="20" uuid="8a48a522-f56a-4a48-9302-8c1482c94056"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
 				</textElement>
@@ -361,7 +357,7 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 				<text><![CDATA[f)  MATERIAL DO CASCO:]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="221" y="313" width="53" height="20" uuid="35adc405-46b2-4981-8035-b7e86c6847a2"/>
+				<reportElement x="221" y="313" width="126" height="20" uuid="35adc405-46b2-4981-8035-b7e86c6847a2"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
 				</textElement>
@@ -444,14 +440,14 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 				<textFieldExpression><![CDATA[$P{pEmissao}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="220" y="212" width="54" height="22" uuid="13d7c043-074a-418d-9aba-ceb57b0c1c98"/>
+				<reportElement x="220" y="212" width="127" height="22" uuid="13d7c043-074a-418d-9aba-ceb57b0c1c98"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="Times-Roman" pdfEncoding="Cp1252" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[($F{TIPO_EMBARCACAO} != null) ? $F{TIPO_EMBARCACAO} : "__________"]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="76" y="383" width="186" height="20" uuid="336b1e5c-73e5-454a-8a9b-b7e715b40a90"/>
+				<reportElement x="76" y="383" width="444" height="20" uuid="336b1e5c-73e5-454a-8a9b-b7e715b40a90"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
 				</textElement>
@@ -526,6 +522,11 @@ nv_licenca.seq_nv_licenca = $P{pSeqLicenca}]]>
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CEP_ESTALEIRO_CONSTRUTOR}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="221" y="234" width="126" height="20" isRemoveLineWhenBlank="true" uuid="f5067dc5-6a4b-4ff0-9111-47b78a1e9857"/>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{CASCO_NUMERO} != null) ? $F{CASCO_NUMERO} : "------"]]></textFieldExpression>
 			</textField>
 		</band>
 	</detail>

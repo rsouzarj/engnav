@@ -68,7 +68,6 @@
 
 
 
-
 /*    */   public boolean deletar(NvCertificadoEquipamento nvCertificadoEquipamento) {
 /* 58 */     NvCertificadoEquipamentoDAO dao = new NvCertificadoEquipamentoDAO();
 /* 59 */     return dao.deletar(nvCertificadoEquipamento);

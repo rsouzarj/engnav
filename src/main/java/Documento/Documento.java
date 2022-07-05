@@ -95,6 +95,14 @@
 /*     */   private String estadoBM;
 /*     */   private String identificacaoListaPlanos;
 /*     */   private String escopo;
+/*     */   private String mostraTotal;
+/*     */   private String caminho;
+/*     */   private String objetivo;
+/*     */   private String validade;
+/*     */   private String descRemuneracao;
+/*     */   private String condicoesGerais;
+/*     */   private String condpag;
+/*     */   private String assunto;
 /*     */   private BigDecimal vlTotalcambio;
 /*     */   List<DocumentoItemMaterial> listaDocumentoItemMaterial;
 /*     */   List<DocumentoItemFinanceiro> listaDocumentoItemFinanceiro;
@@ -826,6 +834,77 @@
 /*     */   
 /*     */   public void setVltotalcambio(BigDecimal vlTotalcambio) {
 /* 831 */     this.vlTotalcambio = vlTotalcambio;
+            
+/*     */   }
+
+/*     */   public String getMostraTotal() {
+/* 827 */     return this.mostraTotal;
+/*     */   }
+/*     */   
+/*     */   public void setMostraTotal(String mostraTotal) {
+/* 831 */     this.mostraTotal = mostraTotal;
+            
+/*     */   }
+
+/*     */   public String getCaminho() {
+/* 827 */     return this.caminho;
+/*     */   }
+/*     */   
+/*     */   public void setCaminho(String caminho) {
+/* 831 */     this.caminho = caminho;
+            
+/*     */   }
+
+/*     */   public String getObjetivo() {
+/* 827 */     return this.objetivo;
+/*     */   }
+/*     */   
+/*     */   public void setObjetivo(String objetivo) {
+/* 831 */     this.objetivo = objetivo;
+            
+/*     */   }
+/*     */   public String getValidade() {
+/* 827 */     return this.validade;
+/*     */   }
+/*     */   
+/*     */   public void setValidade(String validade) {
+/* 831 */     this.validade = validade;
+            
+/*     */   }
+
+/*     */   public String getDescRemuneracao() {
+/* 827 */     return this.descRemuneracao;
+/*     */   }
+/*     */   
+/*     */   public void setDescRemuneracao(String descRemuneracao) {
+/* 831 */     this.descRemuneracao = descRemuneracao;
+            
+/*     */   }
+
+/*     */   public String getCondicoesGerais() {
+/* 827 */     return this.condicoesGerais;
+/*     */   }
+/*     */   
+/*     */   public void setCondicoesGerais(String condicoesGerais) {
+/* 831 */     this.condicoesGerais = condicoesGerais;
+            
+/*     */   }
+
+/*     */   public String getCondpag() {
+/* 827 */     return this.condpag;
+/*     */   }
+/*     */   
+/*     */   public void setCondpag(String condpag) {
+/* 831 */     this.condpag = condpag;
+            
+/*     */   }
+
+/*     */   public String getAssunto() {
+/* 827 */     return this.assunto;
+/*     */   }
+/*     */   
+/*     */   public void setAssunto(String assunto) {
+/* 831 */     this.assunto = assunto;
             
 /*     */   }
 /*     */ }

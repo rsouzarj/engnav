@@ -18,8 +18,3 @@ public class ApplicationConfig extends Application {
 	}
 }
 
-/*
- * Location: C:\Users\diogo\Documents\workspace\others\prod
- * erp\deploy\erp3.war!\WEB-INF\classes\WS\ApplicationConfig.class Java compiler
- * version: 7 (51.0) JD-Core Version: 0.7.1
- */

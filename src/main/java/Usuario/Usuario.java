@@ -94,6 +94,7 @@
             private String acAprovaVistoria;
             private String acOrgGerArquivo;
             private String acOrgListArquivo;
+            private String acAprovaPO;
 /*     */   private String usuario;
 /*     */   private String senha;
 /*     */   private String email;
@@ -808,6 +809,16 @@
 /*     */   public void setAcAprovaVistoria(String acAprovaVistoria) {
 /* 108 */     this.acAprovaVistoria = acAprovaVistoria;
 /*     */   }
+
+              public String getAcAprovaPO()
+/*     */   {
+/* 104 */     return this.acAprovaPO;
+/*     */   }
+/*     */   
+/*     */   public void setAcAprovaPO(String acAprovaPO) {
+/* 108 */     this.acAprovaPO = acAprovaPO;
+/*     */   }
+
 
 /*     */   public String getAcOrgListArquivo() {
 /* 120 */     return this.acOrgListArquivo;

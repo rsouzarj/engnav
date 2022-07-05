@@ -28,7 +28,7 @@
 /*  28 */       usuario.setSeqUsuario(seq);
 /*  29 */       Conexao conexao = new Conexao();
 /*  30 */       Connection conn = Conexao.getConnection();
-/*  31 */       String sql = "insert into USUARIO (SEQ_USUARIO,DATA_CADASTRO,AC_PARCEIRO,AC_DOCUMENTO,AC_OPERACIONAL,AC_CADASTRO,AC_ORGANIZACIONAL,AC_REL_PARCEIRO,AC_REL_DOCUMENTO,AC_PAR_NOVO,AC_PAR_TODOS,SEQ_EMPRESA,SEQ_UNIDADE_NEGOCIO,SEQ_DEPARTAMENTO,NIVEL,SEQ_PARCEIRO,ACESSO_ERP,CHAVE_ORIGEM,AC_DOC_NOVO,ACESSO_COMERCIAL,AC_RELATORIO,AC_OP_EMBARCACAO,AC_OP_EQUIPAMENTO,AC_OP_VISTORIA,AC_OP_LICENCA,AC_OP_CERTIFICADO,AC_OP_CADASTRO,AC_OP_TVINCULO,AC_OP_TVISTORIA,AC_OP_TCERTIFICADO,AC_OP_TLICENCA,AC_OP_STATUS_VISTORIA,AC_OP_CALCULO_DATA,AC_CAD_PARCEIRO,AC_CAD_TPARCEIRO,AC_CAD_TVINCULO,AC_CAD_TCARACTERISTICA,AC_CAD_TENDERECO,AC_CAD_DOCUMENTO,AC_CAD_TDOCUMENTO,AC_FINANCEIRO,AC_FIN_TMOVIMENTO,AC_FIN_CONTAS,AC_FIN_FPAGAMENTO,AC_FIN_CPAGAMENTO,AC_COMERCIAL,AC_COM_SERVICO,AC_COM_TPRECO,AC_COM_ESCOPO,AC_COM_PSERVICO,AC_ORG_USUARIO,AC_ORG_UNEGOCIO,AC_ORG_DEPARTAMENTO,AC_ORG_FUNCAO,AC_ORG_COLABORADOR,AC_ORG_PARAMETRO,USUARIO,SENHA,EMAIL,COR,SITUACAO,CALCULAR_COMISSAO,APP_SESSAO,AC_FIN_TUNIDADE,AC_FIN_ALIQUOTA,AC_FIN_PROJECAO,ac_fin_cadastro,ac_fin_informacao,ac_fin_faturamento,ac_fin_boletim,ac_fin_C_Pagar,AC_FIN_F_FATURAMENTO,ac_fin_centro_custo,ac_fin_doc_fiscal,ac_fin_contas_receber,ac_fin_solicitacao,ac_fin_ordem_p,ac_fin_categoria,ac_administrativo,ac_fin_conta_corrente,ac_fin_nota_debito,ac_fin_prestacao_contas,ac_fin_rlbm,ac_rel_pesq_satisfacao,ac_fin_equipamento,AC_OP_APROVA_VISTORIA,AC_ORG_GER_ARQUIVO,AC_OP_LISTA_ARQUIVOS) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+/*  31 */       String sql = "insert into USUARIO (SEQ_USUARIO,DATA_CADASTRO,AC_PARCEIRO,AC_DOCUMENTO,AC_OPERACIONAL,AC_CADASTRO,AC_ORGANIZACIONAL,AC_REL_PARCEIRO,AC_REL_DOCUMENTO,AC_PAR_NOVO,AC_PAR_TODOS,SEQ_EMPRESA,SEQ_UNIDADE_NEGOCIO,SEQ_DEPARTAMENTO,NIVEL,SEQ_PARCEIRO,ACESSO_ERP,CHAVE_ORIGEM,AC_DOC_NOVO,ACESSO_COMERCIAL,AC_RELATORIO,AC_OP_EMBARCACAO,AC_OP_EQUIPAMENTO,AC_OP_VISTORIA,AC_OP_LICENCA,AC_OP_CERTIFICADO,AC_OP_CADASTRO,AC_OP_TVINCULO,AC_OP_TVISTORIA,AC_OP_TCERTIFICADO,AC_OP_TLICENCA,AC_OP_STATUS_VISTORIA,AC_OP_CALCULO_DATA,AC_CAD_PARCEIRO,AC_CAD_TPARCEIRO,AC_CAD_TVINCULO,AC_CAD_TCARACTERISTICA,AC_CAD_TENDERECO,AC_CAD_DOCUMENTO,AC_CAD_TDOCUMENTO,AC_FINANCEIRO,AC_FIN_TMOVIMENTO,AC_FIN_CONTAS,AC_FIN_FPAGAMENTO,AC_FIN_CPAGAMENTO,AC_COMERCIAL,AC_COM_SERVICO,AC_COM_TPRECO,AC_COM_ESCOPO,AC_COM_PSERVICO,AC_ORG_USUARIO,AC_ORG_UNEGOCIO,AC_ORG_DEPARTAMENTO,AC_ORG_FUNCAO,AC_ORG_COLABORADOR,AC_ORG_PARAMETRO,USUARIO,SENHA,EMAIL,COR,SITUACAO,CALCULAR_COMISSAO,APP_SESSAO,AC_FIN_TUNIDADE,AC_FIN_ALIQUOTA,AC_FIN_PROJECAO,ac_fin_cadastro,ac_fin_informacao,ac_fin_faturamento,ac_fin_boletim,ac_fin_C_Pagar,AC_FIN_F_FATURAMENTO,ac_fin_centro_custo,ac_fin_doc_fiscal,ac_fin_contas_receber,ac_fin_solicitacao,ac_fin_ordem_p,ac_fin_categoria,ac_administrativo,ac_fin_conta_corrente,ac_fin_nota_debito,ac_fin_prestacao_contas,ac_fin_rlbm,ac_rel_pesq_satisfacao,ac_fin_equipamento,AC_OP_APROVA_VISTORIA,AC_ORG_GER_ARQUIVO,AC_OP_LISTA_ARQUIVOS,AC_FIN_APROVA_PO) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 /*     */       
 /*     */ 
 /*     */ 
@@ -129,6 +129,7 @@
 /*     */       ps.setString(86, usuario.getAcAprovaVistoria());
 /*     */       ps.setString(87, usuario.getAcOrgGerArquivo());
                 ps.setString(88, usuario.getAcOrgListArquivo());
+                ps.setString(89, usuario.getAcAprovaPO());
 /* 130 */       ps.execute();
 /* 131 */       ps.close();
 /*     */     }
@@ -143,7 +144,7 @@
 /*     */     try {
 /* 142 */       Conexao conexao = new Conexao();
 /* 143 */       Connection conn = Conexao.getConnection();
-/* 144 */       String sql = "update USUARIO set DATA_CADASTRO = ?,AC_PARCEIRO = ?,AC_DOCUMENTO = ?,AC_OPERACIONAL = ?,AC_CADASTRO = ?,AC_ORGANIZACIONAL = ?,AC_REL_PARCEIRO = ?,AC_REL_DOCUMENTO = ?,AC_PAR_NOVO = ?,AC_PAR_TODOS = ?,SEQ_EMPRESA = ?,SEQ_UNIDADE_NEGOCIO = ?,SEQ_DEPARTAMENTO = ?,NIVEL = ?,SEQ_PARCEIRO = ?,ACESSO_ERP = ?,CHAVE_ORIGEM = ?,AC_DOC_NOVO = ?,ACESSO_COMERCIAL = ?,AC_RELATORIO = ?,AC_OP_EMBARCACAO = ?,AC_OP_EQUIPAMENTO = ?,AC_OP_VISTORIA = ?,AC_OP_LICENCA = ?,AC_OP_CERTIFICADO = ?,AC_OP_CADASTRO = ?,AC_OP_TVINCULO = ?,AC_OP_TVISTORIA = ?,AC_OP_TCERTIFICADO = ?,AC_OP_TLICENCA = ?,AC_OP_STATUS_VISTORIA = ?,AC_OP_CALCULO_DATA = ?,AC_CAD_PARCEIRO = ?,AC_CAD_TPARCEIRO = ?,AC_CAD_TVINCULO = ?,AC_CAD_TCARACTERISTICA = ?,AC_CAD_TENDERECO = ?,AC_CAD_DOCUMENTO = ?,AC_CAD_TDOCUMENTO = ?,AC_FINANCEIRO = ?,AC_FIN_TMOVIMENTO = ?,AC_FIN_CONTAS = ?,AC_FIN_FPAGAMENTO = ?,AC_FIN_CPAGAMENTO = ?,AC_COMERCIAL = ?,AC_COM_SERVICO = ?,AC_COM_TPRECO = ?,AC_COM_ESCOPO = ?,AC_COM_PSERVICO = ?,AC_ORG_USUARIO = ?,AC_ORG_UNEGOCIO = ?,AC_ORG_DEPARTAMENTO = ?,AC_ORG_FUNCAO = ?,AC_ORG_COLABORADOR = ?,AC_ORG_PARAMETRO = ?,USUARIO = ?,SENHA = ?,EMAIL = ?,COR = ?,SITUACAO = ?,CALCULAR_COMISSAO = ?,APP_SESSAO = ?,AC_FIN_TUNIDADE = ?,AC_FIN_ALIQUOTA = ?,AC_FIN_PROJECAO = ?,ac_fin_cadastro = ?,ac_fin_informacao = ?,ac_fin_faturamento = ?,ac_fin_boletim = ?,AC_FIN_F_FATURAMENTO = ? ,ac_fin_C_Pagar = ?,ac_fin_centro_custo = ?,ac_fin_doc_fiscal = ?,ac_fin_contas_receber = ?, ac_fin_solicitacao = ?, ac_fin_ordem_p = ?,ac_fin_categoria = ?,ac_administrativo = ?,ac_fin_conta_corrente = ?, ac_fin_nota_debito = ?, ac_fin_prestacao_contas = ?, ac_fin_rlbm = ?, ac_rel_pesq_satisfacao = ?, ac_fin_equipamento = ?, AC_OP_APROVA_VISTORIA = ?, AC_ORG_GER_ARQUIVO = ?, AC_OP_LISTA_ARQUIVOS = ? where SEQ_USUARIO = ?";
+/* 144 */       String sql = "update USUARIO set DATA_CADASTRO = ?,AC_PARCEIRO = ?,AC_DOCUMENTO = ?,AC_OPERACIONAL = ?,AC_CADASTRO = ?,AC_ORGANIZACIONAL = ?,AC_REL_PARCEIRO = ?,AC_REL_DOCUMENTO = ?,AC_PAR_NOVO = ?,AC_PAR_TODOS = ?,SEQ_EMPRESA = ?,SEQ_UNIDADE_NEGOCIO = ?,SEQ_DEPARTAMENTO = ?,NIVEL = ?,SEQ_PARCEIRO = ?,ACESSO_ERP = ?,CHAVE_ORIGEM = ?,AC_DOC_NOVO = ?,ACESSO_COMERCIAL = ?,AC_RELATORIO = ?,AC_OP_EMBARCACAO = ?,AC_OP_EQUIPAMENTO = ?,AC_OP_VISTORIA = ?,AC_OP_LICENCA = ?,AC_OP_CERTIFICADO = ?,AC_OP_CADASTRO = ?,AC_OP_TVINCULO = ?,AC_OP_TVISTORIA = ?,AC_OP_TCERTIFICADO = ?,AC_OP_TLICENCA = ?,AC_OP_STATUS_VISTORIA = ?,AC_OP_CALCULO_DATA = ?,AC_CAD_PARCEIRO = ?,AC_CAD_TPARCEIRO = ?,AC_CAD_TVINCULO = ?,AC_CAD_TCARACTERISTICA = ?,AC_CAD_TENDERECO = ?,AC_CAD_DOCUMENTO = ?,AC_CAD_TDOCUMENTO = ?,AC_FINANCEIRO = ?,AC_FIN_TMOVIMENTO = ?,AC_FIN_CONTAS = ?,AC_FIN_FPAGAMENTO = ?,AC_FIN_CPAGAMENTO = ?,AC_COMERCIAL = ?,AC_COM_SERVICO = ?,AC_COM_TPRECO = ?,AC_COM_ESCOPO = ?,AC_COM_PSERVICO = ?,AC_ORG_USUARIO = ?,AC_ORG_UNEGOCIO = ?,AC_ORG_DEPARTAMENTO = ?,AC_ORG_FUNCAO = ?,AC_ORG_COLABORADOR = ?,AC_ORG_PARAMETRO = ?,USUARIO = ?,SENHA = ?,EMAIL = ?,COR = ?,SITUACAO = ?,CALCULAR_COMISSAO = ?,APP_SESSAO = ?,AC_FIN_TUNIDADE = ?,AC_FIN_ALIQUOTA = ?,AC_FIN_PROJECAO = ?,ac_fin_cadastro = ?,ac_fin_informacao = ?,ac_fin_faturamento = ?,ac_fin_boletim = ?,AC_FIN_F_FATURAMENTO = ? ,ac_fin_C_Pagar = ?,ac_fin_centro_custo = ?,ac_fin_doc_fiscal = ?,ac_fin_contas_receber = ?, ac_fin_solicitacao = ?, ac_fin_ordem_p = ?,ac_fin_categoria = ?,ac_administrativo = ?,ac_fin_conta_corrente = ?, ac_fin_nota_debito = ?, ac_fin_prestacao_contas = ?, ac_fin_rlbm = ?, ac_rel_pesq_satisfacao = ?, ac_fin_equipamento = ?, AC_OP_APROVA_VISTORIA = ?, AC_ORG_GER_ARQUIVO = ?, AC_OP_LISTA_ARQUIVOS = ?, AC_FIN_APROVA_PO = ? where SEQ_USUARIO = ?";
 /*     */        
 /*     */ 
 /*     */ 
@@ -238,9 +239,11 @@
 /* 237 */       ps.setString(83, usuario.getAcRelPesqSatisfacao());
 /* 238 */       ps.setString(84, usuario.getAcFinEquipamento());
                 ps.setString(85, usuario.getAcAprovaVistoria());
-/* 239 */       ps.setString(86, usuario.getSeqUsuario());
-/* 239 */       ps.setString(87, usuario.getAcOrgGerArquivo());
-/* 240 */       ps.setString(88, usuario.getAcOrgListArquivo());
+/* 239 */       ps.setString(86, usuario.getAcOrgGerArquivo());
+/* 240 */       ps.setString(87, usuario.getAcOrgListArquivo());
+                ps.setString(88, usuario.getAcAprovaPO());
+                ps.setString(89, usuario.getSeqUsuario());
+
                 ps.execute();
 /* 241 */       ps.close();
 /*     */     }
@@ -353,6 +356,7 @@
                   usuario.setAcAprovaVistoria(rs.getString("AC_OP_APROVA_VISTORIA"));
                   usuario.setAcOrgGerArquivo(rs.getString("AC_ORG_GER_ARQUIVO"));
 /* 349 */         usuario.setAcOrgListArquivo(rs.getString("AC_OP_LISTA_ARQUIVOS"));
+                  usuario.setAcAprovaPO(rs.getString("AC_FIN_APROVA_PO"));
                   listaUsuario.add(usuario);
 /*     */       }
 /*     */       
@@ -386,9 +390,3 @@
 /* 379 */     return false;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Usuario/UsuarioDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

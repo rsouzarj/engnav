@@ -11,20 +11,16 @@ import ClausulaSQL.TipoCondicaoWhere;
 import Empresa.Empresa;
 import NvCertificadoCalculo.NvCertificadoCalculo;
 import NvCertificadoCalculo.NvCertificadoCalculoService;
-import NvCertificado.NvCertificado;
-import NvCertificado.NvCertificadoService;
-import NvVistoria.NvVistoria;
-import NvVistoria.NvVistoriaService;
 import Upload.Upload;
 import Upload.UploadService;
-import NvLicenca.NvLicenca;
-import NvLicenca.NvLicencaService;
 import NvEmbarcacao.NvEmbarcacao;
 import NvEmbarcacao.NvEmbarcacaoService;
 import NvEmbarcacaoDetalhe.NvEmbarcacaoDetalhe;
 import NvEmbarcacaoDetalhe.NvEmbarcacaoDetalheService;
 import NvEmbarcacaoParceiro.NvEmbarcacaoParceiro;
 import NvEmbarcacaoParceiro.NvEmbarcacaoParceiroService;
+import NvEmbarcacaoUsuario.NvEmbarcacaoUsuario;
+import NvEmbarcacaoUsuario.NvEmbarcacaoUsuarioService;
 import NvTipoEmbarcacao.NvTipoEmbarcacao;
 import NvTipoEmbarcacao.NvTipoEmbarcacaoService;
 import NvTipoVincParcEmbarca.NvTipoVincParcEmbarca;
@@ -39,17 +35,27 @@ import TipoParceiro.TipoParceiro;
 import TipoParceiro.TipoParceiroService;
 import TipoVinculo.TipoVinculo;
 import TipoVinculo.TipoVinculoService;
-import Upload.Upload;
-import Upload.UploadService;
 import Usuario.Usuario;
+import Usuario.UsuarioService;
+import Util.Conexao;
 import Util.Situacao;
+import Util.Util;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
@@ -57,7 +63,14 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
 import org.primefaces.model.StreamedContent;
 import org.primefaces.model.UploadedFile;
 
@@ -81,6 +94,10 @@ public class NvEmbarcacaoController {
 	NvEmbarcacaoParceiroService nvEmbarcacaoParceiroService = new NvEmbarcacaoParceiroService();
 	NvEmbarcacaoParceiro nvEmbarcacaoParceiro = new NvEmbarcacaoParceiro();
 	List<NvEmbarcacaoParceiro> listaNvEmbarcacaoParceiro = new ArrayList();
+        
+	NvEmbarcacaoUsuarioService nvEmbarcacaoUsuarioService = new NvEmbarcacaoUsuarioService();
+	NvEmbarcacaoUsuario nvEmbarcacaoUsuario = new NvEmbarcacaoUsuario();
+	List<NvEmbarcacaoUsuario> listaNvEmbarcacaoUsuario = new ArrayList();        
 
 	NvTipoVincParcEmbarcaService nvTipoVincParcEmbarcaService = new NvTipoVincParcEmbarcaService();
 	List<NvTipoVincParcEmbarca> listaNvTipoVincParcEmbarca = new ArrayList();
@@ -107,17 +124,15 @@ public class NvEmbarcacaoController {
 	String seqParceiroVinculado;
 	ParceiroService parceiroService = new ParceiroService();
         
-        NvCertificadoService nvCertificadoService = new NvCertificadoService();
-        List<NvCertificado> listaNvCertificado = new ArrayList();
-        NvCertificado nvCertificado = new NvCertificado();
+	List<NvEmbarcacaoUsuario> listaUsuarioVinculado = new ArrayList();
+	String seqUsuarioVinculado;
+	NvEmbarcacaoUsuarioService UsuarioVService = new NvEmbarcacaoUsuarioService();        
         
-        NvVistoriaService nvVistoriaService = new NvVistoriaService();
-        NvVistoria nvVistoria = new NvVistoria();
-	List<NvVistoria> listaNvVistoria = new ArrayList();
-
-        NvLicencaService nvLicencaService = new NvLicencaService();
-        NvLicenca nvLicenca = new NvLicenca();
-	List<NvLicenca> listaNvLicenca = new ArrayList();
+	List<Usuario> listaUsuario = new ArrayList();
+	String seqUsuario;
+	UsuarioService usuarioService = new UsuarioService();
+        Usuario usuario = new Usuario();
+        
 
 	Upload upload = new Upload();
 	UploadService uploadService = new UploadService();
@@ -128,6 +143,7 @@ public class NvEmbarcacaoController {
 
 	StreamedContent fileDownload;        
        
+        private boolean apoioMaritimo;
         
         boolean porCamposTela;
                 
@@ -140,6 +156,8 @@ public class NvEmbarcacaoController {
 		this.porCamposTela = porCamposTela;
 
         }
+        
+        Util util = new Util();
                 
        
 	public void iniciar() {
@@ -158,6 +176,8 @@ public class NvEmbarcacaoController {
 		this.listaTipoParceiro = tipoParceiroService.listar(this.loginController.getEmpresa().getSeqEmpresa(),
 				Situacao.ATIVO);
 		this.listaParceiroVinculado = this.parceiroService.listarParceiro(this.loginController.usuario.getSeqUsuario(),"");
+                this.listaUsuario = this.usuarioService.listarTodosOsUsuarios(this.loginController.getEmpresa().getSeqEmpresa(),
+				Situacao.ATIVO);       
                
                               
 	}
@@ -168,11 +188,12 @@ public class NvEmbarcacaoController {
 			this.nvEmbarcacao.setSeqNvEmbarcacao(null);
 			this.nvEmbarcacao = this.nvEmbarcacaoService.salvar(this.nvEmbarcacao);
 		} else {
-			this.nvEmbarcacao = this.nvEmbarcacaoService.salvar(this.nvEmbarcacao);
+                    this.nvEmbarcacao.setSeqUsuario(this.loginController.getUsuario().getSeqUsuario());
+                    this.nvEmbarcacao = this.nvEmbarcacaoService.salvar(this.nvEmbarcacao);
 		}
 		for (NvEmbarcacaoDetalhe detalhe : this.listaNvEmbarcacaoDetalhe) {
 			detalhe.setSeqNvEmbarcacao(this.nvEmbarcacao.getSeqNvEmbarcacao());
-			detalhe = this.nvEmbarcacaoDetalheService.salvar(detalhe);
+                        detalhe = this.nvEmbarcacaoDetalheService.salvar(detalhe);
 			System.out.println("SEQ DETALHE" + detalhe.getSeqNvEmbarcacaoDetalhe());
 		}
 
@@ -195,27 +216,15 @@ public class NvEmbarcacaoController {
 	public void listar() {
 		this.listaNvEmbarcacao = this.nvEmbarcacaoService.listar(this.loginController.getEmpresa().getSeqEmpresa(),this.pesquisa, Situacao.TODOS);
 		listarDetalhe();
-                
-                
-                                
+                listarUsuarioVinculado();                       
 	}
-
-        
-       /* public void filtrar() {
-		ClausulaWhere condicao = new ClausulaWhere();
-		condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "nv_vistoria.seq_empresa", GeneroCondicaoWhere.igual,
-				String.valueOf(this.loginController.getEmpresa().getSeqEmpresa()), TipoCondicaoWhere.Numero);
-
-		
-		 {condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "nv_vistoria.seq_nv_embarcacao",
-					GeneroCondicaoWhere.igual, String.valueOf(this), TipoCondicaoWhere.Numero);
-		}
-
-		
-		this.listaNvVistoria = this.nvVistoriaService.listar(condicao);
-	}*/
-             
-        
+      
+	public void listarPCliente() {
+		this.listaNvEmbarcacao = this.nvEmbarcacaoService.listarPCliente(this.loginController.getUsuario().getSeqUsuario(),this.pesquisa, Situacao.TODOS);
+		listarDetalhe();
+                listarUsuarioVinculado();                       
+	}        
+       
 	public void deletar() {
 		this.nvEmbarcacaoDetalhe = ((NvEmbarcacaoDetalhe) this.nvEmbarcacaoDetalheService
 				.listar(this.nvEmbarcacao.getSeqNvEmbarcacao()).get(0));
@@ -248,6 +257,21 @@ public class NvEmbarcacaoController {
 		this.listaNvEmbarcacaoParceiro = this.nvEmbarcacaoParceiroService
 				.listarPorEmbarcacao(this.nvEmbarcacao.getSeqNvEmbarcacao());
 	}
+        
+	public void adicionarVinculoUsuario() {
+		this.nvEmbarcacaoUsuario.setSeqEmbarcacao(this.nvEmbarcacao.getSeqNvEmbarcacao());
+		this.nvEmbarcacaoUsuarioService.salvar(this.nvEmbarcacaoUsuario);
+
+		this.listaNvEmbarcacaoUsuario = this.nvEmbarcacaoUsuarioService
+				.listarPorEmbarcacao(this.nvEmbarcacao.getSeqNvEmbarcacao());
+		this.nvEmbarcacaoUsuario = new NvEmbarcacaoUsuario();
+	}
+
+	public void removerVinculoUsuario(NvEmbarcacaoUsuario pUsuarioVinculo) {
+		this.nvEmbarcacaoUsuarioService.deletar(pUsuarioVinculo);
+		this.listaNvEmbarcacaoUsuario = this.nvEmbarcacaoUsuarioService
+				.listarPorEmbarcacao(this.nvEmbarcacao.getSeqNvEmbarcacao());
+	}        
 
 	public void selecionarVinculo(NvEmbarcacaoParceiro pNvEmbarcacaoParceiro) {
 		this.nvEmbarcacaoParceiro = pNvEmbarcacaoParceiro;
@@ -292,33 +316,16 @@ public class NvEmbarcacaoController {
 		this.listaNvEmbarcacaoDetalhe = this.nvEmbarcacaoDetalheService.listar(this.nvEmbarcacao.getSeqNvEmbarcacao());
 	}     
         
-        public void listarNvCertificado() {
-                this.listaNvCertificado = this.nvEmbarcacaoService.listarC(this.nvEmbarcacao.getSeqNvEmbarcacao());
-                       		
-	}
-        
-        
-        public void listarVistoria() {
-                this.listaNvVistoria = this.nvEmbarcacaoService.listarV(this.nvEmbarcacao.getSeqNvEmbarcacao());
-                      		
-	} 
-        
-        public void listarLicenca() {
-                this.listaNvLicenca = this.nvEmbarcacaoService.listarL(this.nvEmbarcacao.getSeqNvEmbarcacao());
-                       		
-	}
 
         public void listarUpload()  {
                 this.listaUpload = this.nvEmbarcacaoService.listarU(this.loginController.empresa.getSeqEmpresa(),
 				this.nvEmbarcacao.getSeqNvEmbarcacao());
 		
         }      
-        /*public void listarUpload()  {
-                this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
-				this.nvEmbarcacao.getSeqNvEmbarcacao());
-		
-        }*/
-        
+
+	public void listarUsuarioVinculado() {
+		this.listaNvEmbarcacaoUsuario = this.nvEmbarcacaoUsuarioService.listarPorEmbarcacao(this.nvEmbarcacao.getSeqNvEmbarcacao());
+	}        
         public void popularDetalhe() {
 		String[] detalhe1 = { "", "Passageiros sentados", "Passageiros em camarote", "Passageiros em redes",
 				"Passageiros em pé", "Porão de carga 01 (carga geral)",
@@ -380,21 +387,33 @@ public class NvEmbarcacaoController {
 		listarDetalhe();
 		if (this.listaNvEmbarcacaoDetalhe.size() < 10) {
 			popularDetalhe();
-                this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
-				this.nvEmbarcacao.getSeqNvEmbarcacao());        
+                     
                         
 		}
 		listarVinculo();
-                listarNvCertificado();
-                listarVistoria();
-                listarLicenca();
                 listarUpload ();
-                
+              
                 
                 this.tela = Integer.valueOf(1);
 	}
+                
+	public void mudarTela(Integer pTela) {
+		this.tela = pTela;
+	}
+
         
-	public void download(Upload pUpload) {
+        public void upload() {
+		this.upload.setSeqNvEmbarcacao(this.nvEmbarcacao.getSeqNvEmbarcacao());
+		this.upload.setOrigem("CADASTRO MANUAL");
+		this.upload.setSeqEmpresa(this.loginController.empresa.getSeqEmpresa());
+		this.upload.setSeqUsuario(this.loginController.usuario.getSeqUsuario());
+		this.uploadController.upload(this.file, this.upload);
+                this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
+				this.nvEmbarcacao.getSeqNvEmbarcacao());
+		this.upload = new Upload();
+	}        
+        
+        public void download(Upload pUpload) {
 		if (pUpload.getNomeArquivo().contains("pdf")) {
 			visualizar(pUpload);
 		} else {
@@ -433,12 +452,13 @@ public class NvEmbarcacaoController {
 			Logger.getLogger(DocumentoController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}        
-
-	public void mudarTela(Integer pTela) {
-		this.tela = pTela;
+        public void removerAnexo(Upload pUpload) {
+		this.uploadController.deletar(pUpload);
+		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
+				this.nvEmbarcacao.getSeqNvEmbarcacao());
 	}
-
-	public LoginController getLoginController() {
+        
+        public LoginController getLoginController() {
 		return this.loginController;
 	}
 
@@ -686,78 +706,7 @@ public class NvEmbarcacaoController {
 		this.seqParceiroVinculado = seqParceiroVinculado;
 	}
         
-        public List<NvCertificado> getListaNvCertificado() {
-		return this.listaNvCertificado;
-	}
-
-	public void setListaNvCertificado(List<NvCertificado> listaNvCertificado) {
-		this.listaNvCertificado = listaNvCertificado;
-	}
-        
-        public NvCertificadoService getNvCertificadoService() {
-		return this.nvCertificadoService;
-	}
-
-	public void setNvCertificadoService(NvCertificadoService nvCertificadoService) {
-		this.nvCertificadoService = nvCertificadoService;
-	}
-        
-          public NvCertificado getNvCertificado() {
-		return this.nvCertificado;
-	}
-
-	public void setNvCertificado(NvCertificado nvCertificado) {
-		this.nvCertificado = nvCertificado;
-	}
-        
-        public List<NvVistoria> getListaNvVistoria() {
-		return this.listaNvVistoria;
-	}
-
-	public void setListaNvVistoria(List<NvVistoria> listaNvVistoria) {
-		this.listaNvVistoria = listaNvVistoria;
-	}
-        
-        public NvVistoriaService getNvVistoriaService() {
-		return this.nvVistoriaService;
-	}
-
-	public void setNvVistoriaService(NvVistoriaService nvVistoriaService) {
-		this.nvVistoriaService = nvVistoriaService;
-	}
-        
-          public NvVistoria getNvVistoria() {
-		return this.nvVistoria;
-	}
-
-	public void setNvVistoria(NvVistoria nvVistoria) {
-		this.nvVistoria = nvVistoria;
-	}
-        
-        public List<NvLicenca> getListaNvLicenca() {
-		return this.listaNvLicenca;
-	}
-
-	public void setListaNvLicenca(List<NvLicenca> listaNvLicenca) {
-		this.listaNvLicenca = listaNvLicenca;
-	}
-        
-        public NvLicencaService getNvLicencaService() {
-		return this.nvLicencaService;
-	}
-
-	public void setNvLicencaService(NvLicencaService nvLicencaService) {
-		this.nvLicencaService = nvLicencaService;
-	}
-        
-          public NvLicenca getNvLicenca() {
-		return this.nvLicenca;
-	}
-
-	public void setNvLicenca(NvLicenca nvLicenca) {
-		this.nvLicenca = nvLicenca;
-	}
-       
+      
 	public Upload getUpload() {
 		return this.upload;
 	}
@@ -804,13 +753,45 @@ public class NvEmbarcacaoController {
 
 	public void setFile(UploadedFile file) {
 		this.file = file;
-	}        
-        
-       /* public String getSeqNvEmbarcacao() {
-		return this.seqNvEmbarcacao;
+	}
+	public NvEmbarcacaoUsuarioService getNvEmbarcacaoUsuarioService() {
+		return this.nvEmbarcacaoUsuarioService;
 	}
 
-	public void setSeqNvEmbarcacao(String seqNvEmbarcacao) {
-		this.seqNvEmbarcacao = seqNvEmbarcacao;
-	}*/
+	public void setNvEmbarcacaoUsuarioService(NvEmbarcacaoUsuarioService nvEmbarcacaoUsuarioService) {
+		this.nvEmbarcacaoUsuarioService = nvEmbarcacaoUsuarioService;
+	}
+
+	public NvEmbarcacaoUsuario getNvEmbarcacaoUsuario() {
+		return this.nvEmbarcacaoUsuario;
+	}
+
+	public void setNvEmbarcacaoUsuario(NvEmbarcacaoUsuario nvEmbarcacaoUsuario) {
+		this.nvEmbarcacaoUsuario = nvEmbarcacaoUsuario;
+	}
+
+	public List<NvEmbarcacaoUsuario> getListaNvEmbarcacaoUsuario() {
+		return this.listaNvEmbarcacaoUsuario;
+	}
+
+	public void setListaNvEmbarcacaoUsuario(List<NvEmbarcacaoUsuario> listaNvEmbarcacaoUsuario) {
+		this.listaNvEmbarcacaoUsuario = listaNvEmbarcacaoUsuario;
+	}        
+	public List<Usuario> getListaUsuario() {
+		return this.listaUsuario;
+	}
+
+	public void setListaUsuario(List<Usuario> listaUsuario) {
+		this.listaUsuario = listaUsuario;
+        }        
+        public void setApoioMaritimo(boolean apoioMaritimo) {
+        this.apoioMaritimo = apoioMaritimo;
+    }
+       public Boolean isApoioMaritimo() {
+               return apoioMaritimo;
+       }
+
+
+        
+        
 }

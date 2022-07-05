@@ -13,12 +13,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class NvCertificadoEquipamentoDAO
 /*     */ {
 /*     */   public NvCertificadoEquipamento inserir(NvCertificadoEquipamento nvCertificadoEquipamento)
@@ -149,7 +144,7 @@
 /*     */     try {
 /* 122 */       Conexao conexao = new Conexao();
 /* 123 */       Connection conn = Conexao.getConnection();
-/* 124 */       String sql = "SELECT NV_CERTIFICADO_EQUIPAMENTO.*, equipamento.nome equipamento_nome FROM NV_CERTIFICADO_EQUIPAMENTO\ninner join equipamento on equipamento.seq_equipamento = NV_CERTIFICADO_EQUIPAMENTO.seq_nv_equipamento " + sClausula.montarsClausula();
+/* 124 */       String sql = "SELECT NV_CERTIFICADO_EQUIPAMENTO.*, equipamento.nome equipamento_nome, parceiro.nome nome_parceiro FROM NV_CERTIFICADO_EQUIPAMENTO\ninner join equipamento on equipamento.seq_equipamento = NV_CERTIFICADO_EQUIPAMENTO.seq_nv_equipamento\ninner join parceiro on parceiro.seq_parceiro = nv_certificado_equipamento.seq_parceiro " + sClausula.montarsClausula();
 /*     */       
 /*     */ 
 /* 128 */       System.out.println(sql);
@@ -182,6 +177,7 @@
 /* 152 */         NvCertificadoEquipamento.setConformidadeTecnica(rs.getString("CONFORM_TEC"));
                   NvCertificadoEquipamento.setFilial(rs.getString("FILIAL"));
                   NvCertificadoEquipamento.setSeqParceiro(rs.getString("SEQ_PARCEIRO"));
+                  NvCertificadoEquipamento.setNomeParceiro(rs.getString("nome_parceiro"));
 /* 153 */         listaNvCertificadoEquipamento.add(NvCertificadoEquipamento);
 /*     */       }
 /*     */       
@@ -194,7 +190,12 @@
 /* 162 */       System.out.println(ex.getMessage()); }
 /* 163 */     return null;
 /*     */   }
-/*     */   
+
+
+
+
+
+  
 /*     */   public boolean deletar(NvCertificadoEquipamento nvCertificadoEquipamento)
 /*     */   {
 /*     */     try {

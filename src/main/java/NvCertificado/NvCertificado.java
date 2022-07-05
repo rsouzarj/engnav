@@ -28,7 +28,14 @@
             private String identvistoria;
             private String seqUnidadeNegocio;            
 /*     */   private String unidadenegocioNome;
-/*     */   public String getSeqNvCertificado()
+            private String maraberto;
+            private String navint;
+            private String area1;
+            private String area2;
+
+            
+/*     */   
+            public String getSeqNvCertificado()
 /*     */   {
 /*  39 */     return this.seqNvCertificado;
 /*     */   }
@@ -220,6 +227,40 @@
             public void setunidadenegocioNome(String unidadenegocioNome) {
               this.unidadenegocioNome = unidadenegocioNome;
             }
-
             
+/*     */   public String getMaraberto() {
+/* 143 */     return this.maraberto;
+/*     */   }
+/*     */   
+/*     */   public void setMaraberto(String maraberto) {
+/* 147 */     this.maraberto = maraberto;
+/*     */   }            
+            
+/*     */   public String getNavint() {
+/* 143 */     return this.navint;
+/*     */   }
+/*     */   
+/*     */   public void setNavint(String navint) {
+/* 147 */     this.navint = navint;
+/*     */   }
+
+/*     */   public String getArea1() {
+/* 143 */     return this.area1;
+/*     */   }
+/*     */   
+/*     */   public void setArea1(String area1) {
+/* 147 */     this.area1 = area1;
+/*     */   }
+
+/*     */   public String getArea2() {
+/* 143 */     return this.area2;
+/*     */   }
+/*     */   
+/*     */   public void setArea2(String area2) {
+/* 147 */     this.area2 = area2;
+/*     */   }
+
+
+
+
 }

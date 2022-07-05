@@ -14,15 +14,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class FinanceiroDAO
 /*     */ {
 /*     */   public Financeiro inserir(Financeiro financeiro)
@@ -184,7 +176,7 @@
 /*     */     try {
 /* 185 */       Conexao conexao = new Conexao();
 /* 186 */       Connection conn = Conexao.getConnection();
-/* 187 */       String sql = "update FINANCEIRO set SEQ_EMPRESA = ?,DATA_CADASTRO = ?,SEQ_TIPO_MOVIMENTO = ?,SEQ_PARCEIRO = ?,SEQ_DOCUMENTO = ?,SEQ_COLABORADOR = ?,DATA_LANCAMENTO = ?,DATA_VENCIMENTO = ?,DATA_PAGAMENTO = ?,MOEDA_ORIGEM = ?,MOEDA_DESTINO = ?,VALOR = ?,VALOR_PAGAMENTO = ?,SEQ_TIPO_DOCUMENTO = ?,OPERACAO = ?, seq_usuario = ? , descricao = ?, seq_unidade_negocio = ?, origem_parceiro = ?, data_emissao = ?, RETENCAO_ISSQN = ?, SEQ_ALIQUOTA_ISSQN = ?,SEQ_ALIQUOTA_IRRF = ?, SEQ_ALIQUOTA_PIS = ?, SEQ_ALIQUOTA_CSLL = ?,SEQ_ALIQUOTA_COFINS =?, seq_documento_fiscal = ?, seq_centro_custo = ?, numero_doc_fiscal = ?, origem_lcm = ?, DESCRICAO_SERVICO_PRESTADO = ?, CODIGO_FISCAL_MUNICIPAL = ?, OUTRAS_INFORMACOES = ?,valor_multa = ? ,valor_desconto = ?,valor_recebido = ?,valor_juros = ?,tarifa_bancaria = ?,seq_forma_pagamento = ?, status = ?, tipo_despesa = ?,seq_condicao_pagamento =?,seq_parceiro_contato = ?, seq_conta = ?, outros_acrescimos = ?,taxa_cambio = ?, chk_cambio = ?, ocorrencias = ?,parcela_inicio = ?,parcela_fim = ?, intervalo_numero = ?,intervalo_tempo = ?,indefinidamente = ?,motivo_cancelamento = ?, chk_repeticao = ?, responsavel_quitacao = ?, seq_financeiro_ordem_pagamento = ?,valor_convertido = ?, seq_financeiro_faturamento = ?, seq_aliquota_codigo_fiscal = ?, seq_conta_destino = ?,seq_nv_embarcacao = ?,seq_equipamento = ?,local_servico =?, valor_total_movimentacao = ?, data_periodo_inicio = ?,data_periodo_final = ?,seq_material=?, fatura = ?, valor_parcial = ?, tipo_quitacao = ?, DATAPERIODO_INICIALRLBM = ?, DATAPERIODO_FINALRLBM = ? where SEQ_FINANCEIRO = ?";
+/* 187 */       String sql = "update FINANCEIRO set SEQ_EMPRESA = ?,DATA_CADASTRO = ?,SEQ_TIPO_MOVIMENTO = ?,SEQ_PARCEIRO = ?,SEQ_DOCUMENTO = ?,SEQ_COLABORADOR = ?,DATA_LANCAMENTO = ?,DATA_VENCIMENTO = ?,DATA_PAGAMENTO = ?,MOEDA_ORIGEM = ?,MOEDA_DESTINO = ?,VALOR = ?,VALOR_PAGAMENTO = ?,SEQ_TIPO_DOCUMENTO = ?,OPERACAO = ?, seq_usuario = ? , descricao = ?, seq_unidade_negocio = ?, origem_parceiro = ?, data_emissao = ?, RETENCAO_ISSQN = ?, SEQ_ALIQUOTA_ISSQN = ?,SEQ_ALIQUOTA_IRRF = ?, SEQ_ALIQUOTA_PIS = ?, SEQ_ALIQUOTA_CSLL = ?,SEQ_ALIQUOTA_COFINS =?, seq_documento_fiscal = ?, seq_centro_custo = ?, numero_doc_fiscal = ?, origem_lcm = ?, DESCRICAO_SERVICO_PRESTADO = ?, CODIGO_FISCAL_MUNICIPAL = ?, OUTRAS_INFORMACOES = ?,valor_multa = ? ,valor_desconto = ?,valor_recebido = ?,valor_juros = ?,tarifa_bancaria = ?,seq_forma_pagamento = ?, status = ?, tipo_despesa = ?,seq_condicao_pagamento =?,seq_parceiro_contato = ?, seq_conta = ?, outros_acrescimos = ?,taxa_cambio = ?, chk_cambio = ?, ocorrencias = ?,parcela_inicio = ?,parcela_fim = ?, intervalo_numero = ?,intervalo_tempo = ?,indefinidamente = ?,motivo_cancelamento = ?, chk_repeticao = ?, responsavel_quitacao = ?, seq_financeiro_ordem_pagamento = ?,valor_convertido = ?, seq_financeiro_faturamento = ?, seq_aliquota_codigo_fiscal = ?, seq_conta_destino = ?,seq_nv_embarcacao = ?,seq_equipamento = ?,local_servico =?, valor_total_movimentacao = ?, data_periodo_inicio = ?,data_periodo_final = ?,seq_material=?, fatura = ?, valor_parcial = ?, tipo_quitacao = ?, DATAPERIODO_INICIALRLBM = ?, DATAPERIODO_FINALRLBM = ?, APROVADOR = ? where SEQ_FINANCEIRO = ?";
 /*     */       
 /*     */ 
 /*     */ 
@@ -300,7 +292,8 @@
 /*     */       } catch (NullPointerException e) {
 /* 301 */         ps.setDate(73, null);
 /*     */       }
-/* 303 */       ps.setString(74, financeiro.getSeqFinanceiro());
+/* 303 */       ps.setString(74, financeiro.getAprovador());
+/* 303 */       ps.setString(75, financeiro.getSeqFinanceiro());
 /* 304 */       ps.execute();
 /* 305 */       ps.close();
 /*     */       
@@ -338,31 +331,7 @@
 /* 338 */       Conexao conexao = new Conexao();
 /* 339 */       Connection conn = Conexao.getConnection();
 /* 340 */       String sql = "SELECT financeiro.*,usuario.usuario,\n parceiro.nome parceiro, \ntipo_movimento_financeiro.nome tipo_movimento,\nunidade_negocio.nome unidade_negocio_razao,\nfinanceiro_categoria.nome nomeCategoria,\ndocumento.seq_parceiro seqParceiroDoc,\n p.nome nomeParceiroDoc,parceiroPC.nome nomeParceiroPC, conta.saldo_inicial contaSaldo, conta.nome contaOrigem, contaDestino.nome contaDestino,COLABORADOR.NOME nomeColaborador FROM FINANCEIRO inner join usuario on usuario.seq_usuario = financeiro.seq_usuario \n left join parceiro on parceiro.seq_parceiro = financeiro.seq_parceiro \nleft join tipo_movimento_financeiro on tipo_movimento_financeiro.seq_tipo_movimento_financeiro = financeiro.seq_tipo_movimento \nleft join unidade_negocio on unidade_negocio.seq_unidade_negocio = financeiro.seq_unidade_negocio \nleft join financeiro_categoria on financeiro_categoria.seq_financeiro_categoria = tipo_movimento_financeiro.seq_financeiro_categoria \nleft join documento on documento.seq_documento = financeiro.seq_documento\nleft join parceiro p on p.seq_parceiro = documento.seq_parceiro\nleft join parceiro parceiroPC on parceiroPC.seq_parceiro = financeiro.seq_parceiro\nleft join conta on conta.seq_conta = financeiro.seq_conta\nleft join conta contaDestino on contaDestino.seq_conta = financeiro.seq_conta_destino\nleft join colaborador on colaborador.seq_colaborador = financeiro.seq_colaborador" + sClausula.montarsClausula();
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 366 */       System.out.println(sql);
 /*     */       
 /* 368 */       List<Financeiro> listaFinanceiro = new ArrayList();
@@ -395,6 +364,7 @@
 /* 395 */         financeiro.setSeqAliquotaCOFINS(rs.getString("SEQ_ALIQUOTA_COFINS"));
 /* 396 */         financeiro.setOperacao(rs.getString("OPERACAO"));
 /* 397 */         financeiro.setResponsavel(rs.getString("usuario"));
+/* 397 */         financeiro.setAprovador(rs.getString("APROVADOR"));
 /* 398 */         financeiro.setDescricao(rs.getString("descricao"));
 /* 399 */         financeiro.setOrigemParceiro(rs.getString("origem_parceiro"));
 /* 400 */         financeiro.setSeqDocumentoFiscal(rs.getString("seq_documento_fiscal"));
@@ -490,9 +460,3 @@
 /* 490 */     return false;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Financeiro/FinanceiroDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

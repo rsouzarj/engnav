@@ -146,16 +146,21 @@
                                 </p:selectOneMenu>
 
                                 <h:outputText value="Documento ou Telefone" />
-                                <p:inputText value="#{colaboradorController.colaborador.documento}" required="true" requiredMessage="[DESCRIÇÃO] é obrigatório"/>                
+                                <p:inputText style="width: 200px" value="#{colaboradorController.colaborador.documento}" required="true" requiredMessage="[DESCRIÇÃO] é obrigatório"/>                
 
-
+                                
                                 <h:outputText value="Situação" />
                                 <p:selectOneMenu style="width: 181px" value="#{colaboradorController.colaborador.situacao}" >
                                     <f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
                                     <f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
                                     <f:selectItem itemLabel="Ativo Certificador" itemValue="ATIVO CERTIFICADOR" />
                                 </p:selectOneMenu>
-
+                                <h:outputText value="Vistoriador?" />
+                                <p:selectOneMenu style="width: 181px" value="#{colaboradorController.colaborador.vistoriador}" >
+                                    <f:selectItem itemLabel="SIM" itemValue="S" />
+                                    <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                </p:selectOneMenu>                                
+                               
                                 <h:outputText value="Informações" />
                                 <p:editor width="600" height="400" value="#{colaboradorController.colaborador.informacao}" />                
 

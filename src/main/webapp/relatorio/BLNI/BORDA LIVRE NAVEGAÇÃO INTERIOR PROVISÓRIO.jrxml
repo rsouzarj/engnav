@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.5.1  -->
+<!-- 2021-03-24T12:15:13 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CERTIFICADO NACIONAL DE BORDA LIVRE PARA NAVEGAÇÃO DE MAR ABERTO" printOrder="Horizontal" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="883424ff-6d8d-49fe-a5c9-a97e6002c83e">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
@@ -192,6 +193,18 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 	</background>
 	<detail>
 		<band height="802">
+			<image>
+				<reportElement x="243" y="717" width="93" height="71" uuid="b890358f-1c83-415f-981a-93f944ae7443">
+					<printWhenExpression><![CDATA[$F{ASSINATURA_DIGITAL}.equals("Edinilson Moises do Nascimento")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[".."+File.separator+"ED.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="177" y="725" width="187" height="50" isPrintWhenDetailOverflows="true" uuid="ef5e1db5-d057-4c1f-94c3-7459e1c7a8eb">
+					<printWhenExpression><![CDATA[$F{ASSINATURA_DIGITAL}.equals("Gabriel Gomes Sanches")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[".."+File.separator+"GAB.jpg"]]></imageExpression>
+			</image>
 			<rectangle>
 				<reportElement mode="Transparent" x="0" y="0" width="554" height="801" uuid="d6a0622b-8042-4c30-b04b-12c9eec57cc2"/>
 			</rectangle>
@@ -248,19 +261,19 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 				<text><![CDATA[Arqueação Bruta]]></text>
 			</staticText>
 			<line>
-				<reportElement x="32" y="302" width="499" height="1" uuid="86afcfe9-0bfd-4358-ae4e-c8b3728026d0"/>
+				<reportElement x="32" y="302" width="506" height="1" uuid="86afcfe9-0bfd-4358-ae4e-c8b3728026d0"/>
 			</line>
 			<line>
-				<reportElement x="32" y="328" width="499" height="1" uuid="8fadf601-1158-47bb-8a8b-2e69915ab9ed"/>
+				<reportElement x="32" y="328" width="506" height="1" uuid="8fadf601-1158-47bb-8a8b-2e69915ab9ed"/>
 			</line>
 			<line>
-				<reportElement x="33" y="355" width="498" height="1" uuid="4705156a-39b6-4a28-b0f4-2f69a5a6ec84"/>
+				<reportElement x="33" y="355" width="505" height="1" uuid="4705156a-39b6-4a28-b0f4-2f69a5a6ec84"/>
 			</line>
 			<line>
 				<reportElement x="32" y="302" width="1" height="53" uuid="41e46967-0320-49e3-9682-bac7dda82272"/>
 			</line>
 			<line>
-				<reportElement x="531" y="302" width="1" height="53" uuid="53665b4d-e512-4619-b8d9-e7ae6077d019"/>
+				<reportElement x="538" y="302" width="1" height="53" uuid="53665b4d-e512-4619-b8d9-e7ae6077d019"/>
 			</line>
 			<line>
 				<reportElement x="260" y="302" width="1" height="53" uuid="8194d4fa-35fb-4401-9492-00338f6e7b9c"/>
@@ -325,9 +338,9 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 				<textFieldExpression><![CDATA[$F{ARQUEACAO_BRUTA}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="281" y="329" width="249" height="27" uuid="b7a1476b-8642-4d25-ad28-48265d9b9664"/>
+				<reportElement x="262" y="329" width="276" height="27" uuid="b7a1476b-8642-4d25-ad28-48265d9b9664"/>
 				<textElement verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+					<font fontName="Times New Roman" size="10" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{AREA_NAVEGACAO}]]></textFieldExpression>
 			</textField>
@@ -671,9 +684,9 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 				<textFieldExpression><![CDATA["Assinatura digital conforme o código do documento "+$F{ASSINATURA_DIGITAL}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement x="281" y="303" width="247" height="25" uuid="50b21906-51b8-40e7-80a7-1908df0cc1cc"/>
-				<textElement verticalAlignment="Middle">
-					<font size="12" pdfFontName="Times-Roman"/>
+				<reportElement x="262" y="303" width="276" height="25" uuid="50b21906-51b8-40e7-80a7-1908df0cc1cc"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" pdfFontName="Times-Roman"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_ATIVIDADE_INTERIOR}]]></textFieldExpression>
 			</textField>

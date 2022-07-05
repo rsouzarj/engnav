@@ -2,6 +2,10 @@
 /*     */ 
 /*     */ import Parceiro.Parceiro;
 /*     */ import Usuario.Usuario;
+          import Financeiro.Financeiro;
+          import NvCertificado.NvCertificado;
+          import NvAvisos.NvAvisos;
+import com.google.gson.Gson;
 /*     */ import java.io.BufferedReader;
 /*     */ import java.io.File;
 /*     */ import java.io.FileOutputStream;
@@ -13,14 +17,17 @@
 /*     */ import java.io.UnsupportedEncodingException;
 /*     */ import java.net.HttpURLConnection;
 /*     */ import java.net.URL;
+import java.net.URLConnection;
 /*     */ import java.sql.Connection;
 /*     */ import java.sql.PreparedStatement;
 /*     */ import java.sql.SQLException;
+          import java.text.DateFormat;
 /*     */ import java.text.ParseException;
 /*     */ import java.text.SimpleDateFormat;
 /*     */ import java.util.Calendar;
 /*     */ import java.util.Date;
 /*     */ import java.util.GregorianCalendar;
+          import java.util.Locale;
 /*     */ import java.util.Properties;
 /*     */ import java.util.UUID;
 /*     */ import java.util.logging.Level;
@@ -36,14 +43,6 @@
 /*     */ import javax.mail.Transport;
 /*     */ import javax.mail.internet.InternetAddress;
 /*     */ import javax.mail.internet.MimeMessage;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
 /*     */ public class Util
 /*     */ {
 /*     */   public static final String raizArquivos = "c:\\temp\\erp\\";
@@ -88,7 +87,7 @@
 /*     */     {
 /*  89 */       URL url = new URL(urlT);
 /*  90 */       HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-/*  91 */       conn.setReadTimeout(10000);
+/*  91 */       conn.setReadTimeout(60000);
 /*  92 */       conn.setConnectTimeout(15000);
 /*  93 */       conn.setRequestMethod("GET");
 /*  94 */       conn.setDoInput(true);
@@ -127,13 +126,13 @@
 /*     */   }
 /*     */   
 /*     */   public static String buscarConteudoDentroJson(String pStringJson, String pChave) {
-/* 130 */     int pInicial = pStringJson.indexOf("\"" + pChave + "\": \"") + pChave.length() + 5;
+/* 130 */     int pInicial = pStringJson.indexOf("\"" + pChave + "\": \"") + pChave.length() + 10;
 /* 131 */     int pFinal = pInicial;
 /*     */     
-/* 133 */     for (int i = 0; i < 100; i++) {
+/* 133 */     for (int i = 0; i < 50; i++) {
 /* 134 */       pFinal++;
 /* 135 */       if (pStringJson.substring(pFinal, pFinal + 1).equals("\"")) {
-/* 136 */         return pStringJson.substring(pInicial, pFinal);
+/* 136 */         return pStringJson.substring(pInicial,pFinal);
 /*     */       }
 /*     */     }
 /*     */     
@@ -141,40 +140,42 @@
 /*     */   }
 /*     */   
 /*     */ 
-/*     */   public Parceiro buscarDadosReceitaFederal(Parceiro pParceiro)
-/*     */   {
-/* 146 */     String retorno = null;
-/*     */     try {
-/* 148 */       String url = "http://receitaws.com.br/v1/cnpj/" + pParceiro.getDocumento().replace(".", "").replace("-", "").replace("/", "");
-/* 149 */       retorno = Consultar(url);
-/*     */     }
-/*     */     catch (IOException ex) {
-/* 152 */       Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
-/*     */     }
-/*     */     
-/*     */ 
-/* 156 */     pParceiro.setNome(buscarConteudoDentroJson(retorno, "nome"));
-/* 157 */     pParceiro.setFantasia(buscarConteudoDentroJson(retorno, "fantasia"));
-/* 158 */     pParceiro.setLogradouro(buscarConteudoDentroJson(retorno, "logradouro"));
-/* 159 */     pParceiro.setNumero(buscarConteudoDentroJson(retorno, "numero"));
-/* 160 */     pParceiro.setComplemento(buscarConteudoDentroJson(retorno, "complemento"));
-/* 161 */     pParceiro.setBairro(buscarConteudoDentroJson(retorno, "bairro"));
-/* 162 */     pParceiro.setCidade(buscarConteudoDentroJson(retorno, "municipio"));
-/* 163 */     pParceiro.setUf(buscarConteudoDentroJson(retorno, "uf"));
-/* 164 */     pParceiro.setCep(buscarConteudoDentroJson(retorno, "cep"));
-/* 165 */     pParceiro.setTelefone1(buscarConteudoDentroJson(retorno, "telefone"));
-/* 166 */     pParceiro.setEmail(buscarConteudoDentroJson(retorno, "email"));
-/*     */     
-/* 168 */     String dataNascimento = buscarConteudoDentroJson(retorno, "abertura");
-/* 169 */     System.out.println("==>" + dataNascimento);
-/* 170 */     String formato = "dd/MM/yyyy";
-/*     */     try {
-/* 172 */       Date data = new SimpleDateFormat(formato).parse(dataNascimento);
-/* 173 */       pParceiro.setDataNascimento(data);
-/*     */     }
-/*     */     catch (ParseException ex) {
-/* 176 */       Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
-/*     */     }
+
+
+	public Parceiro buscarDadosReceitaFederal(Parceiro pParceiro) throws IOException {
+		if (pParceiro == null) {
+			return null;
+		}
+		URL url = new URL("https://www.receitaws.com.br/v1/cnpj/" + pParceiro.getDocumento().replace(".", "").replace("-", "").replace("/", ""));
+		
+		URLConnection openConnection = url.openConnection();
+		if (openConnection == null) {
+			throw new IOException("Não foi possível conectar com o serviço de consulta de CNPJ receitaws");
+		}
+		InputStream is = openConnection.getInputStream();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+		
+		Gson gson = new Gson();
+              ReceitaWSCNPJ obj = gson.fromJson(reader, ReceitaWSCNPJ.class);  
+              pParceiro.setNome(obj.getNome());
+/* 157 */     pParceiro.setFantasia(obj.getFantasia());
+/* 158 */     pParceiro.setLogradouro(obj.getLogradouro());
+/* 159 */     pParceiro.setNumero(obj.getNumero());
+/* 160 */     pParceiro.setComplemento(obj.getComplemento());
+/* 161 */     pParceiro.setBairro(obj.getBairro());
+/* 162 */     pParceiro.setCidade(obj.getMunicipio());
+/* 163 */     pParceiro.setUf(obj.getUf());
+/* 164 */     pParceiro.setCep(obj.getCep());
+/* 165 */     pParceiro.setTelefone1(obj.getTelefone());
+/* 166 */     pParceiro.setEmail(obj.getEmail());
+	      SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			pParceiro.setDataNascimento(formatter.parse(obj.getAbertura().trim().substring(0, 10)));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+
+
 /*     */     
 /* 179 */     return pParceiro;
 /*     */   }
@@ -316,7 +317,7 @@
 /*     */     
 /*     */ 
 /*     */ 
-/* 319 */     props.put("mail.smtp.host", "email-ssl.com.br");
+/* 319 */     props.put("mail.smtp.host", "smtp.gmail.com");
 /* 320 */     props.put("mail.transport.protocol", "smtp");
 /* 321 */     props.put("mail.smtp.socketFactory.port", "587");
 /*     */     
@@ -329,7 +330,7 @@
 /* 329 */     Session session = Session.getInstance(props, new Authenticator()
 /*     */     {
 /*     */       protected PasswordAuthentication getPasswordAuthentication() {
-/* 332 */         return new PasswordAuthentication("suporte@awsservice.com.br", "AWSsuporte");
+/* 332 */         return new PasswordAuthentication("ti@postogolfinho.com.br", "SeaG2022$");
 /*     */ 
 /*     */       }
 /*     */       
@@ -424,6 +425,124 @@
 /*     */     }
 /* 425 */     return retorno;
 /*     */   }
+/*     */   
+
+
+
+            public static boolean enviarEmailParceiro1(String pEmail, Multipart pConteudo)
+/*     */   {
+/* 368 */     boolean retorno = false;
+/*     */     
+/* 370 */     Properties props = new Properties();
+/*     */     
+/*     */ 
+/*     */ 
+/* 374 */     props.put("mail.smtp.host", "email-ssl.com.br");
+/* 375 */     props.put("mail.transport.protocol", "smtp");
+/*     */     
+/* 377 */     props.put("mail.smtp.socketFactory.port", "465");
+/* 378 */     props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+/* 379 */     props.put("mail.smtp.auth", "true");
+/* 380 */     props.put("mail.smtp.port", "587");
+/*     */     
+/* 382 */     props.put("mail.smtp.starttls.enable", "true");
+/*     */     
+/* 384 */     Session session = Session.getInstance(props, new Authenticator()
+/*     */     {
+/*     */       protected PasswordAuthentication getPasswordAuthentication() {
+/* 387 */         return new PasswordAuthentication("suporte@awsservice.com.br", "AWSsuporte");
+/*     */ 
+/*     */       }
+/*     */       
+/*     */ 
+/*     */ 
+/* 393 */     });
+/* 394 */     session.setDebug(true);
+/*     */     
+/*     */     try
+/*     */     {
+/* 398 */       Message message = new MimeMessage(session);
+/*     */       try {
+/* 400 */         message.setFrom(new InternetAddress("suporte@awsservice.com.br", "AWS SERVICE"));
+/*     */       }
+/*     */       catch (UnsupportedEncodingException ex) {
+/* 403 */         Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+/*     */       }
+/*     */       
+/* 406 */       Address[] toUser = InternetAddress.parse(pEmail);
+/*     */       
+/*     */ 
+/* 409 */       message.setRecipients(Message.RecipientType.TO, toUser);
+/* 410 */       message.setSubject("AWS Service - Pesquisa de Satisfação ");
+/*     */       
+/* 412 */       message.setContent(pConteudo);
+/*     */       
+/*     */ 
+/*     */ 
+/* 416 */       Transport.send(message);
+/*     */       
+/* 418 */       System.out.println("Feito!!!");
+/* 419 */       retorno = true;
+/*     */     }
+/*     */     catch (MessagingException e) {
+/* 422 */       retorno = false;
+/* 423 */       throw new RuntimeException(e);
+/*     */     }
+/* 425 */     return retorno;
+/*     */   }
+
+              public NvAvisos enviarAviso(NvAvisos pCer) {
+              Date data = new Date();
+              Locale local = new Locale("pt", "BR");
+	      DateFormat dateFormat = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", local);
+              Properties props = new Properties();
+              props.put("mail.smtp.host", "smtp.gmail.com");
+              props.put("mail.transport.protocol", "smtp");
+/* 321 */     props.put("mail.smtp.socketFactory.port", "587");
+/*     */     
+/* 323 */     props.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+/* 324 */     props.put("mail.smtp.auth", "true");
+/* 325 */     props.put("mail.smtp.port", "587");
+/*     */     
+/* 327 */     props.put("mail.smtp.starttls.enable", "true");
+/*     */     
+/* 329 */     Session session = Session.getInstance(props, new Authenticator()
+/*     */     {
+/*     */       protected PasswordAuthentication getPasswordAuthentication() {
+/* 332 */         return new PasswordAuthentication("mail@awsservice.com.br", "App2021$");
+/*     */ 
+/*     */       }
+
+/* 338 */     });
+/* 339 */     session.setDebug(true);
+/*     */     
+/*     */    /*     */     
+/*     */     try
+/*     */     {
+/* 343 */       Message message = new MimeMessage(session);
+/* 344 */       message.setFrom(new InternetAddress("comercial@awsservice.com.br", "AWS Service Engenharia"));
+/*     */       
+/* 346 */       Address[] toUser = InternetAddress.parse(pCer.getEmail());
+/*     */       
+/*     */ 
+/* 349 */       message.setRecipients(Message.RecipientType.TO, toUser);
+/* 350 */       message.setSubject("Comunicado - Aviso de Abertura da Janela ");
+/* 351 */       message.setText("Venho através desta, comunicar que a janela da  " + pCer.getArealiza() + 
+                " do Certificado de Segurança da Navegação Nº AWS" + pCer.getIdentificacao() + " está programada para ocorrer até " + dateFormat.format(pCer.getDataFinal()));
+
+/* 355 */       Transport.send(message);
+/*     */       
+/* 357 */       System.out.println("Feito!!!");
+/*     */     }
+/*     */     catch (MessagingException e) {
+/* 360 */       throw new RuntimeException(e);
+/*     */     } catch (UnsupportedEncodingException ex) {
+/* 362 */       Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
+/*     */     }
+/*     */return null;
+   } 
+
+
 
 }
 

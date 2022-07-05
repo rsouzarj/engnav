@@ -2,6 +2,7 @@
 /*     */ 
 /*     */ import ClausulaSQL.ClausulaWhere;
 /*     */ import Util.Conexao;
+import Util.Sequence;
 /*     */ import java.io.PrintStream;
 /*     */ import java.sql.Connection;
 /*     */ import java.sql.PreparedStatement;
@@ -24,16 +25,19 @@
 /*     */   {
 /*     */     try
 /*     */     {
+                String seq = Sequence.buscarNumeroSequence("SEQ_PARCEIRO_CARACTERISTICA");
+/*  28 */       parceiroCaracteristica.setSeqParceiroCaracteristica(seq);
 /*  27 */       Conexao conexao = new Conexao();
 /*  28 */       Connection conn = Conexao.getConnection();
-/*  29 */       String sql = "insert into PARCEIRO_CARACTERISTICA (SEQ_TIPO_CARACTERISTICA,SEQ_PARCEIRO) values  (?,?)";
+/*  29 */       String sql = "insert into PARCEIRO_CARACTERISTICA (SEQ_PARCEIRO_CARACTERISTICA, SEQ_TIPO_CARACTERISTICA,SEQ_PARCEIRO) values  (?,?,?)";
 /*     */       
 /*     */ 
 /*     */ 
 /*  33 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
-/*  35 */       ps.setString(1, parceiroCaracteristica.getSeqTipoCaracteristica());
+/*  35 */       ps.setString(1, parceiroCaracteristica.getSeqParceiroCaracteristica());
 /*  36 */       ps.setString(2, parceiroCaracteristica.getSeqParceiro());
+                ps.setString(3, parceiroCaracteristica.getSeqTipoCaracteristica());
 /*     */       
 /*  38 */       ps.execute();
 /*  39 */       ps.close();
@@ -55,6 +59,7 @@
 /*     */       
 /*  56 */       ps.setString(1, parceiroCaracteristica.getSeqParceiro());
 /*  57 */       ps.setString(2, parceiroCaracteristica.getSeqTipoCaracteristica());
+                ps.setString(3, parceiroCaracteristica.getSeqParceiroCaracteristica());
 /*  58 */       ps.execute();
 /*  59 */       ps.close();
 /*     */     }
@@ -79,6 +84,7 @@
 /*     */       
 /*  80 */       while (rs.next()) {
 /*  81 */         ParceiroCaracteristica parceiroCaracteristica = new ParceiroCaracteristica();
+                  parceiroCaracteristica.setSeqParceiroCaracteristica(rs.getString("SEQ_PARCEIRO_CARACTERISTICA"));
 /*  82 */         parceiroCaracteristica.setSeqTipoCaracteristica(rs.getString("SEQ_TIPO_CARACTERISTICA"));
 /*  83 */         parceiroCaracteristica.setSeqParceiro(rs.getString("SEQ_PARCEIRO"));
 /*  84 */         listaParceiroCaracteristica.add(parceiroCaracteristica);
@@ -119,8 +125,3 @@
 /*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/ParceiroCaracteristica/ParceiroCaracteristicaDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

@@ -1,3 +1,4 @@
+
 /*    */ package Util;
 /*    */ 
 /*    */ import java.io.PrintStream;
@@ -32,11 +33,11 @@
 /*    */     try
              {
 
-/*Local*/     String url = "jdbc:oracle:thin:@localhost:1521:ERPAWSL";
-               String usuario = "aws";       
+/*Local*/  String url = "jdbc:oracle:thin:@localhost:1521:AWS";
+               String usuario = "aws";      
                String senha = "suporte";
-/*Produção   String url = "jdbc:oracle:thin:@191.252.59.211:1521:XE";
-               String usuario = "aws_erp_user";       
+/*Produção  String url = "jdbc:oracle:thin:@191.252.59.211:1521:XE";
+               String usuario = "aws_erp_user";      
                String senha = "ltGZCEfw";*/
                
 /* 46 */       Class.forName("oracle.jdbc.driver.OracleDriver");

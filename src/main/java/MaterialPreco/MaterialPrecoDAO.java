@@ -226,21 +226,7 @@
 /*     */ 
 /* 227 */       String sql = "select \nmaterial_preco.*,\nmaterial.codigo,\nmaterial.nome material,\nmaterial.referencia referencia,\ntabela_preco.nome tabela_preco\n\nfrom\nmaterial_preco\ninner join material on material_preco.seq_material = material.seq_material\ninner join tabela_preco on tabela_preco.seq_tabela_preco = material_preco.seq_tabela_preco\ninner join parceiro on parceiro.seq_tabela_preco = material_preco.seq_tabela_preco " + sClausula.montarsClausula() + " order by material.nome";
 /*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 244 */       List<MaterialPreco> listaMaterialPreco = new ArrayList();
 /* 245 */       PreparedStatement ps = conn.prepareStatement(sql);
 /* 246 */       ResultSet rs = ps.executeQuery();
@@ -275,8 +261,3 @@
 /*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/MaterialPreco/MaterialPrecoDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

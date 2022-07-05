@@ -117,7 +117,7 @@
 			                            <p:dataTable id="listaPesquisa" reflow="true" style=""
                                                                  var="p" value="#{nvAvisosController.listaAvisosJanelas60}"  
 			                            			emptyMessage="Lista vazia">
-			                                <p:column headerText="Identificação" >
+                                                        <p:column headerText="Identificação" >
                                                             <h:outputText value="#{p.identificacao}"  title="#{p.identificacao}"/>
 			                                </p:column>
 			
@@ -125,7 +125,7 @@
                                                             <h:outputText value="#{p.tipoCertificado}"  title="#{p.tipoCertificado}"/>
 			                                </p:column>
 			
-			                                <p:column headerText="Embarcação" >
+			                                <p:column headerText="Embarcação" filterBy="#{p.embarcacao}">
                                                             <h:outputText value="#{p.embarcacao}"  title="#{p.embarcacao}"/>
 			                                </p:column>
 			
@@ -133,7 +133,7 @@
                                                             <h:outputText value="#{p.cliente}"  title="#{p.cliente}"/>
 			                                </p:column>
 			
-			                                <p:column headerText="Emissão" >
+			                                <!--<p:column headerText="Emissão" >
                                                             <h:outputText value="#{p.dataEmissao}"  title="#{p.dataEmissao}">
                                                             <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                                             </h:outputText>
@@ -143,8 +143,15 @@
                                                               <h:outputText value="#{p.dataValidade}"  title="#{p.dataValidade}">
                                                               <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                                             </h:outputText>
-			                                </p:column>
+			                                </p:column>-->
 			
+                                                        <p:column headerText="Janela" >
+                                                            <h:outputText value="#{p.arealiza}"  title="#{p.arealiza}">
+                                                            </h:outputText>
+			                                </p:column>                                                        
+                                                        
+                                                        
+                                                        
                                                         <p:column headerText="CV Inicial" >
                                                             <h:outputText value="#{p.dataInicial}"  title="#{p.dataInicial}">
                                                             <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
@@ -158,16 +165,20 @@
 			                                </p:column>
                                                         
                                                         
-                                                        <p:column headerText="Local" >
+                                                        <!--<p:column headerText="Local" >
                                                             <h:outputText value="#{p.local}"  title="#{p.local}"/>
-			                                </p:column>
+			                                </p:column>-->
                                                         
-                                                        <p:column headerText="Filial" >
+                                                        <p:column headerText="Filial" filterBy="#{p.filial}">
                                                             <h:outputText value="#{p.filial}"  title="#{p.filial}"/>
 			                                </p:column>
                                                         
+                                                        <p:column headerText="Email" >
+                                                            <h:outputText value="#{p.email}"  title="#{p.email}"/>
+			                                </p:column>
+                                                        
                                                         <p:column headerText="Notificar" width="8%">
-                                                            <p:commandButton value="Notificar" icon="fa fa-thumbs-o-up Fs18 white"  id="ajax"  action="#{nvAvisosController.buttonAction}" update=":frmLista" ajax="false"/>
+                                                            <p:commandButton value="Notificar" icon="fa fa-thumbs-o-up Fs18 white" actionListener="#{nvAvisosController.enviar(p)}" update=" :frmLista"/>
                                                             </p:column>
                                                         
                                                         

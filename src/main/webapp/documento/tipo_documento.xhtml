@@ -169,7 +169,7 @@
                                     <f:selectItem itemLabel="Não" itemValue="Não" />
                                 </p:selectOneMenu>
 
-                                <h:outputText value="Ponto de Serviço" />
+                                <h:outputText value="Grupo de Serviço" />
                                 <p:selectOneMenu value="#{tipoDocumentoController.tipoDocumento.opcPontoServico}" >
                                     <f:selectItem itemLabel="Sim" itemValue="Sim" />
                                     <f:selectItem itemLabel="Não" itemValue="Não" />
@@ -198,6 +198,12 @@
                                     <f:selectItem itemLabel="Sim" itemValue="Sim" />
                                     <f:selectItem itemLabel="Não" itemValue="Não" />
                                 </p:selectOneMenu>
+                                
+                                <h:outputText value="Movimento Financeiro" />
+                                <p:selectOneMenu value="#{tipoDocumentoController.tipoDocumento.opcTipoMovimentoFin}" >
+                                    <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                    <f:selectItem itemLabel="Não" itemValue="Não" />
+                                </p:selectOneMenu>                                
 
                                 <h:outputText value="Conta Bancária" />
                                 <p:selectOneMenu value="#{tipoDocumentoController.tipoDocumento.opcConta}" >
@@ -227,7 +233,13 @@
                                 <p:selectOneMenu value="#{tipoDocumentoController.tipoDocumento.opcAssColaborador}" >
                                     <f:selectItem itemLabel="Sim" itemValue="Sim" />
                                     <f:selectItem itemLabel="Não" itemValue="Não" />
-                                </p:selectOneMenu>
+                                </p:selectOneMenu>  
+                                
+                                <h:outputText value="Caminho do Relatório em Português" />
+                                <p:inputText value="#{tipoDocumentoController.tipoDocumento.caminhorel}" /> 
+                                
+                                <h:outputText value="Caminho do Relatório em Inglês" />
+                                <p:inputText value="#{tipoDocumentoController.tipoDocumento.caminhorelI}" />                                    
 
 
                                 <h:outputText value="Data de Cadastro" />
@@ -248,6 +260,7 @@
                                         <f:selectItem itemLabel="Proposta de Prestação de Serviço - Vistoria de Seguro" itemValue="M7" />
                                         <f:selectItem itemLabel="Proposta de Prestação de Serviço - Auditoria" itemValue="M8" />
                                         <f:selectItem itemLabel="Proposta de Prestação de Serviço - Condition Survey" itemValue="M9" />
+                                        <f:selectItem itemLabel="Proposta de Prestação de Serviço - Jarle" itemValue="M10" />
                                         <f:selectItem itemLabel="Ordem de Serviço - M5" itemValue="M5" />
                                         <f:selectItem itemLabel="Ordem de Cobrança - M6" itemValue="M6" />
                                         <f:selectItem itemLabel="Boletim de Medição" itemValue="BM" />

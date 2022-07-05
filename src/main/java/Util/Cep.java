@@ -14,7 +14,7 @@ import org.dom4j.io.SAXReader;
 public class Cep {
 	private static String URL_STRING = "http://cep.republicavirtual.com.br/web_cep.php?cep=%s&formato=xml";
 	private int resulCode = -1;
-	private String resultText = "busca n�o realizada.";
+	private String resultText = "busca não realizada.";
 	private String cep = null;
 	private String bairro = null;
 	private String cidade = null;
@@ -59,16 +59,16 @@ public class Cep {
 			}
 		} catch (DocumentException ex) {
 			if (ex.getNestedException() != null && ex.getNestedException() instanceof UnknownHostException) {
-				loadCep.setResultText("Site n�o encontrado.");
+				loadCep.setResultText("Site não encontrado.");
 				loadCep.setResulCode(-14);
 			} else {
-				loadCep.setResultText("N�o foi possivel ler o documento xml.");
+				loadCep.setResultText("Nao foi possivel ler o documento xml.");
 				loadCep.setResulCode(-15);
 			}
 			loadCep.setExceptio((Exception) ex);
 		} catch (MalformedURLException ex) {
 			loadCep.setExceptio(ex);
-			loadCep.setResultText("Erro na forma��o da url.");
+			loadCep.setResultText("Erro na formação da url.");
 			loadCep.setResulCode(-16);
 		} catch (Exception ex) {
 			loadCep.setExceptio(ex);

@@ -43,7 +43,7 @@
 /* 43 */     condicao.AdicionarCondicaoManual("where seq_empresa = " + pSeqEmpresa + " and (upper(nome) like('%" + pString + "%') or upper(referencia) like('%" + pString + "%'))");
 /*    */     
 /* 45 */     if (pSituacao == Situacao.ATIVO) {
-/* 46 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);
+/* 46 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "ATIVONP", TipoCondicaoWhere.Texto);
 /* 47 */     } else if (pSituacao == Situacao.INATIVO) {
 /* 48 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "INATIVO", TipoCondicaoWhere.Texto);
 /*    */     }
@@ -61,7 +61,7 @@
 /* 61 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
 /*    */     
 /* 63 */     if (pSituacao == Situacao.ATIVO) {
-/* 64 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);
+/* 64 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "ATIVONP", TipoCondicaoWhere.Texto);
 /* 65 */     } else if (pSituacao == Situacao.INATIVO) {
 /* 66 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "INATIVO", TipoCondicaoWhere.Texto);
 /*    */     }
@@ -76,9 +76,3 @@
 /* 76 */     return dao.deletar(material);
 /*    */   }
 /*    */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Material/MaterialService.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

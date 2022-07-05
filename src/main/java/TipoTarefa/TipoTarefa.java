@@ -1,16 +1,7 @@
 /*    */ package TipoTarefa;
 /*    */ 
 /*    */ import java.util.Date;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /*    */ public class TipoTarefa
 /*    */ {
 /*    */   private String seqTipoTarefa;

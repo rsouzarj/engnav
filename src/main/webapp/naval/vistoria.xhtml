@@ -153,7 +153,7 @@
 
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                                         <h:outputText value="Embarcação" />
-                                        <p:selectOneMenu value="#{nvVistoriaController.seqEmbarcacaoSelecionado}" filter="true" filterMatchMode="contains" >
+                                        <p:selectOneMenu value="#{nvVistoriaController.seqEmbarcacaoSelecionado}" filter="true" filterMatchMode="startsWith" >
                                             <f:selectItem value="#{null}" itemLabel="Todas" itemValue="#{null}" />
                                             <f:selectItems value="#{nvVistoriaController.listaNvEmbarcacao}" var="e"  itemLabel="#{e.nome}" itemValue="#{e.seqNvEmbarcacao}" />
                                         </p:selectOneMenu>
@@ -384,8 +384,8 @@
                                     </p:panelGrid>
                                     
                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"> 
-                                    <h:outputText value="Data da Docagem" />
-                                    <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvVistoriaController.nvVistoria.dataDocagem}" required="true" requiredMessage="[DATA DA DOCAGEM] é obrigatório"/>                
+                                    <h:outputText value="Data da Docagem/Borda Livre" />
+                                    <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvVistoriaController.nvVistoria.dataDocagem}" required="true" requiredMessage="[DATA DA DOCAGEM/BORDA LIVRE] é obrigatório"/>                
                                     </p:panelGrid>
                                     
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
@@ -452,7 +452,12 @@
                                                 <p:selectOneMenu value="#{nvVistoriaController.upload.tipoArquivo}" >
                                                     <f:selectItem itemLabel="Laudo" itemValue="LAUDO" />
                                                     <f:selectItem itemLabel="RAP" itemValue="RAP" />
+                                                    <f:selectItem itemLabel="COM" itemValue="COM" />
                                                 </p:selectOneMenu>
+                                                <h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvVistoriaController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvVistoriaController.upload.dataValidade}"/>                                                
                                             </p:panelGrid>                            
                                             <p:fileUpload label="Selecionar Arquivo" value="#{nvVistoriaController.file}" mode="simple" skinSimple="true"/>
                                             <p:commandButton value="Adicionar" ajax="false" actionListener="#{nvVistoriaController.upload}" rendered="#{loginController.usuario.acOpVistoria == 1}" update=" tblAnexos"/>

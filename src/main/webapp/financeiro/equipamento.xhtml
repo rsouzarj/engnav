@@ -1,0 +1,213 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#71CC8D', '#33AFDE', '#F7941E'];
+                this.cfg.grid = {
+                    background: '#EDF3F6',
+                    borderColor: '#D9E3E8',
+                    gridLineColor: '#D9E3E8',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+            /*Botão topo*/
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 100) {
+                        $('a[href="#top"]').fadeIn();
+                    } else {
+                        $('a[href="#top"]').fadeOut();
+                    }
+                });
+
+                $('a[href="#top"]').click(function () {
+                    $('html, body').animate({scrollTop: 0}, 800);
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #778D9B;
+            }
+            /*Botão topo */
+            a[href="#top"]{
+                padding:10px;
+                position:fixed;
+                top: 90%;
+                right:2px;
+                display:none;
+                font-size: 30px;
+            }
+            a[href="#top"]:hover{
+                text-decoration:none;
+            }
+            h2{color:black;}
+        </style>
+
+        <f:metadata>
+            <f:viewAction  action="#{equipamentoController.iniciar()}" />
+        </f:metadata>
+
+    </ui:define>
+
+    <ui:define name="content"  >
+
+        <div class="layout-portlets-box" >
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent"> 
+
+                    <a href="#top"><p:commandButton icon="fa fa-arrow-up Fs18 white"/></a>
+
+                    <p:messages id="messages"  autoUpdate="true" closable="true" />
+                    <h:form id="frmLista" >
+
+                        <div class="Container100 Responsive100">
+
+                            <p:panelGrid rendered="#{equipamentoController.tela == 0}" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-3,ui-grid-col-0,ui-grid-col-0">
+                                <h2>Equipamento</h2>
+                                <p:outputLabel value=""/>
+                                <p:outputLabel value=""/>
+
+                                <p:outputLabel value="Pesquisa"/>
+                                <p:outputLabel value=""/>
+                                <p:outputLabel value=""/>
+
+                                <p:inputText value="#{equipamentoController.pesquisa}"/>
+                                <p:commandButton value="Buscar" actionListener="#{equipamentoController.listarFin()}" update="listaPesquisa"/>
+                                <p:commandButton value="Novo" actionListener="#{equipamentoController.novo()}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}"/>
+                            </p:panelGrid>
+                        </div>
+
+                        <div class="Container100 Responsive100" >
+                            <p:dataTable id="listaPesquisa" var="p" value="#{equipamentoController.listaEquipamento}" rendered="#{equipamentoController.tela == 0}" reflow="true" style="" emptyMessage="Lista vazia" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
+
+                                <p:column headerText="Descrição" sortBy="#{p.nome}">
+                                    <p:commandLink value="#{p.nome}"  title="#{p.nome}"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>
+                               
+                                <p:column headerText="Dt. Cadastro" sortBy="#{p.dataCadastro}">
+                                    <h:outputText value="#{p.dataCadastro}"  title="#{p.dataCadastro}"  >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Situação" sortBy="#{p.situacao}">
+                                    <p:commandLink value="#{p.situacao}"  title="#{p.situacao}"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista " />
+                                </p:column>
+
+                                <p:column headerText="Detalhe" width="8%">
+                                    <p:commandButton icon="fa fa-search Fs18 white"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista "/>
+                                </p:column>
+                            </p:dataTable>
+
+                        </div>
+                    </h:form>
+
+                    <h:form id="frmDetalhe">
+
+                        <p:panelGrid rendered="#{equipamentoController.tela == 1}" layout="grid"  columns="1" styleClass="ui-panelgrid-blank" > 
+
+                             
+
+                                <h:outputText value="Nome" />
+                                <p:inputText value="#{equipamentoController.equipamento.nome}" required="true" requiredMessage="[NOME] é obrigatório"/>                
+                                
+                                
+                                <p:panelGrid columns="1" > 
+                                    <h:outputText  value="Tipo de Equipamento" />
+                                    <p:inputText  value="Financeiro" disabled="#{equipamentoController.equipamento.modelo ne '1'}"/>
+                                </p:panelGrid>
+
+                           
+                            <p:separator/>
+
+                            <p:dataTable id="listaVinculo" var="v" value="#{equipamentoController.listaEquipamentoParceiro}" emptyMessage="Lista vazia" reflow="true" >
+
+                                <p:column headerText="Parceiro Vinculado" sortBy="#">
+                                    <p:outputLabel value="#{v.parceiroNome}"  title="#{v.parceiroNome}"  />
+                                </p:column>
+
+                                <p:column headerText="Remover" width="8%" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}">
+                                    <p:commandButton icon="fa fa-eraser Fs18 white" actionListener="#{equipamentoController.removerVinculo(v)}" immediate="true" update="listaVinculo" >
+                                        <p:confirm header="Confirmação" message="Deseja excluir o Vínculo?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>                                        
+
+                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}"> 
+                                <p:panelGrid id="pnlVinculo"  columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-8,ui-grid-col-4,ui-grid-col-2"> 
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:outputLabel value="Parceiro Vinculado" />
+                                        <p:selectOneMenu value="#{equipamentoController.equipamentoParceiro.seqParceiro}" filter="true" filterMatchMode="contains">
+                                            <f:selectItem itemLabel="Selecione o Parceiro" itemValue="#{null}" />
+                                            <f:selectItems value="#{equipamentoController.listaParceiro}" itemLabel="#{tp.nome}" itemValue="#{tp.seqParceiro}" var="tp"/>
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+
+                                    <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <br/>
+                                        <p:commandButton value="Adicionar" actionListener="#{equipamentoController.adicionarVinculo()}" update="pnlVinculo listaVinculo" />
+                                    </p:panelGrid>
+
+                                </p:panelGrid>
+                            </p:panelGrid>
+
+                        <h2 class="BigTopic"> </h2>
+
+                        <p:panelGrid   columns="4"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-0,ui-grid-col-0,ui-grid-col-0,ui-grid-col-0">
+                            <p:commandButton value="Salvar e Fechar" actionListener="#{equipamentoController.salvarFin(0)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}"/>
+                            <p:commandButton value="Salvar" actionListener="#{equipamentoController.salvarFin(1)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}"/>
+                            <p:commandButton value="Voltar" immediate="true" actionListener="#{equipamentoController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
+
+                            <p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{equipamentoController.deletar()}" rendered="#{equipamentoController.equipamento.seqEquipamento!=0 and (loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1)}" update=":frmDetalhe :frmLista">
+                                <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert" /> 
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+                            </p:confirmDialog>                                                              
+
+                        </p:panelGrid>
+
+                        </p:panelGrid>
+                        
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

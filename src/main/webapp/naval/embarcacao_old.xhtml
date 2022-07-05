@@ -1,0 +1,852 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    
+        <f:metadata>
+            <f:viewAction  action="#{nvEmbarcacaoController.iniciar()}"  />
+        </f:metadata>    
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#71CC8D', '#33AFDE', '#F7941E'];
+                this.cfg.grid = {
+                    background: '#EDF3F6',
+                    borderColor: '#D9E3E8',
+                    gridLineColor: '#D9E3E8',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+            /*Botão topo*/
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 100) {
+                        $('a[href="#top"]').fadeIn();
+                    } else {
+                        $('a[href="#top"]').fadeOut();
+                    }
+                });
+
+                $('a[href="#top"]').click(function () {
+                    $('html, body').animate({scrollTop: 0}, 800);
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #778D9B;
+            }
+            /*Botão topo */
+            a[href="#top"]{
+                padding:10px;
+                position:fixed;
+                top: 90%;
+                right:2px;
+                display:none;
+                font-size: 30px;
+            }
+            a[href="#top"]:hover{
+                text-decoration:none;
+            }
+            h2{color:black;}
+        </style>
+
+
+    </ui:define>
+
+    <ui:define name="content"  >
+
+        <div class="layout-portlets-box" >
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent"> 
+
+                    <a href="#top"><p:commandButton icon="fa fa-arrow-up Fs18 white"/></a>
+
+                    <p:messages id="messages"  autoUpdate="true" closable="true" />
+                    <h:form id="frmLista" >
+
+
+                        <div class="Container100 Responsive100">
+                            <p:panelGrid rendered="#{nvEmbarcacaoController.tela == 0}" >
+                                <h2 >Embarcação</h2>
+                                <h2 class="BigTopic"/>
+                            </p:panelGrid>
+                            <p:panelGrid rendered="#{nvEmbarcacaoController.tela == 0}" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-3,ui-grid-col-0,ui-grid-col-0">
+                                <p:outputLabel value="Pesquisa"/>
+                                <p:outputLabel value=""/>
+                                <p:outputLabel value=""/>
+
+                                <p:inputText value="#{nvEmbarcacaoController.pesquisa}"/>
+                                <p:commandButton value="Buscar" actionListener="#{nvEmbarcacaoController.listar()}" update=":frmLista " />
+                                <p:commandButton value="Novo" actionListener="#{nvEmbarcacaoController.novo()}" update=":frmDetalhe :frmLista"  rendered="#{loginController.usuario.acOpEmbarcacao == 1}"/>
+                            </p:panelGrid>
+                        </div>
+
+                        <div class="Container100 MarTop10" >
+
+                            <p:dataTable id="listaPesquisa" rendered="#{nvEmbarcacaoController.tela == 0}"  var="p" value="#{nvEmbarcacaoController.listaNvEmbarcacao}" reflow="true" style="" emptyMessage="Lista vazia" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
+                                <p:column headerText="Nome" sortBy="#{p.nome}">
+                                    <p:commandLink value="#{p.nome}"  title="#{p.nome}"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>
+
+                                <p:column headerText="IMO" sortBy="#{p.nome}">
+                                    <p:commandLink value="#{p.imo}"  title="#{p.imo}"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>
+
+                                <p:column headerText="Dt. Cadastro" sortBy="#{p.dataCadastro}">
+                                    <h:outputText value="#{p.dataCadastro}"  title="#{p.dataCadastro}"  >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Situação" sortBy="#{p.situacao}">
+                                    <p:commandLink value="#{p.situacao}"  title="#{p.situacao}"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>
+
+                                <p:column headerText="Detalhe" width="8%">
+                                    <p:commandButton icon="fa fa-search Fs18 white"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista"/>
+                                </p:column>
+                            </p:dataTable>
+
+                        </div>                                    
+
+                    </h:form>
+
+                    <h:form id="frmDetalhe" enctype="multipart/form-data">
+
+                        <p:panelGrid rendered="#{nvEmbarcacaoController.tela == 1}" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            <h2>Detalhe da Embarcação</h2>
+                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                               
+                                <p:selectBooleanCheckbox  itemLabel="Mostrar todos os campos do Cadastro" value="#{nvEmbarcacaoController.porCamposTela}">
+                                        <p:ajax event="change" update="frmDetalhe"/>
+                                    </p:selectBooleanCheckbox>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Nome" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.nome}" required="true" requiredMessage="NOME é obrigatório" />                
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Tipo" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.tipo}" >
+                                        <f:selectItem itemLabel="A" itemValue="A" />
+                                        <f:selectItem itemLabel="B" itemValue="B" />
+                                        <f:selectItem itemLabel="C" itemValue="C" />
+                                        <f:selectItem itemLabel="D" itemValue="D" />
+                                        <f:selectItem itemLabel="E" itemValue="E" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                                
+                               
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'>
+                                    <h:outputText value="IMO" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.imo}"/>                
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'>
+                                    <h:outputText value="Indicativo"/>
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.indicativo}" />                
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Porto de Inscrição" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.portoInscricao}" />                
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Número de Inscrição" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.numeroInscricao}" />                
+                                </p:panelGrid>
+                                
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Bandeira" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.bandeira}" />                
+                                </p:panelGrid>
+                                
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Data de Inscrição" />
+                                    <p:inputMask mask="99/99/9999"  value="#{nvEmbarcacaoController.nvEmbarcacao.dataInscricao}" >                
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
+                                    </p:inputMask>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Livro de Inscrição" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.livroInscricao}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}' > 
+                                    <h:outputText value="Folha de Inscrição" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.folhaInscricao}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Área de Navegação" />
+
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao}" required="true" requiredMessage="Área de Navegação é obrigatório!">
+                                        <f:selectItem itemLabel="Selecione" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Mar Aberto" itemValue="Mar Aberto" />
+                                        <f:selectItem itemLabel="Mar Aberto - Área 1" itemValue="Mar Aberto - Área 1" />
+                                        <f:selectItem itemLabel="Navegação Interior" itemValue="Navegação Interior" />
+                                        <f:selectItem itemLabel="Mar Aberto / Navegação Interior" itemValue="Mar Aberto / Navegação Interior" />
+                                        
+                                        
+                                        <p:ajax event="change" update="pnlTipoNavegacao"/>
+                                    </p:selectOneMenu>
+
+                                </p:panelGrid>
+
+
+
+                                <p:panelGrid id="pnlTipoNavegacao" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+
+                                    <h:outputText value="Tipo de Embarcação" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.seqNvTipoEmbarcacao}" filter="true" filterMatchMode="contains" required="true" requiredMessage="Tipo de Embarcação é obrigatorio!">
+                                        <f:selectItem value="#{null}" itemLabel="Selecione o Tipo de Embarcação" itemValue="#{null}" />
+                                        <f:selectItems value="#{nvEmbarcacaoController.listaNvTipoEmbarcacao}" var="tipo"  itemLabel="#{tipo.codigo} - #{tipo.nome}" itemValue="#{tipo.seqNvTipoEmbarcacao}" />
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Área de Navegação - Tipo" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao != null}" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacaoTipo}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao eq 'Mar Aberto / Navegação Interior'}" required="true" requiredMessage="Área Navegação - Tipo é obrigatório!">
+                                        <f:selectItem itemLabel="Selecione" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="1 - Interior área 01 - 1 - Apoio Marítimo" itemValue="Área 01 - Apoio Marítimo" />
+                                        <f:selectItem itemLabel="2 - Interior área 01 - 2 - Cabotagem" itemValue="Área 01 - Cabotagem" />
+                                        <f:selectItem itemLabel="3 - Interior área 01 - 3 - Longo Curso" itemValue="Área 01 - Longo Curso" />
+                                        <f:selectItem itemLabel="4 - Interior área 02 - 1 - Apoio Marítimo" itemValue="Área 02 - Apoio Marítimo" />
+                                        <f:selectItem itemLabel="5 - Interior área 02 - 2 - Cabotagem" itemValue="Área 02 - Cabotagem" />
+                                        <f:selectItem itemLabel="6 - Interior área 02 - 3 - Longo Curso" itemValue="Área 02 - Longo Curso" />
+                                        <f:selectItem itemLabel="7 - Interior área 01 e 02 - Apoio Marítimo" itemValue="Área 01 e 02 - Apoio Marítmo " />
+                                        <f:selectItem itemLabel="8 - Interior área 01 e 02 - Cabotagem" itemValue="Área 01 e 02 - Cabotagem" />
+                                        <f:selectItem itemLabel="9 - Interior área 01 e 02 - Longo Curso" itemValue="Área 01 e 02 - Longo Curso" />
+                                        <f:selectItem itemLabel="10 - Apoio Marítimo e Apoio Portuário" itemValue="Apoio Marítimo e Apoio Portuário" />
+
+                                        <p:ajax event="change" update="marcaLinhaC1 marcaLinhaC2"/>
+                                    </p:selectOneMenu>
+
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacaoTipo}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao eq 'Mar Aberto'}" required="true" requiredMessage="Área Navegação - Tipo é obrigatório!">
+                                        <f:selectItem itemLabel="Selecione" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="1 - Apoio Marítimo" itemValue="Apoio Marítimo" />
+                                        <f:selectItem itemLabel="2 - Cabotagem" itemValue="Cabotagem" />
+                                        <f:selectItem itemLabel="3 - Longo Curso" itemValue="Longo Curso" />
+                                        <p:ajax event="change" update="marcaLinhaC1 marcaLinhaC2"/>
+                                    </p:selectOneMenu>
+
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacaoTipo}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao eq 'Navegação Interior'}" required="true" requiredMessage="Área Navegação - Tipo é obrigatório!">
+                                        <f:selectItem itemLabel="Selecione" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="1 - Interior área 01" itemValue="Área 01" />
+                                        <f:selectItem itemLabel="2 - Interior área 02" itemValue="Área 02" />
+                                        <f:selectItem itemLabel="1 - Interior área 01 | 2 - Interior área 02" itemValue="Área 01 e 02" />
+                                        <p:ajax event="change" update="marcaLinhaC1 marcaLinhaC2"/>
+
+                                    </p:selectOneMenu>
+
+                                    <h:outputText value="Apoio Portuário" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao eq 'Navegação Interior' || 
+                                                                                      nvEmbarcacaoController.nvEmbarcacao.areaNavegacao eq 'Mar Aberto / Navegação Interior'}" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.apoioPortuario}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao eq 'Navegação Interior' || 
+                                                              nvEmbarcacaoController.nvEmbarcacao.areaNavegacao eq 'Mar Aberto / Navegação Interior'}">
+                                        <f:selectItem itemLabel="Selecione" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Apoio portuário área 01" itemValue="Área 01" />
+                                        <f:selectItem itemLabel="Apoio portuário área 02" itemValue="Área 02" />
+                                        <f:selectItem itemLabel="Apoio portuário área 01 | Apoio portuario área 02" itemValue="Apoio portuario área 01 | Apoio portuario área 02" />
+
+                                    </p:selectOneMenu>
+
+                                    <!--<h:outputText value="Tipo de Atividade / Serviço - Mar Aberto" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao ne 'Navegação Interior'}"/>
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.tipoAtividadeMar}" required="true" requiredMessage="Tipo de Atividade é obrigatório" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao ne 'Navegação Interior'}"/>-->
+                                      
+                                    <h:outputText value="Tipo de Atividade / Serviço - Mar Aberto" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.tipoAtividadeMar}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao ne 'Navegação Interior'}">
+                                        <f:selectItem itemLabel="Dragagem" itemValue="Dragagem" />
+                                        <f:selectItem itemLabel="Esportes e/ou Recreio" itemValue="Esportes e/ou Recreio" />
+                                        <f:selectItem itemLabel="Levantamento Hidrográfico" itemValue="Levantamento Hidrográfico" />
+                                        <f:selectItem itemLabel="Monitoramento Ambienteal" itemValue="Monitoramento Ambienteal" />
+                                        <f:selectItem itemLabel="Perfuração" itemValue="Perfuração" />
+                                        <f:selectItem itemLabel="Pesca" itemValue="Pesca" />
+                                        <f:selectItem itemLabel="Pesquisa Científica" itemValue="Pesquisa Científica" />
+                                        <f:selectItem itemLabel="Pesquisa Sísmica" itemValue="Pesquisa Sísmica" />
+                                        <f:selectItem itemLabel="Produção" itemValue="Produção" />
+                                        <f:selectItem itemLabel="Reboque" itemValue="Reboque" />
+                                        <f:selectItem itemLabel="Reboque/ORV/Transporte de Cargas" itemValue="Reboque/ORV/Transporte de Cargas" />
+                                        <f:selectItem itemLabel="Empurra" itemValue="Empurra" />
+                                        <f:selectItem itemLabel="Serviço Público" itemValue="Serviço Público" />
+                                        <f:selectItem itemLabel="Transporte de Carga" itemValue="Transporte de Carga" />
+                                        <f:selectItem itemLabel="Transporte de Passageiros" itemValue="Transporte de Passageiros" />
+                                        <f:selectItem itemLabel="Passageiros e Carga" itemValue="Passageiros e Carga" />
+                                    </p:selectOneMenu>
+                                         
+
+                                    <h:outputText value="Tipo de Atividade / Serviço - Navegação Interior" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao ne 'Mar Aberto'}"/>
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.tipoAtividadeInterior}" required="true" requiredMessage="Tipo de Atividade é obrigatório" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao ne 'Mar Aberto'}"/>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Tipo de Propulsão" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.tipoPropulsao}" >
+                                        <f:selectItem itemLabel="Sem propulsão" itemValue="Sem propulsão" />
+                                        <f:selectItem itemLabel="Com propulsão" itemValue="Com propulsão" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Tipo de Planta Propulsora" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.tipoPlantaPropulsora}"/>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}' > 
+                                    <h:outputText value="Tripulantes" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.tripulantes}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Passageiros" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.passageiros}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Ano de Construção" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.anoConstrucao}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Material de Construção do Casco" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.materialConstruCasco}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Número do Casco" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.numeroCasco}"/>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Destinaçao Reboque" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.destinacaoReboque}" >
+                                        <f:selectItem itemLabel="Não" itemValue="Não" />
+                                        <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Cumpre os requisitos de acessibilidade para o transporte coletivo aquaviário de passageiros" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.requisitosTransporteColetivo}">
+                                        <f:selectItem itemLabel="Não"  itemValue="Não" />
+                                        <f:selectItem itemLabel="Sim" itemValue="Sim"  />
+                                        <f:selectItem itemLabel="Não aplicável (Regra 06 - CSN)" itemValue="NA"  />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Borda Livre (mm)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.bordaLivre}"/>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Material Super Estrutura" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.materialSupertrutura}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Ind. Radio Internac." />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.indRadioInternac}" />rendered='#{nvEmbarcacaoController.porCamposTela}'
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Autorizado a transportar carga no convés" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.autorizadoTransportarCargaConves}" >
+                                        <f:selectItem itemLabel="Não" itemValue="Não" />
+                                        <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Mercadorias Perigosas" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.mercadoriasPerigosas}" >
+                                        <f:selectItem itemLabel="Não" itemValue="Não" />
+                                        <f:selectItem itemLabel="Sim" itemValue="Sim" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Tipo/Marca do Motor" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.tipoMarcaMotor}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Fabricante, Modelo e Número do Motor" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.numeroMotor}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Potência do Motor" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.potenciaMotor}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Potência Nominal Elétrica" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.potenciaNominalEletrica}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Total de Máquinas" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.totalMaquina}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Tipo de Combustível" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.tipoCombustivel}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Capacidade Armazenamento" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.capacArmazenamento}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'>
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <h:outputText value="Arqueação Bruta" />
+                                        <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.arqueacaoBruta}" />
+                                    </p:panelGrid>
+
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                        <h:outputText value="Arqueação Líquida" />
+                                        <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.arqueacaoLiquida}" />
+                                    </p:panelGrid>
+
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                        <h:outputText value="Porte Bruto (t)" />
+                                        <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.tonelagemPorteBruta}" />
+                                    </p:panelGrid>
+                                </p:panelGrid>
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Comprimento Total (m)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.comprimentoTotal}"/>
+                                </p:panelGrid>
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Comprimento de Regra (m)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.comprimentoRegra}"/>
+                                </p:panelGrid>
+
+                               <!--
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Comprimento Regra" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.comprimentoTotal}"/>
+                                </p:panelGrid>
+                              -->
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Comprimento entre Perpend. (m)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.comprimentoEntrePerpend}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Boca (m)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.boca}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Pontal (m)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.pontal}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Calado Leve (m)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.caladoLeve}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Calado Carregado (m)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.caladoCarregado}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Marca Linha D'àgua (mm)" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.marcaLinhaDagua}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid id="marcaLinhaC1" columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Marca da linha de carga para área 1 (mm)" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacaoTipo.contains('01')}"/>
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.marcaLinhaCargaArea1}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacaoTipo.contains('01')}"/>                                    
+                                </p:panelGrid>
+
+                                <p:panelGrid id="marcaLinhaC2" columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Marca da linha de carga para área 2 (mm)" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacaoTipo.contains('02')}"/>
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.marcaLinhaCargaArea2}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacaoTipo.contains('02')}"/>                                    
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Estaleiro/Contrutor" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.nomeProprietario}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="CPF / CNPJ" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.cpfCnpj}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Endereço" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.endereco}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Cidade / Estado" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.cidadeEstado}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="CEP" />
+                                    <p:inputMask mask="99999-999" value="#{nvEmbarcacaoController.nvEmbarcacao.cepEstaleiroConstrutor}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Armador" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.nomeProprietario2}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="CPF / CNPJ" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.cpfCnpj2}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Endereço" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.endereco2}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="Cidade / Estado" />
+                                    <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.cidadeEstado2}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered='#{nvEmbarcacaoController.porCamposTela}'> 
+                                    <h:outputText value="CEP" />
+                                    <p:inputMask mask="99999-999" value="#{nvEmbarcacaoController.nvEmbarcacao.cepArmador}" />
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Regra de Cálculo para CSN" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.seqNvCertificadoCalculoCSN}" filter="true" filterMatchMode="contains" >
+                                        <f:selectItem value="#{null}" itemLabel="Selecione o Tipo de Cálculo de CSN" itemValue="#{null}" />
+                                        <f:selectItems value="#{nvEmbarcacaoController.listaNvCertificadoCalculo}" var="tipo"  itemLabel="#{tipo.nome}" itemValue="#{tipo.seqNvCertificadoCalculo}" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Regra de Cálculo para BORDA LIVRE" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.seqNvCertificadoCalculoBLR}" filter="true" filterMatchMode="contains" >
+                                        <f:selectItem value="#{null}" itemLabel="Selecione o Tipo de Cálculo para Borda Livre" itemValue="#{null}" />
+                                        <f:selectItems value="#{nvEmbarcacaoController.listaNvCertificadoCalculo}" var="tipo"  itemLabel="#{tipo.nome}" itemValue="#{tipo.seqNvCertificadoCalculo}" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Regra de Cálculo para ARQUEAÇÃO" />
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.seqNvCertificadoCalculoARQ}" filter="true" filterMatchMode="contains" >
+                                        <f:selectItem value="#{null}" itemLabel="Selecione o Tipo de Cálculo de ARQUEAÇÃO" itemValue="#{null}" />
+                                        <f:selectItems value="#{nvEmbarcacaoController.listaNvCertificadoCalculo}" var="tipo"  itemLabel="#{tipo.nome}" itemValue="#{tipo.seqNvCertificadoCalculo}" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Situação" />
+
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >     
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >     
+                                    </p:panelGrid>
+
+                                    <p:selectOneMenu style="width: 181px" value="#{nvEmbarcacaoController.nvEmbarcacao.situacao}" >
+                                        <f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
+                                        <f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Data de Cadastro" />
+                                    <h:outputText value="#{nvEmbarcacaoController.nvEmbarcacao.dataCadastro}" >                
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
+                                    </h:outputText>
+                                </p:panelGrid>
+
+                            </p:panelGrid>
+
+                            <p:accordionPanel id="acdVinculo" activeIndex="null">
+
+                                <p:tab title="Parceiros Vinculados">
+                                    <p:messages  autoUpdate="true" closable="true" />
+
+                                    <p:dataTable id="listaVinculo" var="v" value="#{nvEmbarcacaoController.listaNvEmbarcacaoParceiro}" emptyMessage="Lista vazia" reflow="true" style="">
+                                        
+                                        <p:column headerText="Tipo de Vínculo" sortBy="#{v.tipoVinculoNome}">
+                                            <p:outputLabel value="#{v.tipoVinculoNome}"  title="#{v.tipoVinculoNome}"  />
+                                        </p:column>
+
+                                        <p:column headerText="Parceiro Vinculado" sortBy="#{v.parceiroNome}">
+                                            <p:outputLabel value="#{v.parceiroNome}"  title="#{v.parceiroNome}"  />
+                                        </p:column>
+
+                                        <p:column headerText="Remover" width="8%" rendered="#{loginController.usuario.acParTodos == 1}">
+                                            <p:commandButton icon="fa fa-eraser Fs18 white"   actionListener="#{nvEmbarcacaoController.removerVinculo(v)}" immediate="true" update="listaVinculo" >
+                                                <p:confirm header="Confirmação" message="Deseja excluir o Vínculo?" icon="ui-icon-alert" />
+                                            </p:commandButton>
+
+                                        </p:column>
+                                    </p:dataTable>                                        
+
+                                    <p:separator/>
+
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{loginController.usuario.acParTodos == 1}"> 
+                                        <p:panelGrid id="pnlVinculo"  columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-8,ui-grid-col-4,ui-grid-col-2"> 
+                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                                <p:outputLabel value="Tipo de Vínculo"/>
+                                                <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacaoParceiro.seqNvTipoVincParcEmbarca}" required="false" requiredMessage="[TIPO DE VÍNCULO] Obrigatório" filter="true" filterMatchMode="contains">
+                                                    <f:selectItems value="#{nvEmbarcacaoController.listaTipoVinculo}" var="tv" itemLabel="#{tv.nome}" itemValue="#{tv.seqTipoVinculo}" />
+                                                </p:selectOneMenu>
+                                            </p:panelGrid>
+
+                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                                <p:outputLabel value="Parceiro Vinculado" />
+                                                <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacaoParceiro.seqParceiro}" filter="true" filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="Selecione o Parceiro Vinculado" itemValue="#{null}" />
+                                                    <f:selectItems value="#{nvEmbarcacaoController.listaParceiroVinculado}" var="par" itemLabel="#{par.nome}" itemValue="#{par.seqParceiro}" />
+                                                </p:selectOneMenu>
+                                            <!--p:autoComplete maxResults="5"  value="#{loginController.parceiroV}" completeMethod="#{loginController.listarParceiroAutoComplete}" var="prc" itemLabel="#{prc.nome}" itemValue="#{prc}"  
+                                                                converter="parceiroConverter"  id="dd" dropdown="false"  minQueryLength="3" >
+                                                </p:autoComplete-->
+                                            </p:panelGrid>
+
+                                            <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                                <br/>
+                                                <p:commandButton value="Adicionar" actionListener="#{nvEmbarcacaoController.adicionarVinculo()}" update="pnlVinculo listaVinculo" />
+                                            </p:panelGrid>
+
+                                        </p:panelGrid>
+                                    </p:panelGrid>
+
+                                </p:tab>
+                            </p:accordionPanel>
+
+                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoController.porCamposTela}'>
+                                <p:tab title="Borda Livre">
+
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Aresta superior da linha do convés X Face superior do convés ao lado (mm)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.linhaConves}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Centro do disco X Bico de Proa (mm)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.centroDiscoProa}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Dist. da Parte. Superior. da Linha do Convés X Centro do Disco (mm)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.centroDiscoConves}" />
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Correção para navegação em água salgada abaixo do disco de PLIMSOLL (mm)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.correcaoNavegacaoAguaSalgada}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Correção para navegação em água doce acima da marca da linha de carga (mm)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.correcaoNavegacaoAguaDoce}" />                                    
+                                        </p:panelGrid>
+                                    </p:panelGrid>
+
+                                </p:tab>
+                            </p:accordionPanel>
+
+                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoController.porCamposTela}'>
+                                <p:tab title="Arqueação">
+
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Espaços fechados abaixo do convés (m³)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.espacosFechadosAbaixoConves}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Espaços fechados acima do convés (m³)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.espacosFechadosAcimaConves}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Espaços de carga (m³)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.espacoCarga}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Volume total de espaços fechados (m³)" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.volumeTotalEspacos}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Número total de passageiros em camarotes com até 8 (oito) beliches" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.totalPassageirosCamarote}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Data e local da arqueação original" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.dataLocalArqueacaoOriginal}" />                                    
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Data e local da última rearqueação" />
+                                            <p:inputText value="#{nvEmbarcacaoController.nvEmbarcacao.dataLocalUltimaRearqueacao}" />                                    
+                                        </p:panelGrid>
+                                    </p:panelGrid>
+
+                                </p:tab>
+                            </p:accordionPanel>
+
+                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoController.porCamposTela}'>
+                                <p:tab title="CSN">
+
+                                    <p:dataTable var="tb" value="#{nvEmbarcacaoController.listaNvEmbarcacaoDetalhe}" emptyMessage="Lista vazia" reflow="true" style="">
+                                        <f:facet name="header">
+                                            DISTRIBUIÇÃO DE PASSAGEIROS / CARGA (t)
+                                        </f:facet>
+                                        <p:column>
+                                            <p:outputLabel value="#{tb.detalhe1}"  title="#{tb.detalhe1}"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText value="#{tb.detalhe2}"  title="#{tb.detalhe2}"  />
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText value="#{tb.detalhe3}"  title="#{tb.detalhe3}"  rendered="#{tb.detalhe1 eq 'Passageiros em Redes' || tb.detalhe1 eq null || tb.detalhe1 eq '' || tb.detalhe1 eq 'Passageiros sentados' 
+                                                                  || tb.detalhe1 eq 'Passageiros em camarote' || tb.detalhe1 eq 'Passageiros em redes' || tb.detalhe1 eq 'Passageiros em pé'}"/>
+                                        </p:column>
+                                        <p:column>
+                                            <p:inputText value="#{tb.detalhe4}"  title="#{tb.detalhe4}"  rendered="#{tb.detalhe1 eq 'Passageiros em Redes' || tb.detalhe1 eq null || tb.detalhe1 eq '' || tb.detalhe1 eq 'Passageiros sentados'
+                                                                  || tb.detalhe1 eq 'Passageiros em camarote' || tb.detalhe1 eq 'Passageiros em redes' || tb.detalhe1 eq 'Passageiros em pé'}"/>
+                                        </p:column>
+                                    </p:dataTable>                                        
+                                </p:tab>
+                            </p:accordionPanel>
+                            
+                            <p:accordionPanel activeIndex="null" id="apnlUpload" rendered='#{nvEmbarcacaoController.porCamposTela}'>
+                                <p:tab title="Documentos da Embarcação"  >
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:growl id="messagesg" showDetail="true" />
+                                        <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-4,ui-grid-col-4"> 
+                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                                <p:outputLabel value="Tipo de Arquivo"/>
+                                                <p:selectOneMenu value="#{nvEmbarcacaoController.upload.tipoArquivo}" >
+                                                    <f:selectItem itemLabel="Laudo" itemValue="LAUDO" />
+                                                    <f:selectItem itemLabel="RAP" itemValue="RAP" />
+                                                    <f:selectItem itemLabel="COM" itemValue="COM" />
+                                                </p:selectOneMenu>
+                                                
+                                                <h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvEmbarcacaoController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvEmbarcacaoController.upload.dataValidade}"/>
+                                                
+                                                
+                                                
+                                            </p:panelGrid>                            
+                                            <p:fileUpload label="Selecionar Arquivo" value="#{nvEmbarcacaoController.file}" mode="simple" skinSimple="true"/>
+                                            <p:commandButton value="Adicionar" ajax="false" actionListener="#{nvEmbarcacaoController.upload}" rendered="#{loginController.usuario.acOpEmbarcacao == 1}" update=" tblAnexos"/>
+                                        </p:panelGrid>                            
+                                    </p:panelGrid>
+                                    
+                                    <p:dataTable id="tblAnexos" var="a" rowIndexVar="index" value="#{nvEmbarcacaoController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
+                                        <p:column headerText="ID" width="8%" style="text-align: center">
+                                            <p:outputLabel value="#{index+1}"/>
+                                        </p:column>
+                                        <p:column headerText="Nome" style="text-align: center">
+                                            <p:outputLabel value="#{a.nomeArquivo}"/>
+                                        </p:column>
+                                        <p:column headerText="Tipo" style="text-align: center">
+                                            <p:outputLabel value="#{a.tipoArquivo}"/>
+                                        </p:column>
+                                        <p:column headerText="Usuário" style="text-align: center">
+                                            <p:outputLabel value="#{a.nomeUsuario}"/>
+                                        </p:column>
+                                        <p:column headerText="Dt. Emissao do Documento" sortBy="#{a.dataEmissao}">
+                                            <h:outputText value="#{a.dataEmissao}"  title="#{a.dataEmissao}"  >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Dt. Validade do Documento" sortBy="#{a.dataValidade}">
+                                            <h:outputText value="#{a.dataValidade}"  title="#{a.dataValidade}"  >
+                                            <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>
+                         
+                                        <p:column headerText="Download" width="8%" style="text-align: center" >
+                                            <p:commandButton actionListener="#{nvEmbarcacaoController.download(a)}" onclick="this.form.target = '_blank'" style="width: 50px" ajax="false"  icon="fa fa-arrow-circle-down white">
+                                                <p:fileDownload value="#{nvEmbarcacaoController.fileDownload}" />
+                                            </p:commandButton>
+                                        </p:column>
+                                       
+                                        <p:column headerText="Remover" width="8%" style="text-align: center">
+                                            <p:commandButton icon="fa fa-eraser white" style="width: 50px" styleClass="RedButton" actionListener="#{nvEmbarcacaoController.removerAnexo(a)}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.seqNvEmbarcacao!=0 and loginController.usuario.acOpEmbarcacao == 1}" update=":frmDetalhe :frmLista">
+                                               
+                                            </p:commandButton>
+                                         
+                                            </p:column>
+                                      
+                                        
+                                    </p:dataTable>
+
+                                </p:tab>
+                            </p:accordionPanel>
+                            
+                            <h2 class="BigTopic"> </h2>
+
+
+                           </p:panelGrid>
+                            <p:messages id="messages2"  autoUpdate="true" closable="true" />
+
+                            <p:panelGrid   columns="4"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-0,ui-grid-col-0,ui-grid-col-0,ui-grid-col-0" >
+                                <p:commandButton value="Salvar e Fechar" actionListener="#{nvEmbarcacaoController.salvar(0)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEmbarcacao == 1}"/>
+                                <p:commandButton value="Salvar" actionListener="#{nvEmbarcacaoController.salvar(1)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEmbarcacao == 1}"/>
+                                <p:commandButton value="Voltar" immediate="true" actionListener="#{nvEmbarcacaoController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
+                                <p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{nvEmbarcacaoController.deletar()}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.seqNvEmbarcacao!=0 and loginController.usuario.acOpEmbarcacao == 1}" update=":frmDetalhe :frmLista">
+                                         <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                
+                            </p:panelGrid>
+                    </h:form>
+           
+                </div>
+                
+            </div>
+        </div>
+      
+    </ui:define>
+
+</ui:composition>

@@ -32,6 +32,8 @@
 /* 38 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_documento", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
              condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_financeiro", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
              condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_nv_embarcacao", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
+             condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_parceiro", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
+             condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_certificado", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
 /* 39 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "upload.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
              
 /*    */     

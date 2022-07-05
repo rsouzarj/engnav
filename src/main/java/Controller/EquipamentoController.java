@@ -1,5 +1,9 @@
 package Controller;
 
+import ClausulaSQL.ClausulaWhere;
+import ClausulaSQL.GeneroCondicaoWhere;
+import ClausulaSQL.OperacaoCondicaoWhere;
+import ClausulaSQL.TipoCondicaoWhere;
 import Empresa.Empresa;
 import Equipamento.Equipamento;
 import Equipamento.EquipamentoService;
@@ -18,13 +22,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-
-
-
-
-
-
-
 @ManagedBean(name="equipamentoController")
 @ViewScoped
 public class EquipamentoController
@@ -34,10 +31,17 @@ public class EquipamentoController
   EquipamentoService equipamentoService = new EquipamentoService();
   Equipamento equipamento = new Equipamento();
   List<Equipamento> listaEquipamento = new ArrayList();
+  List<Equipamento> listaEquipamentoIni = new ArrayList();
   
   EquipamentoParceiroService equipamentoParceiroService = new EquipamentoParceiroService();
   EquipamentoParceiro equipamentoParceiro = new EquipamentoParceiro();
   List<EquipamentoParceiro> listaEquipamentoParceiro = new ArrayList();
+  
+  
+  ParceiroService parceiroService = new ParceiroService();
+  Parceiro parceiro = new Parceiro();
+  Long seqEquipamentoSelecionado;
+  Long seqParceiroSelecionado;
   
   List<Parceiro> listaParceiro = new ArrayList();
   String pesquisa = "";
@@ -50,8 +54,10 @@ public class EquipamentoController
       return;
     }
     
-    ParceiroService parceiroService = new ParceiroService();
+  
     this.listaParceiro = parceiroService.listarParceiro(this.loginController.getUsuario().getSeqUsuario(), "");
+    this.listaEquipamentoIni = this.equipamentoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
+    this.listaEquipamentoParceiro = this.equipamentoParceiroService.listarParceiro(this.equipamento.getSeqEquipamento());
   }
   
   public void salvar(int pTela) {
@@ -64,14 +70,51 @@ public class EquipamentoController
     this.tela = Integer.valueOf(pTela);
   }
   
+    public void salvarFin(int pTela) {
+    this.equipamento.setSeqEmpresa(this.loginController.getEmpresa().getSeqEmpresa());
+    this.equipamento.setSituacao("ATIVO");
+    this.equipamento = this.equipamentoService.salvar(this.equipamento);
+    listarFin();
+    
+    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Registro armazenado com sucesso.", ""));
+    this.tela = Integer.valueOf(pTela);
+  }
+  
   public void novo() {
     this.equipamento = new Equipamento();
+   
     this.tela = Integer.valueOf(1);
   }
   
   public void listar() {
     this.listaEquipamento = this.equipamentoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), this.pesquisa, Situacao.TODOS);
   }
+  
+    public void listarFin() {
+    this.listaEquipamento = this.equipamentoService.listarFin(this.loginController.getEmpresa().getSeqEmpresa(), this.pesquisa, Situacao.TODOS,"Financeiro");
+  }
+    
+	public void filtrar() {
+           		ClausulaWhere condicao = new ClausulaWhere();
+		condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "equipamento.seq_empresa", GeneroCondicaoWhere.igual,
+				String.valueOf(this.loginController.getEmpresa().getSeqEmpresa()), TipoCondicaoWhere.Numero);
+
+		if (this.seqEquipamentoSelecionado != null) {
+			condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento.seq_equipamento",
+					GeneroCondicaoWhere.igual, String.valueOf(this.seqEquipamentoSelecionado),
+					TipoCondicaoWhere.Numero);
+		}
+
+		if (this.seqParceiroSelecionado != null) {
+			condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento_parceiro.seq_parceiro",
+					GeneroCondicaoWhere.igual, String.valueOf(this.seqParceiroSelecionado),
+                                        TipoCondicaoWhere.Numero);
+		}
+                this.listaEquipamento = this.equipamentoService.listar3(condicao);
+                } 
+        
+    
+    
   
   public void deletar() {
     if (this.equipamentoService.deletar(this.equipamento)) {
@@ -86,9 +129,9 @@ public class EquipamentoController
   }
   
   public void adicionarVinculo() {
-    if (this.equipamento.getSeqEquipamento() == null) {
+    /*if (this.equipamento.getSeqEquipamento() == null) {
       salvar(1);
-    }
+    }*/
     this.equipamentoParceiro.setSeqEquipamento(this.equipamento.getSeqEquipamento());
     this.equipamentoParceiroService.salvar(this.equipamentoParceiro);
     this.listaEquipamentoParceiro = this.equipamentoParceiroService.listarParceiro(this.equipamento.getSeqEquipamento());
@@ -107,6 +150,7 @@ public class EquipamentoController
   public void selecionar(Equipamento pEquipamento) {
     this.equipamento = pEquipamento;
     this.listaEquipamentoParceiro = this.equipamentoParceiroService.listarParceiro(this.equipamento.getSeqEquipamento());
+    listar();
     this.tela = Integer.valueOf(1);
   }
   
@@ -140,12 +184,28 @@ public class EquipamentoController
     this.equipamento = equipamento;
   }
   
+  public Parceiro getParceiro() {
+    return this.parceiro;
+  }
+  
+  public void setParceiro(Parceiro parceiro) {
+    this.parceiro = parceiro;
+  }  
+  
   public List<Equipamento> getListaEquipamento() {
     return this.listaEquipamento;
   }
   
   public void setListaEquipamento(List<Equipamento> listaEquipamento) {
     this.listaEquipamento = listaEquipamento;
+  }
+  
+    public List<Equipamento> getListaEquipamentoIni() {
+    return this.listaEquipamentoIni;
+  }
+  
+  public void setListaEquipamentoIni(List<Equipamento> listaEquipamentoIni) {
+    this.listaEquipamentoIni = listaEquipamentoIni;
   }
   
   public String getPesquisa() {
@@ -184,21 +244,32 @@ public class EquipamentoController
     return this.equipamentoParceiro;
   }
   
-  public void setEquipamentoParceiro(EquipamentoParceiro equipamentoParceiro) {
-    this.equipamentoParceiro = equipamentoParceiro;
-  }
-  
-  public List<EquipamentoParceiro> getListaEquipamentoParceiro() {
-    return this.listaEquipamentoParceiro;
-  }
-  
-  public void setListaEquipamentoParceiro(List<EquipamentoParceiro> listaEquipamentoParceiro) {
-    this.listaEquipamentoParceiro = listaEquipamentoParceiro;
-  }
+    public void setEquipamentoParceiro(EquipamentoParceiro equipamentoParceiro) {
+        this.equipamentoParceiro = equipamentoParceiro;
+    }
+
+    public List<EquipamentoParceiro> getListaEquipamentoParceiro() {
+        return this.listaEquipamentoParceiro;
+    }
+
+    public void setListaEquipamentoParceiro(List<EquipamentoParceiro> listaEquipamentoParceiro) {
+        this.listaEquipamentoParceiro = listaEquipamentoParceiro;
+    }
+
+    public Long getSeqEquipamentoSelecionado() {
+        return this.seqEquipamentoSelecionado;
+    }
+
+    public void setSeqEquipamentoSelecionado(Long seqEquipamentoSelecionado) {
+        this.seqEquipamentoSelecionado = seqEquipamentoSelecionado;
+    }
+
+    public Long getSeqParceiroSelecionado() {
+        return this.seqParceiroSelecionado;
+    }
+
+    public void setSeqParceiroSelecionado(Long seqParceiroSelecionado) {
+        this.seqParceiroSelecionado = seqParceiroSelecionado;
+    }
+
 }
-
-
-/* Location:              C:\Users\diogo\Documents\workspace\others\prod erp\deploy\erp3.war!\WEB-INF\classes\Controller\EquipamentoController.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

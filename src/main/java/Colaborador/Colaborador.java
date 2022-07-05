@@ -22,6 +22,7 @@
 /*    */   private String informacao;
 /*    */   private String seqEmpresa;
 /*    */   private String nome;
+           private String vistoriador;
 /*    */   
 /*    */   public String getSeqColaborador()
 /*    */   {
@@ -95,10 +96,13 @@
 /*    */   public void setNome(String nome) {
 /* 96 */     this.nome = nome;
 /*    */   }
+
+/*    */   public String getVistoriador() {
+/* 92 */     return this.vistoriador;
+/*    */   }
+/*    */   
+/*    */   public void setVistoriador(String vistoriador) {
+/* 96 */     this.vistoriador = vistoriador;
+/*    */   }
 /*    */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Colaborador/Colaborador.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

@@ -135,7 +135,7 @@ public class NvVistoriaController {
                                 "", Situacao.ATIVO);
 		this.listaNvEmbarcacao = this.nvEmbarcacaoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "",
 				Situacao.ATIVO);
-		this.listaColaborador = this.colaboradorService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "",
+		this.listaColaborador = this.colaboradorService.listarv(this.loginController.getEmpresa().getSeqEmpresa(), "",
 				Situacao.ATIVO);
 		this.listaUf = this.ufService.listar();
 		this.listaNvVistoriaStatus = this.NvVistoriaStatusService
@@ -291,7 +291,8 @@ public class NvVistoriaController {
 				this.nvCertificado.setStatus("Aprovado");
 			}  
 
-			this.nvCertificado.setTipoCertificado(this.nvTipoCertificado.getNome());
+			
+                        this.nvCertificado.setTipoCertificado(this.nvTipoCertificado.getNome());
 			this.nvCertificado.setSeqNvCertificado(this.nvVistoria.getSeqNvTipoVistoria());
 			System.out.println("STATUS: " + this.nvCertificado.getStatus());
 

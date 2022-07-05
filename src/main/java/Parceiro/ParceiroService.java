@@ -14,14 +14,7 @@
 /*     */ import java.util.ArrayList;
 /*     */ import java.util.Date;
 /*     */ import java.util.List;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class ParceiroService
 /*     */ {
 /*  29 */   private Empresa empresa = new Empresa();
@@ -73,6 +66,48 @@
 /*     */     
 /*  79 */     return retorno;
 /*     */   }
+
+/*     */   public List<Parceiro> listar(String pSeqEmpresa, String pString)
+/*     */   {
+/*  65 */     List<Parceiro> retorno = new ArrayList();
+/*  66 */     UsuarioService usuarioService = new UsuarioService();
+/*  67 */     Usuario usuario = usuarioService.buscarUsuarioPorID(pSeqEmpresa);
+/*     */     
+/*  69 */     EmpresaService empresaService = new EmpresaService();
+/*  70 */     Empresa empresa = empresaService.buscarEmpresaPorID(usuario.getSeqEmpresa());
+/*     */     
+/*  72 */     ParceiroDAO parceiroDAO = new ParceiroDAO();
+/*  73 */     ClausulaWhere condicao = new ClausulaWhere();
+/*     */     
+/*  75 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(usuario.getSeqEmpresa()), TipoCondicaoWhere.Numero);
+/*  76 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "parceiro.nome", GeneroCondicaoWhere.contem, pString, TipoCondicaoWhere.Texto);
+/*  77 */     retorno = parceiroDAO.listar(condicao);
+/*     */     
+/*  79 */     return retorno;
+/*     */   }
+
+/*     */   public List<Parceiro> listarTudo(String pSeqEmpresa)
+/*     */   {
+/*  65 */     List<Parceiro> retorno = new ArrayList();
+/*  66 */     UsuarioService usuarioService = new UsuarioService();
+/*  67 */     Usuario usuario = usuarioService.buscarUsuarioPorID(pSeqEmpresa);
+/*     */     
+/*  69 */     EmpresaService empresaService = new EmpresaService();
+/*  70 */     Empresa empresa = empresaService.buscarEmpresaPorID(usuario.getSeqEmpresa());
+/*     */     
+/*  72 */     ParceiroDAO parceiroDAO = new ParceiroDAO();
+/*  73 */     ClausulaWhere condicao = new ClausulaWhere();
+/*     */     
+/*  75 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(usuario.getSeqEmpresa()), TipoCondicaoWhere.Numero);
+/*  77 */     retorno = parceiroDAO.listar(condicao);
+/*     */     
+/*  79 */     return retorno;
+/*     */   }
+
+/*    */   public List<Parceiro> listar(ClausulaWhere sClausula) {
+/* 67 */     ParceiroDAO dao = new ParceiroDAO();
+/* 68 */     return dao.listar(sClausula);
+/*    */   }
 /*     */   
 /*     */   public Parceiro buscarParceiroV(String pConteudo)
 /*     */   {
@@ -96,7 +131,7 @@
 /* 101 */     if (empresa.getIntegracao().equals("CROSS")) {
 /* 102 */       ParceiroDAO dao = new ParceiroDAO();
 /* 103 */       ClausulaWhere condicao = new ClausulaWhere();
-/* 104 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.codigo", GeneroCondicaoWhere.igual, pCodigo, TipoCondicaoWhere.Texto);
+/* 104 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_parceiro", GeneroCondicaoWhere.igual, pCodigo, TipoCondicaoWhere.Numero);
 /* 105 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "parceiro.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
 /* 106 */       retorno = (Parceiro)dao.listar(condicao).get(0);
 /* 107 */     } 
@@ -118,6 +153,22 @@
 /* 128 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(usuario.getSeqEmpresa()), TipoCondicaoWhere.Numero);
 /* 129 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "parceiro.seq_tipo_parceiro", GeneroCondicaoWhere.igual, pSeqTipoParceiro, TipoCondicaoWhere.Numero);
 /* 130 */     retorno = parceiroDAO.listar(condicao);
+/*     */     
+/* 132 */     return retorno;
+/*     */   }
+
+/*     */   public List<Parceiro> listarParceiroTipoDoc(String pSeqEmpresa)
+/*     */   {
+/* 118 */     List<Parceiro> retorno = new ArrayList();
+
+     
+/* 125 */     ParceiroDAO parceiroDAO = new ParceiroDAO();
+/* 126 */     ClausulaWhere condicao = new ClausulaWhere();
+/*     */     
+/* 128 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
+/* 129 */     
+              
+/* 130 */     retorno = parceiroDAO.listartipo(condicao);
 /*     */     
 /* 132 */     return retorno;
 /*     */   }
@@ -155,7 +206,8 @@
 /* 165 */     return retorno;
 /*     */   }
 /*     */   
-/*     */ 
+
+
 /*     */ 
 /*     */   public boolean buscarDocumentoParceiro(String pDocumentoParceiro)
 /*     */   {

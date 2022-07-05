@@ -14,12 +14,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class TipoDocumentoDAO
 /*     */ {
 /*     */   public TipoDocumento inserir(TipoDocumento tipoDocumento)
@@ -30,10 +25,8 @@
 /*  30 */       tipoDocumento.setSeqTipoDocumento(seq);
 /*  31 */       Conexao conexao = new Conexao();
 /*  32 */       Connection conn = Conexao.getConnection();
-/*  33 */       String sql = "insert into TIPO_DOCUMENTO (SEQ_TIPO_DOCUMENTO,DATA_CADASTRO,SITUACAO,SEQ_EMPRESA,ORDEM,OPC_ESCOPO,OPC_PONTO_SERVICO,OPC_TABELA_PRECO,OPC_GERA_BOLETO,OPC_EQUIPAMENTO,OPC_EMBARCACAO,OPC_CONTA,OPC_FORMA_PAGAMENTO,OPC_CONDICAO_PAGAMENTO,MODELO_TELA,TEMPLATE,OPC_TIPO_MOVIMENTO_FIN,PROXIMO_CODIGO,NOME, opc_colaborador,OPC_ASS_COLABORADOR) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-/*     */       
-/*     */ 
-/*     */ 
+/*  33 */       String sql = "insert into TIPO_DOCUMENTO (SEQ_TIPO_DOCUMENTO,DATA_CADASTRO,SITUACAO,SEQ_EMPRESA,ORDEM,OPC_ESCOPO,OPC_PONTO_SERVICO,OPC_TABELA_PRECO,OPC_GERA_BOLETO,OPC_EQUIPAMENTO,OPC_EMBARCACAO,OPC_CONTA,OPC_FORMA_PAGAMENTO,OPC_CONDICAO_PAGAMENTO,MODELO_TELA,TEMPLATE,OPC_TIPO_MOVIMENTO_FIN,PROXIMO_CODIGO,NOME, opc_colaborador,OPC_ASS_COLABORADOR,REPORTPATH,REPORTPATH_I) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
 /*  37 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
 /*  39 */       ps.setString(1, tipoDocumento.getSeqTipoDocumento());
@@ -61,7 +54,9 @@
 /*  61 */       ps.setString(19, tipoDocumento.getNome());
 /*  62 */       ps.setString(20, tipoDocumento.getOpcColaborador());
 /*  63 */       ps.setString(21, tipoDocumento.getOpcAssColaborador());
-/*     */       
+                ps.setString(22, tipoDocumento.getCaminhorel());
+                ps.setString(23, tipoDocumento.getCaminhorelI());
+                /*     */       
 /*  65 */       ps.execute();
 /*  66 */       ps.close();
 /*     */     }
@@ -76,7 +71,7 @@
 /*     */     try {
 /*  77 */       Conexao conexao = new Conexao();
 /*  78 */       Connection conn = Conexao.getConnection();
-/*  79 */       String sql = "update TIPO_DOCUMENTO set DATA_CADASTRO = ?,SITUACAO = ?,SEQ_EMPRESA = ?,ORDEM = ?,OPC_ESCOPO = ?,OPC_PONTO_SERVICO = ?,OPC_TABELA_PRECO = ?,OPC_GERA_BOLETO = ?,OPC_EQUIPAMENTO = ?,OPC_EMBARCACAO = ?,OPC_CONTA = ?,OPC_FORMA_PAGAMENTO = ?,OPC_CONDICAO_PAGAMENTO = ?,MODELO_TELA = ?,TEMPLATE = ?,OPC_TIPO_MOVIMENTO_FIN = ?,PROXIMO_CODIGO = ?,NOME = ?, opc_colaborador = ?, OPC_ASS_COLABORADOR = ? where SEQ_TIPO_DOCUMENTO = ?";
+/*  79 */       String sql = "update TIPO_DOCUMENTO set DATA_CADASTRO = ?,SITUACAO = ?,SEQ_EMPRESA = ?,ORDEM = ?,OPC_ESCOPO = ?,OPC_PONTO_SERVICO = ?,OPC_TABELA_PRECO = ?,OPC_GERA_BOLETO = ?,OPC_EQUIPAMENTO = ?,OPC_EMBARCACAO = ?,OPC_CONTA = ?,OPC_FORMA_PAGAMENTO = ?,OPC_CONDICAO_PAGAMENTO = ?,MODELO_TELA = ?,TEMPLATE = ?,OPC_TIPO_MOVIMENTO_FIN = ?,PROXIMO_CODIGO = ?,NOME = ?, opc_colaborador = ?, OPC_ASS_COLABORADOR = ?, REPORTPATH = ?,  REPORTPATH_I = ? where SEQ_TIPO_DOCUMENTO = ?";
 /*     */       
 /*  81 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       try
@@ -104,7 +99,10 @@
 /* 104 */       ps.setString(18, tipoDocumento.getNome());
 /* 105 */       ps.setString(19, tipoDocumento.getOpcColaborador());
 /* 106 */       ps.setString(20, tipoDocumento.getOpcAssColaborador());
-/* 107 */       ps.setString(21, tipoDocumento.getSeqTipoDocumento());
+                ps.setString(21, tipoDocumento.getCaminhorel());
+                ps.setString(22, tipoDocumento.getCaminhorelI());                
+/* 107 */       ps.setString(23, tipoDocumento.getSeqTipoDocumento());
+
 /* 108 */       ps.execute();
 /* 109 */       ps.close();
 /*     */     }
@@ -121,11 +119,7 @@
 /* 121 */       Conexao conexao = new Conexao();
 /* 122 */       Connection conn = Conexao.getConnection();
 /* 123 */       String sql = "select \nTIPO_DOCUMENTO.*\nfrom  \ntipo_documento " + sClausula.montarsClausula();
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 129 */       List<TipoDocumento> listaTipoDocumento = new ArrayList();
 /* 130 */       PreparedStatement ps = conn.prepareStatement(sql);
 /* 131 */       ResultSet rs = ps.executeQuery();
@@ -153,6 +147,8 @@
 /* 153 */         tipoDocumento.setNome(rs.getString("NOME"));
 /* 154 */         tipoDocumento.setOpcColaborador(rs.getString("opc_colaborador"));
 /* 155 */         tipoDocumento.setOpcAssColaborador(rs.getString("OPC_ASS_COLABORADOR"));
+                  tipoDocumento.setCaminhorel(rs.getString("REPORTPATH"));
+                  tipoDocumento.setCaminhorelI(rs.getString("REPORTPATH_I"));                  
 /* 156 */         listaTipoDocumento.add(tipoDocumento);
 /*     */       }
 /*     */       
@@ -206,6 +202,8 @@
 /* 206 */         tipoDocumento.setNome(rs.getString("NOME"));
 /* 207 */         tipoDocumento.setOpcColaborador(rs.getString("opc_colaborador"));
 /* 208 */         tipoDocumento.setOpcAssColaborador(rs.getString("OPC_ASS_COLABORADOR"));
+                  tipoDocumento.setCaminhorel(rs.getString("REPORTPATH"));
+                  tipoDocumento.setCaminhorelI(rs.getString("REPORTPATH_I"));                  
 /* 209 */         listaTipoDocumento.add(tipoDocumento);
 /*     */       }
 /*     */       
@@ -246,23 +244,7 @@
 /* 246 */       Conexao conexao = new Conexao();
 /* 247 */       Connection conn = Conexao.getConnection();
 /* 248 */       String sql = "select \ntipo_documento.seq_tipo_documento,\ntipo_documento.nome,\ntipo_documento.ordem,\ncount(documento.seq_documento) total\nFrom \n tipo_documento\nleft join documento on documento.seq_tipo_documento = tipo_documento.seq_tipo_documento \nleft join USUARIO_TIPO_DOCUMENTO on USUARIO_TIPO_DOCUMENTO.seq_tipo_documento = tipo_documento.seq_tipo_documento where  tipo_documento.seq_empresa = " + String.valueOf(pSeqEmpresa) + " and USUARIO_TIPO_DOCUMENTO.SEQ_USUARIO = " + String.valueOf(pSeqUsuario) + " group by \n" + "tipo_documento.nome,\n" + "tipo_documento.seq_tipo_documento,\n" + "tipo_documento.ordem\n" + "order by tipo_documento.ordem";
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 266 */       System.out.println(sql);
 /* 267 */       PreparedStatement ps = conn.prepareStatement(sql);
 /* 268 */       ResultSet rs = ps.executeQuery();
@@ -282,8 +264,3 @@
 /*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/TipoDocumento/TipoDocumentoDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

@@ -29,12 +29,6 @@ import org.primefaces.model.DefaultScheduleModel;
 import org.primefaces.model.ScheduleModel;
 
 
-
-
-
-
-
-
 @ManagedBean(name="agendaController")
 @ViewScoped
 public class AgendaController
@@ -45,6 +39,7 @@ public class AgendaController
   private EventoAdicionais event = new EventoAdicionais();
   Agenda agenda = new Agenda();
   List<Agenda> listaAgenda = new ArrayList();
+  List<Agenda> listaAgendaT = new ArrayList();
   AgendaService agendaService = new AgendaService();
   ParceiroService parceiroService = new ParceiroService();
   List<Parceiro> listaParceiro = new ArrayList();
@@ -54,7 +49,8 @@ public class AgendaController
   public void init() {
     this.listaAgenda = this.agendaService.listarPorUsuario(this.loginController.getUsuario().getSeqUsuario());
     
-
+ 
+    /*this.listaAgendaT = this.agendaService.listarTodosUsuarios(this.loginController.getUsuario().getSeqUsuario());*/
 
     TipoAgendaService tipoAgendaService = new TipoAgendaService();
     this.listaTipoAgenda = tipoAgendaService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
@@ -80,8 +76,9 @@ public class AgendaController
       evento.setTitle(vAgenda.getAssunto());
       evento.setDescription(vAgenda.getDescricao());
       evento.setCor(vAgenda.getCor());
-      evento.setNomeParceiro(vAgenda.getnomeParceiro());
+      evento.setNomeParceiro(vAgenda.getNomeParceiro());
       evento.setNomeTipoAgenda(vAgenda.getSeqTipoAgendaNome());
+      evento.setResponsavel(vAgenda.getNomeUsuario());
       
       if (vAgenda.getCor().equals("Normal")) {
         evento.setStyleClass("normal");
@@ -129,6 +126,12 @@ public class AgendaController
     init();
     this.event = new EventoAdicionais();
   }
+  
+  
+   public void listartodos() {
+        this.setListaAgenda(this.agendaService.listarTodosUsuarios(this.loginController.getEmpresa().getSeqEmpresa()));
+    }
+  
   
   public void deletar() {
     this.agenda.setSeqAgenda((String)this.event.getData());
@@ -225,4 +228,12 @@ public class AgendaController
   public void setListaTipoAgenda(List<TipoAgenda> listaTipoAgenda) {
     this.listaTipoAgenda = listaTipoAgenda;
   }
+  
+  public List<Agenda> getListaAgendaT() {
+    return this.listaAgendaT;
+  }
+  
+  public void setListaAgendaT(List<Agenda> listaAgendaT) {
+    this.listaAgendaT = listaAgendaT;
+  }  
 }

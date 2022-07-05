@@ -94,7 +94,7 @@
 
                     <a href="#top"><p:commandButton icon="fa fa-arrow-up Fs18 white"/></a>
 
-                    <h:form id="frmLista" >
+                    <h:form id="frmLista">
                         <div class="Container100 Responsive100">
                             <p:panelGrid rendered="#{nvCertificadoController.tela == 0}" columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-2,ui-grid-col-2,ui-grid-col-0">
                                 <h2 >Certificados</h2>
@@ -291,15 +291,14 @@
                         </div>
                     </h:form>
 
-                    <h:form id="frmDetalhe">
-                        <p:panelGrid  rendered="#{nvCertificadoController.tela == 1}"  columns="6"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-2,ui-grid-col-2,ui-grid-col-0">
-                            <h2>#{nvCertificadoController.nvCertificado.embarcacaoNome}</h2>
+                    <h:form id="frmDetalhe" >
+                                <p:panelGrid  rendered="#{nvCertificadoController.tela == 1}"  columns="6"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-2,ui-grid-col-2,ui-grid-col-0">
+                                    <h2>#{nvCertificadoController.nvCertificado.identificacao}</h2>
 
-                            <p:commandButton id="btnSalvar" value="Salvar" actionListener="#{nvCertificadoController.salvar(1)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+                            <p:commandButton  value="Salvar" actionListener="#{nvCertificadoController.salvar(0)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
                             <p:commandButton value="Voltar" immediate="true" actionListener="#{nvCertificadoController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
 
                             <p:commandButton value="Imprimir" actionListener="#{nvCertificadoController.imprimir()}" immediate="true" ajax="false"  onclick="this.form.target = '_blank'"/>
-
 
                             <p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{nvCertificadoController.deletar()}" rendered="#{nvCertificadoController.nvCertificado.seqNvCertificado!=0 and loginController.usuario.acOpCertificado == 1}" update=":frmDetalhe :frmLista">
                                 <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert" />
@@ -317,16 +316,37 @@
                         <p:panelGrid columns="1" rendered="#{nvCertificadoController.tela == 1}" layout="grid" styleClass="ui-panelgrid-blank" > 
                             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Nº do Certificado " />
+                                    <h:outputText value="#{nvCertificadoController.nvCertificado.identificacao}"/>
                                     <h:outputText value="Tipo de Certificado: " />
                                     <h:outputText value="#{nvCertificadoController.nvCertificado.tipoCertificado}" />
                                 </p:panelGrid>
 
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Embarcação: " />
-                                    <h:outputText value="#{nvCertificadoController.nvCertificado.embarcacaoNome}" />
+                                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <!--<h:outputText value="Embarcação: " />
+                                    <h:outputText value="#{nvCertificadoController.nvCertificado.embarcacaoNome}" />-->
+                                    
+                              
+                                    <p:selectOneMenu value="#{nvCertificadoController.nvCertificado.maraberto}" >
+                                            <f:selectItem itemLabel="MAR ABERTO?" itemValue="#{null}" />
+                                            <f:selectItem itemLabel="MAR ABERTOSELECIONADO" itemValue="S" />
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu value="#{nvCertificadoController.nvCertificado.area1}" >
+                                            <f:selectItem itemLabel="ÁREA 1?" itemValue="#{null}" />
+                                            <f:selectItem itemLabel="ÁREA 1 SELECIONADO" itemValue="S" />
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu value="#{nvCertificadoController.nvCertificado.navint}" >
+                                            <f:selectItem itemLabel="NAVEGAÇÃO INTERIOR?" itemValue="#{null}" />
+                                            <f:selectItem itemLabel="NAVEGAÇÃO INTERIOR SELECIONADO" itemValue="S" />
+                                     </p:selectOneMenu>                                       
+                                            <p:selectOneMenu value="#{nvCertificadoController.nvCertificado.area2}" >
+                                            <f:selectItem itemLabel="ÁREA 2?" itemValue="#{null}" />
+                                            <f:selectItem itemLabel="ÁREA 2 SELECIONADO" itemValue="S" />
+                                    </p:selectOneMenu>                                            
+                              
                                 </p:panelGrid>
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Data da Docagem: " />
+                                    <h:outputText value="Data da Docagem/Borda Livre: " />
                                             <h:outputText value="#{nvCertificadoController.nvVistoria.dataDocagem}" >
                                         <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                                     </h:outputText>
@@ -356,24 +376,26 @@
                                     </h:outputText>
                                 </p:panelGrid>
                                 
+                                                   
                             </p:panelGrid>
+
 
 
                             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-5" > 
-                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                        <h:outputText value="Identificação [Cadastro Inicial]"/>
+                                        <!--<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <h:outputText value="Número do Certificado"/>
                                         <p:inputText value="#{nvCertificadoController.nvCertificado.identificacao}" required="#{param['frmDetalhe:btnSalvar']!=null}" requiredMessage="Identificação"/>
-                                    </p:panelGrid>                                    
+                                    </p:panelGrid>-->                                    
                             <!--p:inputMask value="#{nvCertificadoController.nvCertificado.identificacao}" mask="AWS 99999/2099" rendered="#{nvLicencaController.nvLicenca.seqNvTipoLicenca eq '19'}" required="true" requiredMessage="Identificação é obrigatória!"/-->
-                                    <!--<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                        <h:outputText value="Filial"/>
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <h:outputText value="UF"/>
                                         <p:selectOneMenu value="#{nvCertificadoController.nvCertificado.filial}" >
-                                            <f:selectItem itemLabel="RJ" itemValue="#{null}" />
-                                            <f:selectItem itemLabel="PA" itemValue="(PA)" />
-                                            <f:selectItem itemLabel="AM" itemValue="(AM)" />
+                                            <f:selectItem itemLabel="RJ" itemValue="RJ" />
+                                            <f:selectItem itemLabel="PA" itemValue="PA" />
+                                            <f:selectItem itemLabel="AM" itemValue="AM" />
                                         </p:selectOneMenu>
-                                    </p:panelGrid>-->
+                                    </p:panelGrid>
 
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-5" >
                                         <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
@@ -430,7 +452,7 @@
                                         <p:selectOneMenu value="#{nvCertificadoController.nvCertificado.assinaturaDigital}" >
                                             <f:selectItem itemLabel="" itemValue="#{null}" />
                                             <f:selectItem itemLabel="ED" itemValue="Edinilson Moises do Nascimento" />
-                                            <f:selectItem itemLabel="GABRIEL SANCHES" itemValue="Gabriel Gomes Sanches" />
+                                            <f:selectItem itemLabel="LUCAS CALDAS" itemValue="Lucas Caldas Ferraz" />
                                             </p:selectOneMenu>
                                 </p:panelGrid>            
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
@@ -521,10 +543,8 @@
 
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
                                             <h:outputText value="DATA REALIZAÇÃO" style="font-size: 90%"/>
-                                            <p:inputMask mask="99/99/9999" value="#{nvCertificadoController.nvCertificadoDetalhe.dataRealizacao}" >
-                                                <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
-                                            </p:inputMask>
-                                        </p:panelGrid>
+                                            <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy" value="#{nvCertificadoController.nvCertificadoDetalhe.dataRealizacao}"/>
+                                            </p:panelGrid>
 
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                             <h:outputText value="VISTORIADOR" style="font-size: 90%"/>

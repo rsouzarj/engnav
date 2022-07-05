@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.5.1  -->
+<!-- 2021-03-07T19:29:19 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CERTIFICADO NACIONAL DE BORDA LIVRE PARA NAVEGAÇÃO DE MAR ABERTO CONDICIONAL" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="883424ff-6d8d-49fe-a5c9-a97e6002c83e">
 	<property name="ireport.zoom" value="2.0"/>
 	<property name="ireport.x" value="0"/>
@@ -193,6 +194,18 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 	</background>
 	<detail>
 		<band height="787">
+			<image>
+				<reportElement x="210" y="711" width="109" height="60" uuid="5a086c1d-e492-4d4f-9913-eead5d77ed80">
+					<printWhenExpression><![CDATA[$F{ASSINATURA_DIGITAL}.equals("Lucas Caldas Ferraz")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[".."+File.separator+"LUCAS.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="233" y="719" width="62" height="62" isPrintWhenDetailOverflows="true" uuid="b6788fdb-089c-460c-a14f-7e66d6794eb9">
+					<printWhenExpression><![CDATA[$F{ASSINATURA_DIGITAL}.equals("Edinilson Moises do Nascimento")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[".."+File.separator+"ED.jpg"]]></imageExpression>
+			</image>
 			<line>
 				<reportElement x="18" y="212" width="520" height="1" uuid="d06a899a-d820-4b3e-8c9f-7e8aabdcab4f"/>
 			</line>

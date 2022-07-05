@@ -274,9 +274,10 @@
                                     <p:row>
                                         <p:column rowspan="2" headerText="Código"  sortBy="#{p.seqFinanceiro}"/>
                                         <p:column rowspan="2" headerText="Parceiro"  sortBy="#{p.nomeParceiroDoc}" />
+                                        <p:column rowspan="2" headerText="Nº Documento"  sortBy="#{p.numeroDocFiscal}" />
                                         <p:column rowspan="2" headerText="Categoria II" sortBy="#{p.tipoLancamento}"/>
                                         <p:column colspan="2" headerText="Valores" />
-                                        <p:column colspan="4" headerText="Datas" />
+                                        <p:column colspan="3" headerText="Datas" />
                                         <p:column rowspan="2" headerText="Status"  sortBy="#{p.etapa}" />
                                         <p:column rowspan="2" headerText="Detalhe" width="8%"/>
                                     </p:row>
@@ -287,8 +288,7 @@
                                         <p:column headerText="Emissão" width="4%"  sortBy="#{p.dataEmissao}" />
                                         <p:column headerText="Vencimento" width="4%" sortBy="#{p.dataVencimento}" />
                                         <p:column headerText="Pagamento" width="4%" sortBy="#{p.dataPagamento}" />
-                                        <p:column headerText="Cadastro" width="4%" sortBy="#{p.dataCadastro}" />
-                                    </p:row>
+                                        </p:row>
                                 </p:columnGroup> 
                                 <p:column headerText="Código" width="8%"  style="text-align: center">
                                     <h:outputText value="#{p.seqFinanceiro}"  title="#{p.seqFinanceiro}" />                               
@@ -297,10 +297,13 @@
                                 <p:column headerText="Parceiro" style="text-align: center">
                                     <h:outputText value="#{p.nomeParceiroPC}"  title="#{p.nomeParceiroDoc}"/> 
                                 </p:column>
-
+                                <p:column headerText="Nº Documento" style="text-align: center">
+                                    <h:outputText value="#{p.numeroDocFiscal}"  title="#{p.numeroDocFiscal}"/> 
+                                </p:column>  
                                 <p:column headerText="Categoria II" style="text-align: center">
                                     <h:outputText value="#{p.tipoLancamento}"  title="#{p.tipoLancamento}"/> 
                                 </p:column>
+                              
                                 <p:column headerText="Valor Previsto" style="text-align: center">
                                     <h:outputText value="#{p.valor}"  title="#{p.valor}">                               
                                         <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
@@ -328,12 +331,6 @@
                                     <h:outputText value="#{p.dataPagamento}"  title="#{p.dataPagamento}"  >
                                         <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" />
                                     </h:outputText>                               
-                                </p:column>
-
-                                <p:column  headerText="Data Cadastro" style="text-align: center">
-                                    <h:outputText value="#{p.dataCadastro}"  title="#{p.dataCadastro}"  >
-                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" />
-                                    </h:outputText>
                                 </p:column>
 
                                 <p:column  headerText="Status" style="text-align: center">

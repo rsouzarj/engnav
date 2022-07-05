@@ -1,0 +1,186 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    
+        <f:metadata>
+            <f:viewAction  action="#{nvEmbarcacaoUsuarioController.iniciar()}"  />
+        </f:metadata>    
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#71CC8D', '#33AFDE', '#F7941E'];
+                this.cfg.grid = {
+                    background: '#EDF3F6',
+                    borderColor: '#D9E3E8',
+                    gridLineColor: '#D9E3E8',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+            /*Botão topo*/
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 100) {
+                        $('a[href="#top"]').fadeIn();
+                    } else {
+                        $('a[href="#top"]').fadeOut();
+                    }
+                });
+
+                $('a[href="#top"]').click(function () {
+                    $('html, body').animate({scrollTop: 0}, 800);
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #778D9B;
+            }
+            /*Botão topo */
+            a[href="#top"]{
+                padding:10px;
+                position:fixed;
+                top: 90%;
+                right:2px;
+                display:none;
+                font-size: 30px;
+            }
+            a[href="#top"]:hover{
+                text-decoration:none;
+            }
+            h2{color:black;}
+        </style>
+
+
+    </ui:define>
+
+    <ui:define name="content"  >
+
+        <div class="layout-portlets-box" >
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent"> 
+
+                    <a href="#top"><p:commandButton icon="fa fa-arrow-up Fs18 white"/></a>
+
+                    <p:messages id="messages"  autoUpdate="true" closable="true" />
+                    <h:form id="frmLista" >
+
+
+                        <div class="Container100 Responsive100">
+                            <p:panelGrid rendered="#{nvEmbarcacaoUsuarioController.tela == 0}" >
+                                <h2 >Embarcação</h2>
+                                <h2 class="BigTopic"/>
+                            </p:panelGrid>
+                            <p:panelGrid rendered="#{nvEmbarcacaoUsuarioController.tela == 0}" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-3,ui-grid-col-0,ui-grid-col-0">
+                                <p:outputLabel value="Pesquisa"/>
+                                <p:outputLabel value=""/>
+                                <p:outputLabel value=""/>
+
+                                <p:inputText value="#{nvEmbarcacaoUsuarioController.pesquisa}"/>
+                                <p:commandButton value="Buscar" actionListener="#{nvEmbarcacaoUsuarioController.listar()}" update=":frmLista " />
+                                
+                            </p:panelGrid>
+                        </div>
+
+                        <div class="Container100 MarTop10" >
+
+                            <p:dataTable id="listaPesquisa" rendered="#{nvEmbarcacaoUsuarioController.tela == 0}"  var="p" value="#{nvEmbarcacaoUsuarioController.listaNvEmbarcacao}" reflow="true" style="" emptyMessage="Lista vazia" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
+                                <p:column headerText="Nome" sortBy="#{p.nome}">
+                                    <p:commandLink value="#{p.nome}"  title="#{p.nome}"  actionListener="#{nvEmbarcacaoUsuarioController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>
+
+                            </p:dataTable>
+                        </div>                                    
+                    </h:form>
+
+                    <h:form id="frmDetalhe">
+
+                        <p:panelGrid rendered="#{nvEmbarcacaoUsuarioController.tela == 1}" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            <h2>Usuários com Acesso aos Detalhes da Embarcação #{nvEmbarcacaoUsuarioController.nvEmbarcacao.nome}</h2>
+                           
+                                      
+                                <p:accordionPanel id="ucdVinculo">
+                               
+                                    <p:tab title="Usuarios Vinculados">
+                                    <p:messages  autoUpdate="true" closable="true" />
+                                    
+                                    <p:dataTable id="listaVinculo" var="u" value="#{nvEmbarcacaoUsuarioController.listaNvEmbarcacaoUsuario}" emptyMessage="Lista vazia" reflow="true" style="">
+                                        
+                                        
+                                        <p:column headerText="Usuário Vinculado" sortBy="#{u.nvUsuarioNome}">
+                                            <p:outputLabel value="#{u.nvUsuarioNome}"  title="#{u.nvUsuarioNome}"/>
+                                        </p:column>
+                                                                        
+                                        <p:column headerText="Remover" width="8%" rendered="#{loginController.usuario.acParTodos == 1}">
+                                            <p:commandButton icon="fa fa-eraser Fs18 white"   actionListener="#{nvEmbarcacaoUsuarioController.removerVinculo(u)}" immediate="true" update="listaVinculo" >
+                                                
+                                            </p:commandButton>
+                                        </p:column>
+                                    </p:dataTable>                                        
+                                   
+                                    <p:separator/>
+                                   
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{loginController.usuario.acParTodos == 1}"> 
+                                        <p:panelGrid id="pnlVinculo"  columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-8,ui-grid-col-4,ui-grid-col-2"> 
+                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                                <p:outputLabel value="Usuário Vinculado" />
+                                                <p:selectOneMenu value="#{nvEmbarcacaoUsuarioController.nvEmbarcacaoUsuario.seqUsuario}" filter="true" filterMatchMode="contains">
+                                                    <f:selectItem itemLabel="Selecione o Usuário Vinculado" itemValue="#{null}" />
+                                                    <f:selectItems value="#{nvEmbarcacaoUsuarioController.listaUsuario}" var="usu" itemLabel="#{usu.usuario}" itemValue="#{usu.seqUsuario}" />
+                                                </p:selectOneMenu>
+                                            </p:panelGrid>
+                                            <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                                <br/>
+                                                <p:commandButton value="Adicionar" actionListener="#{nvEmbarcacaoUsuarioController.adicionarVinculoUsuario()}" update="pnlVinculo listaVinculo" />
+                                            </p:panelGrid>
+
+                                        </p:panelGrid>
+                                    </p:panelGrid>
+
+                                </p:tab>
+                            </p:accordionPanel>     
+                                
+                            <p:messages id="messages2"  autoUpdate="true" closable="true" />
+                            <p:panelGrid   columns="4"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-0,ui-grid-col-0,ui-grid-col-0,ui-grid-col-0" >
+                            <p:commandButton value="Voltar" immediate="true" actionListener="#{nvEmbarcacaoUsuarioController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
+                           </p:panelGrid>                           
+                           </p:panelGrid>
+                    </h:form>
+           
+                </div>
+                
+            </div>
+        </div>
+      
+    </ui:define>
+
+</ui:composition>

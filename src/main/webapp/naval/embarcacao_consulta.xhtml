@@ -77,7 +77,7 @@
         </style>
 
         <f:metadata>
-            <f:viewAction  action="#{nvEmbarcacaoController.iniciar()}"  />
+            <f:viewAction  action="#{nvEmbarcacaoConsultaController.iniciar()}"  />
         </f:metadata>
     </ui:define>
 
@@ -92,26 +92,25 @@
                     <p:messages id="messages"  autoUpdate="true" closable="true" />
                     <h:form id="frmLista" >
 
-
                         <div class="Container100 Responsive100">
-                            <p:panelGrid rendered="#{nvEmbarcacaoController.tela == 0}" >
+                            <p:panelGrid rendered="#{nvEmbarcacaoConsultaController.tela == 0}" >
                                 <h2 >Embarcação</h2>
                                 <h2 class="BigTopic"/>
                             </p:panelGrid>
-                            <p:panelGrid rendered="#{nvEmbarcacaoController.tela == 0}" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-3,ui-grid-col-0,ui-grid-col-0">
+                            <p:panelGrid rendered="#{nvEmbarcacaoConsultaController.tela == 0}" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-3,ui-grid-col-0,ui-grid-col-0">
                                 <p:outputLabel value="Pesquisa"/>
                                 <p:outputLabel value=""/>
                                 <p:outputLabel value=""/>
 
-                                <p:inputText value="#{nvEmbarcacaoController.pesquisa}"/>
-                                <p:commandButton value="Buscar" actionListener="#{nvEmbarcacaoController.listar()}" update=":frmDetalhe :frmLista :frmCabec" />
+                                <p:inputText value="#{nvEmbarcacaoConsultaController.pesquisa}"/>
+                                <p:commandButton value="Buscar" actionListener="#{nvEmbarcacaoConsultaController.listarPCliente()}" update=":frmDetalhe :frmLista :frmCabec" />
 
                             </p:panelGrid>
                         </div>
 
                         <div class="Container100 MarTop10" >
 
-                            <p:dataTable id="listaPesquisa" rendered="#{nvEmbarcacaoController.tela == 0}"  var="p" value="#{nvEmbarcacaoController.listaNvEmbarcacao}" reflow="false" style="" emptyMessage="Lista vazia" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
+                            <p:dataTable id="listaPesquisa" rendered="#{nvEmbarcacaoConsultaController.tela == 0}"  var="p" value="#{nvEmbarcacaoConsultaController.listaNvEmbarcacao}" reflow="false" style="" emptyMessage="Lista vazia" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
                                 <p:column headerText="Nome" sortBy="#{p.nome}">
                                     <h:outputText value="#{p.nome}"  title="#{p.nome}"/>
 
@@ -138,7 +137,7 @@
                                 </p:column>
 
                                 <p:column headerText="Documentação" width="8%">
-                                    <p:commandButton icon="fa fa-folder-open-o Fs18 white"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista"/>
+                                    <p:commandButton icon="fa fa-folder-open-o Fs18 white"  actionListener="#{nvEmbarcacaoConsultaController.selecionar2(p)}" ajax="false" update=":frmDetalhe :frmLista"/>
                                 </p:column>                                
 
                             </p:dataTable>
@@ -147,51 +146,48 @@
 
                     </h:form>                      
                     <h:form id="frmCabec">
-                        <p:panelGrid rendered="#{nvEmbarcacaoController.tela == 1}" >    
-                            <h2><h:outputText value="#{nvEmbarcacaoController.nvEmbarcacao.nome}"/></h2>
+                        <p:panelGrid rendered="#{nvEmbarcacaoConsultaController.tela == 1}" >    
+                            <h2><h:outputText value="#{nvEmbarcacaoConsultaController.nvEmbarcacao.nome}" rendered="#{nvEmbarcacaoConsultaController.tela == 1}"/></h2>
                             <h3>Documentação</h3>
                             <h2 class="BigTopic"/>  
 
                         </p:panelGrid>     
 
                     </h:form>
-
-
-
                     <h:form id="frmDetalhe" enctype="multipart/form-data">                             
 
                         <div>
-                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoController.tela ==1}'>
+                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoConsultaController.tela ==1}'>
                                 <p:tab title="VISTORIAS">
-                                    <p:dataTable id="listaVistoria" var="p" value="#{nvEmbarcacaoController.listaNvVistoria}" reflow="true">
+                                    <p:dataTable id="listaVistoria" var="v" value="#{nvEmbarcacaoConsultaController.listaNvVistoria}" reflow="true">
                                         <p:column headerText="Identificação" sortBy="#{p.identificacao}">
-                                            <h:outputText value="#{p.identificacao}"  title="#{p.identificacao}" >
+                                            <h:outputText value="#{v.identificacao}"  title="#{v.identificacao}" >
                                             </h:outputText> 
                                         </p:column>
 
                                         <p:column headerText="Tipo" sortBy="#{p.tipoVistoria}">
-                                            <h:outputText value="#{p.tipoVistoria}"  title="#{p.tipoVistoria}">
+                                            <h:outputText value="#{v.tipoVistoria}"  title="#{v.tipoVistoria}">
                                             </h:outputText>
                                         </p:column>
 
-                                        <p:column headerText="Dt. da Vistoria" sortBy="#{p.dataVistoria}">
-                                            <h:outputText value="#{p.dataVistoria}"  title="#{p.dataVistoria}"  >
+                                        <p:column headerText="Dt. da Vistoria" sortBy="#{v.dataVistoria}">
+                                            <h:outputText value="#{v.dataVistoria}"  title="#{v.dataVistoria}"  >
                                                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" />
                                             </h:outputText>
                                         </p:column>
 
                                         <p:column headerText="UF da Vistoria" sortBy="#{p.estadoVistoria}">
-                                            <h:outputText value="#{p.estadoVistoria}"  title="#{p.estadoVistoria}">
+                                            <h:outputText value="#{v.estadoVistoria}"  title="#{v.estadoVistoria}">
                                             </h:outputText>
                                         </p:column>  
 
                                         <p:column headerText="Vistoriador" sortBy="#{p.colaboradorNome}">
-                                            <h:outputText value="#{p.colaboradorNome}"  title="#{p.colaboradorNome}">
+                                            <h:outputText value="#{v.colaboradorNome}"  title="#{v.colaboradorNome}">
                                             </h:outputText>
                                         </p:column>  
 
-                                        <p:column headerText="Aprovado por:" sortBy="#{p.usuario}">
-                                            <h:outputText value="#{p.usuario}"  title="#{p.usuario}">
+                                        <p:column headerText="Aprovado por:" sortBy="#{v.usuario}">
+                                            <h:outputText value="#{v.usuario}"  title="#{v.usuario}">
                                             </h:outputText>
                                         </p:column>                                                      
 
@@ -200,75 +196,125 @@
                             </p:accordionPanel>
                         </div>                   
                         <div>
-                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoController.tela ==1}'>
+                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoConsultaController.tela ==1}'>
                                 <p:tab title="CERTIFICADOS">
-                                    <p:dataTable id="listaCertificado" var="p" value="#{nvEmbarcacaoController.listaNvCertificado}"  reflow="true">
-                                        <p:column headerText="Identificação" sortBy="#{p.identificacao}">
-                                            <h:outputText value="#{p.identificacao}"  title="#{p.identificacao}" >
+                                    <p:dataTable id="listaCertificado" var="c" value="#{nvEmbarcacaoConsultaController.listaNvCertificado}"  reflow="true">
+                                        <p:column headerText="Identificação" sortBy="#{c.identificacao}">
+                                            <h:outputText value="#{c.identificacao}"  title="#{c.identificacao}">
                                             </h:outputText> 
                                         </p:column>
 
-                                        <p:column headerText="Tipo" sortBy="#{p.tipoCertificado}">
-                                            <h:outputText value="#{p.tipoCertificado}"  title="#{p.tipoCertificado}" >
+                                        <p:column headerText="Tipo" sortBy="#{c.tipoCertificado}">
+                                            <h:outputText value="#{c.tipoCertificado}"  title="#{c.tipoCertificado}" >
                                             </h:outputText>
                                         </p:column>
 
-                                        <p:column headerText="Dt. Emissao" sortBy="#{p.dataEmissao}">
-                                            <h:outputText value="#{p.dataEmissao}"  title="#{p.dataEmissao}"  >
+                                        <p:column headerText="Dt. Emissao" sortBy="#{c.dataEmissao}">
+                                            <h:outputText value="#{c.dataEmissao}"  title="#{c.dataEmissao}"  >
                                                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                             </h:outputText>
                                         </p:column>
 
-                                        <p:column headerText="Dt. Validade" sortBy="#{p.dataValidade}">
-                                            <h:outputText value="#{p.dataValidade}"  title="#{p.dataValidade}"  >
+                                        <p:column headerText="Dt. Validade" sortBy="#{c.dataValidade}">
+                                            <h:outputText value="#{c.dataValidade}"  title="#{c.dataValidade}"  >
                                                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                             </h:outputText>
                                         </p:column>
 
-                                        <p:column headerText="STATUS" sortBy="#{p.status}">
-                                            <h:outputText value="#{p.status}"  title="#{p.status}"  >
+                                        <p:column headerText="STATUS" sortBy="#{c.status}">
+                                            <h:outputText value="#{c.status}"  title="#{c.status}"  >
 
                                             </h:outputText>
                                         </p:column>
 
-                                        <p:column headerText="Vistoria" sortBy="#{p.identVistoria}">
-                                            <h:outputText value="#{p.identVistoria}"  title="#{p.identVistoria}"  >
+                                        <p:column headerText="Vistoria" sortBy="#{c.identVistoria}">
+                                            <h:outputText value="#{c.identVistoria}"  title="#{c.identVistoria}"  >
 
                                             </h:outputText>
-                                        </p:column>                                                     
+                                        </p:column> 
+                                        <!--<p:column headerText="Imprimir" width="8%">
+                                            <p:commandButton value="Imprimir" actionListener="#{nvCertificadoController.imprimir()}" immediate="true" ajax="false"  onclick="this.form.target = '_blank'"/>                                        
+                                        </p:column> -->
                                     </p:dataTable>
                                 </p:tab>
                             </p:accordionPanel>          
                         </div>  
 
+ <div>
+                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoConsultaController.tela ==1}'>
+                                <p:tab title="CONVALIDAÇÕES">
+                                    <p:dataTable id="listaCertificado" var="d" value="#{nvEmbarcacaoConsultaController.listaNvCertificadoDetalhe}"  reflow="true">
+                                        <p:column headerText="A Realizar" sortBy="#{d.arealiza}">
+                                            <h:outputText value="#{d.arealiza}"  title="#{d.arealiza}">
+                                            </h:outputText> 
+                                        </p:column>
+
+                                        <p:column headerText="Entre" sortBy="#{d.dataInicial}">
+                                            <h:outputText value="#{d.dataInicial}"  title="#{d.dataInicial}"  >
+                                                <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="E" sortBy="#{d.dataFinal}">
+                                            <h:outputText value="#{d.dataFinal}"  title="#{d.dataFinal}"  >
+                                                <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>
+
+                                        <p:column headerText="Lugar da Realização" sortBy="#{d.lugar}">
+                                            <h:outputText value="#{d.lugar}"  title="#{d.lugar}" >
+                                            </h:outputText>
+                                        </p:column>                                        
+                                        
+                                        <p:column headerText="Data da Realização" sortBy="#{d.dataRealizacao}">
+                                            <h:outputText value="#{d.dataRealizacao}"  title="#{d.dataRealizacao}"  >
+                                                <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>                                        
+                                        
+                                        
+                                        <p:column headerText="Vistoriador" sortBy="#{d.nomeVistoriador}">
+                                            <h:outputText value="#{d.nomeVistoriador}"  title="#{d.nomeVistoriador}"  >
+                                            </h:outputText>
+                                        </p:column>                                        
+                                        
+                                        <p:column headerText="STATUS" sortBy="#{d.status}">
+                                            <h:outputText value="#{d.status}"  title="#{d.status}"  >
+                                            </h:outputText>
+                                        </p:column>
+                                   
+                                    </p:dataTable>
+                                </p:tab>
+                            </p:accordionPanel>          
+                        </div>                         
 
                         <div>
-                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoController.tela ==1}'>
+                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoConsultaController.tela ==1}'>
                                 <p:tab title="LICENÇAS">
-                                    <p:dataTable id="listaLicenca" var="p" value="#{nvEmbarcacaoController.listaNvLicenca}"  reflow="true">
-                                        <p:column headerText="Identificação" sortBy="#{p.identificacao}">
-                                            <h:outputText value="#{p.identificacao}"  title="#{p.identificacao}" >
+                                    <p:dataTable id="listaLicenca" var="l" value="#{nvEmbarcacaoConsultaController.listaNvLicenca}"  reflow="true">
+                                        <p:column headerText="Identificação" sortBy="#{l.identificacao}">
+                                            <h:outputText value="#{l.identificacao}"  title="#{l.identificacao}" >
                                             </h:outputText> 
                                         </p:column>
 
                                         <p:column headerText="Tipo" sortBy="#{p.seqNvTipoLicenca}">
-                                            <h:outputText value="#{p.seqNvTipoLicenca}"  title="#{p.seqNvTipoLicenca}">
+                                            <h:outputText value="#{l.seqNvTipoLicenca}"  title="#{l.seqNvTipoLicenca}">
                                             </h:outputText>
                                         </p:column>
 
-                                        <p:column headerText="Vistoriador" sortBy="#{p.nomeVistoriador}">
-                                            <h:outputText value="#{p.nomeVistoriador}"  title="#{p.nomeVistoriador}"  >
+                                        <p:column headerText="Vistoriador" sortBy="#{l.nomeVistoriador}">
+                                            <h:outputText value="#{l.nomeVistoriador}"  title="#{l.nomeVistoriador}"  >
                                                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                             </h:outputText>
                                         </p:column>                                                            
-                                        <p:column headerText="Dt. Emissao" sortBy="#{p.dataEmissao}">
-                                            <h:outputText value="#{p.dataEmissao}"  title="#{p.dataEmissao}"  >
+                                        <p:column headerText="Dt. Emissao" sortBy="#{l.dataEmissao}">
+                                            <h:outputText value="#{l.dataEmissao}"  title="#{l.dataEmissao}"  >
                                                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                             </h:outputText>
                                         </p:column>
 
-                                        <p:column headerText="Dt. Validade" sortBy="#{p.validadeLicencaTemporaria}">
-                                            <h:outputText value="#{p.validadeLicencaTemporaria}"  title="#{p.validadeLicencaTemporaria}"  >
+                                        <p:column headerText="Dt. Validade" sortBy="#{l.validadeLicencaTemporaria}">
+                                            <h:outputText value="#{l.validadeLicencaTemporaria}"  title="#{l.validadeLicencaTemporaria}"  >
                                                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                             </h:outputText>
                                         </p:column>
@@ -280,11 +326,11 @@
                         </div>  
 
                         <div>                              
-                            <p:accordionPanel activeIndex="null" rendered="#{nvEmbarcacaoController.nvEmbarcacao.seqNvEmbarcacao != null}">
-                                <p:tab title="ANEXOS"  >
+                            <p:accordionPanel activeIndex="null" rendered='#{nvEmbarcacaoConsultaController.tela ==1}'>
+                                <p:tab title="DOCUMENTOS DA EMBARCACÃO"  >
 
 
-                                    <p:dataTable id="tblAnexos" var="a" rowIndexVar="index" value="#{nvEmbarcacaoController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
+                                    <p:dataTable id="tblAnexos" var="a" rowIndexVar="index" value="#{nvEmbarcacaoConsultaController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
                                         <p:column headerText="ID" width="8%" style="text-align: center">
                                             <p:outputLabel value="#{index+1}"/>
                                         </p:column>
@@ -297,9 +343,19 @@
                                         <p:column headerText="Origem" style="text-align: center">
                                             <p:outputLabel value="#{a.origem}"/>
                                         </p:column>
+                                        <p:column headerText="Dt. Emissao do Documento" sortBy="#{a.dataEmissao}">
+                                            <h:outputText value="#{a.dataEmissao}"  title="#{a.dataEmissao}"  >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Dt. Validade do Documento" sortBy="#{a.dataValidade}">
+                                            <h:outputText value="#{a.dataValidade}"  title="#{a.dataValidade}"  >
+                                            <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>                                        
                                         <p:column headerText="Download" width="8%" style="text-align: center" >
-                                            <p:commandButton actionListener="#{nvEmbarcacaoController.download(a)}" onclick="this.form.target = '_blank'" style="width: 50px" ajax="false"  icon="fa fa-arrow-circle-down white">
-                                                <p:fileDownload value="#{nvEmbarcacaoController.fileDownload}" />
+                                            <p:commandButton actionListener="#{nvEmbarcacaoConsultaController.download(a)}" onclick="this.form.target = '_blank'" style="width: 50px" ajax="false"  icon="fa fa-arrow-circle-down white">
+                                                <p:fileDownload value="#{nvEmbarcacaoConsultaController.fileDownload}" />
                                             </p:commandButton>
                                         </p:column>
 
@@ -315,7 +371,7 @@
                         <p:messages id="messages2"  autoUpdate="true" closable="true" />
 
                         <p:panelGrid   columns="8"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-0,ui-grid-col-0,ui-grid-col-0,ui-grid-col-0" >
-                            <p:commandButton value="Voltar" immediate="true" actionListener="#{nvEmbarcacaoController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
+                            <p:commandButton value="Voltar" immediate="true" actionListener="#{nvEmbarcacaoConsultaController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
                         </p:panelGrid>
                     </h:form>
 

@@ -44,11 +44,11 @@
 /*    */   {
 /* 45 */     ComissaoDAO dao = new ComissaoDAO();
 /* 46 */     List<Comissao> listaComissao = new ArrayList();
-/* 47 */     ClausulaWhere condicao = new ClausulaWhere();
+/* 47      ClausulaWhere condicao = new ClausulaWhere();
+   
+/    condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "comissao.seq_usuario", GeneroCondicaoWhere.igual, String.valueOf(pSeqUsuario), TipoCondicaoWhere.Numero);*/
 /*    */     
-/* 49 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "comissao.seq_usuario", GeneroCondicaoWhere.igual, String.valueOf(pSeqUsuario), TipoCondicaoWhere.Numero);
-/*    */     
-/* 51 */     listaComissao = dao.listar(condicao);
+/* 51 */     listaComissao = dao.listar();
 /* 52 */     return listaComissao;
 /*    */   }
 /*    */   
@@ -60,7 +60,7 @@
 /* 60 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "comissao.seq_usuario", GeneroCondicaoWhere.igual, String.valueOf(pSeqUsuario), TipoCondicaoWhere.Numero);
 /* 61 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "comissao.disponivel_app", GeneroCondicaoWhere.igual, "Sim", TipoCondicaoWhere.Texto);
 /*    */     
-/* 63 */     listaComissao = dao.listar(condicao);
+/* 63 */     listaComissao = dao.listar();
 /* 64 */     return listaComissao;
 /*    */   }
 /*    */   
@@ -70,8 +70,3 @@
 /*    */   }
 /*    */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Comissao/ComissaoService.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

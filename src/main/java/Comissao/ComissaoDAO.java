@@ -110,11 +110,11 @@
 /* 110 */     return comissao;
 /*     */   }
 /*     */   
-/*     */   public List<Comissao> listar(ClausulaWhere sClausula) {
+/*     */   public List<Comissao> listar() {
 /*     */     try {
 /* 115 */       Conexao conexao = new Conexao();
 /* 116 */       Connection conn = Conexao.getConnection();
-/* 117 */       String sql = "SELECT * FROM COMISSAO" + sClausula.montarsClausula();
+/* 117 */       String sql = "SELECT * FROM COMISSAO" ;
 /* 118 */       System.out.println(sql);
 /*     */       
 /* 120 */       List<Comissao> listaComissao = new ArrayList();
@@ -168,8 +168,3 @@
 /*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Comissao/ComissaoDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

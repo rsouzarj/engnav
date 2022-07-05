@@ -12,14 +12,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class ParceiroDAO
 /*     */ {
 /*     */   public Parceiro inserir(Parceiro parceiro)
@@ -30,7 +23,7 @@
 /*  30 */       parceiro.setSeqParceiro(seq);
 /*  31 */       Conexao conexao = new Conexao();
 /*  32 */       Connection conn = Conexao.getConnection();
-/*  33 */       String sql = "insert into PARCEIRO (SEQ_PARCEIRO,NOME,TIPO,DOCUMENTO,FANTASIA,LOGRADOURO,NUMERO,COMPLEMENTO,BAIRRO,CIDADE,UF,CEP,TELEFONE_1,TELEFONE_2,TELEFONE_3,TELEFONE_4,EMAIL,PESSOA_CONTATO,SITUACAO,SEQ_EMPRESA,SEQ_TIPO_PARCEIRO,DATA_CADASTRO, codigo, data_nascimento, atividade_principal, chave_Origem, tag1, tag2, tag3, tag4, tag5, seq_parceiro_inclusao, ie, im,longitude, latitude,seq_usuario, seq_tabela_preco ) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+/*  33 */       String sql = "insert into PARCEIRO (SEQ_PARCEIRO,NOME,TIPO,DOCUMENTO,FANTASIA,LOGRADOURO,NUMERO,COMPLEMENTO,BAIRRO,CIDADE,UF,CEP,TELEFONE_1,TELEFONE_2,TELEFONE_3,TELEFONE_4,EMAIL,PESSOA_CONTATO,SITUACAO,SEQ_EMPRESA,SEQ_TIPO_PARCEIRO,DATA_CADASTRO, codigo, data_nascimento, atividade_principal, chave_Origem, tag1, tag2, tag3, tag4, unidade_negocio, seq_parceiro_inclusao, ie, im,longitude, latitude,seq_usuario, seq_tabela_preco, pais, site, grupo, perfil, cargo ) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 /*     */       
 /*     */ 
 /*     */ 
@@ -71,7 +64,7 @@
 /*  71 */       ps.setString(28, parceiro.getTag2());
 /*  72 */       ps.setString(29, parceiro.getTag3());
 /*  73 */       ps.setString(30, parceiro.getTag4());
-/*  74 */       ps.setString(31, parceiro.getTag5());
+/*  74 */       ps.setString(31, parceiro.getUnidadeNegocio());
 /*  75 */       ps.setObject(32, parceiro.getSeqParceiroInclusao(), 1);
 /*  76 */       ps.setString(33, parceiro.getIe());
 /*  77 */       ps.setString(34, parceiro.getIm());
@@ -79,7 +72,11 @@
 /*  79 */       ps.setString(36, parceiro.getLatitude());
 /*  80 */       ps.setObject(37, parceiro.getSeqUsuario(), 1);
 /*  81 */       ps.setObject(38, parceiro.getSeqTabelaPreco(), 1);
-/*     */       
+/*  79 */       ps.setString(39, parceiro.getPais());
+/*     */       ps.setString(40, parceiro.getSite());
+                ps.setString(41, parceiro.getGrupo());
+                ps.setString(42, parceiro.getPerfil());
+                ps.setString(43, parceiro.getCargo());
 /*  83 */       ps.execute();
 /*  84 */       ps.close();
 /*     */     }
@@ -94,14 +91,8 @@
 /*     */     try {
 /*  95 */       Conexao conexao = new Conexao();
 /*  96 */       Connection conn = Conexao.getConnection();
-/*  97 */       String sql = "update PARCEIRO set NOME = ?,TIPO = ?,DOCUMENTO = ?,FANTASIA = ?,LOGRADOURO = ?,NUMERO = ?,COMPLEMENTO = ?,BAIRRO = ?,CIDADE = ?,UF = ?,CEP = ?,TELEFONE_1 = ?,TELEFONE_2 = ?,TELEFONE_3 = ?,TELEFONE_4 = ?,EMAIL = ?,PESSOA_CONTATO = ?,SITUACAO = ?,SEQ_EMPRESA = ?,SEQ_TIPO_PARCEIRO = ?,DATA_CADASTRO = ?, codigo = ?,data_nascimento = ?,atividade_principal = ?,tag1 = ?,tag2 = ?,tag3 = ?,tag4 = ?,tag5 = ?, ie = ?, im = ?, longitude = ?, latitude = ?, seq_usuario = ?, seq_tabela_preco = ?   where SEQ_PARCEIRO = ?";
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+/*  97 */       String sql = "update PARCEIRO set NOME = ?,TIPO = ?,DOCUMENTO = ?,FANTASIA = ?,LOGRADOURO = ?,NUMERO = ?,COMPLEMENTO = ?,BAIRRO = ?,CIDADE = ?,UF = ?,CEP = ?,TELEFONE_1 = ?,TELEFONE_2 = ?,TELEFONE_3 = ?,TELEFONE_4 = ?,EMAIL = ?,PESSOA_CONTATO = ?,SITUACAO = ?,SEQ_EMPRESA = ?,SEQ_TIPO_PARCEIRO = ?,DATA_CADASTRO = ?, codigo = ?,data_nascimento = ?,atividade_principal = ?,tag1 = ?,tag2 = ?,tag3 = ?,tag4 = ?,unidade_negocio = ?, ie = ?, im = ?, longitude = ?, latitude = ?, seq_usuario = ?, seq_tabela_preco = ?, pais = ?, site = ?, grupo = ?, perfil = ?, cargo = ?   where SEQ_PARCEIRO = ?";
+
 /* 105 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
 /* 107 */       ps.setString(1, parceiro.getNome());
@@ -140,14 +131,19 @@
 /* 140 */       ps.setString(26, parceiro.getTag2());
 /* 141 */       ps.setString(27, parceiro.getTag3());
 /* 142 */       ps.setString(28, parceiro.getTag4());
-/* 143 */       ps.setString(29, parceiro.getTag5());
+/* 143 */       ps.setString(29, parceiro.getUnidadeNegocio());
 /* 144 */       ps.setString(30, parceiro.getIe());
 /* 145 */       ps.setString(31, parceiro.getIm());
 /* 146 */       ps.setString(32, parceiro.getStringitude());
 /* 147 */       ps.setString(33, parceiro.getLatitude());
 /* 148 */       ps.setObject(34, parceiro.getSeqUsuario(), 1);
 /* 149 */       ps.setObject(35, parceiro.getSeqTabelaPreco(), 1);
-/* 150 */       ps.setString(36, parceiro.getSeqParceiro());
+/* 150 */       ps.setString(36, parceiro.getPais());
+                ps.setString(37, parceiro.getSite());
+                ps.setString(38, parceiro.getGrupo());
+                ps.setString(39, parceiro.getPerfil());
+                ps.setString(40, parceiro.getCargo());
+/* 150 */       ps.setString(41, parceiro.getSeqParceiro());
 /*     */       
 /* 152 */       ps.execute();
 /* 153 */       ps.close();
@@ -165,16 +161,7 @@
 /* 165 */     Conexao conexao = new Conexao();
 /* 166 */     Connection conn = Conexao.getConnection();
 /* 167 */     String sql = "select \nparceiro.*,\ntipo_parceiro.nome tipo_parceiro \nfrom\nparceiro\ninner join tipo_parceiro on tipo_parceiro.seq_tipo_parceiro = parceiro.seq_tipo_parceiro and tipo_parceiro.seq_empresa = parceiro.seq_empresa \n" + sClausula.montarsClausula() + " order by parceiro.nome asc";
-/*     */     
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 178 */     List<Parceiro> listaParceiro = new ArrayList();
 /*     */     try
 /*     */     {
@@ -217,10 +204,15 @@
 /* 217 */         parceiro.setTag2(rs.getString("tag2"));
 /* 218 */         parceiro.setTag3(rs.getString("tag3"));
 /* 219 */         parceiro.setTag4(rs.getString("tag4"));
-/* 220 */         parceiro.setTag5(rs.getString("tag5"));
+/* 220 */         parceiro.setUnidadeNegocio(rs.getString("unidade_negocio"));
 /* 221 */         parceiro.setSeqParceiroInclusao(rs.getString("seq_parceiro_inclusao"));
 /* 222 */         parceiro.setSeqUsuario(rs.getString("seq_usuario"));
 /* 223 */         parceiro.setSeqTabelaPreco(rs.getString("seq_tabela_preco"));
+/* 223 */         parceiro.setPais(rs.getString("pais"));
+                  parceiro.setSite(rs.getString("site"));
+                  parceiro.setGrupo(rs.getString("grupo"));
+                  parceiro.setPerfil(rs.getString("perfil"));
+                  parceiro.setCargo(rs.getString("cargo"));
 /* 224 */         listaParceiro.add(parceiro);
 /*     */       }
 /*     */       
@@ -240,18 +232,7 @@
 /* 240 */     Conexao conexao = new Conexao();
 /* 241 */     Connection conn = Conexao.getConnection();
 /* 242 */     String sql = "select \nparceiro.*,\ntipo_parceiro.nome tipo_parceiro \nfrom\nparceiro\ninner join tipo_parceiro on tipo_parceiro.seq_tipo_parceiro = parceiro.seq_tipo_parceiro and tipo_parceiro.seq_empresa = parceiro.seq_empresa  and tipo_parceiro.PORTAL_COMERCIAL = 'Sim'\ninner join parceiro_vinculo on parceiro_vinculo.seq_parceiro = parceiro.seq_parceiro\ninner join empresa on empresa.seq_empresa = parceiro.seq_empresa and parceiro_vinculo.SEQ_TIPO_VINCULO = empresa.SEQ_TIPO_VINCULO_VENDEDOR \ninner join usuario on usuario.seq_parceiro = parceiro_vinculo.seq_parceiro_vinculado" + sClausula.montarsClausula();
-/*     */     
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 255 */     List<Parceiro> listaParceiro = new ArrayList();
 /*     */     try
 /*     */     {
@@ -295,8 +276,10 @@
 /* 295 */         parceiro.setTag2(rs.getString("tag2"));
 /* 296 */         parceiro.setTag3(rs.getString("tag3"));
 /* 297 */         parceiro.setTag4(rs.getString("tag4"));
-/* 298 */         parceiro.setTag5(rs.getString("tag5"));
+/* 298 */         parceiro.setUnidadeNegocio(rs.getString("unidade_negocio"));
 /* 299 */         parceiro.setSeqParceiroInclusao(rs.getString("seq_parceiro_inclusao"));
+                  parceiro.setGrupo(rs.getString("grupo"));
+                  parceiro.setPerfil(rs.getString("perfil"));
 /*     */         
 /* 301 */         listaParceiro.add(parceiro);
 /*     */       }
@@ -310,6 +293,75 @@
 /* 310 */       System.out.println(ex.getMessage()); }
 /* 311 */     return null;
 /*     */   }
+
+            public List<Parceiro> listartipo(ClausulaWhere sClausula)
+/*     */   {
+/* 165 */     Conexao conexao = new Conexao();
+/* 166 */     Connection conn = Conexao.getConnection();
+/* 167 */     String sql = "select \nparceiro.*,\ntipo_parceiro.nome tipo_parceiro \nfrom\nparceiro\ninner join tipo_parceiro on tipo_parceiro.seq_tipo_parceiro = parceiro.seq_tipo_parceiro and tipo_parceiro.seq_empresa = parceiro.seq_empresa  and tipo_parceiro.seq_tipo_parceiro in (0,641)\n" + sClausula.montarsClausula() + " order by parceiro.nome asc";
+
+/* 178 */     List<Parceiro> listaParceiro = new ArrayList();
+/*     */     try
+/*     */     {
+/* 181 */       PreparedStatement ps = conn.prepareStatement(sql);
+/* 182 */       ResultSet rs = ps.executeQuery();
+/* 183 */       while (rs.next()) {
+/* 184 */         Parceiro parceiro = new Parceiro();
+/* 185 */         parceiro.setSeqParceiro(rs.getString("SEQ_PARCEIRO"));
+/* 186 */         parceiro.setNome(rs.getString("NOME"));
+/* 187 */         parceiro.setTipo(rs.getString("TIPO"));
+/* 188 */         parceiro.setDocumento(rs.getString("DOCUMENTO"));
+/* 189 */         parceiro.setFantasia(rs.getString("FANTASIA"));
+/* 190 */         parceiro.setLogradouro(rs.getString("LOGRADOURO"));
+/* 191 */         parceiro.setNumero(rs.getString("NUMERO"));
+/* 192 */         parceiro.setComplemento(rs.getString("COMPLEMENTO"));
+/* 193 */         parceiro.setBairro(rs.getString("BAIRRO"));
+/* 194 */         parceiro.setCidade(rs.getString("CIDADE"));
+/* 195 */         parceiro.setUf(rs.getString("UF"));
+/* 196 */         parceiro.setCep(rs.getString("CEP"));
+/* 197 */         parceiro.setTelefone1(rs.getString("TELEFONE_1"));
+/* 198 */         parceiro.setTelefone2(rs.getString("TELEFONE_2"));
+/* 199 */         parceiro.setTelefone3(rs.getString("TELEFONE_3"));
+/* 200 */         parceiro.setTelefone4(rs.getString("TELEFONE_4"));
+/* 201 */         parceiro.setEmail(rs.getString("EMAIL"));
+/* 202 */         parceiro.setPessoaContato(rs.getString("PESSOA_CONTATO"));
+/* 203 */         parceiro.setSituacao(rs.getString("SITUACAO"));
+/* 204 */         parceiro.setSeqEmpresa(rs.getString("SEQ_EMPRESA"));
+/* 205 */         parceiro.setSeqTipoParceiro(rs.getString("SEQ_TIPO_PARCEIRO"));
+/* 206 */         parceiro.setDataCadastro(rs.getDate("DATA_CADASTRO"));
+/* 207 */         parceiro.setCodigo(rs.getString("CODIGO"));
+/* 208 */         parceiro.setTipoParceiro(rs.getString("tipo_parceiro"));
+/* 209 */         parceiro.setDataNascimento(rs.getDate("DATA_NASCIMENTO"));
+/* 210 */         parceiro.setAtividadePrincipal(rs.getString("atividade_principal"));
+/* 211 */         parceiro.setChaveOrigem(rs.getString("chave_origem"));
+/* 212 */         parceiro.setIe(rs.getString("ie"));
+/* 213 */         parceiro.setIm(rs.getString("im"));
+/* 214 */         parceiro.setStringitude(rs.getString("longitude"));
+/* 215 */         parceiro.setLatitude(rs.getString("latitude"));
+/* 216 */         parceiro.setTag1(rs.getString("tag1"));
+/* 217 */         parceiro.setTag2(rs.getString("tag2"));
+/* 218 */         parceiro.setTag3(rs.getString("tag3"));
+/* 219 */         parceiro.setTag4(rs.getString("tag4"));
+/* 220 */         parceiro.setUnidadeNegocio(rs.getString("unidade_negocio"));
+/* 221 */         parceiro.setSeqParceiroInclusao(rs.getString("seq_parceiro_inclusao"));
+/* 222 */         parceiro.setSeqUsuario(rs.getString("seq_usuario"));
+/* 223 */         parceiro.setSeqTabelaPreco(rs.getString("seq_tabela_preco"));
+/* 223 */         parceiro.setPais(rs.getString("pais"));
+                  parceiro.setGrupo(rs.getString("grupo"));
+                  parceiro.setPerfil(rs.getString("perfil"));
+/* 224 */         listaParceiro.add(parceiro);
+/*     */       }
+/*     */       
+/* 227 */       ps.execute();
+/* 228 */       ps.close();
+/*     */       
+/* 230 */       return listaParceiro;
+/*     */     } catch (SQLException ex) {
+/* 232 */       Logger.getLogger(ParceiroDAO.class.getName()).log(Level.SEVERE, null, ex);
+/* 233 */       System.out.println(ex.getMessage()); }
+/* 234 */     return null;
+/*     */   }
+
 /*     */   
 /*     */   public boolean deletar(String pSeqEmpresa, String pCodigo)
 /*     */   {
@@ -333,8 +385,3 @@
 /*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Parceiro/ParceiroDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

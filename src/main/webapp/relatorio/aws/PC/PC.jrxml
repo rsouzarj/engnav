@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PC" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98e8ca44-5274-4f93-bf5e-c5fdd476a53d">
-	<property name="ireport.zoom" value="2.0"/>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PC" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="98e8ca44-5274-4f93-bf5e-c5fdd476a53d">
+	<property name="ireport.zoom" value="0.7009877989627847"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="48"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -144,7 +144,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 	<background>
 		<band height="802">
 			<frame>
-				<reportElement x="0" y="0" width="555" height="802" uuid="13065afd-0967-4c37-96c1-4c55d1ad5e4a"/>
+				<reportElement x="0" y="0" width="802" height="802" uuid="13065afd-0967-4c37-96c1-4c55d1ad5e4a"/>
 				<box>
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -158,7 +158,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 	<detail>
 		<band height="190" splitType="Stretch">
 			<staticText>
-				<reportElement mode="Opaque" x="137" y="10" width="321" height="35" backcolor="#A9C7E6" uuid="6e9f1d99-c90b-4e4b-89aa-cb36f90d45ce"/>
+				<reportElement mode="Opaque" x="272" y="8" width="321" height="35" backcolor="#A9C7E6" uuid="6e9f1d99-c90b-4e4b-89aa-cb36f90d45ce"/>
 				<box>
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -172,7 +172,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 				<text><![CDATA[PRESTAÇÃO DE CONTAS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="56" width="107" height="15" backcolor="#DEDDDD" uuid="52dadeb5-931c-481c-b06d-9f1cf86773c7"/>
+				<reportElement mode="Opaque" x="135" y="54" width="107" height="15" backcolor="#DEDDDD" uuid="52dadeb5-931c-481c-b06d-9f1cf86773c7"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -180,13 +180,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[COLABORADOR:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="71" width="104" height="15" backcolor="#DEDDDD" uuid="e933465f-d299-44cd-83c0-1b9771f321c7"/>
+				<reportElement mode="Opaque" x="135" y="69" width="104" height="15" backcolor="#DEDDDD" uuid="e933465f-d299-44cd-83c0-1b9771f321c7"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -194,13 +194,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[PERÍODO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="86" width="107" height="15" backcolor="#DEDDDD" uuid="89598c3c-fbf6-414f-943e-328b5b7993f2"/>
+				<reportElement mode="Opaque" x="135" y="84" width="107" height="15" backcolor="#DEDDDD" uuid="89598c3c-fbf6-414f-943e-328b5b7993f2"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -208,13 +208,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[CLIENTE:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="101" width="107" height="15" backcolor="#DEDDDD" uuid="3ee2a585-9050-4f5d-9c78-0b1c373e9780"/>
+				<reportElement mode="Opaque" x="135" y="99" width="107" height="15" backcolor="#DEDDDD" uuid="3ee2a585-9050-4f5d-9c78-0b1c373e9780"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -222,13 +222,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[EQUIP / EMBARC:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="0" y="116" width="107" height="15" backcolor="#DEDDDD" uuid="41f4a28f-7947-49b2-b265-761fd3a8bc82"/>
+				<reportElement mode="Opaque" x="135" y="114" width="107" height="15" backcolor="#DEDDDD" uuid="41f4a28f-7947-49b2-b265-761fd3a8bc82"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -236,13 +236,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[LOCAL DE SERVIÇO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="329" y="56" width="150" height="15" backcolor="#DEDDDD" uuid="3e98aae0-ae95-4312-9b52-fddf6923741f"/>
+				<reportElement mode="Opaque" x="464" y="54" width="150" height="15" backcolor="#DEDDDD" uuid="3e98aae0-ae95-4312-9b52-fddf6923741f"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -250,13 +250,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[ORDEM DE SERVIÇO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="329" y="86" width="150" height="15" backcolor="#DEDDDD" uuid="f9251125-0bdc-425f-ac19-f6c5aef42b1a"/>
+				<reportElement mode="Opaque" x="464" y="84" width="150" height="15" backcolor="#DEDDDD" uuid="f9251125-0bdc-425f-ac19-f6c5aef42b1a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -264,13 +264,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[VALOR DO FUNDO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="329" y="101" width="150" height="15" backcolor="#DEDDDD" uuid="4957cbfb-60f6-42f9-8500-cebd2a334d9a"/>
+				<reportElement mode="Opaque" x="464" y="99" width="150" height="15" backcolor="#DEDDDD" uuid="4957cbfb-60f6-42f9-8500-cebd2a334d9a"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -278,13 +278,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[TOTAL DA MOVIMENTAÇÃO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="329" y="116" width="150" height="15" backcolor="#7A7137" uuid="f75a8db7-1b91-4c91-9372-31d55d4dc0b7"/>
+				<reportElement mode="Opaque" x="464" y="114" width="150" height="15" backcolor="#7A7137" uuid="f75a8db7-1b91-4c91-9372-31d55d4dc0b7"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -292,13 +292,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[SALDO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="63" y="71" width="55" height="15" backcolor="#7A7137" uuid="aa282324-8d34-4959-96b0-3c0f00a35d08"/>
+				<reportElement mode="Opaque" x="198" y="69" width="55" height="15" backcolor="#7A7137" uuid="aa282324-8d34-4959-96b0-3c0f00a35d08"/>
 				<box>
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -306,13 +306,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[INÍCIO:]]></text>
 			</staticText>
 			<staticText>
-				<reportElement mode="Opaque" x="189" y="71" width="58" height="15" backcolor="#7A7137" uuid="f72d7c3d-18af-4973-ae39-9460b0421520"/>
+				<reportElement mode="Opaque" x="324" y="69" width="58" height="15" backcolor="#7A7137" uuid="f72d7c3d-18af-4973-ae39-9460b0421520"/>
 				<box>
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -320,13 +320,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement>
 					<font fontName="Arial" isBold="false" pdfFontName="Helvetica-Bold" isPdfEmbedded="false"/>
 				</textElement>
 				<text><![CDATA[FINAL:]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="107" y="56" width="213" height="15" uuid="df51187e-5c5c-4d60-853d-5b0bfd7bf8b9"/>
+				<reportElement x="242" y="54" width="213" height="15" uuid="df51187e-5c5c-4d60-853d-5b0bfd7bf8b9"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -334,13 +334,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NOMECOLABORADOR}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="107" y="86" width="213" height="15" uuid="aecb3d14-27da-4253-acff-338853d1e8b5"/>
+				<reportElement x="242" y="84" width="213" height="15" uuid="aecb3d14-27da-4253-acff-338853d1e8b5"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -348,13 +348,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NOMEPARCEIRO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="107" y="101" width="213" height="15" uuid="bf461e7a-279a-48ba-8b9e-351277421302"/>
+				<reportElement x="242" y="99" width="213" height="15" uuid="bf461e7a-279a-48ba-8b9e-351277421302"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -362,13 +362,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NOMEEQUIPAMENTO} == null? ($F{NOMEEMBARCACAO} == null?"-": $F{NOMEEMBARCACAO} ): $F{NOMEEQUIPAMENTO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="107" y="116" width="213" height="15" uuid="a1392276-f894-4ca1-a4b0-750b6a03002c"/>
+				<reportElement x="242" y="114" width="213" height="15" uuid="a1392276-f894-4ca1-a4b0-750b6a03002c"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -376,13 +376,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{LOCAL_SERVICO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="479" y="56" width="69" height="15" uuid="fc69d48d-3309-4b9c-b889-9a0b676aeb96"/>
+				<reportElement x="614" y="54" width="69" height="15" uuid="fc69d48d-3309-4b9c-b889-9a0b676aeb96"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -390,13 +390,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{NUMEROOS}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="479" y="86" width="69" height="15" uuid="204f0f7d-85a4-4366-96f1-15d16f16557d"/>
+				<reportElement x="614" y="84" width="69" height="15" uuid="204f0f7d-85a4-4366-96f1-15d16f16557d"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -404,13 +404,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{VALOR_RECEBIDO}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="479" y="101" width="69" height="15" uuid="51e4ae1b-7224-460b-a253-c9deb0026da6"/>
+				<reportElement x="614" y="99" width="69" height="15" uuid="51e4ae1b-7224-460b-a253-c9deb0026da6"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -418,13 +418,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{VALOR_TOTAL_MOVIMENTACAO}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement x="479" y="116" width="69" height="15" uuid="c7d7c1b6-12cc-4451-8c86-aa3ac26c88e4"/>
+				<reportElement x="614" y="114" width="69" height="15" uuid="c7d7c1b6-12cc-4451-8c86-aa3ac26c88e4"/>
 				<box leftPadding="4">
 					<pen lineWidth="0.75"/>
 					<topPen lineWidth="0.75"/>
@@ -432,13 +432,13 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement verticalAlignment="Middle">
+				<textElement>
 					<font size="7"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{VALOR}]]></textFieldExpression>
 			</textField>
 			<componentElement>
-				<reportElement key="table 2" style="table 2" positionType="Float" x="0" y="154" width="555" height="28" uuid="a9a8446f-e389-4354-9efb-bca2c8542b0a"/>
+				<reportElement key="table 2" style="table 2" positionType="Float" x="0" y="154" width="721" height="28" uuid="a9a8446f-e389-4354-9efb-bca2c8542b0a"/>
 				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
 					<datasetRun subDataset="financeiro_item_pc" uuid="3fbc845c-e39f-4afb-b210-3a95b4f7b630">
 						<datasetParameter name="pSeqFinanceiro">
@@ -446,11 +446,11 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						</datasetParameter>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
-					<jr:column width="30" uuid="19ce2a73-1818-40e9-8ada-240baa8a67b6">
+					<jr:column width="24" uuid="19ce2a73-1818-40e9-8ada-240baa8a67b6">
 						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="30" height="19" uuid="464e8589-065e-4aa2-9dba-3b03ae06fbad"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="24" height="19" uuid="464e8589-065e-4aa2-9dba-3b03ae06fbad"/>
+								<textElement textAlignment="Center">
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[ITEM]]></text>
@@ -458,7 +458,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						</jr:columnHeader>
 						<jr:columnFooter height="17" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="30" height="17" backcolor="#CAE4FF" uuid="66b4360d-3b88-44de-8c7f-cffa0db16150"/>
+								<reportElement mode="Opaque" x="0" y="0" width="24" height="17" backcolor="#CAE4FF" uuid="66b4360d-3b88-44de-8c7f-cffa0db16150"/>
 								<box>
 									<topPen lineWidth="0.75"/>
 									<bottomPen lineWidth="0.5"/>
@@ -466,10 +466,10 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</jr:columnFooter>
-						<jr:detailCell style="table 2_TD" height="19" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="30" height="19" uuid="594eb82e-c961-4089-909e-71f81eafc8e9"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="24" height="19" uuid="594eb82e-c961-4089-909e-71f81eafc8e9"/>
+								<textElement textAlignment="Center">
 									<font size="8" pdfFontName="Times-Bold"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
@@ -480,7 +480,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="63" height="19" uuid="178573d7-8524-4605-94d8-c4ae651893ce"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Center">
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[DATA]]></text>
@@ -496,10 +496,10 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</jr:columnFooter>
-						<jr:detailCell style="table 2_TD" height="19" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField pattern="dd/MM/yyyy">
 								<reportElement x="0" y="0" width="63" height="19" uuid="cc0ddbc8-fbed-42e5-9b8f-086498792194"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Center">
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{DATA}]]></textFieldExpression>
@@ -510,7 +510,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="99" height="19" uuid="79d652b6-4a6e-4e80-802c-679faf096930"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement>
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[DOCUMENTO]]></text>
@@ -526,10 +526,10 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</jr:columnFooter>
-						<jr:detailCell style="table 2_TD" height="19" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="99" height="19" uuid="2382dcf4-54ab-47d8-b988-80a2f328addb"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement>
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
@@ -540,7 +540,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="57" height="19" uuid="bcadb9f7-295a-48c0-9ece-3ef423bec899"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Center">
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[Nº. DOC]]></text>
@@ -556,10 +556,10 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</jr:columnFooter>
-						<jr:detailCell style="table 2_TD" height="19" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="57" height="19" uuid="7cd7cbaf-442c-4e59-9eee-81cf48b8a3fc"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Center">
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{NUMERO_DOCUMENTO}]]></textFieldExpression>
@@ -570,7 +570,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
 							<staticText>
 								<reportElement x="0" y="0" width="69" height="19" uuid="715ece3a-c223-437b-8302-e9bfd3fffb04"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Center">
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[CNPJ/CPF]]></text>
@@ -583,27 +583,27 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 									<topPen lineWidth="0.75"/>
 									<bottomPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement>
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[TOTAL]]></text>
 							</staticText>
 						</jr:columnFooter>
-						<jr:detailCell style="table 2_TD" height="19" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
 								<reportElement x="0" y="0" width="69" height="19" uuid="41cfea1e-9713-413a-b718-3efed51d5b2c"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement textAlignment="Center">
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{CNPJ_CPF}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="b97dc3fb-4d2f-45fa-98c0-274e3418cf2e">
+					<jr:column width="163" uuid="b97dc3fb-4d2f-45fa-98c0-274e3418cf2e">
 						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="19" uuid="cfad24c7-722e-4afc-adf2-8e6f262407b4"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="136" height="19" uuid="cfad24c7-722e-4afc-adf2-8e6f262407b4"/>
+								<textElement>
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[RAZÃO SOCIAL]]></text>
@@ -611,7 +611,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						</jr:columnHeader>
 						<jr:columnFooter height="17" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="90" height="17" backcolor="#CAE4FF" uuid="b7bdd058-c980-4069-88fe-120b5a406dbc"/>
+								<reportElement mode="Opaque" x="0" y="0" width="163" height="17" backcolor="#CAE4FF" uuid="b7bdd058-c980-4069-88fe-120b5a406dbc"/>
 								<box>
 									<topPen lineWidth="0.75"/>
 									<bottomPen lineWidth="0.5"/>
@@ -619,21 +619,21 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</jr:columnFooter>
-						<jr:detailCell style="table 2_TD" height="19" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="19" uuid="9666f093-13a5-4219-b5b7-b68896e71c12"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="163" height="19" uuid="9666f093-13a5-4219-b5b7-b68896e71c12"/>
+								<textElement>
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{RAZAO_SOCIAL}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="90" uuid="955ca02b-45ff-4330-acf9-596f0eaba78b">
+					<jr:column width="216" uuid="955ca02b-45ff-4330-acf9-596f0eaba78b">
 						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="90" height="19" uuid="53d33897-43d8-496b-8834-5bd67c72713c"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="76" height="19" uuid="53d33897-43d8-496b-8834-5bd67c72713c"/>
+								<textElement>
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[DESCRIÇÃO]]></text>
@@ -641,7 +641,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						</jr:columnHeader>
 						<jr:columnFooter height="17" rowSpan="1">
 							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="90" height="17" backcolor="#CAE4FF" uuid="3ac86a5c-800d-4d11-b12a-df1fa63f621e"/>
+								<reportElement mode="Opaque" x="0" y="0" width="216" height="17" backcolor="#CAE4FF" uuid="3ac86a5c-800d-4d11-b12a-df1fa63f621e"/>
 								<box>
 									<topPen lineWidth="0.75"/>
 									<bottomPen lineWidth="0.5"/>
@@ -649,21 +649,21 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 								<text><![CDATA[]]></text>
 							</staticText>
 						</jr:columnFooter>
-						<jr:detailCell style="table 2_TD" height="19" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField>
-								<reportElement x="0" y="0" width="90" height="19" uuid="276b2617-6b5e-408c-8392-69b98934a8e7"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="216" height="19" uuid="276b2617-6b5e-408c-8392-69b98934a8e7"/>
+								<textElement>
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{DESCRICAO}]]></textFieldExpression>
 							</textField>
 						</jr:detailCell>
 					</jr:column>
-					<jr:column width="57" uuid="3dd312bf-d3a2-47a9-b79f-91d439cfa5a5">
+					<jr:column width="54" uuid="3dd312bf-d3a2-47a9-b79f-91d439cfa5a5">
 						<jr:columnHeader style="table 2_CH" height="19" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="57" height="19" uuid="2ee2bc8b-6c07-4b12-9a30-76c91d3be475"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="54" height="19" uuid="2ee2bc8b-6c07-4b12-9a30-76c91d3be475"/>
+								<textElement>
 									<font pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<text><![CDATA[VALOR]]></text>
@@ -671,22 +671,22 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 						</jr:columnHeader>
 						<jr:columnFooter height="17" rowSpan="1">
 							<textField pattern="#,##0.00">
-								<reportElement mode="Opaque" x="0" y="0" width="57" height="17" backcolor="#CCCCCC" uuid="90b16a50-478d-4803-ae2c-65b9ee628db1"/>
+								<reportElement mode="Opaque" x="0" y="0" width="54" height="17" backcolor="#CCCCCC" uuid="90b16a50-478d-4803-ae2c-65b9ee628db1"/>
 								<box>
 									<topPen lineWidth="0.75"/>
 									<leftPen lineWidth="0.75"/>
 									<bottomPen lineWidth="0.5"/>
 								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<textElement>
 									<font size="8" pdfFontName="Helvetica-Bold"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$V{VALOR_TOTAL}]]></textFieldExpression>
 							</textField>
 						</jr:columnFooter>
-						<jr:detailCell style="table 2_TD" height="19" rowSpan="1">
+						<jr:detailCell style="table 2_TD" height="20" rowSpan="1">
 							<textField pattern="#,##0.00">
-								<reportElement x="0" y="0" width="57" height="19" uuid="8de2f4f5-4d1d-470e-bbc2-ba052df2ffb8"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
+								<reportElement x="0" y="0" width="54" height="19" uuid="8de2f4f5-4d1d-470e-bbc2-ba052df2ffb8"/>
+								<textElement>
 									<font size="8"/>
 								</textElement>
 								<textFieldExpression><![CDATA[$F{VALOR}]]></textFieldExpression>
@@ -696,18 +696,18 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 				</jr:table>
 			</componentElement>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="118" y="71" width="71" height="15" uuid="4bca0540-6580-4f40-ab7a-3169774769f3"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<reportElement x="253" y="69" width="71" height="15" uuid="4bca0540-6580-4f40-ab7a-3169774769f3"/>
+				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DATA_PERIODO_INICIO}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
-				<reportElement x="247" y="71" width="73" height="15" uuid="0aa543a1-de5b-43ea-847b-d8f1a9b413d8"/>
+				<reportElement x="382" y="69" width="73" height="15" uuid="0aa543a1-de5b-43ea-847b-d8f1a9b413d8"/>
 				<box>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
+				<textElement>
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DATA_PERIODO_FINAL}]]></textFieldExpression>
@@ -721,67 +721,61 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 	<lastPageFooter>
 		<band height="69">
 			<staticText>
-				<reportElement x="25" y="24" width="150" height="15" uuid="230cca2c-20b4-44ae-81bc-2bd6f74c2877"/>
+				<reportElement x="152" y="24" width="150" height="15" uuid="230cca2c-20b4-44ae-81bc-2bd6f74c2877"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[EXECUTOR DA DESPESA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="197" y="24" width="150" height="15" uuid="2e0866c3-5557-4b9b-867f-e5eca875998d"/>
+				<reportElement x="324" y="24" width="150" height="15" uuid="2e0866c3-5557-4b9b-867f-e5eca875998d"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<text><![CDATA[DIRETORIA]]></text>
+				<text><![CDATA[APROVADOR]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="373" y="24" width="150" height="15" uuid="f7e62175-75ce-49fc-b773-4d5e09e9e812"/>
+				<reportElement x="500" y="24" width="150" height="15" uuid="f7e62175-75ce-49fc-b773-4d5e09e9e812"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
 				<text><![CDATA[FINANCEIRO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="25" y="39" width="150" height="25" uuid="c404701e-6fcb-48c7-abf5-aaab7eb72c29"/>
+				<reportElement x="152" y="39" width="150" height="25" uuid="c404701e-6fcb-48c7-abf5-aaab7eb72c29"/>
 				<box bottomPadding="10">
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<text><![CDATA[DATA:  ___/___/_____]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="197" y="39" width="150" height="25" uuid="e348399b-8047-4cad-b5eb-c07ee67fbbd6"/>
+				<reportElement x="324" y="39" width="150" height="25" uuid="e348399b-8047-4cad-b5eb-c07ee67fbbd6"/>
 				<box bottomPadding="10">
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<text><![CDATA[DATA:  ___/___/_____]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="373" y="39" width="150" height="25" uuid="7730c512-335c-4cbc-9332-58529e23394b"/>
+				<reportElement x="500" y="39" width="150" height="25" uuid="7730c512-335c-4cbc-9332-58529e23394b"/>
 				<box bottomPadding="10">
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Bottom"/>
 				<text><![CDATA[DATA:  ___/___/_____]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="25" y="4" width="150" height="20" uuid="8a6eb35c-b866-4514-b0a7-9c13663af652"/>
+				<reportElement x="152" y="4" width="150" height="20" uuid="8a6eb35c-b866-4514-b0a7-9c13663af652"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -790,7 +784,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="197" y="4" width="150" height="20" uuid="3c6ef120-8895-454d-82a4-5bc0f2e6d310"/>
+				<reportElement x="324" y="4" width="150" height="20" uuid="3c6ef120-8895-454d-82a4-5bc0f2e6d310"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -799,7 +793,7 @@ financeiro.seq_financeiro = $P{seqFinanceiro}]]>
 				<text><![CDATA[]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="373" y="4" width="150" height="20" uuid="7f72e040-7bc4-4f98-b68f-f01067b98ca4"/>
+				<reportElement x="500" y="4" width="150" height="20" uuid="7f72e040-7bc4-4f98-b68f-f01067b98ca4"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>

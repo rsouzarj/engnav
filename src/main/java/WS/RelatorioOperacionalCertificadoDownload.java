@@ -202,6 +202,44 @@ public class RelatorioOperacionalCertificadoDownload extends javax.servlet.http.
 			}
 
 		}
+                
+                else if (this.nvCertificado.getStatus().equals("Aprovado")) {
+			parametro.put("pCondicao", "");
+			if (this.nvCertificado.getSeqNvTipoCertificado().equals("201")) {
+				//feito
+				caminho = "/relatorio/CERTIFICADO HELIDEQUE/RH.jasper";
+			}
+                        else if (this.nvCertificado.getSeqNvTipoCertificado().equals("202")) {
+				//feito
+				caminho =  "/relatorio/CERTIFICADO HELIDEQUE/RTPH.jasper";
+			}
+                        else if (this.nvCertificado.getSeqNvTipoCertificado().equals("203")) {
+				//feito
+				caminho =  "/relatorio/CERTIFICADO HELIDEQUE/RB.jasper";
+			}
+                        else if (this.nvCertificado.getSeqNvTipoCertificado().equals("204")) {
+				//feito
+				caminho =  "/relatorio/CERTIFICADO HELIDEQUE/CA.jasper";
+			}
+                        else if (this.nvCertificado.getSeqNvTipoCertificado().equals("205")) {
+				//feito
+				caminho =  "/relatorio/CERTIFICADO HELIDEQUE/SC.jasper";
+			}
+                        else if (this.nvCertificado.getSeqNvTipoCertificado().equals("206")) {
+				//feito
+				caminho =  "/relatorio/CERTIFICADO HELIDEQUE/MCTAP.jasper";
+			}
+                       else {
+				PrintWriter out = response.getWriter();
+		        response.setContentType("text/plain");
+		        response.setCharacterEncoding("UTF-8");
+		        out.print("Modelo de certificado definitivo não encontrado!");
+		        out.flush();
+		        return;
+			}
+                }
+                
+                
 		else if (this.nvCertificado.getStatus().equals("Condicional")) {
 			parametro.put("pCondicao", "(CONDICIONAL)");
 

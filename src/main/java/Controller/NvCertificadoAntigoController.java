@@ -778,7 +778,7 @@ public class NvCertificadoAntigoController {
 		parametro.put("pEmissao",
 				this.util.DataPorExtenso(
 						"Expedido em: " + this.nvCertificado.getLocalEmissao() + ", ",
-						this.nvCertificado.getDataCadastro()));
+						this.nvCertificado.getDataEmissao()));
 		Date data = new Date();
 		Locale local = new Locale("pt", "BR");
 		DateFormat dateFormat = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", local);

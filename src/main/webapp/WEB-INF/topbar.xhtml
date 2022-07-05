@@ -9,16 +9,14 @@
    
     <div id="layout-topbar" class="ShadowBlack">
         <div id="layout-topbar-indent">
-            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">                           
-    <!--<a href="#{loginController.home}"> <p:graphicImage value="#{loginController.logo}" library="spark-layout" styleClass="MarAuto MarTop10 MarBot5"/></a-->
-
-    <a href="#{loginController.home}"> <img src="../images/14A2B99C-A34D-4155-B517-BC6B5AA7DAAC.jpeg" width="219" height="114" alt="logo"/></a>
-            </p:panelGrid>    
+  
                
             <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Menu</a>
             <a href="#" id="mobile-menu-button-gray" class="BordRad3 white ShowOnMobile"><i class="fa fa-caret-down"></i> Top Menu</a>
             <ul id="layout-topbar-menu">
-                <li>
+                <a href="#{loginController.home}"> <img src="../images/logov.jpeg" width="39" height="34" alt="logo"/></a>
+                
+                <li>                    
                     <a href="#" class="Animated05"><i class="fa cor fa-sign-out"></i> <p:commandLink styleClass="Fs14" value="Sair" actionListener="#{loginController.sair()}" /> </a>
                 </li>
                 <li class="fa fa-ellipsis-v menu-separator"></li>

@@ -12,13 +12,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class NvEmbarcacaoDAO
 /*     */ {
 /*     */   public NvEmbarcacao inserir(NvEmbarcacao nvEmbarcacao)
@@ -29,7 +23,7 @@
 /*  29 */       nvEmbarcacao.setSeqNvEmbarcacao(seq);
 /*  30 */       Conexao conexao = new Conexao();
 /*  31 */       Connection conn = Conexao.getConnection();
-/*  32 */       String sql = "insert into NV_EMBARCACAO (SEQ_NV_EMBARCACAO,SITUACAO,DATA_CADASTRO,NOME,NUMERO_INSCRICAO,DATA_INSCRICAO,LIVRO_INSCRICAO,FOLHA_INSCRICAO,IND_RADIO_INTERNAC,SEQ_NV_TIPO_EMBARCACAO,AREA_NAVEGACAO,TIPO_PROPULSAO,TIPO_ATIVIDADE_MAR,TRIPULANTES,PASSAGEIROS,ANO_CONSTRUCAO,CONSTRUTOR,MATERIAL_CONSTRU_CASCO,MATERIAL_SUPERTRUTURA,POTENCIA_MOTOR,TOTAL_MAQUINA,TIPO_COMBUSTIVEL,CAPAC_ARMAZENAMENTO,ARQUEACAO_BRUTA,ARQUEACAO_LIQUIDA,TONELAGEM_PORTE_BRUTA,COMPRIMENTO_TOTAL,BOCA,PONTAL,CALADO_LEVE,CALADO_CARREGADO,NOME_PROPRIETARIO,CPF_CNPJ,ENDERECO,CIDADE_ESTADO,NOME_PROPRIETARIO2,CPF_CNPJ2,ENDERECO2,CIDADE_ESTADO2,IMO,SEQ_PARCEIRO,INDICATIVO,PORTO_INSCRICAO,TIPO,CENTRO_DISCO_CONVES,CENTRO_DISCO_PROA,LINHA_CONVES,MARCA_LINHA_DAGUA,SEQ_EMPRESA, area_navegacao_tipo,casco_numero,COMPRIMENTO_ENTRE_PERPEND ,seq_nv_certificado_calculo_csn , seq_nv_certificado_calculo_blr , seq_nv_certificado_calculo_arq, correcao_navegacao_agua_doce, CORRECAO_NAV_AGUA_SALGADA, MARCA_LINHA_CARGA_AREA1, MARCA_LINHA_CARGA_AREA2, ESPACOS_FECHADOS_ABAIXO_CONVES, ESPACOS_FECHADOS_ACIMA_CONVES,VOLUME_TOTAL_ESPACOS_FECHADOS, ESPACO_CARGA, DATA_LOCAL_ARQUEACAO_ORIGINAL, DATA_LOCAL_ULTIMA_REARQUEACAO,TOTAL_PASSAG_CAMAR_8_BELICHES, TIPO_MARCA_MOTOR, NUMERO_MOTOR, AUTORIZADO_TRANSP_CARGA_CONVES, borda_livre, destinacao_reboque, potencia_nominal_eletrica, mercadorias_perigosas, apoio_portuario, tipo_atividade_interior, CEP_ESTALEIRO_CONSTRUTOR, CEP_ARMADOR, REQUISITOS_TRANSPORTE_COLETIVO,TIPO_PLANTA_PROPULSORA,COMPRIMENTO_REGRA,BANDEIRA) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+/*  32 */       String sql = "insert into NV_EMBARCACAO (SEQ_NV_EMBARCACAO,SITUACAO,DATA_CADASTRO,NOME,NUMERO_INSCRICAO,DATA_INSCRICAO,LIVRO_INSCRICAO,FOLHA_INSCRICAO,IND_RADIO_INTERNAC,SEQ_NV_TIPO_EMBARCACAO,AREA_NAVEGACAO,TIPO_PROPULSAO,TIPO_ATIVIDADE_MAR,TRIPULANTES,PASSAGEIROS,ANO_CONSTRUCAO,CONSTRUTOR,MATERIAL_CONSTRU_CASCO,MATERIAL_SUPERTRUTURA,POTENCIA_MOTOR,TOTAL_MAQUINA,TIPO_COMBUSTIVEL,CAPAC_ARMAZENAMENTO,ARQUEACAO_BRUTA,ARQUEACAO_LIQUIDA,TONELAGEM_PORTE_BRUTA,COMPRIMENTO_TOTAL,BOCA,PONTAL,CALADO_LEVE,CALADO_CARREGADO,NOME_PROPRIETARIO,CPF_CNPJ,ENDERECO,CIDADE_ESTADO,NOME_PROPRIETARIO2,CPF_CNPJ2,ENDERECO2,CIDADE_ESTADO2,IMO,SEQ_PARCEIRO,INDICATIVO,PORTO_INSCRICAO,TIPO,CENTRO_DISCO_CONVES,CENTRO_DISCO_PROA,LINHA_CONVES,MARCA_LINHA_DAGUA,SEQ_EMPRESA, area_navegacao_tipo,casco_numero,COMPRIMENTO_ENTRE_PERPEND ,seq_nv_certificado_calculo_csn , seq_nv_certificado_calculo_blr , seq_nv_certificado_calculo_arq, correcao_navegacao_agua_doce, CORRECAO_NAV_AGUA_SALGADA, MARCA_LINHA_CARGA_AREA1, MARCA_LINHA_CARGA_AREA2, ESPACOS_FECHADOS_ABAIXO_CONVES, ESPACOS_FECHADOS_ACIMA_CONVES,VOLUME_TOTAL_ESPACOS_FECHADOS, ESPACO_CARGA, DATA_LOCAL_ARQUEACAO_ORIGINAL, DATA_LOCAL_ULTIMA_REARQUEACAO,TOTAL_PASSAG_CAMAR_8_BELICHES, TIPO_MARCA_MOTOR, NUMERO_MOTOR, AUTORIZADO_TRANSP_CARGA_CONVES, borda_livre, destinacao_reboque, potencia_nominal_eletrica, mercadorias_perigosas, apoio_portuario, tipo_atividade_interior, CEP_ESTALEIRO_CONSTRUTOR, CEP_ARMADOR, REQUISITOS_TRANSPORTE_COLETIVO,TIPO_PLANTA_PROPULSORA,COMPRIMENTO_REGRA,BANDEIRA,SEQ_USUARIO, ap_maritimo, cabotagem, longo_curso, ma_area1, ma_area12, ma_area123, ma_area1234, nav_int, nav_area1, nav_area2, ap_portuario, ap_area1, ap_area2) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
 /*  61 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
@@ -112,23 +106,6 @@
 /* 139 */       ps.setString(69, nvEmbarcacao.getAutorizadoTransportarCargaConves());
 /* 140 */       ps.setString(70, nvEmbarcacao.getBordaLivre());
 /* 141 */       ps.setString(71, nvEmbarcacao.getDestinacaoReboque());
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
 /* 159 */       ps.setString(72, nvEmbarcacao.getPotenciaNominalEletrica());
 /* 160 */       ps.setString(73, nvEmbarcacao.getMercadoriasPerigosas());
 /* 161 */       ps.setString(74, nvEmbarcacao.getApoioPortuario());
@@ -139,7 +116,20 @@
 /* 166 */       ps.setString(79, nvEmbarcacao.getTipoPlantaPropulsora());
 /* 167 */       ps.setString(80, nvEmbarcacao.getComprimentoRegra());
                 ps.setString(81, nvEmbarcacao.getBandeira());
-/*     */       
+                ps.setString(82, nvEmbarcacao.getSeqUsuario());
+                ps.setString(83, nvEmbarcacao.getApmaritimo());
+                ps.setString(84, nvEmbarcacao.getCabotagem());
+                ps.setString(85, nvEmbarcacao.getLongoCurso());
+                ps.setString(86, nvEmbarcacao.getMaarea1());
+                ps.setString(87, nvEmbarcacao.getMaarea12());
+                ps.setString(88, nvEmbarcacao.getMaarea123());
+                ps.setString(89, nvEmbarcacao.getMaarea1234());
+                ps.setString(90, nvEmbarcacao.getNavint());
+                ps.setString(91, nvEmbarcacao.getNavarea1());
+/*     */       ps.setString(92, nvEmbarcacao.getNavarea2());
+                ps.setString(93, nvEmbarcacao.getApportuario());
+                ps.setString(94, nvEmbarcacao.getAparea1());
+                ps.setString(95, nvEmbarcacao.getAparea2());
 /* 169 */       ps.execute();
 /* 170 */       ps.close();
 /*     */     }
@@ -153,7 +143,7 @@
 /*     */     try {
 /* 180 */       Conexao conexao = new Conexao();
 /* 181 */       Connection conn = Conexao.getConnection();
-/* 182 */       String sql = "update NV_EMBARCACAO set SITUACAO = ?,DATA_CADASTRO = ?,NOME = ?,NUMERO_INSCRICAO = ?,DATA_INSCRICAO = ?,LIVRO_INSCRICAO = ?,FOLHA_INSCRICAO = ?,IND_RADIO_INTERNAC = ?, SEQ_NV_TIPO_EMBARCACAO = ?,AREA_NAVEGACAO = ?,TIPO_PROPULSAO = ?,TIPO_ATIVIDADE_MAR = ?,TRIPULANTES = ?, PASSAGEIROS = ?,ANO_CONSTRUCAO = ?,CONSTRUTOR = ?,MATERIAL_CONSTRU_CASCO = ?,MATERIAL_SUPERTRUTURA = ?,POTENCIA_MOTOR = ?,TOTAL_MAQUINA = ?,TIPO_COMBUSTIVEL = ?,CAPAC_ARMAZENAMENTO = ?,ARQUEACAO_BRUTA = ?, ARQUEACAO_LIQUIDA = ?,TONELAGEM_PORTE_BRUTA = ?,COMPRIMENTO_TOTAL = ?,BOCA = ?,PONTAL = ?, CALADO_LEVE = ?,CALADO_CARREGADO = ?,NOME_PROPRIETARIO = ?,CPF_CNPJ = ?,ENDERECO = ?,CIDADE_ESTADO = ?, NOME_PROPRIETARIO2 = ?,CPF_CNPJ2 = ?,ENDERECO2 = ?,CIDADE_ESTADO2 = ?,IMO = ?,SEQ_PARCEIRO = ?, INDICATIVO = ?,PORTO_INSCRICAO = ?,TIPO = ?,CENTRO_DISCO_CONVES = ?,CENTRO_DISCO_PROA = ?,LINHA_CONVES = ?,MARCA_LINHA_DAGUA = ?,SEQ_EMPRESA = ?, area_navegacao_tipo = ?, casco_numero = ?,  COMPRIMENTO_ENTRE_PERPEND = ?,seq_nv_certificado_calculo_csn = ? , seq_nv_certificado_calculo_blr = ?,  seq_nv_certificado_calculo_arq = ?, correcao_navegacao_agua_doce = ?,  CORRECAO_NAV_AGUA_SALGADA = ?, MARCA_LINHA_CARGA_AREA1 = ?, MARCA_LINHA_CARGA_AREA2 = ?,  ESPACOS_FECHADOS_ABAIXO_CONVES = ?, ESPACOS_FECHADOS_ACIMA_CONVES = ?, VOLUME_TOTAL_ESPACOS_FECHADOS = ?, ESPACO_CARGA = ?, DATA_LOCAL_ARQUEACAO_ORIGINAL = ?, DATA_LOCAL_ULTIMA_REARQUEACAO = ?, TOTAL_PASSAG_CAMAR_8_BELICHES = ? ,TIPO_MARCA_MOTOR = ?, NUMERO_MOTOR = ?, AUTORIZADO_TRANSP_CARGA_CONVES = ?, borda_livre = ?, destinacao_reboque = ?,POTENCIA_NOMINAL_ELETRICA = ?, MERCADORIAS_PERIGOSAS = ?, apoio_portuario = ?, tipo_atividade_interior = ?, CEP_ESTALEIRO_CONSTRUTOR = ?, CEP_ARMADOR = ?, REQUISITOS_TRANSPORTE_COLETIVO = ?, TIPO_PLANTA_PROPULSORA = ?, COMPRIMENTO_REGRA = ?, BANDEIRA = ? where SEQ_NV_EMBARCACAO = ?";
+/* 182 */       String sql = "update NV_EMBARCACAO set SITUACAO = ?,DATA_CADASTRO = ?,NOME = ?,NUMERO_INSCRICAO = ?,DATA_INSCRICAO = ?,LIVRO_INSCRICAO = ?,FOLHA_INSCRICAO = ?,IND_RADIO_INTERNAC = ?, SEQ_NV_TIPO_EMBARCACAO = ?,AREA_NAVEGACAO = ?,TIPO_PROPULSAO = ?,TIPO_ATIVIDADE_MAR = ?,TRIPULANTES = ?, PASSAGEIROS = ?,ANO_CONSTRUCAO = ?,CONSTRUTOR = ?,MATERIAL_CONSTRU_CASCO = ?,MATERIAL_SUPERTRUTURA = ?,POTENCIA_MOTOR = ?,TOTAL_MAQUINA = ?,TIPO_COMBUSTIVEL = ?,CAPAC_ARMAZENAMENTO = ?,ARQUEACAO_BRUTA = ?, ARQUEACAO_LIQUIDA = ?,TONELAGEM_PORTE_BRUTA = ?,COMPRIMENTO_TOTAL = ?,BOCA = ?,PONTAL = ?, CALADO_LEVE = ?,CALADO_CARREGADO = ?,NOME_PROPRIETARIO = ?,CPF_CNPJ = ?,ENDERECO = ?,CIDADE_ESTADO = ?, NOME_PROPRIETARIO2 = ?,CPF_CNPJ2 = ?,ENDERECO2 = ?,CIDADE_ESTADO2 = ?,IMO = ?,SEQ_PARCEIRO = ?, INDICATIVO = ?,PORTO_INSCRICAO = ?,TIPO = ?,CENTRO_DISCO_CONVES = ?,CENTRO_DISCO_PROA = ?,LINHA_CONVES = ?,MARCA_LINHA_DAGUA = ?,SEQ_EMPRESA = ?, area_navegacao_tipo = ?, casco_numero = ?,  COMPRIMENTO_ENTRE_PERPEND = ?,seq_nv_certificado_calculo_csn = ? , seq_nv_certificado_calculo_blr = ?,  seq_nv_certificado_calculo_arq = ?, correcao_navegacao_agua_doce = ?,  CORRECAO_NAV_AGUA_SALGADA = ?, MARCA_LINHA_CARGA_AREA1 = ?, MARCA_LINHA_CARGA_AREA2 = ?,  ESPACOS_FECHADOS_ABAIXO_CONVES = ?, ESPACOS_FECHADOS_ACIMA_CONVES = ?, VOLUME_TOTAL_ESPACOS_FECHADOS = ?, ESPACO_CARGA = ?, DATA_LOCAL_ARQUEACAO_ORIGINAL = ?, DATA_LOCAL_ULTIMA_REARQUEACAO = ?, TOTAL_PASSAG_CAMAR_8_BELICHES = ? ,TIPO_MARCA_MOTOR = ?, NUMERO_MOTOR = ?, AUTORIZADO_TRANSP_CARGA_CONVES = ?, borda_livre = ?, destinacao_reboque = ?,POTENCIA_NOMINAL_ELETRICA = ?, MERCADORIAS_PERIGOSAS = ?, apoio_portuario = ?, tipo_atividade_interior = ?, CEP_ESTALEIRO_CONSTRUTOR = ?, CEP_ARMADOR = ?, REQUISITOS_TRANSPORTE_COLETIVO = ?, TIPO_PLANTA_PROPULSORA = ?, COMPRIMENTO_REGRA = ?, BANDEIRA = ?, SEQ_USUARIO = ?,ap_maritimo = ?, cabotagem = ?, longo_curso = ?, ma_area1 = ?, ma_area12 = ?, ma_area123 = ?, ma_area1234 = ?, nav_int = ?, nav_area1 = ?, nav_area2 = ?, ap_portuario = ?, ap_area1 = ?, ap_area2 = ? where SEQ_NV_EMBARCACAO = ?";
 
 /*     */ 
 /* 216 */       PreparedStatement ps = conn.prepareStatement(sql);
@@ -246,7 +236,21 @@
 /* 320 */       ps.setString(78, nvEmbarcacao.getTipoPlantaPropulsora());
 /* 321 */       ps.setString(79, nvEmbarcacao.getComprimentoRegra());
                 ps.setString(80, nvEmbarcacao.getBandeira());
-/* 322 */       ps.setString(81, nvEmbarcacao.getSeqNvEmbarcacao());
+                ps.setString(81, nvEmbarcacao.getSeqUsuario());
+                ps.setString(82, nvEmbarcacao.getApmaritimo());
+                ps.setString(83, nvEmbarcacao.getCabotagem());
+                ps.setString(84, nvEmbarcacao.getLongoCurso());
+                ps.setString(85, nvEmbarcacao.getMaarea1());
+                ps.setString(86, nvEmbarcacao.getMaarea12());
+                ps.setString(87, nvEmbarcacao.getMaarea123());
+                ps.setString(88, nvEmbarcacao.getMaarea1234());
+                ps.setString(89, nvEmbarcacao.getNavint());
+                ps.setString(90, nvEmbarcacao.getNavarea1());
+/*     */       ps.setString(91, nvEmbarcacao.getNavarea2());
+                ps.setString(92, nvEmbarcacao.getApportuario());
+                ps.setString(93, nvEmbarcacao.getAparea1());
+                ps.setString(94, nvEmbarcacao.getAparea2());                
+                ps.setString(95, nvEmbarcacao.getSeqNvEmbarcacao());
                 
 /*     */       
 /* 324 */       ps.execute();
@@ -264,13 +268,7 @@
 /* 336 */       Conexao conexao = new Conexao();
 /* 337 */       Connection conn = Conexao.getConnection();
 /* 338 */       String sql = "SELECT NV_EMBARCACAO.*, NV_tipo_EMBARCACAO.codigo tipo_embarcacao_codigo, NV_tipo_EMBARCACAO.nome tipo_embarcacao_nome, parceiro.nome parceiro_nome FROM NV_EMBARCACAO left join NV_tipo_EMBARCACAO on NV_tipo_EMBARCACAO.seq_nv_tipo_embarcacao = nv_embarcacao.seq_nv_tipo_embarcacao left join parceiro on parceiro.seq_parceiro = nv_embarcacao.seq_parceiro " + sClausula.montarsClausula() + "ORDER BY NV_EMBARCACAO.NOME";
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 346 */       List<NvEmbarcacao> listaNvEmbarcacao = new ArrayList();
 /* 347 */       PreparedStatement ps = conn.prepareStatement(sql);
 /* 348 */       ResultSet rs = ps.executeQuery();
@@ -351,23 +349,7 @@
 /* 423 */         nvEmbarcacao.setAutorizadoTransportarCargaConves(rs.getString("AUTORIZADO_TRANSP_CARGA_CONVES"));
 /* 424 */         nvEmbarcacao.setBordaLivre(rs.getString("borda_livre"));
 /* 425 */         nvEmbarcacao.setDestinacaoReboque(rs.getString("destinacao_reboque"));
-/*     */         
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+                  
 /* 443 */         nvEmbarcacao.setPotenciaNominalEletrica(rs.getString("POTENCIA_NOMINAL_ELETRICA"));
 /* 444 */         nvEmbarcacao.setMercadoriasPerigosas(rs.getString("MERCADORIAS_PERIGOSAS"));
 /* 445 */         nvEmbarcacao.setApoioPortuario(rs.getString("APOIO_PORTUARIO"));
@@ -378,6 +360,19 @@
 /* 450 */         nvEmbarcacao.setTipoPlantaPropulsora(rs.getString("TIPO_PLANTA_PROPULSORA"));
 /* 451 */         nvEmbarcacao.setComprimentoRegra(rs.getString("COMPRIMENTO_REGRA"));
 /*     */         nvEmbarcacao.setBandeira(rs.getString("BANDEIRA"));
+                  nvEmbarcacao.setApmaritimo(rs.getString("ap_maritimo"));
+                  nvEmbarcacao.setCabotagem(rs.getString("cabotagem"));
+                  nvEmbarcacao.setLongoCurso(rs.getString("longo_curso"));
+                  nvEmbarcacao.setMaarea1(rs.getString("ma_area1"));
+                  nvEmbarcacao.setMaarea12(rs.getString("ma_area12"));
+                  nvEmbarcacao.setMaarea123(rs.getString("ma_area123"));
+                  nvEmbarcacao.setMaarea1234(rs.getString("ma_area1234"));
+                  nvEmbarcacao.setNavint(rs.getString("nav_int"));
+                  nvEmbarcacao.setNavarea1(rs.getString("nav_area1"));
+                  nvEmbarcacao.setNavarea2(rs.getString("nav_area2"));
+                  nvEmbarcacao.setApportuario(rs.getString("ap_portuario"));
+                  nvEmbarcacao.setAparea1(rs.getString("ap_area1"));
+                  nvEmbarcacao.setAparea2(rs.getString("ap_area2"));
 /* 453 */         listaNvEmbarcacao.add(nvEmbarcacao);
 /*     */       }
 /*     */       
@@ -390,6 +385,130 @@
 /* 462 */       System.out.println(ex.getMessage()); }
 /* 463 */     return null;
 /*     */   }
+
+/*     */   public List<NvEmbarcacao> listarPCliente(ClausulaWhere sClausula) {
+/*     */     try {
+/* 336 */       Conexao conexao = new Conexao();
+/* 337 */       Connection conn = Conexao.getConnection();
+/* 338 */       String sql = "SELECT NV_EMBARCACAO.*, NV_tipo_EMBARCACAO.codigo tipo_embarcacao_codigo, NV_tipo_EMBARCACAO.nome tipo_embarcacao_nome, parceiro.nome parceiro_nome, nv_embarcacao_usuario.seq_usuario seq_usuario FROM NV_EMBARCACAO inner join NV_EMBARCACAO_USUARIO on NV_EMBARCACAO_USUARIO.seq_embarcacao = NV_EMBARCACAO.SEQ_NV_EMBARCACAO left join NV_tipo_EMBARCACAO on NV_tipo_EMBARCACAO.seq_nv_tipo_embarcacao = nv_embarcacao.seq_nv_tipo_embarcacao left join parceiro on parceiro.seq_parceiro = nv_embarcacao.seq_parceiro " + sClausula.montarsClausula() + "ORDER BY NV_EMBARCACAO.NOME";
+
+/* 346 */       List<NvEmbarcacao> listaNvEmbarcacao = new ArrayList();
+/* 347 */       PreparedStatement ps = conn.prepareStatement(sql);
+/* 348 */       ResultSet rs = ps.executeQuery();
+/*     */       
+/* 350 */       while (rs.next()) {
+/* 351 */         NvEmbarcacao nvEmbarcacao = new NvEmbarcacao();
+/* 352 */         nvEmbarcacao.setSeqNvEmbarcacao(rs.getString("SEQ_NV_EMBARCACAO"));
+/* 353 */         nvEmbarcacao.setSituacao(rs.getString("SITUACAO"));
+/* 354 */         nvEmbarcacao.setDataCadastro(rs.getDate("DATA_CADASTRO"));
+/* 355 */         nvEmbarcacao.setNome(rs.getString("NOME"));
+/* 356 */         nvEmbarcacao.setNumeroInscricao(rs.getString("NUMERO_INSCRICAO"));
+/* 357 */         nvEmbarcacao.setDataInscricao(rs.getDate("DATA_INSCRICAO"));
+/* 358 */         nvEmbarcacao.setLivroInscricao(rs.getString("LIVRO_INSCRICAO"));
+/* 359 */         nvEmbarcacao.setFolhaInscricao(rs.getString("FOLHA_INSCRICAO"));
+/* 360 */         nvEmbarcacao.setIndRadioInternac(rs.getString("IND_RADIO_INTERNAC"));
+/* 361 */         nvEmbarcacao.setSeqNvTipoEmbarcacao(rs.getString("SEQ_NV_TIPO_EMBARCACAO"));
+/* 362 */         nvEmbarcacao.setAreaNavegacao(rs.getString("AREA_NAVEGACAO"));
+/* 363 */         nvEmbarcacao.setTipoPropulsao(rs.getString("TIPO_PROPULSAO"));
+/* 364 */         nvEmbarcacao.setTipoAtividadeMar(rs.getString("TIPO_ATIVIDADE_MAR"));
+/* 365 */         nvEmbarcacao.setTripulantes(rs.getString("TRIPULANTES"));
+/* 366 */         nvEmbarcacao.setPassageiros(rs.getString("PASSAGEIROS"));
+/* 367 */         nvEmbarcacao.setAnoConstrucao(rs.getString("ANO_CONSTRUCAO"));
+/* 368 */         nvEmbarcacao.setConstrutor(rs.getString("CONSTRUTOR"));
+/* 369 */         nvEmbarcacao.setMaterialConstruCasco(rs.getString("MATERIAL_CONSTRU_CASCO"));
+/* 370 */         nvEmbarcacao.setMaterialSupertrutura(rs.getString("MATERIAL_SUPERTRUTURA"));
+/* 371 */         nvEmbarcacao.setPotenciaMotor(rs.getString("POTENCIA_MOTOR"));
+/* 372 */         nvEmbarcacao.setTotalMaquina(rs.getString("TOTAL_MAQUINA"));
+/* 373 */         nvEmbarcacao.setTipoCombustivel(rs.getString("TIPO_COMBUSTIVEL"));
+/* 374 */         nvEmbarcacao.setCapacArmazenamento(rs.getString("CAPAC_ARMAZENAMENTO"));
+/* 375 */         nvEmbarcacao.setArqueacaoBruta(rs.getString("ARQUEACAO_BRUTA"));
+/* 376 */         nvEmbarcacao.setArqueacaoLiquida(rs.getString("ARQUEACAO_LIQUIDA"));
+/* 377 */         nvEmbarcacao.setTonelagemPorteBruta(rs.getString("TONELAGEM_PORTE_BRUTA"));
+/* 378 */         nvEmbarcacao.setComprimentoTotal(rs.getString("COMPRIMENTO_TOTAL"));
+/* 379 */         nvEmbarcacao.setBoca(rs.getString("BOCA"));
+/* 380 */         nvEmbarcacao.setPontal(rs.getString("PONTAL"));
+/* 381 */         nvEmbarcacao.setCaladoLeve(rs.getString("CALADO_LEVE"));
+/* 382 */         nvEmbarcacao.setCaladoCarregado(rs.getString("CALADO_CARREGADO"));
+/* 383 */         nvEmbarcacao.setNomeProprietario(rs.getString("NOME_PROPRIETARIO"));
+/* 384 */         nvEmbarcacao.setCpfCnpj(rs.getString("CPF_CNPJ"));
+/* 385 */         nvEmbarcacao.setEndereco(rs.getString("ENDERECO"));
+/* 386 */         nvEmbarcacao.setCidadeEstado(rs.getString("CIDADE_ESTADO"));
+/* 387 */         nvEmbarcacao.setNomeProprietario2(rs.getString("NOME_PROPRIETARIO2"));
+/* 388 */         nvEmbarcacao.setCpfCnpj2(rs.getString("CPF_CNPJ2"));
+/* 389 */         nvEmbarcacao.setEndereco2(rs.getString("ENDERECO2"));
+/* 390 */         nvEmbarcacao.setCidadeEstado2(rs.getString("CIDADE_ESTADO2"));
+/* 391 */         nvEmbarcacao.setImo(rs.getString("IMO"));
+/* 392 */         nvEmbarcacao.setSeqParceiro(rs.getString("SEQ_PARCEIRO"));
+/* 393 */         nvEmbarcacao.setIndicativo(rs.getString("INDICATIVO"));
+/* 394 */         nvEmbarcacao.setPortoInscricao(rs.getString("PORTO_INSCRICAO"));
+/* 395 */         nvEmbarcacao.setTipo(rs.getString("TIPO"));
+/* 396 */         nvEmbarcacao.setCentroDiscoConves(rs.getString("CENTRO_DISCO_CONVES"));
+/* 397 */         nvEmbarcacao.setCentroDiscoProa(rs.getString("CENTRO_DISCO_PROA"));
+/* 398 */         nvEmbarcacao.setLinhaConves(rs.getString("LINHA_CONVES"));
+/* 399 */         nvEmbarcacao.setMarcaLinhaDagua(rs.getString("MARCA_LINHA_DAGUA"));
+/* 400 */         nvEmbarcacao.setSeqEmpresa(rs.getString("SEQ_EMPRESA"));
+/* 401 */         nvEmbarcacao.setAreaNavegacaoTipo(rs.getString("area_navegacao_tipo"));
+/* 402 */         nvEmbarcacao.setNumeroCasco(rs.getString("casco_numero"));
+/* 403 */         nvEmbarcacao.setComprimentoEntrePerpend(rs.getString("COMPRIMENTO_ENTRE_PERPEND"));
+/* 404 */         nvEmbarcacao.setSeqNvCertificadoCalculoCSN(rs.getString("seq_nv_certificado_calculo_csn"));
+/* 405 */         nvEmbarcacao.setSeqNvCertificadoCalculoBLR(rs.getString("seq_nv_certificado_calculo_BLR"));
+/* 406 */         nvEmbarcacao.setSeqNvCertificadoCalculoARQ(rs.getString("seq_nv_certificado_calculo_ARQ"));
+/* 407 */         nvEmbarcacao.setTipoEmbarcacaoCodigo(rs.getString("tipo_embarcacao_codigo"));
+/* 408 */         nvEmbarcacao.setTipoEmbarcacaoNome(rs.getString("tipo_embarcacao_nome"));
+/* 409 */         nvEmbarcacao.setParceiroNome(rs.getString("parceiro_nome"));
+/* 410 */         nvEmbarcacao.setCorrecaoNavegacaoAguaDoce(rs.getString("correcao_navegacao_agua_doce"));
+/* 411 */         nvEmbarcacao.setCorrecaoNavegacaoAguaSalgada(rs.getString("CORRECAO_NAV_AGUA_SALGADA"));
+/* 412 */         nvEmbarcacao.setMarcaLinhaCargaArea1(rs.getString("MARCA_LINHA_CARGA_AREA1"));
+/* 413 */         nvEmbarcacao.setMarcaLinhaCargaArea2(rs.getString("MARCA_LINHA_CARGA_AREA2"));
+/* 414 */         nvEmbarcacao.setEspacosFechadosAbaixoConves(rs.getString("ESPACOS_FECHADOS_ABAIXO_CONVES"));
+/* 415 */         nvEmbarcacao.setEspacosFechadosAcimaConves(rs.getString("ESPACOS_FECHADOS_ACIMA_CONVES"));
+/* 416 */         nvEmbarcacao.setVolumeTotalEspacos(rs.getString("VOLUME_TOTAL_ESPACOS_FECHADOS"));
+/* 417 */         nvEmbarcacao.setEspacoCarga(rs.getString("ESPACO_CARGA"));
+/* 418 */         nvEmbarcacao.setDataLocalArqueacaoOriginal(rs.getString("DATA_LOCAL_ARQUEACAO_ORIGINAL"));
+/* 419 */         nvEmbarcacao.setDataLocalUltimaRearqueacao(rs.getString("DATA_LOCAL_ULTIMA_REARQUEACAO"));
+/* 420 */         nvEmbarcacao.setTotalPassageirosCamarote(rs.getString("TOTAL_PASSAG_CAMAR_8_BELICHES"));
+/* 421 */         nvEmbarcacao.setTipoMarcaMotor(rs.getString("TIPO_MARCA_MOTOR"));
+/* 422 */         nvEmbarcacao.setNumeroMotor(rs.getString("NUMERO_MOTOR"));
+/* 423 */         nvEmbarcacao.setAutorizadoTransportarCargaConves(rs.getString("AUTORIZADO_TRANSP_CARGA_CONVES"));
+/* 424 */         nvEmbarcacao.setBordaLivre(rs.getString("borda_livre"));
+/* 425 */         nvEmbarcacao.setDestinacaoReboque(rs.getString("destinacao_reboque"));
+                  nvEmbarcacao.setSeqUsuario(rs.getString("seq_usuario"));
+/* 443 */         nvEmbarcacao.setPotenciaNominalEletrica(rs.getString("POTENCIA_NOMINAL_ELETRICA"));
+/* 444 */         nvEmbarcacao.setMercadoriasPerigosas(rs.getString("MERCADORIAS_PERIGOSAS"));
+/* 445 */         nvEmbarcacao.setApoioPortuario(rs.getString("APOIO_PORTUARIO"));
+/* 446 */         nvEmbarcacao.setTipoAtividadeInterior(rs.getString("TIPO_ATIVIDADE_INTERIOR"));
+/* 447 */         nvEmbarcacao.setCepEstaleiroConstrutor(rs.getString("CEP_ESTALEIRO_CONSTRUTOR"));
+/* 448 */         nvEmbarcacao.setCepArmador(rs.getString("CEP_ARMADOR"));
+/* 449 */         nvEmbarcacao.setRequisitosTransporteColetivo(rs.getString("REQUISITOS_TRANSPORTE_COLETIVO"));
+/* 450 */         nvEmbarcacao.setTipoPlantaPropulsora(rs.getString("TIPO_PLANTA_PROPULSORA"));
+/* 451 */         nvEmbarcacao.setComprimentoRegra(rs.getString("COMPRIMENTO_REGRA"));
+/*     */         nvEmbarcacao.setBandeira(rs.getString("BANDEIRA"));
+                  nvEmbarcacao.setApmaritimo(rs.getString("ap_maritimo"));
+                  nvEmbarcacao.setCabotagem(rs.getString("cabotagem"));
+                  nvEmbarcacao.setLongoCurso(rs.getString("longo_curso"));
+                  nvEmbarcacao.setMaarea1(rs.getString("ma_area1"));
+                  nvEmbarcacao.setMaarea12(rs.getString("ma_area12"));
+                  nvEmbarcacao.setMaarea123(rs.getString("ma_area123"));
+                  nvEmbarcacao.setMaarea1234(rs.getString("ma_area1234"));
+                  nvEmbarcacao.setNavint(rs.getString("nav_int"));
+                  nvEmbarcacao.setNavarea1(rs.getString("nav_area1"));
+                  nvEmbarcacao.setNavarea2(rs.getString("nav_area2"));
+                  nvEmbarcacao.setApportuario(rs.getString("ap_portuario"));
+                  nvEmbarcacao.setAparea1(rs.getString("ap_area1"));
+                  nvEmbarcacao.setAparea2(rs.getString("ap_area2"));
+/* 453 */         listaNvEmbarcacao.add(nvEmbarcacao);
+/*     */       }
+/*     */       
+/* 456 */       ps.execute();
+/* 457 */       ps.close();
+/*     */       
+/* 459 */       return listaNvEmbarcacao;
+/*     */     } catch (SQLException ex) {
+/* 461 */       Logger.getLogger(NvEmbarcacaoDAO.class.getName()).log(Level.SEVERE, null, ex);
+/* 462 */       System.out.println(ex.getMessage()); }
+/* 463 */     return null;
+/*     */   }
+
 /*     */   
 /*     */   public boolean deletar(NvEmbarcacao nvEmbarcacao)
 /*     */   {

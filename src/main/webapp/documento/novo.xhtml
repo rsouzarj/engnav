@@ -97,7 +97,7 @@
 
             <h:form id="frmPrincipal" >
 
-                <h2 class="BigTopic">Modelos de Documento</h2>
+                <h2 class="BigTopic">Grupo de Serviços</h2>
 
                 <h:panelGrid  columns="4"  >
 
@@ -105,14 +105,13 @@
                         <h:panelGrid  columns="4" rendered="#{tp.seqTipoDocumento != 381 and tp.seqTipoDocumento != 301 and tp.seqTipoDocumento != 401}" >
                         <!--h:panelGrid  columns="4" rendered="#{tp.seqTipoDocumento != 381 and tp.seqTipoDocumento != 301 and tp.seqTipoDocumento != 401}" -->
                             <a href="../documento/documento.jsf?idDocumento=0&#38;idTipoDocumento=#{tp.seqTipoDocumento}" title="#{tp.nome}" >
-                                <img src="../images/documento.png" width="15" height="20"/>
+                                <img src="../images/logov.jpeg" width="15" height="20"/>
                                 #{tp.nome}
                             </a>
                         </h:panelGrid>
 
                     </c:forEach>
                 </h:panelGrid>
-
             </h:form>
 
 

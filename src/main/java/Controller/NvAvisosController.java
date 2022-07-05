@@ -26,6 +26,7 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import Util.Util;
 
 @ManagedBean(name = "nvAvisosController")
 @ViewScoped
@@ -42,8 +43,9 @@ public class NvAvisosController
     private List<NvAvisos> listaNvAvisosJanelas30;
     private List<NvAvisos> listaNvAvisosJanelas60;
     NvAvisos nvAvisos = new NvAvisos();
+    Util util = new Util();
     public NvAvisosController() {
-        this.nvAvisosService = new NvAvisosService();
+    this.nvAvisosService = new NvAvisosService();
     }
     
     public void iniciar() {
@@ -118,6 +120,16 @@ public class NvAvisosController
         public void listarJanelas60() {
         this.setAvisosJanelas60(this.nvAvisosService.listarJanelas60(this.loginController.getEmpresa().getSeqEmpresa()));
     }
+        
+        public void listarEnvio() {
+        this.setAvisosJanelas(this.nvAvisosService.listarPEnvio(this.nvAvisos.getSeqCertificado()));
+    }       
+        
+        public void enviar(NvAvisos pCer) {
+        /*this.setAvisosJanelas(this.nvAvisosService.listarPEnvio(this.nvAvisos.getSeqCertificado()));*/
+            this.util.enviarAviso(pCer);
+        }
+        
     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }
@@ -174,7 +186,7 @@ public class NvAvisosController
         this.listaNvAvisosJanelas60 = listaAvisosJanelas60;
     }
     
-public void buttonAction() {
+    public void buttonAction() {
         addMessage("Welcome to PrimeFaces!!");
     }
  
@@ -185,6 +197,9 @@ public void buttonAction() {
     public NvAvisos getNvAvisos() {
         return this.nvAvisos;
     }
+    public void setNvAvisos(NvAvisos nvAvisos) {
+		this.nvAvisos = nvAvisos;
+	}    
     
     
     

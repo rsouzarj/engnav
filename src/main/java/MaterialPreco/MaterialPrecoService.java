@@ -132,14 +132,14 @@
 /* 139 */     return retorno;
 /*     */   }
 /*     */   
-/* 142 */   public List<MaterialPreco> listarNomeGrupoServico(String pSeqEmpresa, String pSeqParceiro, String pReferencia) { List<MaterialPreco> retorno = new ArrayList();
+/* 142 */   public List<MaterialPreco> listarNomeGrupoServico(String pSeqEmpresa,String pReferencia , String pSeqParceiro) { List<MaterialPreco> retorno = new ArrayList();
 /*     */     
 /* 144 */     MaterialPrecoDAO dao = new MaterialPrecoDAO();
 /*     */     
 /* 146 */     ClausulaWhere condicao = new ClausulaWhere();
 /*     */     
 /* 148 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "material.SEQ_EMPRESA", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
-/* 149 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "material.REFERENCIA", GeneroCondicaoWhere.igual, String.valueOf(pReferencia), TipoCondicaoWhere.Texto);
+/* 149  */    condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "material.REFERENCIA", GeneroCondicaoWhere.igual, String.valueOf(pReferencia), TipoCondicaoWhere.Texto);
 /* 150 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "material_preco.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
 /* 151 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "material_preco.situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);
 /* 152 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "parceiro.seq_parceiro", GeneroCondicaoWhere.igual, pSeqParceiro, TipoCondicaoWhere.Texto);

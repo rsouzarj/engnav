@@ -1,15 +1,7 @@
 /*     */ package NvCertificadoDetalhe;
 /*     */ 
 /*     */ import java.util.Date;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class NvCertificadoDetalhe
 /*     */ {
 /*     */   private String seqNvCertificadoDetalhe;
@@ -26,6 +18,7 @@
 /*     */   private String correcaoNavegacaoAguaDoce;
 /*     */   private String centroDiscoProa;
 /*     */   private String documentoVistoriador;
+            private String seqNvEmbarcacao;
 /*     */   
 /*     */   public String getSeqNvCertificadoDetalhe()
 /*     */   {
@@ -82,6 +75,14 @@
 /*     */   
 /*     */   public void setSeqNvCertificado(String seqNvCertificado) {
 /*  84 */     this.seqNvCertificado = seqNvCertificado;
+/*     */   }
+
+/*     */   public String getSeqNvEmbarcacao() {
+/*  80 */     return this.seqNvEmbarcacao;
+/*     */   }
+/*     */   
+/*     */   public void setSeqNvEmbarcacao(String seqNvEmbarcacao) {
+/*  84 */     this.seqNvEmbarcacao = seqNvEmbarcacao;
 /*     */   }
 /*     */   
 /*     */   public Date getDataInicial() {
@@ -140,9 +141,3 @@
 /* 140 */     this.documentoVistoriador = documentoVistoriador;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/NvCertificadoDetalhe/NvCertificadoDetalhe.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

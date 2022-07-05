@@ -45,8 +45,3 @@
 /*    */   }
 /*    */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/ParceiroVinculo/ParceiroVinculoService.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

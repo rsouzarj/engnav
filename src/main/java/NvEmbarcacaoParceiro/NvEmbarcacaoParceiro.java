@@ -1,13 +1,7 @@
 /*    */ package NvEmbarcacaoParceiro;
 /*    */ 
 /*    */ import java.util.Date;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /*    */ public class NvEmbarcacaoParceiro
 /*    */ {
 /*    */   private String seqNvEmbarcacaoParceiro;
@@ -94,8 +88,3 @@
 /*    */   }
 /*    */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/NvEmbarcacaoParceiro/NvEmbarcacaoParceiro.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

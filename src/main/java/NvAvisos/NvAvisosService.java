@@ -53,7 +53,13 @@ public class NvAvisosService
         return (List<NvAvisos>) dao.listarjanelas60(condicao);
     } 
      
-     
+    public List<NvAvisos> listarPEnvio(String seqCertificado) {
+        final NvAvisosDAO dao = new NvAvisosDAO();
+        final ClausulaWhere condicao = new ClausulaWhere();
+        condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "VW_BI_JANELAS_AVISOS60.seq_nv_certificado", GeneroCondicaoWhere.igual, String.valueOf(seqCertificado), TipoCondicaoWhere.Numero);
+        return (List<NvAvisos>) dao.listarjanelas(condicao);
+        
+    }
      
      
      /*

@@ -8,14 +8,7 @@
 /*    */ import java.util.ArrayList;
 /*    */ import java.util.Date;
 /*    */ import java.util.List;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /*    */ public class NvTipoEmbarcacaoService
 /*    */ {
 /*    */   public NvTipoEmbarcacao salvar(NvTipoEmbarcacao nvTipoEmbarcacao)
@@ -54,8 +47,3 @@
 /*    */   }
 /*    */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/NvTipoEmbarcacao/NvTipoEmbarcacaoService.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

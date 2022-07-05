@@ -116,6 +116,10 @@
                                 <p:column headerText="Descrição" sortBy="#{p.nome}">
                                     <p:commandLink value="#{p.nome}"  title="#{p.nome}"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
+                                
+                                <p:column headerText="Cliente" sortBy="#{p.nomeCliente}">
+                                    <p:commandLink value="#{p.nomeCliente}"  title="#{p.nomeCliente}"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>                                
 
                                 <p:column headerText="Tipo" sortBy="#{p.tipoequipamento}">
                                     <p:commandLink value="#{p.tipoequipamento}"  title="#{p.tipoequipamento}"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
@@ -145,8 +149,7 @@
 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
 
-                                <h:outputText value="Nome" />
-                                <p:inputText value="#{equipamentoController.equipamento.nome}" required="true" requiredMessage="[NOME] é obrigatório"/>                
+             
                                 
                                 
                                 <p:panelGrid columns="4" > 
@@ -208,73 +211,32 @@
                                         <f:selectItem itemLabel="951C" itemValue="951C" />
                                         </p:selectOneMenu>
                                 </p:panelGrid>-->
-                            <h2>Dados do Fabricante</h2>    
-                            <p:panelGrid columns="4" layout="grid"> 
+                            <h2>Dados do Equipamento</h2>    
+                                <h:outputText value="DESCRIÇÃO" />
+                                <p:inputText value="#{equipamentoController.equipamento.nome}" required="true" requiredMessage="[NOME] é obrigatório"/>                                   
+                            <p:panelGrid columns="2" layout="grid"> 
+                                
+                                <h:outputText value="CÓDIGO/Nº"/>
+                                <p:inputText value="#{equipamentoController.equipamento.codigo}"/>
+                                
                                 <h:outputText value="FABRICANTE" />
                                 <p:inputText value="#{equipamentoController.equipamento.fmas}"/>
                                 
                                 <h:outputText value="MODELO" />
-                                <p:inputText value="#{equipamentoController.equipamento.modelo}"/>
-
-                                <h:outputText value="ANO" />
-                               <!-- <p:inputText value="#{equipamentoController.equipamento.ano}"/>-->                                
-                               <!--<p:datePicker id="month" view="Mes" value="#{equipamentoController.equipamento.ano}" pattern="yyyy" yearNavigator="true" yearRange="2000:2030" /-->                                
-                                <p:inputMask mask="9999" value="#{equipamentoController.equipamento.ano}" >
-                                </p:inputMask>
-
+                                <p:inputText value="#{equipamentoController.equipamento.modelo}"/>                                
+                                
                                 <h:outputText value="Nº SÉRIE" />
                                 <p:inputText value="#{equipamentoController.equipamento.nserie}"/>                                
-                                 </p:panelGrid>
+                                   
+                                <h:outputText value="CAPACIDADE MAXIMA SWL" />
+                                <p:inputText value="#{equipamentoController.equipamento.capacidadeMax}"/>                                  
                                 
-                                <h2>Dados do Motor</h2> 
-                                <p:panelGrid columns="2" layout="grid"> 
-                                <h:outputText value="MOTOR" />
-                                <p:inputText value="#{equipamentoController.equipamento.mspr}"/>
-
-                                <h:outputText value="SÉRIE" />
-                                <p:inputText value="#{equipamentoController.equipamento.mserie}"/>
-                                </p:panelGrid> 
-                                
-                                <p:panelGrid columns="2" layout="grid">
-                                <h:outputText value="POTÊNCIA" />
-                                <p:inputText value="#{equipamentoController.equipamento.potencia}"/> 
-                                <h:outputText value="RPM" />
-                                <p:inputText value="#{equipamentoController.equipamento.rpm}"/>                                <!--<h:outputText value="" />
-                                <p:inputText value="#{null}"/--> 
-                                </p:panelGrid>                                
-                                
-                                <p:panelGrid columns="2" layout="grid"> 
-                         
-                                <h:outputText value="TIPO ACIONAMENTO:" />
-                                <p:inputText value="#{equipamentoController.equipamento.tipoAcionamento}"/>
-                                
-                                <h:outputText value="CARGA NOMINAL DE TRABALHO:" />
-                                <p:inputText value="#{equipamentoController.equipamento.carga}"/>
-                                </p:panelGrid>
-                                
-                                <h2>Dimenssões</h2> 
-                                <p:panelGrid columns="4" layout="grid"> 
-                                <h:outputText value="DIMENSÕES C x L x A:" />
-                                <p:inputText value="#{equipamentoController.equipamento.dimensaoCla}"/>
-                                
-                                 <h:outputText value="DIAMETRO:" />
-                                 <p:inputText value="#{equipamentoController.equipamento.diametro}"/>
-                                 
-                                 <h:outputText value="CARGA DE TRABALHO (SWL):" />
-                                 <p:inputText value="#{equipamentoController.equipamento.caboTracao}"/>
-                                
-                                 <h:outputText value="NÚMERO DE PERNAS:" />
-                                 <p:inputText value="#{equipamentoController.equipamento.pernas}"/>
-                                                                                                     
-                                </p:panelGrid>
-                                
-                                <p:panelGrid columns="2" layout="grid">
-                                 <h:outputText value="PESO:" />
-                                 <p:inputText value="#{equipamentoController.equipamento.peso}"/>
-                                 <h:outputText value="MBL:" />
-                                 <p:inputText value="#{equipamentoController.equipamento.mbl}"/>                                 
-                                </p:panelGrid>
-                                
+                                <h:outputText value="LOCALIZAÇÃO" />
+                                <p:inputText value="#{equipamentoController.equipamento.localizacao}"/>                                
+                                                       
+                                <h:outputText value="TAG" />
+                                <p:inputText value="#{equipamentoController.equipamento.tag}"/>                                
+                                </p:panelGrid>  
                                 <h:outputText value="Situação" />
                                 <p:selectOneMenu style="width: 181px" value="#{equipamentoController.equipamento.situacao}" >
                                     <f:selectItem itemLabel="Ativo" itemValue="ATIVO" />

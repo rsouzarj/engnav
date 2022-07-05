@@ -346,6 +346,12 @@
                                                     <f:selectItem itemLabel="Alteração" itemValue="1" />
                                                     <f:selectItem itemLabel="Visualização" itemValue="2" />
                                                 </p:selectOneMenu>
+                                                <p:outputLabel value="Aprovar Vistoria:" />
+                                                <p:selectOneMenu  value="#{usuarioController.usuario.acAprovaVistoria}" style="width:125px">
+                                                    <f:selectItem itemLabel="Sem Acesso" itemValue="-1" />
+                                                    <f:selectItem itemLabel="Alteração" itemValue="1" />
+                                                    <f:selectItem itemLabel="Visualização" itemValue="2" />
+                                                </p:selectOneMenu>                                                  
                                                 <p:outputLabel value="Licença:" />
                                                 <p:selectOneMenu  value="#{usuarioController.usuario.acOpLicenca}" style="width:125px">
                                                     <f:selectItem itemLabel="Sem Acesso" itemValue="-1" />
@@ -358,7 +364,7 @@
                                                     <f:selectItem itemLabel="Alteração" itemValue="1" />
                                                     <f:selectItem itemLabel="Visualização" itemValue="2" />
                                                 </p:selectOneMenu>
-                                            </h:panelGrid>
+                                                </h:panelGrid>
 
                                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{usuarioController.usuario.acOperacional != 1}"/>
                                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{usuarioController.usuario.acOperacional == 1}" >
@@ -566,6 +572,11 @@
                                                         <f:selectItem itemLabel="Alteração" itemValue="1" />
                                                         <f:selectItem itemLabel="Visualização" itemValue="2" />
                                                     </p:selectOneMenu>
+                                                    <p:outputLabel value="Aprovação da Ordem de Pagamento" />
+                                                    <p:selectOneMenu  value="#{usuarioController.usuario.acAprovaPO}" style="width:125px">
+                                                        <f:selectItem itemLabel="Não Aprova" itemValue="-1" />
+                                                        <f:selectItem itemLabel="Aprovador" itemValue="1" />
+                                                    </p:selectOneMenu>                                                    
                                                     <p:outputLabel value="Contas a Pagar" />
                                                     <p:selectOneMenu  value="#{usuarioController.usuario.acFinContasPagar}" style="width:125px">
                                                         <f:selectItem itemLabel="Sem Acesso" itemValue="-1" />

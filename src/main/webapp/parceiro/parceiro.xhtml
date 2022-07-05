@@ -81,7 +81,7 @@
 
     </ui:define>
 
-    <ui:define name="content"  >
+    <ui:define name="content" >
 
         <div class="layout-portlets-box" >
             <div class="Container100 ui-fluid">
@@ -93,28 +93,41 @@
 
                     <h:form id="frmLista" >
 
-                        <p:panelGrid columns="4"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-3,ui-grid-col-0,ui-grid-col-0" rendered="#{parceiroController.tela == 0}" >
+                        <p:panelGrid rendered="#{parceiroController.tela == 0}" columns="3"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-3,ui-grid-col-0,ui-grid-col-0" >
                             <h2 style="color:black">Parceiro de Negócio</h2>
 
-                            <p:inputText value="#{parceiroController.pesquisa}"/>
-                            <p:commandButton value="Buscar" actionListener="#{parceiroController.listar()}" update="listaPesquisa" />
+                            <!--<p:inputText value="#{parceiroController.pesquisa}"/>-->
+                            <p:commandButton value="Buscar" actionListener="#{parceiroController.filtrar()}" update="listaPesquisa" />
                             <p:commandButton value="Novo" actionListener="#{parceiroController.novo()}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acParNovo == 1}" />
-
+                        </p:panelGrid>
+                        
+                        <p:panelGrid rendered="#{parceiroController.tela == 0}"  columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                             <p:separator/>
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" >
+                                        <h:outputText value=" " />
+                                        <p:selectOneMenu value="#{parceiroController.seqParceiroSelecionado}" filter="true" filterMatchMode="contains" >
+                                            <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                            <f:selectItems value="#{parceiroController.listaParceiroVinculado}" var="e"  itemLabel="#{e.nome}" itemValue="#{e.seqParceiro}" />
+                                        </p:selectOneMenu>
+                        </p:panelGrid>
                         </p:panelGrid>
 
-
                         <div class="Container100 Responsive100" >
-                            <p:dataTable id="listaPesquisa" var="p" value="#{parceiroController.listaParceiro}" rendered="#{parceiroController.tela == 0}" reflow="true" style="" emptyMessage="Lista vazia" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
+                            <p:dataTable id="listaPesquisa" var="p" value="#{parceiroController.listaParceiro}" rendered="#{parceiroController.tela == 0}" reflow="true" style="" emptyMessage="Lista vazia" paginator="true" rows="100"  rowsPerPageTemplate="100,250,500">
                                 <p:column headerText="Nome" sortBy="#{p.nome}">
                                     <p:commandLink value="#{p.nome}"  title="#{p.nome}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
+                                <p:column headerText="CNPJ/CPF" filterBy="#{p.documento}" sortBy="#{p.documento}">
+                                    <p:commandLink value="#{p.documento}"  title="#{p.documento}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>                                
+                                
                                 <p:column headerText="Cidade" sortBy="#{p.cidade}">
                                     <p:commandLink value="#{p.cidade}"  title="#{p.cidade}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
-                                <p:column headerText="UF" sortBy="#{p.uf}">
-                                    <p:commandLink value="#{p.uf}"  title="#{p.uf}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                <p:column headerText="Perfil" sortBy="#{p.uf}">
+                                    <p:commandLink value="#{p.perfil}"  title="#{p.perfil}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
                                 <p:column headerText="Situação" sortBy="#{p.situacao}" >
@@ -129,14 +142,15 @@
                         </div>
                     </h:form>
 
-                    <h:form id="frmDetalhe">
-                        <p:panelGrid rendered="#{parceiroController.tela == 1}"  columns="5"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-3,ui-grid-col-0,ui-grid-col-0">
-                            <h2 >#{parceiroController.parceiro.nome}</h2>
-
-
-                            <p:commandButton value="Salvar" actionListener="#{parceiroController.salvar(1)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acParNovo == 1}"/>
+                    <h:form id="frmDetalhe" enctype="multipart/form-data">
+                        <div class="Container100 Responsive100">
+                        <p:panelGrid rendered="#{parceiroController.tela == 1}"  columns="1"  layout="grid" styleClass="ui-panelgrid-blank" >
+                            
+                           
+                            <p:panelGrid rendered="#{parceiroController.tela == 1}"  columns="4"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2">
+                            <p:commandButton value="Salvar" actionListener="#{parceiroController.salvar(0)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acParNovo == 1}"/>
                             <p:commandButton value="Voltar" immediate="true" actionListener="#{parceiroController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
-
+                            <p:commandButton value="Imprimir" actionListener="#{parceiroController.imprimir()}" immediate="true" ajax="false"  onclick="this.form.target = '_blank'"/> 
                             <p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{parceiroController.deletar()}"  update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acParNovo == 1}">
                                 <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert" />
                             </p:commandButton>
@@ -144,19 +158,20 @@
                                 <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
                                 <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
                             </p:confirmDialog>                                                              
+                            
+                        </p:panelGrid>                               
 
                         </p:panelGrid>
-
+                            </div>
                         <p:separator/>
-
-
-
-
-
+                                                
                         <p:panelGrid rendered="#{parceiroController.tela == 1}" columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
-
-
-                            <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                             
+                            <p:tabView>
+                               
+                                <p:tab title="Dados do Parceiro">
+                            
+                                <p:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Tipo de Parceiro" />
                                     <p:selectOneMenu value="#{parceiroController.parceiro.seqTipoParceiro}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[TIPO DE PARCEIRO] é Obrigatório!">
@@ -184,16 +199,35 @@
                                     <p:inputMask value="#{parceiroController.parceiro.documento}" mask="99.999.999/9999-99" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
                                     <p:inputMask value="#{parceiroController.parceiro.documento}" mask="9" rendered="#{parceiroController.parceiro.tipo == 'Exterior'}"/>
                                 </p:panelGrid>
+                                
+
+                                
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" id="pnlBuscarRF" > 
                                     <h:outputText value="." />
                                     <p:commandButton value="Buscar Dados da Empresa" actionListener="#{parceiroController.buscarDadosReceitaFederal()}" update=":frmDetalhe" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}" />
                                 </p:panelGrid>
+                                
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Unidade de Negócio" />
+                                    <p:selectOneMenu value="#{parceiroController.parceiro.unidadeNegocio}" filter="true" filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="Selecione a Unidade de Negócio" itemValue="#{null}"/>
+                                    <f:selectItems value="#{parceiroController.listaUnidadeNegocio}" var="un"  itemLabel="#{un.nome}" itemValue="#{un.seqUnidadeNegocio}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Grupo Empresarial" />
+                                    <p:selectOneMenu value="#{parceiroController.parceiro.grupo}" filter="true" filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="Selecione o Grupo Empresarial" itemValue="#{null}"/>
+                                    <f:selectItems value="#{parceiroController.listaGrupoEmpresarial}" var="gp"  itemLabel="#{gp.nome}" itemValue="#{gp.seqGrupo}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>                                   
 
                             </p:panelGrid>
 
                             <p:separator/>
 
-                            <p:panelGrid id="pnlNome" columns="6" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-5,ui-grid-col-4,ui-grid-col-2"> 
+                            <p:panelGrid id="pnlNome" columns="7" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-5,ui-grid-col-4,ui-grid-col-2"> 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Código"  />                
                                     <p:inputText value="#{parceiroController.parceiro.codigo}" readonly="#{loginController.empresa.tipoNumeracaoCodParceiro != null}" />                
@@ -232,18 +266,29 @@
                                     <h:outputText value="" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Física'}"/>
                                     <p:inputText value="#{parceiroController.parceiro.ie}" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
                                 </p:panelGrid>
+                                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                <h:outputText value="Situação" />
+                                <p:selectOneMenu value="#{parceiroController.parceiro.situacao}" >
+                                    <f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
+                                    <f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
+                                </p:selectOneMenu>
+                            </p:panelGrid> 
                             </p:panelGrid>
-
-
-                            <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank"  id="pnlEnd_1" columnClasses="ui-grid-col-2,ui-grid-col-2, ui-grid-col-7,ui-grid-col-2,ui-grid-col-6"> 
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                           
+                            </p:tab>
+                              
+                                <p:tab title="Endereço Principal">
+                            
+                                <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank" id="pnlEnd"> 
+                                
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="CEP" />
                                     <p:inputMask value="#{parceiroController.parceiro.cep}" mask="99999-999" />
                                 </p:panelGrid>
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"  > 
                                     <h:outputText value="." />
-                                    <p:commandButton value="Buscar" actionListener="#{parceiroController.buscarCep(0)}" update=":frmDetalhe"/> 
+                                    <p:commandButton value="Buscar" actionListener="#{parceiroController.buscarCep(0)}" update="pnlEnd"/> 
                                 </p:panelGrid>
 
 
@@ -267,7 +312,7 @@
 
 
 
-                            <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" id="pnlEnd_2" columnClasses="ui-grid-col-6,ui-grid-col-4,ui-grid-col-10">  
+                            <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" id="pnlEnd_2" columnClasses="ui-grid-col-6,ui-grid-col-4,ui-grid-col-10">  
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Bairro" />
@@ -281,35 +326,301 @@
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Estado" />
-                                    <p:selectOneMenu value="#{parceiroController.parceiro.uf}" filter="true" filterMatchMode="contains">
-                                        <f:selectItems itemLabel="Selecione a Unidade federativa" itemValue="#{null}" />
+                                    <p:selectOneMenu value="#{parceiroController.parceiro.uf}" filter="true" filterMatchMode="startsWith">
+                                        <f:selectItem itemLabel="Selecione a Unidade federativa" itemValue="#{null}" />
                                         <f:selectItems value="#{parceiroController.listaUf}" var="uf"  itemLabel="#{uf.nome}" itemValue="#{uf.id}" />
                                     </p:selectOneMenu>
                                 </p:panelGrid>
+                                
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="País" />
+                                    <p:selectOneMenu style="width: 181px" value="#{parceiroController.parceiro.pais}" filter="true" filterMatchMode="startsWith">
+                                        <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="Açores ( Portugal)" itemValue="Açores ( Portugal)" />
+                                        <f:selectItem itemLabel="Afeganistão" itemValue="Afeganistão" />
+                                        <f:selectItem itemLabel="África do Sul" itemValue="África do Sul" />
+                                        <f:selectItem itemLabel="Albânia" itemValue="Albânia" />
+                                        <f:selectItem itemLabel="Alemanha" itemValue="Alemanha" />
+                                        <f:selectItem itemLabel="Andorra" itemValue="Andorra" />
+                                        <f:selectItem itemLabel="Angola" itemValue="Angola" />
+                                        <f:selectItem itemLabel="Anguilla ( Reino Unido)" itemValue="Anguilla ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Antígua e Barbuda" itemValue="Antígua e Barbuda" />
+                                        <f:selectItem itemLabel="Antilhas Holandesas ( Países Baixos)" itemValue="Antilhas Holandesas ( Países Baixos)" />
+                                        <f:selectItem itemLabel="Arábia Saudita" itemValue="Arábia Saudita" />
+                                        <f:selectItem itemLabel="Argélia" itemValue="Argélia" />
+                                        <f:selectItem itemLabel="Argentina" itemValue="Argentina" />
+                                        <f:selectItem itemLabel="Arménia" itemValue="Arménia" />
+                                        <f:selectItem itemLabel="Aruba ( Países Baixos)" itemValue="Aruba ( Países Baixos)" />
+                                        <f:selectItem itemLabel="Austrália" itemValue="Austrália" />
+                                        <f:selectItem itemLabel="Áustria" itemValue="Áustria" />
+                                        <f:selectItem itemLabel="Azerbaijão" itemValue="Azerbaijão" />
+                                        <f:selectItem itemLabel="Bahamas" itemValue="Bahamas" />
+                                        <f:selectItem itemLabel="Bahrein" itemValue="Bahrein" />
+                                        <f:selectItem itemLabel="Bangladesh" itemValue="Bangladesh" />
+                                        <f:selectItem itemLabel="Barbados" itemValue="Barbados" />
+                                        <f:selectItem itemLabel="Bélgica" itemValue="Bélgica" />
+                                        <f:selectItem itemLabel="Belize" itemValue="Belize" />
+                                        <f:selectItem itemLabel="Benim" itemValue="Benim" />
+                                        <f:selectItem itemLabel="Bermudas ( Reino Unido)" itemValue="Bermudas ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Bielorrússia" itemValue="Bielorrússia" />
+                                        <f:selectItem itemLabel="Bolívia" itemValue="Bolívia" />
+                                        <f:selectItem itemLabel="Bósnia e Herzegovina" itemValue="Bósnia e Herzegovina" />
+                                        <f:selectItem itemLabel="Botswana" itemValue="Botswana" />
+                                        <f:selectItem itemLabel="Brasil" itemValue="Brasil" />
+                                        <f:selectItem itemLabel="Brunei" itemValue="Brunei" />
+                                        <f:selectItem itemLabel="Bulgária" itemValue="Bulgária" />
+                                        <f:selectItem itemLabel="Burkina Faso" itemValue="Burkina Faso" />
+                                        <f:selectItem itemLabel="Burundi" itemValue="Burundi" />
+                                        <f:selectItem itemLabel="Butão" itemValue="Butão" />
+                                        <f:selectItem itemLabel="Cabo Verde" itemValue="Cabo Verde" />
+                                        <f:selectItem itemLabel="Camarões" itemValue="Camarões" />
+                                        <f:selectItem itemLabel="Camboja" itemValue="Camboja" />
+                                        <f:selectItem itemLabel="Canadá" itemValue="Canadá" />
+                                        <f:selectItem itemLabel="Catar" itemValue="Catar" />
+                                        <f:selectItem itemLabel="Cazaquistão" itemValue="Cazaquistão" />
+                                        <f:selectItem itemLabel="Chade" itemValue="Chade" />
+                                        <f:selectItem itemLabel="Chile" itemValue="Chile" />
+                                        <f:selectItem itemLabel="Chipre" itemValue="Chipre" />
+                                        <f:selectItem itemLabel="Cisjordânia" itemValue="Cisjordânia" />
+                                        <f:selectItem itemLabel="Colômbia" itemValue="Colômbia" />
+                                        <f:selectItem itemLabel="Comores" itemValue="Comores" />
+                                        <f:selectItem itemLabel="Coreia do Norte" itemValue="Coreia do Norte" />
+                                        <f:selectItem itemLabel="Coreia do Sul" itemValue="Coreia do Sul" />
+                                        <f:selectItem itemLabel="Costa do Marfim" itemValue="Costa do Marfim" />
+                                        <f:selectItem itemLabel="Costa Rica" itemValue="Costa Rica" />
+                                        <f:selectItem itemLabel="Croácia" itemValue="Croácia" />
+                                        <f:selectItem itemLabel="Cuba" itemValue="Cuba" />
+                                        <f:selectItem itemLabel="Curaçao ( Países Baixos)" itemValue="Curaçao ( Países Baixos)" />
+                                        <f:selectItem itemLabel="Dinamarca" itemValue="Dinamarca" />
+                                        <f:selectItem itemLabel="Djibouti" itemValue="Djibouti" />
+                                        <f:selectItem itemLabel="Dominica" itemValue="Dominica" />
+                                        <f:selectItem itemLabel="Egito" itemValue="Egito" />
+                                        <f:selectItem itemLabel="El Salvador" itemValue="El Salvador" />
+                                        <f:selectItem itemLabel="Emirados Árabes Unidos" itemValue="Emirados Árabes Unidos" />
+                                        <f:selectItem itemLabel="Equador" itemValue="Equador" />
+                                        <f:selectItem itemLabel="Eritreia" itemValue="Eritreia" />
+                                        <f:selectItem itemLabel="Eslováquia" itemValue="Eslováquia" />
+                                        <f:selectItem itemLabel="Eslovênia" itemValue="Eslovênia" />
+                                        <f:selectItem itemLabel="Espanha" itemValue="Espanha" />
+                                        <f:selectItem itemLabel="Estados Federados da Micronésia" itemValue="Estados Federados da Micronésia" />
+                                        <f:selectItem itemLabel="Estados Unidos" itemValue="Estados Unidos" />
+                                        <f:selectItem itemLabel="Estónia" itemValue="Estónia" />
+                                        <f:selectItem itemLabel="Etiópia" itemValue="Etiópia" />
+                                        <f:selectItem itemLabel="Faixa de Gaza" itemValue="Faixa de Gaza" />
+                                        <f:selectItem itemLabel="Fiji" itemValue="Fiji" />
+                                        <f:selectItem itemLabel="Filipinas" itemValue="Filipinas" />
+                                        <f:selectItem itemLabel="Finlândia" itemValue="Finlândia" />
+                                        <f:selectItem itemLabel="França" itemValue="França" />
+                                        <f:selectItem itemLabel="Gabão" itemValue="Gabão" />
+                                        <f:selectItem itemLabel="Gâmbia" itemValue="Gâmbia" />
+                                        <f:selectItem itemLabel="Gana" itemValue="Gana" />
+                                        <f:selectItem itemLabel="Geórgia" itemValue="Geórgia" />
+                                        <f:selectItem itemLabel="Gibraltar ( Reino Unido)" itemValue="Gibraltar ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Granada" itemValue="Granada" />
+                                        <f:selectItem itemLabel="Grécia" itemValue="Grécia" />
+                                        <f:selectItem itemLabel="Gronelândia ( Dinamarca)" itemValue="Gronelândia ( Dinamarca)" />
+                                        <f:selectItem itemLabel="Guadalupe ( França)" itemValue="Guadalupe ( França)" />
+                                        <f:selectItem itemLabel="Guatemala" itemValue="Guatemala" />
+                                        <f:selectItem itemLabel="Guernesei ( Reino Unido)" itemValue="Guernesei ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Guiana" itemValue="Guiana" />
+                                        <f:selectItem itemLabel="Guiné" itemValue="Guiné" />
+                                        <f:selectItem itemLabel="Guiné Equatorial" itemValue="Guiné Equatorial" />
+                                        <f:selectItem itemLabel="Guiné-Bissau" itemValue="Guiné-Bissau" />
+                                        <f:selectItem itemLabel="Haiti" itemValue="Haiti" />
+                                        <f:selectItem itemLabel="Honduras" itemValue="Honduras" />
+                                        <f:selectItem itemLabel="Hong Kong ( República Popular da China)" itemValue="Hong Kong ( República Popular da China)" />
+                                        <f:selectItem itemLabel="Hungria" itemValue="Hungria" />
+                                        <f:selectItem itemLabel="Iémen/Iêmen" itemValue="Iémen/Iêmen" />
+                                        <f:selectItem itemLabel="Ilha de Man ( Reino Unido)" itemValue="Ilha de Man ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Ilha do Natal ( Austrália)" itemValue="Ilha do Natal ( Austrália)" />
+                                        <f:selectItem itemLabel="Ilha Norfolk ( Austrália)" itemValue="Ilha Norfolk ( Austrália)" />
+                                        <f:selectItem itemLabel="Ilhas Cayman ( Reino Unido)" itemValue="Ilhas Cayman ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Ilhas Cocos (Keeling) ( Austrália)" itemValue="Ilhas Cocos (Keeling) ( Austrália)" />
+                                        <f:selectItem itemLabel="Ilhas Cook ( Nova Zelândia)" itemValue="Ilhas Cook ( Nova Zelândia)" />
+                                        <f:selectItem itemLabel="Ilhas Feroé ( Dinamarca)" itemValue="Ilhas Feroé ( Dinamarca)" />
+                                        <f:selectItem itemLabel="Ilhas Malvinas ou Malvinas ( Reino Unido)" itemValue="Ilhas Malvinas ou Malvinas ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Ilhas Marshall" itemValue="Ilhas Marshall" />
+                                        <f:selectItem itemLabel="Ilhas Salomão" itemValue="Ilhas Salomão" />
+                                        <f:selectItem itemLabel="Ilhas Virgens Americanas ( Estados Unidos)" itemValue="Ilhas Virgens Americanas ( Estados Unidos)" />
+                                        <f:selectItem itemLabel="Ilhas Virgens Britânicas ( Reino Unido)" itemValue="Ilhas Virgens Britânicas ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Índia" itemValue="Índia" />
+                                        <f:selectItem itemLabel="Indonésia" itemValue="Indonésia" />
+                                        <f:selectItem itemLabel="Irã" itemValue="Irã" />
+                                        <f:selectItem itemLabel="Iraque" itemValue="Iraque" />
+                                        <f:selectItem itemLabel="Irlanda" itemValue="Irlanda" />
+                                        <f:selectItem itemLabel="Islândia" itemValue="Islândia" />
+                                        <f:selectItem itemLabel="Israel" itemValue="Israel" />
+                                        <f:selectItem itemLabel="Itália" itemValue="Itália" />
+                                        <f:selectItem itemLabel="Jamaica" itemValue="Jamaica" />
+                                        <f:selectItem itemLabel="Japão" itemValue="Japão" />
+                                        <f:selectItem itemLabel="Jersey ( Reino Unido)" itemValue="Jersey ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Jordânia" itemValue="Jordânia" />
+                                        <f:selectItem itemLabel="Kiribati" itemValue="Kiribati" />
+                                        <f:selectItem itemLabel="Kosovo" itemValue="Kosovo" />
+                                        <f:selectItem itemLabel="Kuwait" itemValue="Kuwait" />
+                                        <f:selectItem itemLabel="Laos" itemValue="Laos" />
+                                        <f:selectItem itemLabel="Lesoto" itemValue="Lesoto" />
+                                        <f:selectItem itemLabel="Letônia" itemValue="Letônia" />
+                                        <f:selectItem itemLabel="Líbano" itemValue="Líbano" />
+                                        <f:selectItem itemLabel="Libéria" itemValue="Libéria" />
+                                        <f:selectItem itemLabel="Líbia" itemValue="Líbia" />
+                                        <f:selectItem itemLabel="Liechtenstein" itemValue="Liechtenstein" />
+                                        <f:selectItem itemLabel="Lituânia" itemValue="Lituânia" />
+                                        <f:selectItem itemLabel="Luxemburgo" itemValue="Luxemburgo" />
+                                        <f:selectItem itemLabel="Macau ( República Popular da China)" itemValue="Macau ( República Popular da China)" />
+                                        <f:selectItem itemLabel="Macedónia" itemValue="Macedónia" />
+                                        <f:selectItem itemLabel="Madagáscar" itemValue="Madagáscar" />
+                                        <f:selectItem itemLabel="Madeira ( Portugal)" itemValue="Madeira ( Portugal)" />
+                                        <f:selectItem itemLabel="Maiote ( França)" itemValue="Maiote ( França)" />
+                                        <f:selectItem itemLabel="Malásia" itemValue="Malásia" />
+                                        <f:selectItem itemLabel="Malawi" itemValue="Malawi" />
+                                        <f:selectItem itemLabel="Maldivas" itemValue="Maldivas" />
+                                        <f:selectItem itemLabel="Mali" itemValue="Mali" />
+                                        <f:selectItem itemLabel="Malta" itemValue="Malta" />
+                                        <f:selectItem itemLabel="Marianas Setentrionais ( Estados Unidos)" itemValue="Marianas Setentrionais ( Estados Unidos)" />
+                                        <f:selectItem itemLabel="Marrocos" itemValue="Marrocos" />
+                                        <f:selectItem itemLabel="Martinica ( França)" itemValue="Martinica ( França)" />
+                                        <f:selectItem itemLabel="Maurícia" itemValue="Maurícia" />
+                                        <f:selectItem itemLabel="Mauritânia" itemValue="Mauritânia" />
+                                        <f:selectItem itemLabel="México" itemValue="México" />
+                                        <f:selectItem itemLabel="Moçambique" itemValue="Moçambique" />
+                                        <f:selectItem itemLabel="Moldávia" itemValue="Moldávia" />
+                                        <f:selectItem itemLabel="Mónaco" itemValue="Mónaco" />
+                                        <f:selectItem itemLabel="Mongólia" itemValue="Mongólia" />
+                                        <f:selectItem itemLabel="Montenegro" itemValue="Montenegro" />
+                                        <f:selectItem itemLabel="Montserrat ( Reino Unido)" itemValue="Montserrat ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Myanmar" itemValue="Myanmar" />
+                                        <f:selectItem itemLabel="Namíbia" itemValue="Namíbia" />
+                                        <f:selectItem itemLabel="Nauru" itemValue="Nauru" />
+                                        <f:selectItem itemLabel="Nepal" itemValue="Nepal" />
+                                        <f:selectItem itemLabel="Nicarágua" itemValue="Nicarágua" />
+                                        <f:selectItem itemLabel="Níger" itemValue="Níger" />
+                                        <f:selectItem itemLabel="Nigéria" itemValue="Nigéria" />
+                                        <f:selectItem itemLabel="Niue ( Nova Zelândia)" itemValue="Niue ( Nova Zelândia)" />
+                                        <f:selectItem itemLabel="Noruega" itemValue="Noruega" />
+                                        <f:selectItem itemLabel="Nova Caledônia ( França)" itemValue="Nova Caledônia ( França)" />
+                                        <f:selectItem itemLabel="Nova Zelândia" itemValue="Nova Zelândia" />
+                                        <f:selectItem itemLabel="Omã" itemValue="Omã" />
+                                        <f:selectItem itemLabel="Países Baixos" itemValue="Países Baixos" />
+                                        <f:selectItem itemLabel="Palau" itemValue="Palau" />
+                                        <f:selectItem itemLabel="Panamá" itemValue="Panamá" />
+                                        <f:selectItem itemLabel="Papua-Nova Guiné" itemValue="Papua-Nova Guiné" />
+                                        <f:selectItem itemLabel="Paquistão" itemValue="Paquistão" />
+                                        <f:selectItem itemLabel="Paraguai" itemValue="Paraguai" />
+                                        <f:selectItem itemLabel="Peru" itemValue="Peru" />
+                                        <f:selectItem itemLabel="Pitcairn ( Reino Unido)" itemValue="Pitcairn ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Polinésia Francesa ( França)" itemValue="Polinésia Francesa ( França)" />
+                                        <f:selectItem itemLabel="Polinésia Francesa ( França)" itemValue="Polinésia Francesa ( França)" />
+                                        <f:selectItem itemLabel="Polónia" itemValue="Polónia" />
+                                        <f:selectItem itemLabel="Porto Rico" itemValue="Porto Rico" />
+                                        <f:selectItem itemLabel="Portugal" itemValue="Portugal" />
+                                        <f:selectItem itemLabel="Quênia" itemValue="Quênia" />
+                                        <f:selectItem itemLabel="Quirguistão" itemValue="Quirguistão" />
+                                        <f:selectItem itemLabel="Reino Unido" itemValue="Reino Unido" />
+                                        <f:selectItem itemLabel="República Centro-Africana" itemValue="República Centro-Africana" />
+                                        <f:selectItem itemLabel="República Checa" itemValue="República Checa" />
+                                        <f:selectItem itemLabel="República Democrática do Congo" itemValue="República Democrática do Congo" />
+                                        <f:selectItem itemLabel="República do Congo" itemValue="República do Congo" />
+                                        <f:selectItem itemLabel="República Dominicana" itemValue="República Dominicana" />
+                                        <f:selectItem itemLabel="República Popular da China" itemValue="República Popular da China" />
+                                        <f:selectItem itemLabel="Reunião ( França)" itemValue="Reunião ( França)" />
+                                        <f:selectItem itemLabel="Roménia" itemValue="Roménia" />
+                                        <f:selectItem itemLabel="Ruanda" itemValue="Ruanda" />
+                                        <f:selectItem itemLabel="Rússia" itemValue="Rússia" />
+                                        <f:selectItem itemLabel="Saara Ocidental" itemValue="Saara Ocidental" />
+                                        <f:selectItem itemLabel="Samoa" itemValue="Samoa" />
+                                        <f:selectItem itemLabel="Samoa Americana ( Estados Unidos)" itemValue="Samoa Americana ( Estados Unidos)" />
+                                        <f:selectItem itemLabel="Santa Helena, Ascensão e Tristão da Cunha ( Reino Unido)" itemValue="Santa Helena, Ascensão e Tristão da Cunha ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Santa Lúcia" itemValue="Santa Lúcia" />
+                                        <f:selectItem itemLabel="São Cristóvão e Nevis" itemValue="São Cristóvão e Nevis" />
+                                        <f:selectItem itemLabel="São Marino" itemValue="São Marino" />
+                                        <f:selectItem itemLabel="São Martinho ( França)" itemValue="São Martinho ( França)" />
+                                        <f:selectItem itemLabel="São Pedro e Miquelão ( França)" itemValue="São Pedro e Miquelão ( França)" />
+                                        <f:selectItem itemLabel="São Tomé e Príncipe" itemValue="São Tomé e Príncipe" />
+                                        <f:selectItem itemLabel="São Vicente e Granadinas" itemValue="São Vicente e Granadinas" />
+                                        <f:selectItem itemLabel="Senegal" itemValue="Senegal" />
+                                        <f:selectItem itemLabel="Serra Leoa" itemValue="Serra Leoa" />
+                                        <f:selectItem itemLabel="Sérvia" itemValue="Sérvia" />
+                                        <f:selectItem itemLabel="Seychelles" itemValue="Seychelles" />
+                                        <f:selectItem itemLabel="Singapura" itemValue="Singapura" />
+                                        <f:selectItem itemLabel="Síria" itemValue="Síria" />
+                                        <f:selectItem itemLabel="Somália" itemValue="Somália" />
+                                        <f:selectItem itemLabel="Sri Lanka" itemValue="Sri Lanka" />
+                                        <f:selectItem itemLabel="Suazilândia" itemValue="Suazilândia" />
+                                        <f:selectItem itemLabel="Sudão" itemValue="Sudão" />
+                                        <f:selectItem itemLabel="Sudão do Sul" itemValue="Sudão do Sul" />
+                                        <f:selectItem itemLabel="Suécia" itemValue="Suécia" />
+                                        <f:selectItem itemLabel="Suíça" itemValue="Suíça" />
+                                        <f:selectItem itemLabel="Suriname" itemValue="Suriname" />
+                                        <f:selectItem itemLabel="Svalbard e Jan Mayen ( Noruega)" itemValue="Svalbard e Jan Mayen ( Noruega)" />
+                                        <f:selectItem itemLabel="Tailândia" itemValue="Tailândia" />
+                                        <f:selectItem itemLabel="Taiwan" itemValue="Taiwan" />
+                                        <f:selectItem itemLabel="Tajiquistão" itemValue="Tajiquistão" />
+                                        <f:selectItem itemLabel="Tanzânia" itemValue="Tanzânia" />
+                                        <f:selectItem itemLabel="Timor-Leste" itemValue="Timor-Leste" />
+                                        <f:selectItem itemLabel="Togo" itemValue="Togo" />
+                                        <f:selectItem itemLabel="Tonga" itemValue="Tonga" />
+                                        <f:selectItem itemLabel="Toquelau ( Nova Zelândia)" itemValue="Toquelau ( Nova Zelândia)" />
+                                        <f:selectItem itemLabel="Trinidad e Tobago" itemValue="Trinidad e Tobago" />
+                                        <f:selectItem itemLabel="Tunísia" itemValue="Tunísia" />
+                                        <f:selectItem itemLabel="Turcas e Caicos ( Reino Unido)" itemValue="Turcas e Caicos ( Reino Unido)" />
+                                        <f:selectItem itemLabel="Turquemenistão" itemValue="Turquemenistão" />
+                                        <f:selectItem itemLabel="Turquia" itemValue="Turquia" />
+                                        <f:selectItem itemLabel="Tuvalu" itemValue="Tuvalu" />
+                                        <f:selectItem itemLabel="Ucrânia" itemValue="Ucrânia" />
+                                        <f:selectItem itemLabel="Uganda" itemValue="Uganda" />
+                                        <f:selectItem itemLabel="Uruguai" itemValue="Uruguai" />
+                                        <f:selectItem itemLabel="Uzbequistão" itemValue="Uzbequistão" />
+                                        <f:selectItem itemLabel="Vanuatu" itemValue="Vanuatu" />
+                                        <f:selectItem itemLabel="Vaticano" itemValue="Vaticano" />
+                                        <f:selectItem itemLabel="Venezuela" itemValue="Venezuela" />
+                                        <f:selectItem itemLabel="Vietname" itemValue="Vietname" />
+                                        <f:selectItem itemLabel="Wallis e Futuna ( França)" itemValue="Wallis e Futuna ( França)" />
+                                        <f:selectItem itemLabel="Zâmbia" itemValue="Zâmbia" />
+                                        <f:selectItem itemLabel="Zimbabwe" itemValue="Zimbabwe" />
+
+
+
+                                    </p:selectOneMenu>              
+                                </p:panelGrid>                                
 
                             </p:panelGrid>
-
-
-                            <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"> 
+                                </p:tab>
+                                
+                                
+                                <p:tab title="Contato Principal">
+                            
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Pessoa de Contato" />
+                                    <p:inputText value="#{parceiroController.parceiro.pessoaContato}" />                
+                                </p:panelGrid>
+                                
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Cargo" />
+                                    <p:inputText value="#{parceiroController.parceiro.cargo}"/>
+                                </p:panelGrid>                                 
+                                    
+                                <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank"> 
+                                
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Telefone" />
-                                    <p:inputMask value="#{parceiroController.parceiro.telefone1}" mask="(99) 9999-9999?9"/>
+                                    <p:inputText value="#{parceiroController.parceiro.telefone1}"/>
                                 </p:panelGrid>
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Telefone" />
-                                    <p:inputMask value="#{parceiroController.parceiro.telefone2}" mask="(99) 9999-9999?9"/>
+                                    <p:inputText value="#{parceiroController.parceiro.telefone2}"/>
                                 </p:panelGrid>
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Telefone" />
-                                    <p:inputMask value="#{parceiroController.parceiro.telefone3}" mask="(99) 9999-9999?9"/>
+                                    <p:inputText value="#{parceiroController.parceiro.telefone3}"/>
                                 </p:panelGrid>
-
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    
+                                <!--<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Telefone (Móvel)" />
-                                    <p:inputMask value="#{parceiroController.parceiro.telefone4}" mask="(99) 9999-9999?9"/>
-                                </p:panelGrid>
+                                    <p:inputText value="#{parceiroController.parceiro.telefone4}"/>
+                                </p:panelGrid>-->
                             </p:panelGrid>
 
                             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-8,ui-grid-col-8"> 
@@ -318,35 +629,41 @@
                                     <p:inputText value="#{parceiroController.parceiro.email}" />                
                                 </p:panelGrid>
 
+                        
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Pessoa de Contato" />
-                                    <p:inputText value="#{parceiroController.parceiro.pessoaContato}" />                
-                                </p:panelGrid>
+                                    <h:outputText value="Site" />
+                                    <p:inputText value="#{parceiroController.parceiro.site}" />                
+                                </p:panelGrid>                                
                             </p:panelGrid>
-
-
-
-                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                <h:outputText value="Situação" />
-                                <p:selectOneMenu value="#{parceiroController.parceiro.situacao}" >
-                                    <f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
-                                    <f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
-                                </p:selectOneMenu>
-                            </p:panelGrid>
-
-                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            </p:tab>
+                                
+  
+                                                
+                            
+                             
+                            <!--<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <h:outputText value="Tabela de Preço" />
                                 <p:selectOneMenu value="#{parceiroController.parceiro.seqTabelaPreco}" filter="true" filterMatchMode="contains" >
                                     <f:selectItem itemLabel="Selecione a tabela de Preço" itemValue="#{null}" />
                                     <f:selectItems value="#{parceiroController.listaTabelaPreco}" var="tp"  itemLabel="#{tp.nome}" itemValue="#{tp.seqTabelaPreco}" />
                                 </p:selectOneMenu>
-                            </p:panelGrid>
+                            </p:panelGrid>-->
+                         
+                           
+                          
 
-
-
-                            <p:accordionPanel id="acdVinculo" activeIndex="null" rendered="#{parceiroController.parceiro.seqParceiro > 0}">
-
-                                <p:tab title="Endereço" id="tbEndereco">
+                            <p:tab title="Perfil do Cliente" id="perfil" rendered="#{parceiroController.parceiro.seqParceiro > 0}" >
+                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                <h:outputText value="Perfil do Cliente" />
+                                <p:selectOneMenu value="#{parceiroController.parceiro.perfil}" filter="true" filterMatchMode="startsWith">
+                                <f:selectItems itemLabel="Selecione o Perfil" itemValue="#{null}" />
+                                <f:selectItems value="#{parceiroController.listaTipoCaracteristica}" var="tc"  itemLabel="#{tc.nome}" itemValue="#{tc.nome}" />
+                                </p:selectOneMenu>
+                            </p:panelGrid>                      
+                            </p:tab>              
+                                
+                                
+                                <p:tab title="Outros Endereços" id="tbEndereco" rendered="#{parceiroController.parceiro.seqParceiro > 0}">
                                     <p:messages  autoUpdate="true" closable="true" />
 
                                     <p:dataTable id="listaEndereco" var="ende" value="#{parceiroController.listaParceiroEndereco}" emptyMessage="Lista vazia" reflow="true" style="">
@@ -475,7 +792,7 @@
                                 </p:tab>
 
 
-                                <p:tab title="Contatos" id="tbContato">
+                                <p:tab title="Outros Contatos" id="tbContato" rendered="#{parceiroController.parceiro.seqParceiro > 0}">
                                     <p:messages  autoUpdate="true" closable="true" />
 
                                     <p:dataTable id="listaContato" var="c" value="#{parceiroController.listaParceiroContato}" emptyMessage="Lista vazia" reflow="true" style="">
@@ -495,10 +812,9 @@
                                             <p:outputLabel value="#{c.email}"  />
                                         </p:column>
 
-                                        <p:column headerText="Data de Cadastro" sortBy="#{c.dataCadastro}">
-                                            <p:outputLabel value="#{c.dataCadastro}"  title="#{c.dataCadastro}"  >
-                                                <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
-                                            </p:outputLabel>
+                                        <p:column headerText="Cargo" sortBy="#{c.dataCadastro}">
+                                            <p:outputLabel value="#{c.cargo}"  title="#{c.cargo}"  >
+                                             </p:outputLabel>
                                         </p:column>
 
                                         <p:column headerText="Detalhe" width="8%">
@@ -517,12 +833,12 @@
 
                                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                                 <h:outputText value="Telefone" />
-                                                <p:inputMask value="#{parceiroController.parceiroContato.telefone}"   mask="(99) 9999-9999?9" />                
+                                                <p:inputText value="#{parceiroController.parceiroContato.telefone}"  />                
                                             </p:panelGrid> 
 
                                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                                 <h:outputText value="Telefone 2" />
-                                                <p:inputMask value="#{parceiroController.parceiroContato.telefone2}"   mask="(99) 9999-9999?9" />                
+                                                <p:inputText value="#{parceiroController.parceiroContato.telefone2}" />                
                                             </p:panelGrid> 
 
                                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
@@ -532,11 +848,16 @@
 
                                         </p:panelGrid>
 
-                                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" > 
                                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                                 <h:outputText value="Informações Adicionais" />
                                                 <p:inputText value="#{parceiroController.parceiroContato.info}" />
                                             </p:panelGrid>
+                                            
+                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                                <h:outputText value="Cargo" />
+                                                <p:inputText value="#{parceiroController.parceiroContato.cargo}" />
+                                            </p:panelGrid>                                            
 
                                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                                 <h:outputText value="Situação" />
@@ -562,14 +883,9 @@
 
                                 </p:tab>                                
 
-                                <p:tab title="Caracteristicas">
-                                    <p:selectManyCheckbox id="grid2" layout="responsive" value="#{parceiroController.caracteristicasSelecionada}" columns="1">
-                                        <f:selectItems value="#{parceiroController.listaTipoCaracteristica}" var="c" itemLabel="#{c.nome}" itemValue="#{c.seqTipoCaracteristica}" />
-                                    </p:selectManyCheckbox>
+                               
 
-                                </p:tab>
-
-                                <p:tab title="Parceiros Vinculados">
+                                <p:tab title="Parceiros Vinculados" rendered="#{parceiroController.parceiro.seqParceiro > 0}">
                                     <p:messages  autoUpdate="true" closable="true" />
 
                                     <p:dataTable id="listaVinculo" var="v" value="#{parceiroController.listaParceiroVinculo}" emptyMessage="Lista vazia" reflow="true" style="">
@@ -623,7 +939,7 @@
                                 </p:tab>
 
 
-                                <p:tab title="Anotações">
+                                <p:tab title=" Instruções do Cliente" rendered="#{parceiroController.parceiro.seqParceiro > 0}">
                                     <p:messages autoUpdate="true" closable="true" />
                                     <p:dataTable id="listaAnotacao" var="a" value="#{parceiroController.listaAnotacao}" emptyMessage="Lista vazia" reflow="true" style="">
                                         <p:column headerText="Descrição" sortBy="#{a.descricao}">
@@ -648,16 +964,18 @@
                                     <p:separator/>
 
                                     <p:panelGrid id="pnlAnotacao"  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                        <!--p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{loginController.usuario.acParTodos == 1}"> 
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{loginController.usuario.acParTodos == 1}"> 
                                             <p:outputLabel value="Tipo de Anotação"/>
                                             <p:selectOneMenu value="#{parceiroController.anotacao.seqTipoAnotacao}" required="false" requiredMessage="[TIPO DE ANOTAÇÃO] Obrigatório" filter="true" filterMatchMode="contains">
                                                 <f:selectItems value="#{parceiroController.listaTipoAnotacao}" var="an" itemLabel="#{an.nome}" itemValue="#{an.seqTipoAnotacao}" />
                                             </p:selectOneMenu>
-                                        </p:panelGrid-->
+                                        </p:panelGrid>
 
                                         <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                             <p:outputLabel value="Descrição"/>
-                                            <p:editor controls="" value="#{parceiroController.anotacao.descricao}"/>
+                                            <!--<p:inputText value ="#{parceiroController.anotacao.descricao}" />-->
+                                            <p:inputTextarea autoResize="true" counter="desc" counterTemplate="{0} caracteres restantes." maxlength="3000" value="#{parceiroController.anotacao.descricao}"/>
+                                             <h:outputText id="desc"/>
                                         </p:panelGrid>
 
                                         <p:panelGrid  columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
@@ -667,9 +985,73 @@
 
                                     </p:panelGrid>
 
-                                </p:tab>
+                                </p:tab>  
+                                
+                                <p:tab title="Documentos do Colaborador/Cliente/Fornecedor"  rendered="#{parceiroController.parceiro.seqParceiro > 0}">
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:growl id="messagesg" showDetail="true" />
+                                        <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-4,ui-grid-col-4"> 
+                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <p:outputLabel value="Tipo de Arquivo"/>
+                                            <p:inputText value="#{parceiroController.upload.tipoArquivo}" />
+                                                <h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{parceiroController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{parceiroController.upload.dataValidade}"/>
+                                                
+                                                
+                                                
+                                            </p:panelGrid>                            
+                                            <p:fileUpload label="Selecionar Arquivo" value="#{parceiroController.file}" mode="simple" skinSimple="true"/>
+                                            <p:commandButton value="Adicionar" ajax="false" actionListener="#{parceiroController.upload}" rendered="#{loginController.usuario.acParNovo == 1}" update=" tblAnexos"/>
+                                        </p:panelGrid>                            
+                                    </p:panelGrid>
+                                    
+                                    <p:dataTable id="tblAnexos" var="a" rowIndexVar="index" value="#{parceiroController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
+                                        <p:column headerText="ID" width="8%" style="text-align: center">
+                                            <p:outputLabel value="#{index+1}"/>
+                                        </p:column>
+                                        <p:column headerText="Nome" style="text-align: center">
+                                            <p:outputLabel value="#{a.nomeArquivo}"/>
+                                        </p:column>
+                                        <p:column headerText="Tipo" style="text-align: center">
+                                            <p:outputLabel value="#{a.tipoArquivo}"/>
+                                        </p:column>
+                                        <p:column headerText="Usuário" style="text-align: center">
+                                            <p:outputLabel value="#{a.nomeUsuario}"/>
+                                        </p:column>
+                                        <p:column headerText="Dt. Emissao do Documento" sortBy="#{a.dataEmissao}">
+                                            <h:outputText value="#{a.dataEmissao}"  title="#{a.dataEmissao}"  >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Dt. Validade do Documento" sortBy="#{a.dataValidade}">
+                                            <h:outputText value="#{a.dataValidade}"  title="#{a.dataValidade}"  >
+                                            <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>
+                         
+                                        <p:column headerText="Download" width="8%" style="text-align: center" >
+                                            <p:commandButton actionListener="#{parceiroController.download(a)}" onclick="this.form.target = '_blank'" style="width: 50px" ajax="false"  icon="fa fa-arrow-circle-down white">
+                                                <p:fileDownload value="#{parceiroController.fileDownload}" />
+                                            </p:commandButton>
+                                        </p:column>
+                                       
+                                        <p:column headerText="Remover" width="8%" style="text-align: center">
+                                            <p:commandButton icon="fa fa-eraser white" style="width: 50px" styleClass="RedButton" actionListener="#{parceiroController.removerAnexo(a)}" rendered="#{parceiroController.parceiro.seqParceiro!=0}" update=":frmDetalhe :frmLista">
+                                               
+                                            </p:commandButton>
+                                         
+                                            </p:column>
+                                      
+                                        
+                                    </p:dataTable>
 
-                            </p:accordionPanel>                            
+                                </p:tab>                              
+                                
+                            </p:tabView>                              
+                            
+                                  
 
                         </p:panelGrid>
 

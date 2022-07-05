@@ -46,6 +46,30 @@
 /* 46 */     listaColaborador = dao.listar(condicao);
 /* 47 */     return listaColaborador;
 /*    */   }
+
+/*    */   public List<Colaborador> listarv(String pSeqEmpresa, String pString, Situacao pSituacao)
+/*    */   {
+/* 33 */     ColaboradorDAO dao = new ColaboradorDAO();
+/* 34 */     List<Colaborador> listaColaborador = new ArrayList();
+/* 35 */     ClausulaWhere condicao = new ClausulaWhere();
+/*    */     
+/* 37 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "nome", GeneroCondicaoWhere.contem, pString, TipoCondicaoWhere.Texto);
+/* 38 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
+/*    */     
+/* 40 */     if (pSituacao == Situacao.ATIVO) {
+/* 41 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);
+/* 42 */     } else if (pSituacao == Situacao.INATIVO) {
+/* 43 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "INATIVO", TipoCondicaoWhere.Texto);
+/*    */     }
+/*    */     
+/* 46 */     listaColaborador = dao.listarv(condicao);
+/* 47 */     return listaColaborador;
+/*    */   }
+
+
+
+
+
 /*    */   
 /*    */   public boolean deletar(Colaborador colaborador) {
 /* 51 */     ColaboradorDAO dao = new ColaboradorDAO();

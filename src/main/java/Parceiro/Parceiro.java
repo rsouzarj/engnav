@@ -1,18 +1,10 @@
 /*     */ package Parceiro;
 /*     */ 
+import ParceiroCaracteristica.ParceiroCaracteristica;
+import java.util.ArrayList;
 /*     */ import java.util.Date;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+import java.util.List;
+
 /*     */ public class Parceiro
 /*     */ {
 /*     */   private String seqParceiro;
@@ -48,7 +40,7 @@
 /*     */   private String tag2;
 /*     */   private String tag3;
 /*     */   private String tag4;
-/*     */   private String tag5;
+/*     */   private String unidadeNegocio;
 /*     */   private String longitude;
 /*     */   private String latitude;
 /*     */   private String seqUsuario;
@@ -56,6 +48,17 @@
 /*     */   private String tipoParceiro;
 /*     */   private String seqParceiroInclusao;
 /*     */   private String seqTabelaPreco;
+/*     */   private String pais;
+/*     */   private String site;
+            private String grupo;
+            private String perfil;
+            private String cargo;
+            List<ParceiroCaracteristica> listaParceiroCaracteristica;
+            
+            public Parceiro()
+            {
+                this.listaParceiroCaracteristica = new ArrayList();
+            }
 /*     */   
 /*     */   public String getSeqParceiro()
 /*     */   {
@@ -322,12 +325,12 @@
 /* 322 */     this.tag4 = tag4;
 /*     */   }
 /*     */   
-/*     */   public String getTag5() {
-/* 326 */     return this.tag5;
+/*     */   public String getUnidadeNegocio() {
+/* 326 */     return this.unidadeNegocio;
 /*     */   }
 /*     */   
-/*     */   public void setTag5(String tag5) {
-/* 330 */     this.tag5 = tag5;
+/*     */   public void setUnidadeNegocio(String unidadeNegocio) {
+/* 330 */     this.unidadeNegocio = unidadeNegocio;
 /*     */   }
 /*     */   
 /*     */   public String getStringitude() {
@@ -385,10 +388,53 @@
 /*     */   public void setOrigemParceiro(String origemParceiro) {
 /* 386 */     this.origemParceiro = origemParceiro;
 /*     */   }
-/*     */ }
 
+/*     */   public String getPais() {
+/* 382 */     return this.pais;
+/*     */   }
+/*     */   
+/*     */   public void setPais(String pais) {
+/* 386 */     this.pais = pais;
+/*     */   }
 
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Parceiro/Parceiro.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */
+/*     */   public String getSite() {
+/* 382 */     return this.site;
+/*     */   }
+/*     */   
+/*     */   public void setSite(String site) {
+/* 386 */     this.site = site;
+/*     */   }
+
+/*     */   public String getGrupo() {
+/* 382 */     return this.grupo;
+/*     */   }
+/*     */   
+/*     */   public void setGrupo(String grupo) {
+/* 386 */     this.grupo = grupo;
+/*     */   }
+
+/*     */   public String getPerfil() {
+/* 382 */     return this.perfil;
+/*     */   }
+/*     */   
+/*     */   public void setPerfil(String perfil) {
+/* 386 */     this.perfil = perfil;
+/*     */   }
+
+/*     */   public String getCargo() {
+/* 382 */     return this.cargo;
+/*     */   }
+/*     */   
+/*     */   public void setCargo(String cargo) {
+/* 386 */     this.cargo = cargo;
+/*     */   }
+
+  public List<ParceiroCaracteristica> getListaParceiroCaracteristica() {
+    return this.listaParceiroCaracteristica;
+  }
+  
+  public void setListaParceiroCaracteristica(List<ParceiroCaracteristica> listaParceiroCaracteristica) {
+    this.listaParceiroCaracteristica = listaParceiroCaracteristica;
+  }
+ }
+

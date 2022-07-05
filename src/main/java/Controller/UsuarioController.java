@@ -96,7 +96,7 @@ public class UsuarioController
   
   public void salvarUsuario(int pTela) {
     this.usuario.setSeqEmpresa(this.loginController.getEmpresa().getSeqEmpresa());
-    this.usuario.setCor("-blue");
+    this.usuario.setCor("-black");
     this.usuario = this.usuarioService.salvarUsuario(this.usuario);
     
     if (this.usuario.getSeqUsuario().equals(this.loginController.getUsuario().getSeqUsuario())) {

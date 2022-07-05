@@ -86,7 +86,7 @@
 /*     */     try {
 /*  87 */       Conexao conexao = new Conexao();
 /*  88 */       Connection conn = Conexao.getConnection();
-/*  89 */       String sql = "SELECT * FROM TIPO_CARACTERISTICA" + sClausula.montarsClausula();
+/*  89 */       String sql = "SELECT * FROM TIPO_CARACTERISTICA" + sClausula.montarsClausula() + "order by tipo_caracteristica.nome";
 /*  90 */       System.out.println(sql);
 /*     */       
 /*  92 */       List<TipoCaracteristica> listaTipoCaracteristica = new ArrayList();
@@ -133,9 +133,3 @@
 /* 133 */     return false;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/TipoCaracteristica/TipoCaracteristicaDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

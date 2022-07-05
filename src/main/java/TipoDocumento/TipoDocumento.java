@@ -1,15 +1,7 @@
 /*     */ package TipoDocumento;
 /*     */ 
 /*     */ import java.util.Date;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class TipoDocumento
 /*     */ {
 /*     */   private String seqTipoDocumento;
@@ -33,6 +25,8 @@
 /*     */   private String proximoCodigo;
 /*     */   private String nome;
 /*     */   private String opcAssColaborador;
+/*     */   private String caminhorel;
+/*     */   private String caminhorelI;
 /*     */   
 /*     */   public String getSeqTipoDocumento()
 /*     */   {
@@ -202,10 +196,21 @@
 /*     */   public void setOpcAssColaborador(String opcAssColaborador) {
 /* 203 */     this.opcAssColaborador = opcAssColaborador;
 /*     */   }
+
+/*     */   public String getCaminhorel() {
+/* 199 */     return this.caminhorel;
+/*     */   }
+/*     */   
+/*     */   public void setCaminhorel(String caminhorel) {
+/* 203 */     this.caminhorel = caminhorel;
+/*     */   }
+
+/*     */   public String getCaminhorelI() {
+/* 199 */     return this.caminhorelI;
+/*     */   }
+/*     */   
+/*     */   public void setCaminhorelI(String caminhorelI) {
+/* 203 */     this.caminhorelI = caminhorelI;
+/*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/TipoDocumento/TipoDocumento.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

@@ -34,11 +34,13 @@
             private Date   emstCarga;
             private String filial;
             private String seqParceiro;
+            private String nomeParceiro;
+            private String ultimoEmitido;
             List<EquipamentoParceiro> listaEquipamentoParceiro;
            
             
             
-/*     */   
+  
 /*     */   public String getSeqCertificado()
 /*     */   {
 /*  35 */     return this.seqCertificado;
@@ -246,6 +248,22 @@
     public void setListaEquipamentoParceiro(List<EquipamentoParceiro> listaequipamentoParceiro) {
         this.listaEquipamentoParceiro = listaequipamentoParceiro;
     }
+    
+    public String getNomeParceiro() {
+        return this.nomeParceiro;
+             }
 
-/*     */ }
+    public void setNomeParceiro(String nomeParceiro) {
+        this.nomeParceiro = nomeParceiro;
+              }
+    
+    public String getUltimoEmitido() {
+        return this.ultimoEmitido;
+             }
+
+    public void setUltimoEmitido(String ultimoEmitido) {
+        this.ultimoEmitido = ultimoEmitido;
+              }    
+    
+}
 

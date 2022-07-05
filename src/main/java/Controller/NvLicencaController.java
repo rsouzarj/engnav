@@ -118,9 +118,7 @@ public class NvLicencaController {
 
       if (executar) {
          this.listaNvLicenca = this.nvLicencaService.listar(condicao);
-      }
-
-   }
+      }   }
 
    public void deletar() {
       if (this.nvLicencaService.deletar(this.nvLicenca)) {

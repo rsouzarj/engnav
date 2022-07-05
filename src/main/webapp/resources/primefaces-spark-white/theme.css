@@ -113,16 +113,16 @@
     /*color: #ffffff;*/
 }
 .ui-widget-content a {
-    color: #ffffff;
+    color: #FFFFE0;
 }
 .ui-widget-header {
     /*border: 1px solid #3f7506;*/
     /*background: #3a8104 url("images/ui-bg_highlight-soft_33_3a8104_1x100.png") 50% 50% repeat-x;*/
-    color: #ffffff;
+    color: #FFFFE0;
     font-weight: bold;
 }
 .ui-widget-header a {
-    color: #ffffff;
+    color: #FFFFE0;
 }
 
 .ui-widget .ui-state-focus,

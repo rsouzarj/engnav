@@ -28,7 +28,7 @@
 /* 28 */     List<ParceiroCaracteristica> listaParceiroCaracteristica = new ArrayList();
 /* 29 */     ClausulaWhere condicao = new ClausulaWhere();
 /*    */     
-/* 31 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "seq_parceiro", GeneroCondicaoWhere.igual, String.valueOf(pSeqParceiro), TipoCondicaoWhere.Texto);
+/* 31 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro_caracteristica.seq_parceiro", GeneroCondicaoWhere.igual, String.valueOf(pSeqParceiro), TipoCondicaoWhere.Texto);
 /* 32 */     listaParceiroCaracteristica = dao.listar(condicao);
 /* 33 */     return listaParceiroCaracteristica;
 /*    */   }
@@ -38,9 +38,3 @@
 /* 38 */     return dao.deletar(pSeqParceiro);
 /*    */   }
 /*    */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/ParceiroCaracteristica/ParceiroCaracteristicaService.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.5.1  -->
+<!-- 2021-03-07T19:22:17 -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CERTIFICADO NACIONAL DE ARQUEAÇÃO DEFINITIVO" printOrder="Horizontal" pageWidth="595" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="69ee96c7-eca2-48cd-b22d-06dfd064cdb2">
 	<property name="ireport.zoom" value="1.0"/>
 	<property name="ireport.x" value="0"/>
@@ -262,6 +263,18 @@
 			<rectangle>
 				<reportElement mode="Transparent" x="0" y="0" width="555" height="802" uuid="d51ec2b7-1b0c-4608-92e2-908ddb4eea84"/>
 			</rectangle>
+			<image>
+				<reportElement x="210" y="671" width="109" height="60" uuid="2410001c-3631-4ce1-9c03-e62983b816bd">
+					<printWhenExpression><![CDATA[$F{ASSINATURA_DIGITAL}.equals("Lucas Caldas Ferraz")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[".."+File.separator+"LUCAS.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="233" y="679" width="62" height="62" isPrintWhenDetailOverflows="true" uuid="3877275e-0303-432d-81e0-9fbf7c85996b">
+					<printWhenExpression><![CDATA[$F{ASSINATURA_DIGITAL}.equals("Edinilson Moises do Nascimento")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[".."+File.separator+"ED.jpg"]]></imageExpression>
+			</image>
 			<rectangle>
 				<reportElement x="9" y="207" width="132" height="48" uuid="cc05edc1-521a-4121-bab6-99659b126f97"/>
 			</rectangle>

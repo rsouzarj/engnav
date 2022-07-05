@@ -54,6 +54,7 @@
 /*     */     
 /*  55 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "seq_tipo_documento", GeneroCondicaoWhere.contem, pString, TipoCondicaoWhere.Texto);
 /*  56 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
+              condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "nome", GeneroCondicaoWhere.diferente, "Cancelada", TipoCondicaoWhere.Texto);
 /*     */     
 /*  58 */     if (pSituacao == Situacao.ATIVO) {
 /*  59 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);

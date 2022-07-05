@@ -12,12 +12,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class UploadDAO
 /*     */ {
 /*     */   public Upload inserir(Upload upload)
@@ -28,10 +23,8 @@
 /*  28 */       upload.setSeqUpload(seq);
 /*  29 */       Conexao conexao = new Conexao();
 /*  30 */       Connection conn = Conexao.getConnection();
-/*  31 */       String sql = "insert into UPLOAD (SEQ_UPLOAD,DATA_CADASTRO,SEQ_DOCUMENTO,ORIGEM,SEQ_USUARIO,URL,NOME_ARQUIVO,SEQ_EMPRESA,SEQ_NV_VISTORIA,TIPO_ARQUIVO,SEQ_FINANCEIRO,SEQ_NV_EMBARCACAO) values  (?,?,?,?,?,?,?,?,?,?,?,?)";
-/*     */       
-/*     */ 
-/*     */ 
+/*  31 */       String sql = "insert into UPLOAD (SEQ_UPLOAD,DATA_CADASTRO,SEQ_DOCUMENTO,ORIGEM,SEQ_USUARIO,URL,NOME_ARQUIVO,SEQ_EMPRESA,SEQ_NV_VISTORIA,TIPO_ARQUIVO,SEQ_FINANCEIRO,SEQ_NV_EMBARCACAO,DATA_EMISSAO,DATA_VALIDADE,SEQ_PARCEIRO,SEQ_CERTIFICADO) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
 /*  35 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
 /*  37 */       ps.setString(1, upload.getSeqUpload());
@@ -50,6 +43,11 @@
 /*  50 */       ps.setString(10, upload.getTipoArquivo());
 /*  50 */       ps.setString(11, upload.getSeqFinanceiro());
                 ps.setString(12, upload.getSeqNvEmbarcacao());
+                ps.setDate(13, new java.sql.Date(upload.getDataEmissao().getTime()));
+                ps.setDate(14, new java.sql.Date(upload.getDataValidade().getTime())); 
+                ps.setString(15, upload.getSeqParceiro());
+                ps.setString(16, upload.getSeqCertificado());
+                
 /*  52 */       ps.execute();
 /*  53 */       ps.close();
 /*     */     }
@@ -64,7 +62,7 @@
 /*     */     try {
 /*  64 */       Conexao conexao = new Conexao();
 /*  65 */       Connection conn = Conexao.getConnection();
-/*  66 */       String sql = "update UPLOAD set DATA_CADASTRO = ?,SEQ_DOCUMENTO = ?,ORIGEM = ?,SEQ_USUARIO = ?,URL = ?,NOME_ARQUIVO = ?,SEQ_EMPRESA = ?,SEQ_NV_VISTORIA = ?, TIPO_ARQUIVO = ?, SEQ_FINANCEIRO = ?, = SEQ_NV_EMBARCACAO where SEQ_UPLOAD = ?";
+/*  66 */       String sql = "update UPLOAD set DATA_CADASTRO = ?,SEQ_DOCUMENTO = ?,ORIGEM = ?,SEQ_USUARIO = ?,URL = ?,NOME_ARQUIVO = ?,SEQ_EMPRESA = ?,SEQ_NV_VISTORIA = ?, TIPO_ARQUIVO = ?, SEQ_FINANCEIRO = ? , SEQ_NV_EMBARCACAO = ? , DATA_EMISSAO = ?,DATA_VALIDADE = ?,SEQ_PARCEIRO = ?, SEQ_CERTIFICADO = ? where SEQ_UPLOAD = ?";
 /*     */       
 /*  68 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       try
@@ -82,9 +80,12 @@
 /*  81 */       ps.setString(8, upload.getSeqNvVistoria());
 /*  82 */       ps.setString(9, upload.getTipoArquivo());
 /*  83 */       ps.setString(10, upload.getSeqFinanceiro()); 
-                ps.setString(11, upload.getSeqUpload());
-                ps.setString(12 ,upload.getSeqNvEmbarcacao());
-                
+                ps.setString(11 ,upload.getSeqNvEmbarcacao());
+                ps.setDate(12, new java.sql.Date(upload.getDataEmissao().getTime()));
+                ps.setDate(13, new java.sql.Date(upload.getDataValidade().getTime()));
+                ps.setString(14 ,upload.getSeqParceiro());
+                ps.setString(15 ,upload.getSeqCertificado());
+                ps.setString(16, upload.getSeqUpload());
 /*  84 */       ps.execute();
 /*  85 */       ps.close();
 /*     */     }
@@ -125,7 +126,11 @@
 /* 121 */         upload.setTipoArquivo(rs.getString("TIPO_ARQUIVO"));
 /* 122 */         upload.setNomeUsuario(rs.getString("nomeUsuario"));
                   upload.setSeqFinanceiro(rs.getString("SEQ_FINANCEIRO"));
+                  upload.setSeqParceiro(rs.getString("SEQ_PARCEIRO"));
                   upload.setSeqNvEmbarcacao(rs.getString("SEQ_NV_EMBARCACAO"));
+                  upload.setSeqCertificado(rs.getString("SEQ_CERTIFICADO"));
+                  upload.setDataEmissao(rs.getDate("DATA_EMISSAO"));
+                  upload.setDataValidade(rs.getDate("DATA_VALIDADE"));
 /* 123 */         listaUpload.add(upload);
 /*     */       }
 /*     */       

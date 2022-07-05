@@ -1,0 +1,385 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+   
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#71CC8D', '#33AFDE', '#F7941E'];
+                this.cfg.grid = {
+                    background: '#EDF3F6',
+                    borderColor: '#D9E3E8',
+                    gridLineColor: '#D9E3E8',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+            /*Botão topo*/
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 100) {
+                        $('a[href="#top"]').fadeIn();
+                    } else {
+                        $('a[href="#top"]').fadeOut();
+                    }
+                });
+
+                $('a[href="#top"]').click(function () {
+                    $('html, body').animate({scrollTop: 0}, 800);
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #778D9B;
+            }
+            /*Botão topo */
+            a[href="#top"]{
+                padding:10px;
+                position:fixed;
+                top: 90%;
+                right:2px;
+                display:none;
+                font-size: 30px;
+            }
+            a[href="#top"]:hover{
+                text-decoration:none;
+            }
+            h2{color:black;}
+        </style>
+
+           <f:metadata>
+            <f:viewAction  action="#{equipamentoController.iniciar()}" />
+        </f:metadata>
+
+
+    </ui:define>
+
+    <ui:define name="content"  >
+
+        <div class="layout-portlets-box" >
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent"> 
+
+                    <a href="#top"><p:commandButton icon="fa fa-arrow-up Fs18 white"/></a>
+
+                    <p:messages id="messages"  autoUpdate="true" closable="true" />
+                    <h:form id="frmLista" >
+
+                        <div class="Container100 Responsive100">
+
+                            <p:panelGrid rendered="#{equipamentoController.tela == 0}" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-3,ui-grid-col-0,ui-grid-col-0">
+                                <h2>Equipamento</h2>                       
+                                <p:commandButton value="Buscar" actionListener="#{equipamentoController.filtrar()}" update="listaPesquisa"/>
+                                <p:commandButton value="Novo" actionListener="#{equipamentoController.novo()}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}"/>
+                            </p:panelGrid>
+                            <p:panelGrid rendered="#{equipamentoController.tela == 0}"  columns="2" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Equipamento"/>
+                                    <p:selectOneMenu value="#{equipamentoController.seqEquipamentoSelecionado}" filter="true" filterMatchMode="contains"  >
+                                        <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItems value="#{equipamentoController.listaEquipamentoIni}" var="eqp"  itemLabel="#{eqp.nome}"  itemValue="#{eqp.seqEquipamento}"/>
+                                    </p:selectOneMenu>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Parceiro"/>
+                                    <p:selectOneMenu value="#{equipamentoController.seqParceiroSelecionado}" filter="true" filterMatchMode="contains"  >
+                                        <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItems value="#{equipamentoController.listaParceiro}" var="pa"  itemLabel="#{pa.nome}"  itemValue="#{pa.seqParceiro}"/>
+                                    </p:selectOneMenu>                                    
+                                </p:panelGrid>
+                                </p:panelGrid>
+                        </div>
+
+                        <div class="Container100 Responsive100" >
+                            <p:dataTable id="listaPesquisa" rendered="#{equipamentoController.tela == 0}" var="p" value="#{equipamentoController.listaEquipamento}" reflow="true" style="" emptyMessage="Lista vazia" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
+
+                                <p:column headerText="Descrição" sortBy="#{p.nome}">
+                                    <p:commandLink value="#{p.nome}"  title="#{p.nome}"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>
+
+                                <p:column headerText="Tipo" sortBy="#{p.tipoequipamento}">
+                                    <p:commandLink value="#{p.tipoequipamento}"  title="#{p.tipoequipamento}"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>
+                                
+                                <p:column headerText="Dt. Cadastro" sortBy="#{p.dataCadastro}">
+                                    <h:outputText value="#{p.dataCadastro}"  title="#{p.dataCadastro}"  >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
+                                    </h:outputText>
+                                </p:column>
+
+                                <p:column headerText="Situação" sortBy="#{p.situacao}">
+                                    <p:commandLink value="#{p.situacao}"  title="#{p.situacao}"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista " />
+                                </p:column>
+
+                                <p:column headerText="Detalhe" width="8%">
+                                    <p:commandButton icon="fa fa-search Fs18 white"  actionListener="#{equipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista "/>
+                                </p:column>
+                            </p:dataTable>
+
+                        </div>
+                    </h:form>
+
+                    <h:form id="frmDetalhe" >
+
+                        <p:panelGrid rendered="#{equipamentoController.tela == 1}" layout="grid"  columns="1" styleClass="ui-panelgrid-blank" > 
+
+                             
+
+                                <h:outputText value="Nome" />
+                                <p:inputText value="#{equipamentoController.equipamento.nome}" required="true" requiredMessage="[NOME] é obrigatório"/>                
+                                
+                                
+                                <p:panelGrid columns="1" > 
+                                    <h:outputText  value="Tipo de Equipamento" />
+                                    <p:selectOneMenu style="width: 181px" value="#{equipamentoController.equipamento.tipoequipamento}" filter="true" filterMatchMode="contains">
+                                        <f:selectItem itemLabel="Guindaste" itemValue="Guindaste" />
+                                        <f:selectItem itemLabel="Empilhadeira" itemValue="Empilhadeira" />
+                                        <f:selectItem itemLabel="Munk Hidráulico" itemValue="Munk Hidraulico" />
+                                        <f:selectItem itemLabel="Cabo de Aço com Soquete" itemValue="Cabo de aco com Soquete" />
+                                        <f:selectItem itemLabel="Guindaste Cabestreira" itemValue="Guindaste Cabestreira" />
+                                        <f:selectItem itemLabel="Portico" itemValue="Portico" />
+                                        <f:selectItem itemLabel="Ponte Rolante" itemValue="Ponte Rolante" />
+                                        <f:selectItem itemLabel="Grua" itemValue="Grua" />
+                                        <f:selectItem itemLabel="Acessório" itemValue="Acessório" />
+					<f:selectItem itemLabel="Manilha" itemValue="Manilha" />
+                                        <f:selectItem itemLabel="Triplate" itemValue="Triplate" />
+                                        <f:selectItem itemLabel="Amarra" itemValue="Amarra" />
+                                        <f:selectItem itemLabel="Cinta plana" itemValue="Cinta plana" />
+                                        <f:selectItem itemLabel="Cinta tubular" itemValue="Cinta tubular" />
+                                        <f:selectItem itemLabel="Stropo de aço" itemValue="Stropo de aço" />
+                                        <f:selectItem itemLabel="Linga de aço" itemValue="Linga de aço" />
+                                        <f:selectItem itemLabel="Guincho" itemValue="Guincho" />
+                                        <f:selectItem itemLabel="Ponte Rolante" itemValue="Ponte Rolante" />
+                                        <f:selectItem itemLabel="Cabresteira" itemValue="Cabresteira" />
+                                        <f:selectItem itemLabel="Guindaste de Convés" itemValue="Guindaste de Convés" />
+                                        <f:selectItem itemLabel="Olhal" itemValue="Olhal" />
+                                        <f:selectItem itemLabel="Cabeço" itemValue="Cabeço" />
+                                        <f:selectItem itemLabel="Moitão" itemValue="Moitão" />
+                                        <f:selectItem itemLabel="Gancho" itemValue="Gancho" />
+                                        <f:selectItem itemLabel="Gato de reboque" itemValue="Gato de reboque" />
+                                        <f:selectItem itemLabel="Cabrestante" itemValue="Cabrestante" />
+                                        <f:selectItem itemLabel="Pau de carga" itemValue="Pau de carga" />
+                                        <f:selectItem itemLabel="Elevador de carga" itemValue="Elevador de carga" />   
+                                        </p:selectOneMenu>
+                                        </p:panelGrid>
+
+                                
+                            <h2>Dados do Equipamento</h2>    
+                                <p:panelGrid columns="2" layout="grid"> 
+
+                                <h:outputText value="MODELO"/>
+                                <p:inputText value="#{equipamentoController.equipamento.nserie}"/>
+                                </p:panelGrid>                                
+                                
+                                
+                            <!--<h2>Dados do Equipamento</h2>    
+                                <p:panelGrid columns="6" > 
+                                <h:outputText value="ACIONAMENTO"/>
+                                <p:inputText value="#{equipamentoController.equipamento.acionamento}"/>
+                                <h:outputText value="ANO" />
+                                <p:inputMask mask="9999" value="#{equipamentoController.equipamento.ano}" >
+                                </p:inputMask>      
+                                <h:outputText value="CABO DE TRAÇÃO"/>
+                                <p:inputText value="#{equipamentoController.equipamento.caboTracao}"/>
+                                <h:outputText value="CAPACIDADE MAXIMA"/>
+                                <p:inputText value="#{equipamentoController.equipamento.capacidadeMax}"/>
+                                <h:outputText value="CARGA NOMINAL DE TRABALHO"/>
+                                <p:inputText value="#{equipamentoController.equipamento.carga}"/>
+                                <h:outputText value="CARGA E RUPTURA"/>
+                                <p:inputText value="#{equipamentoController.equipamento.cargaRuptura}"/>
+                                <h:outputText value="CARGA NOMINAL DE TRABALHO"/>
+                                <p:inputText value="#{equipamentoController.equipamento.carga}"/>
+                                <h:outputText value="CARGA E RUPTURA"/>
+                                <p:inputText value="#{equipamentoController.equipamento.cargaRuptura}"/>                                
+                                </p:panelGrid>
+                                
+                                
+                                <p:panelGrid columns="6" >
+                                <h:outputText value="CÓDIGO/Nº"/>
+                                <p:inputText value="#{equipamentoController.equipamento.codigo}"/>
+                                <h:outputText value="COMPRIMENTO"/>
+                                <p:inputText value="#{equipamentoController.equipamento.comprimento}"/>    
+                                <h:outputText value="COMPRIMENTO DO CABO"/>
+                                <p:inputText value="#{equipamentoController.equipamento.compCabo}"/> 
+                                <h:outputText value="COMPRIMENTO DA LANÇA"/>
+                                <p:inputText value="#{equipamentoController.equipamento.compLanca}"/>
+                                <h:outputText value="CONSTRUÇÃO"/>
+                                <p:inputText value="#{equipamentoController.equipamento.construcao}"/>
+                                <h:outputText value="DIAMETRO:" />
+                                <p:inputText value="#{equipamentoController.equipamento.diametro}"/>
+                                </p:panelGrid>  
+                                
+                                
+                                <p:panelGrid columns="6" >
+                                <h:outputText value="DIAMETRO CORPO" />
+                                <p:inputText value="#{equipamentoController.equipamento.diametroCorpo}"/>
+                                <h:outputText value="DIAMETRO NOMINAL" />
+                                <p:inputText value="#{equipamentoController.equipamento.diamNominal}"/>    
+                                <h:outputText value="DIMENSÃO AD" />
+                                <p:inputText value="#{equipamentoController.equipamento.dimensaoAd}"/>
+                                <h:outputText value="DIMENSÃO CLA" />
+                                <p:inputText value="#{equipamentoController.equipamento.dimensaoCla}"/>
+                                <h:outputText value="EMBARCAÇÃO" />
+                                <p:inputText value="#{equipamentoController.equipamento.embarcacao}"/>
+                                <h:outputText value="FABRICANTE" />
+                                <p:inputText value="#{equipamentoController.equipamento.fmas}"/>
+                                </p:panelGrid>
+                                
+                                <p:panelGrid columns="6" >
+                                <h:outputText value="GRAU" />
+                                <p:inputText value="#{equipamentoController.equipamento.grau}"/>
+                                <h:outputText value="ID CABEÇO" />
+                                <p:inputText value="#{equipamentoController.equipamento.idCabeco}"/>    
+                                <h:outputText value="LOCALIZAÇÃO" />
+                                <p:inputText value="#{equipamentoController.equipamento.localizacao}"/>    
+                                <h:outputText value="MATERIAL" />
+                                <p:inputText value="#{equipamentoController.equipamento.material}"/>
+                                <h:outputText value="MBL:" />
+                                <p:inputText value="#{equipamentoController.equipamento.mbl}"/>
+                                <h:outputText value="MBL:" />
+                                <p:inputText value="#{equipamentoController.equipamento.mbl}"/> 
+                                </p:panelGrid> 
+                                                                               
+                                
+                             
+                                
+                                
+                                <p:panelGrid columns="6"> 
+                                <h:outputText value="MODELO" />
+                                <p:inputText value="#{equipamentoController.equipamento.modelo}"/>
+                                <h:outputText value="MOITÃO SWL" />
+                                <p:inputText value="#{equipamentoController.equipamento.moitao}"/>
+                                <h:outputText value="MOTOR" />
+                                <p:inputText value="#{equipamentoController.equipamento.mspr}"/>
+                                <h:outputText value="SÉRIE" />
+                                <p:inputText value="#{equipamentoController.equipamento.mserie}"/>
+                                <h:outputText value="Nº SÉRIE" />
+                                <p:inputText value="#{equipamentoController.equipamento.nserie}"/> 
+                                <h:outputText value="PERNAS" />
+                                <p:inputText value="#{equipamentoController.equipamento.pernas}"/> 
+                                </p:panelGrid>
+                                
+                                <p:panelGrid columns="6" >
+                                <h:outputText value="PESO:" />
+                                <p:inputText value="#{equipamentoController.equipamento.peso}"/>    
+                                <h:outputText value="POTÊNCIA" />
+                                <p:inputText value="#{equipamentoController.equipamento.potencia}"/> 
+                                <h:outputText value="PRESSÃO DE TRABALHO" />
+                                <p:inputText value="#{equipamentoController.equipamento.pressTrabalho}"/>
+                                <h:outputText value="QUANTIDADE DE OCUPANTES" />
+                                <p:inputText value="#{equipamentoController.equipamento.qtdOcupantes}"/>
+                                <h:outputText value="QUANTIDADE" />
+                                <p:inputText value="#{equipamentoController.equipamento.quantidade}"/>
+                                <h:outputText value="RPM" />
+                                <p:inputText value="#{equipamentoController.equipamento.rpm}"/> 
+                                </p:panelGrid>-->
+                                
+                                <p:panelGrid columns="4">
+                                <h:outputText value="SITUAÇÃO" />
+                                <p:selectOneMenu style="width: 181px" value="#{equipamentoController.equipamento.situacao}" >
+                                    <f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
+                                    <f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
+                                </p:selectOneMenu>
+                                <h:outputText value="TAG" />
+                                <p:inputText value="#{equipamentoController.equipamento.tag}"/> 
+                                <h:outputText value="Data de Cadastro" />
+                                <h:outputText value="#{equipamentoController.equipamento.dataCadastro}" >                
+                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
+                                </h:outputText>
+                                </p:panelGrid>
+
+                            <p:separator/>
+                                <p:accordionPanel id="acdVinculo" activeIndex="null">
+
+                                <p:tab title="Parceiros Vinculados">
+                                <p:messages  autoUpdate="true" closable="true" />
+                            <p:dataTable id="listaVinculo" var="v" value="#{equipamentoController.listaEquipamentoParceiro}" emptyMessage="Lista vazia" reflow="true" style="">
+
+                                <p:column headerText="Parceiro Vinculado" sortBy="#">
+                                    <p:outputLabel value="#{v.parceiroNome}"  title="#{v.parceiroNome}"  />
+                                </p:column>
+
+                                <p:column headerText="Remover" width="8%" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}">
+                                    <p:commandButton icon="fa fa-eraser Fs18 white" actionListener="#{equipamentoController.removerVinculo(v)}" immediate="true" update="listaVinculo" >
+                                        <p:confirm header="Confirmação" message="Deseja excluir o Vínculo?" icon="ui-icon-alert" />
+                                    </p:commandButton>
+                                </p:column>
+                            </p:dataTable>                                        
+
+                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}"> 
+                                <p:panelGrid id="pnlVinculo"  columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-8,ui-grid-col-4,ui-grid-col-2"> 
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:outputLabel value="Parceiro Vinculado" />
+                                        <p:selectOneMenu value="#{equipamentoController.equipamentoParceiro.seqParceiro}" filter="true" filterMatchMode="contains">
+                                            <f:selectItem itemLabel="Selecione o Parceiro" itemValue="#{null}" />
+                                            <f:selectItems value="#{equipamentoController.listaParceiro}" itemLabel="#{tp.nome}" itemValue="#{tp.seqParceiro}" var="tp"/>
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+
+                                    <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <br/>
+                                        <p:commandButton value="Adicionar" actionListener="#{equipamentoController.adicionarVinculo()}" update="pnlVinculo listaVinculo" />
+                                    </p:panelGrid>
+
+                                </p:panelGrid>
+                            </p:panelGrid>
+                            </p:tab>
+                            </p:accordionPanel>        
+
+                        <h2 class="BigTopic"> </h2>
+
+                        <p:panelGrid   columns="4"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-0,ui-grid-col-0,ui-grid-col-0,ui-grid-col-0">
+                            <p:commandButton value="Salvar e Fechar" actionListener="#{equipamentoController.salvar(0)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}"/>
+                            <p:commandButton value="Salvar" actionListener="#{equipamentoController.salvar(1)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1}"/>
+                            <p:commandButton value="Voltar" immediate="true" actionListener="#{equipamentoController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
+
+                            <p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{equipamentoController.deletar()}" rendered="#{equipamentoController.equipamento.seqEquipamento!=0 and (loginController.usuario.acOpEquipamento == 1 or loginController.usuario.acFinEquipamento == 1)}" update=":frmDetalhe :frmLista">
+                                <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert" /> 
+                            </p:commandButton>
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+                            </p:confirmDialog>                                                              
+
+                        </p:panelGrid>
+
+                        </p:panelGrid>
+                        
+
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

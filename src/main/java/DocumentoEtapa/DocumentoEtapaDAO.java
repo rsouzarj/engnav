@@ -87,7 +87,7 @@
 /*     */     try {
 /*  88 */       Conexao conexao = new Conexao();
 /*  89 */       Connection conn = Conexao.getConnection();
-/*  90 */       String sql = "SELECT * FROM DOCUMENTO_ETAPA" + sClausula.montarsClausula();
+/*  90 */       String sql = "SELECT * FROM DOCUMENTO_ETAPA " + sClausula.montarsClausula();
 /*     */       
 /*     */ 
 /*  93 */       List<DocumentoEtapa> listaDocumentoEtapa = new ArrayList();
@@ -137,9 +137,3 @@
 /* 137 */     return false;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/DocumentoEtapa/DocumentoEtapaDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

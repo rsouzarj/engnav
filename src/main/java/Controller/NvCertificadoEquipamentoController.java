@@ -11,6 +11,7 @@ import Equipamento.Equipamento;
 import Equipamento.EquipamentoService;
 import EquipamentoParceiro.EquipamentoParceiro;
 import EquipamentoParceiro.EquipamentoParceiroService;
+import NvCertificado.NvCertificado;
 import NvCertificadoEquipamento.NvCertificadoEquipamento;
 import NvCertificadoEquipamento.NvCertificadoEquipamentoService;
 import Parceiro.Parceiro;
@@ -18,11 +19,18 @@ import Parceiro.ParceiroService;
 import Util.Conexao;
 import Util.Situacao;
 import Util.Util;
+import Upload.Upload;
+import Upload.UploadService;
 import _Teste.DataPorExtenso;
 import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
 import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,7 +50,8 @@ import net.sf.jasperreports.engine.JRExporterParameter;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.export.JRPdfExporter;
-
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 
 @ManagedBean(name="nvCertificadoEquipamentoController")
@@ -55,6 +64,10 @@ public class NvCertificadoEquipamentoController
   NvCertificadoEquipamento nvCertificadoEquipamento = new NvCertificadoEquipamento();
   List<NvCertificadoEquipamento> listaNvCertificadoEquipamento = new ArrayList();
   
+  EquipamentoService equipamentoService = new EquipamentoService();
+  List<Equipamento> listaEquipamento = new ArrayList();
+  Equipamento equipamento = new Equipamento(); 
+  
   ParceiroService parceiroService = new ParceiroService();
   List<Parceiro> listaParceiro = new ArrayList();
   Parceiro parceiro = new Parceiro();
@@ -65,20 +78,26 @@ public class NvCertificadoEquipamentoController
   EquipamentoParceiroService equipamentoParceiroService = new EquipamentoParceiroService();
   List<EquipamentoParceiro> listaEquipamentoParceiroService = new ArrayList();
   
+  Upload upload = new Upload();
+  UploadService uploadService = new UploadService();
+  UploadController uploadController = new UploadController();
+  List<Upload> listaUpload = new ArrayList();
+
+  UploadedFile file;
+
+  StreamedContent fileDownload;
+  
   String pesquisa = "";
   Integer tela = Integer.valueOf(0);
   Util util = new Util();
   boolean bEquipamento = false;
-  
-  EquipamentoService equipamentoService = new EquipamentoService();
-  List<Equipamento> listaequipamento = new ArrayList();
-  Equipamento equipamento = new Equipamento();
-  
+   
   ColaboradorService colaboradorService = new ColaboradorService();
   List<Colaborador> listaColaborador = new ArrayList();
   
-  private ArrayList<String> equipamentoSelecionado = new ArrayList();
-  Long seqEquipamentoSelecionado;
+ 
+   Long seqParceiroSelecionado;  
+   Long seqEquipamentoSelecionado;
   
   public void iniciar()
   {
@@ -87,8 +106,8 @@ public class NvCertificadoEquipamentoController
        }
    this.listaParceiro = this.parceiroService.listarParceiro(this.loginController.getUsuario().getSeqUsuario(),"");
    this.listaColaborador = this.colaboradorService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
-   this.listaequipamento = this.equipamentoService.listarPorParceiro(this.loginController.getEmpresa().getSeqEmpresa(), this.nvCertificadoEquipamento.getSeqParceiro(), Situacao.ATIVO);
-   
+   this.listaEquipamento = this.equipamentoService.listarPorParceiro(this.loginController.getEmpresa().getSeqEmpresa(), this.nvCertificadoEquipamento.getSeqParceiro(), Situacao.ATIVO);
+   this.listaEquipamento = this.equipamentoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
   }
   
   public void salvar(int pTela) {
@@ -110,31 +129,34 @@ public class NvCertificadoEquipamentoController
     this.listaNvCertificadoEquipamento = this.nvCertificadoEquipamentoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), this.pesquisa, Situacao.TODOS);
     listarEquipamento();
 }
-  
+ 
+ /* public void listarMax() {
+    this.listaNvCertificadoEquipamento = this.nvCertificadoEquipamentoService.listarMax();
+    listarEquipamento();
+}*/  
   
   public void listarEquipamento() {
-    this.listaequipamento = this.equipamentoService.listarPorParceiro(this.loginController.getEmpresa().getSeqEmpresa(), this.nvCertificadoEquipamento.getSeqParceiro(), Situacao.ATIVO);
+    this.listaEquipamento = this.equipamentoService.listarPorParceiro(this.loginController.getEmpresa().getSeqEmpresa(), this.nvCertificadoEquipamento.getSeqParceiro(), Situacao.ATIVO);
 }
 	
   
- /* public void filtrar() {
-    boolean executar = true;
-    
+  public void filtrar() {
+    boolean executar = true;    
     ClausulaWhere condicao = new ClausulaWhere();
     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "NV_CERTIFICADO_EQUIPAMENTO.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(this.loginController.getEmpresa().getSeqEmpresa()), TipoCondicaoWhere.Numero);
-    
-    if (this.equipamento != null) {
-      condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "NV_CERTIFICADO_EQUIPAMENTO.SEQ_NV_CERTIFICADO", GeneroCondicaoWhere.igual, String.valueOf(this.), TipoCondicaoWhere.Numero);
-    }
     
     if (this.seqEquipamentoSelecionado != null) {
       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "NV_CERTIFICADO_EQUIPAMENTO.seq_nv_equipamento", GeneroCondicaoWhere.igual, String.valueOf(this.seqEquipamentoSelecionado), TipoCondicaoWhere.Numero);
     }
     
+      if (this.seqParceiroSelecionado != null) {
+      condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "NV_CERTIFICADO_EQUIPAMENTO.seq_parceiro", GeneroCondicaoWhere.igual, String.valueOf(this.seqParceiroSelecionado), TipoCondicaoWhere.Numero);
+    }
+    
     if (executar == true) {
       this.listaNvCertificadoEquipamento = this.nvCertificadoEquipamentoService.listar(condicao);
     }
-  }*/
+  }
   
   public void deletar()
   {
@@ -153,135 +175,139 @@ public class NvCertificadoEquipamentoController
     this.loginController.mudarPagina("/principal/ principal.jsf");
   }
   
-  public void selecionar(NvCertificadoEquipamento pNvCertificadoEquipamento) {
-    this.nvCertificadoEquipamento = pNvCertificadoEquipamento;
-    System.out.println("seq:" + this.nvCertificadoEquipamento.getSeqCertificado());
-    System.out.println("tipo:" + this.nvCertificadoEquipamento.getSeqEquipamento());
-    this.listaEquipamentoParceiro = this.equipamentoParceiroService.listarParceiro(this.nvCertificadoEquipamento.getSeqEquipamento());
-    this.tela = Integer.valueOf(1);
-  }
-  
-  /*
-  public void selecionar(NvVistoria pNvVistoria) {
-		this.nvVistoria = pNvVistoria;
-		System.out.println("seq:" + this.nvVistoria.getSeqNvVistoria());
-		System.out.println("tipo:" + this.nvVistoria.getTipoVistoria());
-		this.listaNvTpVistoriaTpCertificado = this.nvTpVistoriaTpCertificadoService.listarPorTipoVistoria(this.nvVistoria.getSeqNvTipoVistoria());
-		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
-				this.nvVistoria.getSeqNvVistoria());
-		this.tela = Integer.valueOf(1);
-  
-  
-  */
-  
-  
-  
-  
-  
+  public void selecionar (NvCertificadoEquipamento pNvCertificadoEquipamento)
+          {
+      this.nvCertificadoEquipamento = pNvCertificadoEquipamento;
+      this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
+				this.nvCertificadoEquipamento.getSeqCertificado());
+      this.tela = 1;
+   }    
   
   public void mudarTela(Integer pTela) {
     this.tela = pTela;
   }
   
   public void imprimir() throws IOException, JRException {
-		Conexao conexao = new Conexao();
-		Connection conn = Conexao.getConnection();
-		Util util = new Util();
-		NvCertificadoEquipamento pCertificado = new NvCertificadoEquipamento();           
 
-		HashMap parametro = new HashMap();
-		parametro.put("pSeqCertificado",Integer.valueOf(this.nvCertificadoEquipamento.getSeqCertificado()));
+        String uuidCertificado = getUUIDCertificado(this.nvCertificadoEquipamento);
 
-		FacesContext facesContext = FacesContext.getCurrentInstance();
-		facesContext.responseComplete();
-		ServletContext scontext = (ServletContext) facesContext.getExternalContext().getContext();
+        HashMap parametro = new HashMap();
+        Conexao conexao = new Conexao();
+        Connection conn = Conexao.getConnection();
 
-		JasperPrint jasperPrint = new JasperPrint();
+        String caminho = "/relatorio/CERTIFICADO EQUIPAMENTO/CERTIFICADO.jasper";
+        parametro.put("pSeqCertificado", Integer.valueOf(this.nvCertificadoEquipamento.getSeqCertificado()));
+        parametro.put("pReportURL", "http://191.252.59.211//erp/operacional/certificado_equipamento/" + this.nvCertificadoEquipamento.getSeqEmpresa() + "/" + uuidCertificado);
 
-		jasperPrint = JasperFillManager.fillReport(scontext.getRealPath("/relatorio/CERTIFICADO EQUIPAMENTO/CERTIFICADO.jasper"), parametro,
-				conn);
+        FacesContext facesContext = FacesContext.getCurrentInstance();
 
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		JRPdfExporter exporter = new JRPdfExporter();
-		exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-		exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
-		exporter.exportReport();
-		byte[] bytes = baos.toByteArray();
+        facesContext.responseComplete();
+        ServletContext scontext = (ServletContext) facesContext.getExternalContext()
+                .getContext();
+        System.out.println(caminho);
+        JasperPrint jasperPrint = JasperFillManager
+                .fillReport(scontext.getRealPath(caminho), parametro, conn);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JRPdfExporter exporter = new JRPdfExporter();
 
-		if ((bytes != null) && (bytes.length > 0)) {
-			HttpServletResponse response = (HttpServletResponse) facesContext.getExternalContext().getResponse();
-			response.setContentType("application/pdf");
-			response.setHeader("Content-disposition", "inline; filename=\"Certificado.pdf\"");
-			response.setContentLength(bytes.length);
-			ServletOutputStream outputStream = response.getOutputStream();
-			outputStream.write(bytes, 0, bytes.length);
-			outputStream.flush();
-			outputStream.close();
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+
+        exporter.exportReport();
+        byte[] bytes = baos.toByteArray();
+
+        if ((bytes != null) && (bytes.length > 0)) {
+            HttpServletResponse responseeqp = (HttpServletResponse) facesContext
+                    .getExternalContext().getResponse();
+            responseeqp.setContentType("application/pdf");
+            responseeqp.setHeader("Content-disposition",
+                    "inline; filename=\"Certificado.pdf\"");
+            responseeqp.setContentLength(bytes.length);
+            ServletOutputStream outputStream = responseeqp.getOutputStream();
+            outputStream.write(bytes, 0, bytes.length);
+            outputStream.flush();
+            outputStream.close();
+        }
+    }
+
+    private String getUUIDCertificado(NvCertificadoEquipamento certificadoEquipamento) {
+        String uuid = "";
+        try (Connection conn = Conexao.getConnection()) {
+            try (Statement stmt = conn.createStatement()) {
+                try (ResultSet rs = stmt.executeQuery(
+                        "select uuid from NV_CERTIFICADO_EQUIPAMENTO where SEQ_NV_CERTIFICADO = "
+                        + certificadoEquipamento.getSeqCertificado())) {
+                    while (rs.next()) {
+                        uuid = rs.getString("uuid");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return uuid;
+    }
+    
+	public void upload() {
+		String id = this.nvCertificadoEquipamento.getIdentificacao().replace("/", "-");
+		this.upload.setSeqCertificado(this.nvCertificadoEquipamento.getSeqCertificado());
+                this.upload.setOrigem("EQUIPAMENTO" + id + "-" + this.nvCertificadoEquipamento.getSeqCertificado());
+		this.upload.setSeqEmpresa(this.loginController.empresa.getSeqEmpresa());
+		this.upload.setSeqUsuario(this.loginController.usuario.getSeqUsuario());
+		this.uploadController.upload(this.file, this.upload);
+		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
+				this.nvCertificadoEquipamento.getSeqCertificado());
+		this.upload = new Upload();
+	}
+
+	public void download(Upload pUpload) {
+		if (pUpload.getNomeArquivo().contains("pdf")) {
+			visualizar(pUpload);
+		} else {
+			this.fileDownload = this.uploadController.download(pUpload);
 		}
 	}
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-    /*public void imprimir() throws JRException, IOException {
-   
-      Conexao conexao = new Conexao();
-      Connection conn = Conexao.getConnection();
-      HashMap parametro = new HashMap();
-      
-      parametro.put("pSeqCertificado", Long.valueOf(this.nvCertificadoEquipamento.getSeqCertificado()));
-    
-  
-      
-     String caminho = "/relatorio/CERTIFICADO EQUIPAMENTO/CERTIFICADO.jasper";
-      
-        
-      System.out.println("SEQ CERTIFICADO EQUIPAMENTO " + this.nvCertificadoEquipamento.getSeqCertificado());
-      FacesContext facesContext = FacesContext.getCurrentInstance();
-      facesContext.responseComplete();
-      ServletContext scontext = (ServletContext)facesContext.getExternalContext().getContext();
-      JasperPrint jasperPrint = JasperFillManager.fillReport(scontext.getRealPath(caminho), parametro, conn);
-      ByteArrayOutputStream baos = new ByteArrayOutputStream();
-      JRPdfExporter exporter = new JRPdfExporter();
-      exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
-      exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
-      exporter.exportReport();
-      byte[] bytes = baos.toByteArray();
-      
-      if ((bytes != null) && (bytes.length > 0)) {
-        HttpServletResponse response = (HttpServletResponse)facesContext.getExternalContext().getResponse();
-        response.setContentType("application/pdf");
-        response.setHeader("Content-disposition", "inline; filename=\"certificadoequipamento.pdf\"");
-        response.setContentLength(bytes.length);
-        ServletOutputStream outputStream = response.getOutputStream();
-        outputStream.write(bytes, 0, bytes.length);
-        outputStream.flush();
-        outputStream.close();
-      }
-  }*/
-  
-  
-  
-  
 
+	public void visualizar(Upload pUpload) {
+		try {
+			FileInputStream s = new FileInputStream(pUpload.getUrl());
+
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+			byte[] buf = new byte['Ѐ'];
+			try {
+				int readNum;
+				while ((readNum = s.read(buf)) != -1) {
+					bos.write(buf, 0, readNum);
+					System.out.println("read " + readNum + " bytes,");
+				}
+			} catch (IOException ex) {
+				Logger.getLogger(DocumentoController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+
+			byte[] bytes = bos.toByteArray();
+
+			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
+					.getResponse();
+
+			response.setHeader("Content-Disposition", "inline; filename=" + pUpload.getNomeArquivo());
+			OutputStream output = response.getOutputStream();
+			output.write(bytes);
+			response.flushBuffer();
+			FacesContext.getCurrentInstance().responseComplete();
+		} catch (IOException ex) {
+			Logger.getLogger(DocumentoController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void removerAnexo(Upload pUpload) {
+		this.uploadController.deletar(pUpload);
+		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
+				this.nvCertificadoEquipamento.getSeqCertificado());
+	}    
+   
+ 
   public LoginController getLoginController()
   {
     return this.loginController;
@@ -348,11 +374,11 @@ public class NvCertificadoEquipamentoController
     }
 
     public List<Equipamento> getListaEquipamento() {
-        return this.listaequipamento;
+        return this.listaEquipamento;
     }
 
     public void setListaEquipamento(List<Equipamento> listaEquipamento) {
-        this.listaequipamento = listaEquipamento;
+        this.listaEquipamento = listaEquipamento;
     }
 
     public boolean isbEquipamento() {
@@ -361,22 +387,6 @@ public class NvCertificadoEquipamentoController
 
     public void setbEquipamento(boolean bEquipamento) {
         this.bEquipamento = bEquipamento;
-    }
-
-    public ArrayList<String> getEquipamentoSelecionado() {
-        return this.equipamentoSelecionado;
-    }
-
-    public void setEquipamentoSelecionado(ArrayList<String> equipamentoSelecionado) {
-        this.equipamentoSelecionado = equipamentoSelecionado;
-    }
-
-    public Long getSeqEquipamentoSelecionada() {
-        return this.seqEquipamentoSelecionado;
-    }
-
-    public void setSeqEquipamentoSelecionada(Long seqEquipamentoSelecionada) {
-        this.seqEquipamentoSelecionado = seqEquipamentoSelecionada;
     }
 
     public ColaboradorService getColaboradorService() {
@@ -410,5 +420,68 @@ public class NvCertificadoEquipamentoController
     public void setEquipamentoParceiro(List<EquipamentoParceiro> listaequipamentoParceiro) {
         this.listaEquipamentoParceiro = listaequipamentoParceiro;
     }
+    
+    public Long getSeqParceiroSelecionado() {
+        return this.seqParceiroSelecionado;
+    }
+    public void setSeqParceiroSelecionado(Long seqParceiroSelecionado) {
+        this.seqParceiroSelecionado = seqParceiroSelecionado;
+    }
+    
+    public Long getSeqEquipamentoSelecionado() {
+        return this.seqEquipamentoSelecionado;
+    }
+
+    public void setSeqEquipamentoSelecionado(Long seqEquipamentoSelecionado) {
+        this.seqEquipamentoSelecionado = seqEquipamentoSelecionado;
+    }
+    
+	public Upload getUpload() {
+		return this.upload;
+	}
+
+	public void setUpload(Upload upload) {
+		this.upload = upload;
+	}
+
+	public UploadService getUploadService() {
+		return this.uploadService;
+	}
+
+	public void setUploadService(UploadService uploadService) {
+		this.uploadService = uploadService;
+	}
+
+	public List<Upload> getListaUpload() {
+		return this.listaUpload;
+	}
+
+	public void setListaUpload(List<Upload> listaUpload) {
+		this.listaUpload = listaUpload;
+	}
+
+	public UploadedFile getFile() {
+		return this.file;
+	}
+
+	public UploadController getUploadController() {
+		return this.uploadController;
+	}
+
+	public void setUploadController(UploadController uploadController) {
+		this.uploadController = uploadController;
+	}
+
+	public StreamedContent getFileDownload() {
+		return this.fileDownload;
+	}
+
+	public void setFileDownload(StreamedContent fileDownload) {
+		this.fileDownload = fileDownload;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	}    
 
 }

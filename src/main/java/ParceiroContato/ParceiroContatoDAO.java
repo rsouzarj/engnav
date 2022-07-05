@@ -28,7 +28,7 @@
 /*  28 */       parceiroContato.setSeqParceiroContato(seq);
 /*  29 */       Conexao conexao = new Conexao();
 /*  30 */       Connection conn = Conexao.getConnection();
-/*  31 */       String sql = "insert into PARCEIRO_CONTATO (SEQ_PARCEIRO_CONTATO,DATA_CADASTRO,SITUACAO,INFO,NOME,TELEFONE,EMAIL,SEQ_EMPRESA,SEQ_PARCEIRO,TELEFONE_2) values  (?,?,?,?,?,?,?,?,?,?)";
+/*  31 */       String sql = "insert into PARCEIRO_CONTATO (SEQ_PARCEIRO_CONTATO,DATA_CADASTRO,SITUACAO,INFO,NOME,TELEFONE,EMAIL,SEQ_EMPRESA,SEQ_PARCEIRO,TELEFONE_2,CARGO) values  (?,?,?,?,?,?,?,?,?,?,?)";
 /*     */       
 /*     */ 
 /*     */ 
@@ -48,6 +48,7 @@
 /*  48 */       ps.setString(8, parceiroContato.getSeqEmpresa());
 /*  49 */       ps.setString(9, parceiroContato.getSeqParceiro());
 /*  50 */       ps.setString(10, parceiroContato.getTelefone2());
+/*  50 */       ps.setString(11, parceiroContato.getCargo());
 /*     */       
 /*  52 */       ps.execute();
 /*  53 */       ps.close();
@@ -63,7 +64,7 @@
 /*     */     try {
 /*  64 */       Conexao conexao = new Conexao();
 /*  65 */       Connection conn = Conexao.getConnection();
-/*  66 */       String sql = "update PARCEIRO_CONTATO set DATA_CADASTRO = ?,SITUACAO = ?,INFO = ?,NOME = ?,TELEFONE = ?,EMAIL = ?,SEQ_EMPRESA = ?,SEQ_PARCEIRO = ?,TELEFONE_2 = ? where SEQ_PARCEIRO_CONTATO = ?";
+/*  66 */       String sql = "update PARCEIRO_CONTATO set DATA_CADASTRO = ?,SITUACAO = ?,INFO = ?,NOME = ?,TELEFONE = ?,EMAIL = ?,SEQ_EMPRESA = ?,SEQ_PARCEIRO = ?,TELEFONE_2 = ?, CARGO = ? where SEQ_PARCEIRO_CONTATO = ?";
 /*     */       
 /*  68 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       try
@@ -80,7 +81,8 @@
 /*  80 */       ps.setString(7, parceiroContato.getSeqEmpresa());
 /*  81 */       ps.setString(8, parceiroContato.getSeqParceiro());
 /*  82 */       ps.setString(9, parceiroContato.getTelefone2());
-/*  83 */       ps.setString(10, parceiroContato.getSeqParceiroContato());
+/*  50 */       ps.setString(10, parceiroContato.getCargo());
+/*  83 */       ps.setString(11, parceiroContato.getSeqParceiroContato());
 /*  84 */       ps.execute();
 /*  85 */       ps.close();
 /*     */     }
@@ -115,6 +117,7 @@
 /* 115 */         parceiroContato.setEmail(rs.getString("EMAIL"));
 /* 116 */         parceiroContato.setSeqEmpresa(rs.getString("SEQ_EMPRESA"));
 /* 117 */         parceiroContato.setSeqParceiro(rs.getString("SEQ_PARCEIRO"));
+/* 117 */         parceiroContato.setCargo(rs.getString("CARGO"));
 /* 118 */         listaParceiroContato.add(parceiroContato);
 /*     */       }
 /*     */       
@@ -148,9 +151,3 @@
 /* 148 */     return false;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/ParceiroContato/ParceiroContatoDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

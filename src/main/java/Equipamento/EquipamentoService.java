@@ -8,14 +8,7 @@
 /*    */ import java.util.ArrayList;
 /*    */ import java.util.Date;
 /*    */ import java.util.List;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /*    */ public class EquipamentoService
 /*    */ {
 /*    */   public Equipamento salvar(Equipamento equipamento)
@@ -38,6 +31,26 @@
 /* 38 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
 /*    */     
 /* 40 */     if (pSituacao == Situacao.ATIVO) {
+/* 41 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento.situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);
+/* 42 */     } else if (pSituacao == Situacao.INATIVO) {
+/* 43 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento.situacao", GeneroCondicaoWhere.igual, "INATIVO", TipoCondicaoWhere.Texto);
+/*    */     }
+/*    */     
+/* 46 */     listaEquipamento = dao.listar(condicao);
+/* 47 */     return listaEquipamento;
+/*    */   }
+
+/*    */   public List<Equipamento> listarFin(String pSeqEmpresa, String pString, Situacao pSituacao,String pTipo)
+/*    */   {
+/* 33 */     EquipamentoDAO dao = new EquipamentoDAO();
+/* 34 */     List<Equipamento> listaEquipamento = new ArrayList();
+/* 35 */     ClausulaWhere condicao = new ClausulaWhere();
+/*    */     
+/* 37 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "equipamento.nome", GeneroCondicaoWhere.contem, pString, TipoCondicaoWhere.Texto);
+             condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento.tipo_equipamento", GeneroCondicaoWhere.igual, "Financeiro", TipoCondicaoWhere.Texto);
+/* 38 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
+/*    */     
+/* 40 */     if (pSituacao == Situacao.ATIVO) {
 /* 41 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);
 /* 42 */     } else if (pSituacao == Situacao.INATIVO) {
 /* 43 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "INATIVO", TipoCondicaoWhere.Texto);
@@ -46,6 +59,26 @@
 /* 46 */     listaEquipamento = dao.listar(condicao);
 /* 47 */     return listaEquipamento;
 /*    */   }
+
+/*    */   public List<Equipamento> listarequipamento(String pSeqEmpresa, String pSeqEquipamento, Situacao pSituacao)
+/*    */   {
+/* 33 */     EquipamentoDAO dao = new EquipamentoDAO();
+/* 34 */     List<Equipamento> listaEquipamento = new ArrayList();
+/* 35 */     ClausulaWhere condicao = new ClausulaWhere();
+/*    */     
+/* 37 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "equipamento.nome", GeneroCondicaoWhere.igual, String.valueOf(pSeqEquipamento), TipoCondicaoWhere.Numero);
+/* 38 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
+/*    */     
+/* 40 */     if (pSituacao == Situacao.ATIVO) {
+/* 41 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);
+/* 42 */     } else if (pSituacao == Situacao.INATIVO) {
+/* 43 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "situacao", GeneroCondicaoWhere.igual, "INATIVO", TipoCondicaoWhere.Texto);
+/*    */     }
+/*    */     
+/* 46 */     listaEquipamento = dao.listar(condicao);
+/* 47 */     return listaEquipamento;
+/*    */   }
+
 /*    */   
 /*    */   public List<Equipamento> listarPorParceiro(String pSeqEmpresa, String pSeqParceiro, Situacao pSituacao) {
 /* 51 */     EquipamentoDAO dao = new EquipamentoDAO();
@@ -64,6 +97,11 @@
 /* 64 */     listaEquipamento = dao.listarParceiro(condicao);
 /* 65 */     return listaEquipamento;
 /*    */   }
+
+/*    */   public List<Equipamento> listarEQPParceiro(ClausulaWhere sClausula) {
+/* 51 */     EquipamentoDAO dao = new EquipamentoDAO();
+/* 52 */      return dao.listar(sClausula);
+           }
 /*    */   
 /*    */   public List<Equipamento> listarPorDono(String pSeqEmpresa, String pSeqDono, Situacao pSituacao) {
 /* 69 */     EquipamentoDAO dao = new EquipamentoDAO();
@@ -100,5 +138,12 @@
 /* 59 */     listaEquipamento = dao.listar(condicao);
 /* 60 */     return (Equipamento)listaEquipamento.get(0);
 /*    */   }
+           
+/*    */   public List<Equipamento> listar3(ClausulaWhere sClausula) {
+/* 67 */     EquipamentoDAO dao = new EquipamentoDAO();
+/* 68 */     return dao.listarParceiro(sClausula);
+/*    */   }           
+           
+           
 }
 

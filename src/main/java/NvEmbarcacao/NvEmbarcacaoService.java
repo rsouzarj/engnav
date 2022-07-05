@@ -10,22 +10,15 @@
          import NvVistoria.NvVistoriaDAO;
          import NvLicenca.NvLicenca;
          import NvLicenca.NvLicencaDAO;
+         import NvCertificadoDetalhe.NvCertificadoDetalhe;
+         import NvCertificadoDetalhe.NvCertificadoDetalheDAO;
          import Upload.Upload;
          import Upload.UploadDAO;
 /*    */ import Util.Situacao;
 /*    */ import java.util.ArrayList;
 /*    */ import java.util.Date;
 /*    */ import java.util.List;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+ 
 /*    */ public class NvEmbarcacaoService
 /*    */ {
 /*    */   public NvEmbarcacao salvar(NvEmbarcacao nvEmbarcacao)
@@ -54,6 +47,25 @@
 /*    */     }
 /*    */     
 /* 48 */     listaNvEmbarcacao = dao.listar(condicao);
+/* 49 */     return listaNvEmbarcacao;
+/*    */   }
+
+/*    */   public List<NvEmbarcacao> listarPCliente(String pSeqUsuario, String pString, Situacao pSituacao)
+/*    */   {
+/* 35 */     NvEmbarcacaoDAO dao = new NvEmbarcacaoDAO();
+/* 36 */     List<NvEmbarcacao> listaNvEmbarcacao = new ArrayList();
+/* 37 */     ClausulaWhere condicao = new ClausulaWhere();
+/*    */     
+/* 39 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "nv_embarcacao.nome", GeneroCondicaoWhere.contem, pString, TipoCondicaoWhere.Texto);
+/* 40 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "nv_embarcacao_usuario.seq_usuario", GeneroCondicaoWhere.igual, String.valueOf(pSeqUsuario), TipoCondicaoWhere.Numero);
+/*    */     
+/* 42 */     if (pSituacao == Situacao.ATIVO) {
+/* 43 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "nv_embarcacao.situacao", GeneroCondicaoWhere.igual, "ATIVO", TipoCondicaoWhere.Texto);
+/* 44 */     } else if (pSituacao == Situacao.INATIVO) {
+/* 45 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "nv_embarcacao.situacao", GeneroCondicaoWhere.igual, "INATIVO", TipoCondicaoWhere.Texto);
+/*    */     }
+/*    */     
+/* 48 */     listaNvEmbarcacao = dao.listarPCliente(condicao);
 /* 49 */     return listaNvEmbarcacao;
 /*    */   }
 /*    */   
@@ -114,7 +126,19 @@
               condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "upload.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
 /* 37 */     listaUpload = dao.listar(condicao);
 /* 38 */     return listaUpload;
-                        }             
+                        }
+            
+            public List<NvCertificadoDetalhe> listarD(String pSeqNvEmbarcacao)
+/*    */   {
+/* 31 */     NvCertificadoDetalheDAO dao = new NvCertificadoDetalheDAO();
+/* 32 */     List<NvCertificadoDetalhe> listaCertificadoDetalhe = new ArrayList();
+/* 33 */     ClausulaWhere condicao = new ClausulaWhere();
+/*    */     
+              condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "VW_BI_LISTA_CONVALIDACAO.seq_nv_embarcacao", GeneroCondicaoWhere.igual,String.valueOf(pSeqNvEmbarcacao),TipoCondicaoWhere.Numero);
+
+/* 37 */     listaCertificadoDetalhe = dao.listarE(condicao);
+/* 38 */     return listaCertificadoDetalhe;
+                        }            
       
 /*    */   
 /*    */   public boolean deletar(NvEmbarcacao nvEmbarcacao) {

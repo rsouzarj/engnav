@@ -757,6 +757,7 @@ public class FinanceiroController {
 		this.saldoRestante = new BigDecimal(0);
 		this.financeiro = this.financeiroService.listarSeq(this.loginController.getUsuario().getSeqEmpresa(),
 				pFinanceiro.getSeqFinanceiro());
+                this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
                 
 		if (this.financeiro.getOrigemLCM().equals("6")) {
 			this.listaFinanceiroItemPc = this.financeiroItemPcService
@@ -1048,7 +1049,7 @@ public class FinanceiroController {
 					.setScale(2, RoundingMode.HALF_EVEN));
 		}
 
-		if ((this.financeiro.getMoedaDestino() != null) && (this.financeiro.getMoedaOrigem() != null)) {
+		/*if ((this.financeiro.getMoedaDestino() != null) && (this.financeiro.getMoedaOrigem() != null)) {
 			if (this.financeiro.getMoedaDestino().equals(this.financeiro.getMoedaOrigem())) {
 				this.financeiro.setValorPagamento(this.financeiro.getValor()
 						.subtract(this.valorIRRF
@@ -1059,9 +1060,15 @@ public class FinanceiroController {
 				this.financeiro.setValorPagamento(
 						this.financeiro.getValorPagamento().multiply(this.financeiro.getTaxaCambio()));
 			}
-		}
+		}*/
 	}
 
+        public void calcularSaldoReceber() {
+					if (this.financeiro.getTipoQuitacao() == "TOTAL") {
+				this.financeiro.setValorRecebido(this.financeiro.getValor());
+			}
+        }
+        
 	public void calcularAliquota(String tipo) {
 		switch (tipo) {
 		case "ISSQN":
@@ -1750,7 +1757,7 @@ condicaoParceiro
 		pFinanceiro.setOperacao("DÉBITO");
 		pFinanceiro.setEtapa("A VENCER");
 		pFinanceiro.setOutrasInformacoes(
-				"Gerado a partir da Ordem de Pagamento nÂº" + this.financeiro.getSeqFinanceiro() + ".");
+				"Gerado a partir da Ordem de Pagamento nº" + this.financeiro.getSeqFinanceiro() + ".");
 		pFinanceiro.setOcorrencias(Integer.valueOf(0));
 		pFinanceiro.setIntervaloNumero(Integer.valueOf(0));
 		pFinanceiro.setParcelaFim(Integer.valueOf(0));
@@ -1767,6 +1774,7 @@ condicaoParceiro
 			Logger.getLogger(FinanceiroController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+        
 
 	public void listarContaCorrente() {
 		this.totalCredito = new BigDecimal(0);
@@ -2077,7 +2085,7 @@ condicaoParceiro
 	}
         
     public void aprovar() {
-        this.financeiro.setEtapa(this.loginController.getUsuario().getSeqUsuario());
+        this.financeiro.setAprovador(this.loginController.getUsuario().getUsuario());
 
         this.financeiro = this.financeiroService.aprovar(this.financeiro);
 
@@ -2086,46 +2094,20 @@ condicaoParceiro
     }
         
         
-    
-      /*add Roberto Souza*/              
-       public void upload() {
-		String id1 = this.financeiro.getEtapa().replace("/", "-");
+        public void upload() {
+		String id1 = this.financeiro.getOrigemLCM().replace("/", "-");
                 this.upload.setSeqFinanceiro(this.financeiro.getSeqFinanceiro());
-		this.upload.setOrigem("PRESTACAO" + id1 + this.financeiro.getSeqFinanceiro());
+		this.upload.setOrigem("FIN" + id1 + "-" + this.financeiro.getSeqFinanceiro());
 		this.upload.setSeqEmpresa(this.loginController.empresa.getSeqEmpresa());
 		this.upload.setSeqUsuario(this.loginController.usuario.getSeqUsuario());
 		this.uploadController.upload(this.file, this.upload);
-		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
+                this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
 		this.upload = new Upload();
+                /*this.idFinanceiro = this.financeiro.getSeqFinanceiro();*/
+                
 	}
  
-  /*public void upload() {
-            String id = this.financeiro.getEtapa();
-		id = id.replace(" ", "");
-		System.out.println(id);
-
-		this.upload.setSeqFinanceiro(this.financeiro.getSeqFinanceiro());
-		this.upload.setOrigem("PRESTAÇÃO" + id + "-" + this.financeiro.getSeqDocumento());
-		this.upload.setSeqEmpresa(this.loginController.empresa.getSeqEmpresa());
-		this.upload.setSeqUsuario(this.loginController.usuario.getSeqUsuario());
-
-		for (Upload u : this.listaUpload) {
-			if (u.getNomeArquivo().equals(this.file.getFileName())) {
-				FacesContext.getCurrentInstance().addMessage(null,
-						new FacesMessage(FacesMessage.SEVERITY_INFO, "Já existe um arquivo com esse nome.", ""));
-				return;
-			}
-		}
-
-		this.uploadController.upload(this.file, this.upload);
-		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
-				this.financeiro.getSeqFinanceiro());
-		this.upload = new Upload();
-		this.idDocumento = this.financeiro.getSeqFinanceiro();
-		this.idTipoDocumento = this.financeiro.getOrigemLCM();
-	}*/
-
-	public void download(Upload pUpload) {
+ 	public void download(Upload pUpload) {
 		if (pUpload.getNomeArquivo().contains("pdf")) {
 			visualizar(pUpload);
 		} else {
@@ -2168,13 +2150,8 @@ condicaoParceiro
 	public void removerAnexo(Upload pUpload) {
 		this.uploadController.deletar(pUpload);
 		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
-	}
+	} 
     
-    
-    
-    
-    
-        
 
 	public LoginController getLoginController() {
 		return this.loginController;

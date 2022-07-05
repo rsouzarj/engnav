@@ -80,12 +80,8 @@
 /*     */     try {
 /*  85 */       Conexao conexao = new Conexao();
 /*  86 */       Connection conn = Conexao.getConnection();
-/*  87 */       String sql = "update NV_CERTIFICADO set IDENTIFICACAO = ?,SEQ_EMPRESA = ?,DATA_CADASTRO = ?,SITUACAO = ?,SEQ_NV_TIPO_CERTIFICADO = ?,SEQ_NV_EMBARCACAO = ?,DATA_EMISSAO = ?,DATA_VALIDADE = ?, local_emissao = ?, seq_colaborador = ?, observacao = ?, status = ?, prazo = ?, prazo_total = ?, ASSINATURA_DIGITAL = ?,filial = ?, SEQ_UNIDADE_NEGOCIO = ? where SEQ_NV_CERTIFICADO = ?";
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+/*  87 */       String sql = "update NV_CERTIFICADO set IDENTIFICACAO = ?,SEQ_EMPRESA = ?,DATA_CADASTRO = ?,SITUACAO = ?,SEQ_NV_TIPO_CERTIFICADO = ?,SEQ_NV_EMBARCACAO = ?,DATA_EMISSAO = ?,DATA_VALIDADE = ?, local_emissao = ?, seq_colaborador = ?, observacao = ?, status = ?, prazo = ?, prazo_total = ?, ASSINATURA_DIGITAL = ?, filial = ?, SEQ_UNIDADE_NEGOCIO = ?, MARABERTO = ?, NAVINT = ?, AREA1 = ?, AREA2 = ? where SEQ_NV_CERTIFICADO = ?";
+
 /*  93 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
 /*  95 */       ps.setString(1, nvCertificado.getIdentificacao());
@@ -120,7 +116,11 @@
 /* 124 */       ps.setString(15, nvCertificado.getAssinaturaDigital());
 /* 125 */       ps.setString(16, nvCertificado.getFilial());
 /* 126 */       ps.setString(17, nvCertificado.getSeqUnidadeNegocio());
-                ps.setString(18, nvCertificado.getSeqNvCertificado());
+                ps.setString(18, nvCertificado.getMaraberto());
+                ps.setString(19, nvCertificado.getNavint());
+                ps.setString(20, nvCertificado.getArea1());
+                ps.setString(21, nvCertificado.getArea2());
+                ps.setString(22, nvCertificado.getSeqNvCertificado());
 /* 127 */       ps.execute();
 /* 128 */       ps.close();
 /*     */     }
@@ -172,6 +172,10 @@
 /*     */         nvCertificado.setAssinaturaDigital(rs.getString("ASSINATURA_DIGITAL"));
                   nvCertificado.setSeqUnidadeNegocio(rs.getString("SEQ_UNIDADE_NEGOCIO"));
                   nvCertificado.setunidadenegocioNome(rs.getString("nome_unidade"));
+                  nvCertificado.setMaraberto(rs.getString("MARABERTO"));
+                  nvCertificado.setNavint(rs.getString("NAVINT"));
+                  nvCertificado.setArea1(rs.getString("AREA1"));
+                  nvCertificado.setArea2(rs.getString("AREA2"));
 /* 176 */         listaNvCertificado.add(nvCertificado);
 /*     */       }
 /*     */       

@@ -1,3 +1,4 @@
+<!--TELA NOVA DO DOCUMENTO-->
    <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -28,6 +29,9 @@
                         shadow: false
                     }
                 }
+                 window.onload = function() {
+
+                
             }
 
             function skinPie() {
@@ -123,18 +127,29 @@
                             <p:commandButton value="Boleto" actionListener="#{documentoController.imprimirBoleto()}" immediate="true" ajax="false" onclick="this.form.target = '_blank'" rendered="#{documentoController.bFinanceiro}"/>
                             <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank" rendered="#{!documentoController.bFinanceiro}"/>
 
-                            <p:menuButton value="Gerar" rendered="#{documentoController.documento.seqDocumento > 0}" disabled="#{(documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1) or (loginController.usuario.acDocNovo != 1 and documentoController.idTipoDocumento ne '401')}">
+                            <p:menuButton value="Gerar" rendered="#{documentoController.documento.seqDocumento > 0 and documentoController.idTipoDocumento ne '381'}" disabled="#{(documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1) or (loginController.usuario.acDocNovo != 1 and documentoController.idTipoDocumento ne '401' or documentoController.documento.etapa ne 'Aprovada' and documentoController.documento.etapa ne 'Aprovado' )}">
                                 <c:forEach items="${documentoController.listaTipoDocumentoGerar}" var="td">
                                     <p:menuitem icon="fa fa-arrow-right cor" value="#{td.tipoDocumentoFilho}" ajax="false" actionListener="#{documentoController.gerarNovoDocumento(td)}" target="_blank" process="@this,mnParceiro" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
                                 </c:forEach>
                                 <p:menuitem icon="fa fa-arrow-right cor" value="Complementar" ajax="false"  actionListener="#{documentoController.gerarNovo(0)}" target="_blank" process="@this,mnParceiro"  rendered="#{documentoController.idTipoDocumento eq '401' and  loginController.usuario.acFinBoletim == 1}"/>
                                 <p:menuitem icon="fa fa-arrow-right cor" value="Revisado" ajax="false" actionListener="#{documentoController.gerarNovo(1)}" target="_blank" process="@this,mnParceiro" rendered="#{documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim == 1}"/>                                   
                                 <p:menuitem icon="fa fa-arrow-right cor" value="Revisado" actionListener="#{documentoController.gerarNovo(3)}" ajax="false"  target="_blank" process="@this,mnParceiro"  rendered="#{documentoController.idTipoDocumento ne '401'}"/>
-                            </p:menuButton>      
+                            </p:menuButton>
+                            <p:menuButton value="Gerar" rendered="#{documentoController.documento.seqDocumento > 0 and documentoController.idTipoDocumento eq '381'}" disabled="#{(documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1) or (loginController.usuario.acDocNovo != 1 and documentoController.idTipoDocumento ne '401')}">
+                                <c:forEach items="${documentoController.listaTipoDocumentoGerar}" var="td">
+                                    <p:menuitem icon="fa fa-arrow-right cor" value="#{td.tipoDocumentoFilho}" ajax="false" actionListener="#{documentoController.gerarNovoDocumento(td)}" target="_blank" process="@this,mnParceiro" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                                </c:forEach>
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Complementar" ajax="false"  actionListener="#{documentoController.gerarNovo(0)}" target="_blank" process="@this,mnParceiro"  rendered="#{documentoController.idTipoDocumento eq '401' and  loginController.usuario.acFinBoletim == 1}"/>
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Revisado" ajax="false" actionListener="#{documentoController.gerarNovo(1)}" target="_blank" process="@this,mnParceiro" rendered="#{documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim == 1}"/>                                   
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Revisado" actionListener="#{documentoController.gerarNovo(3)}" ajax="false"  target="_blank" process="@this,mnParceiro"  rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                            </p:menuButton> 
 
                             <p:commandButton value="Salvar" actionListener="#{documentoController.salvar(0)}" update=":frmPrincipal" rendered="#{(loginController.usuario.acDocNovo == 1 and documentoController.documento.etapa != 'Rejeitado' and documentoController.idTipoDocumento ne '401') or (loginController.usuario.acFinBoletim == 1 and documentoController.documento.etapa != 'Rejeitado' and documentoController.idTipoDocumento eq '401')}"/>
                             
-                            <p:commandButton value="Imprimir" actionListener="#{documentoController.imprimir()}" rendered="#{documentoController.documento.seqDocumento > 0}"  immediate="true" ajax="false"  onclick="this.form.target = '_blank'"/>
+                            <p:menuButton value="Imprimir" rendered="#{documentoController.documento.seqDocumento > 0}"  >
+                            <p:menuitem icon="fa fa-arrow-right cor" value="Portugues" immediate="true" ajax="false" actionListener="#{documentoController.imprimir()}" target="_blank" rendered="#{documentoController.documento.seqDocumento > 0}"/>
+                            <p:menuitem icon="fa fa-arrow-right cor" value="Ingles" immediate="true" ajax="false" actionListener="#{documentoController.imprimirIngles()}" target="_blank" rendered="#{documentoController.documento.seqDocumento > 0}"/>
+                            </p:menuButton>
                             <p:commandButton value="Cancelar" id="btnCancelar" styleClass="RedButton"  onclick="PF('telaComentario').show();"  rendered="#{(documentoController.documento.seqDocumento>0 and loginController.usuario.acDocNovo == 1 and documentoController.idTipoDocumento ne '401') or (documentoController.documento.seqDocumento>0 and loginController.usuario.acFinBoletim == 1 and documentoController.idTipoDocumento eq '401')}" process="@this,telaComentario"/>
                             <!--p:commandButton value="Cancelar" id="btnCancelarBM" styleClass="RedButton"  onclick="PF('telaComentario').show();"  rendered="#{documentoController.documento.seqDocumento>0 and loginController.usuario.acFinBoletim == 1 and documentoController.idTipoDocumento eq '401'}" process="@this,telaComentario"/-->
                             <!--p:commandButton value="Cancelar" id="btnCancelar" styleClass="RedButton"  onclick="PF('telaComentario').show();"  rendered="#{documentoController.documento.seqDocumento>0 and loginController.usuario.acDocNovo == 1 and (documentoController.idTipoDocumento eq '401' or documentoController.idTipoDocumento eq '301')}" process="@this,telaComentario"/-->
@@ -178,7 +193,7 @@
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-0,ui-grid-col-0" rendered="#{documentoController.idTipoDocumento eq '401'}"/> 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-0,ui-grid-col-0" rendered="#{documentoController.idTipoDocumento eq '301' or documentoController.idTipoDocumento eq '381'}"> 
                                 <div class="Fs16 gray FontRalewaySemiBold">Prev. Conclusão</div>
-                                <p:inputMask mask="99/99/9999" value="#{documentoController.documento.dataPrevisaoConclusao}"  >
+                                <p:inputMask mask="99/99/9999" value="#{documentoController.documento.dataPrevisaoConclusao}">
                                     <f:convertDateTime locale="pt_BR"  pattern="dd/MM/yyyy"/>
                                 </p:inputMask>
                             </p:panelGrid>
@@ -241,19 +256,21 @@
                             </p:panelGrid>
                         </p:panelGrid>
 
-                        <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.listaEquipamento.size() > 0}">
-
-                            <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.listaEquipamento.size() > 0}">
+                        <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.idTipoDocumento eq '401'}">    
+                        <p:accordionPanel activeIndex="null">   
+                        <p:tab title="Embarcação">
+                        
+                            <!--<p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.listaEquipamento.size() > 0}">
                                 <h4>Equipamento</h4>
                                 <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                                     <p:selectManyCheckbox value="#{documentoController.equipamentoSelecionado}" layout="responsive" columns="3">
                                         <f:selectItems value="#{documentoController.listaEquipamento}" var="e" itemLabel="#{e.nome}" itemValue="#{e.seqEquipamento}" />
                                     </p:selectManyCheckbox>            
                                 </p:panelGrid>            
-                            </p:panelGrid>            
-                        </p:panelGrid>            
+                            </p:panelGrid>-->            
+                                  
 
-                        <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.listaNvEmbarcacaoParceiro.size() > 0}">
+                        
                             <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.listaNvEmbarcacaoParceiro.size() > 0}">
                                 <h4>Embarcação</h4>
                                 <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
@@ -262,24 +279,25 @@
                                     </p:selectManyCheckbox>            
                                 </p:panelGrid>            
                             </p:panelGrid>            
-                        </p:panelGrid>            
-
-
+                        
+                        </p:tab>        
+                        </p:accordionPanel>
+                        </p:panelGrid>
                             <!--p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.idTipoDocumento eq '282'}"> 
                             <h:outputText value="Lista de Planos"/>
                             <p:selectOneMenu value="#{documentoController.documento.identificacaoListaPlanos}" filter="true" filterMatchMode="contains"  required="true" requiredMessage="[Lista de planos] é obrigatório">
                                 <f:selectItem value="#{null}" itemLabel="Selecione Lista de Planos" itemValue="#{null}" />
                                 <f:selectItems value="#{documentoController.listaPlanoItem}" var="lp"  itemLabel="#{lp.identificacaoLista}" itemValue="#{lp.identificacaoLista}" />
                             </p:selectOneMenu>
-                        </p:panelGrid-->
+                        </p:panelGrid
 
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.bPontoServico}"> 
-                            <h:outputText value="Ponto de Serviço"/>
+                            <h:outputText value="Grupo de Serviço"/>
                             <p:selectOneMenu value="#{documentoController.documento.seqLugar}" filter="true" filterMatchMode="contains"  required="true" requiredMessage="[PONTO DE SERVIÇO] é obrigatório">
                                 <f:selectItem value="#{null}" itemLabel="Selecione o Ponto de Serviço" itemValue="#{null}" />
                                 <f:selectItems value="#{documentoController.listaLugar}" var="lg"  itemLabel="#{lg.nome}" itemValue="#{lg.seqLugar}" />
                             </p:selectOneMenu>
-                        </p:panelGrid>
+                        </p:panelGrid>-->
 
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.idTipoDocumento eq '381'}"> 
                             <h:outputText value="Local de Prestação do Serviço (Município)"/>
@@ -339,14 +357,6 @@
 
                         <p:panelGrid id="pnlConta" columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.bConta}"> 
 
-                            <!--h:outputText value="Moeda"  rendered="#{documentoController.idTipoDocumento ne '301'}"/>
-                            <p:selectOneMenu value="#{documentoController.documento.moeda}"  rendered="#{documentoController.idTipoDocumento ne '301'}">
-                                <f:selectItem value="#{null}" itemLabel="Selecione" itemValue="#{null}" />
-                                <f:selectItem itemLabel="Real" itemValue="R$" />
-                                <f:selectItem itemLabel="Dólar" itemValue="US$" />
-                                <f:selectItem itemLabel="Euro" itemValue="€" />
-                                <p:ajax event="change" update="pnlConta"/>
-                            </p:selectOneMenu-->
 
                             <h:outputText value="Conta" rendered="#{documentoController.documento.seqFormaPagamento eq '83' or documentoController.documento.seqFormaPagamento eq '82'}"/>
                             <p:selectOneMenu value="#{documentoController.documento.seqConta}" filter="true" filterMatchMode="contains"  required="false" requiredMessage="[CONTA] é Obrigatório" rendered="#{documentoController.documento.seqFormaPagamento eq '83' or documentoController.documento.seqFormaPagamento eq '82'}"  >
@@ -364,15 +374,18 @@
                             </h:outputText>
                         </p:panelGrid>
 
-                        <p:panelGrid id="pnlCondicaoPagamento" columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.bCondicaoPagamento}"> 
+                         <p:panelGrid id="pnlCondicaoPagamento" columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.bCondicaoPagamento}"> 
                             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"> 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"> 
                                     <h:outputText value="Condição de Pagamento"/>
-                                    <p:selectOneMenu value="#{documentoController.documento.seqCondicaoPagamento}" filter="true" filterMatchMode="contains"  required="false" requiredMessage="[FORMA DE PAGAMENTO] é Obrigatório"  >
+                                    <p:selectOneMenu value="#{documentoController.documento.seqCondicaoPagamento}" filter="true" filterMatchMode="contains"  required="true" requiredMessage="[CONDIÇÃO DE PAGAMENTO] é Obrigatório"  >
                                         <f:selectItem value="#{null}" itemLabel="Selecione a Condição de Pagamento" itemValue="#{null}" />
                                         <f:selectItems value="#{documentoController.listaCondicaoPagamento}" var="cp"  itemLabel="#{cp.nome} " itemValue="#{cp.seqCondicaoPagamento}" />
                                     </p:selectOneMenu>
                                 </p:panelGrid>
+                                
+                               
+                                
                                 <!--p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"> 
                                     <h:outputText value="Natureza Lançamento"/>
                                     <p:selectOneMenu value="#{documentoController.naturezaLancamento}" filter="true" filterMatchMode="contains"  required="false" requiredMessage="[NATUREZA] é Obrigatório"  >
@@ -392,7 +405,7 @@
                                 </p:panelGrid>
                             </p:panelGrid>
 
-                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.idTipoDocumento eq '381' and documentoController.idTipoDocumento eq '401' }"> 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Quantidade de Parcelas"/>
                                     <p:spinner id="minMax" value="#{documentoController.documento.qtdeParcela}" min="0" max="12" style="width: 100px;"/>
@@ -492,12 +505,58 @@
                         </p:panelGrid> 
 
                         <p:separator/>
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.idTipoDocumento ne '401'}"  >
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '301' and documentoController.documento.seqTipoDocumento ne '401'}"  >
+                        <p:outputLabel  value="Assunto"/>
+                        <p:inputText id="assunto" value="#{documentoController.documento.assunto}" />
+                        </p:panelGrid>
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '301' and documentoController.documento.seqTipoDocumento ne '401'}"  >   
+                        <h:outputText value="Objetivo"/>
+                        <p:editor controls=""  value="#{documentoController.documento.objetivo}" required="true" requiredMessage="[Objetivo] é obrigatório"/>                           
+                        <h:outputText id="objetivop"/>  
+                        </p:panelGrid>
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '301' and documentoController.documento.seqTipoDocumento ne '401'}"  >   
+                        <h:outputText value="Condições do Pagamento"/>
+                        <p:editor controls=""  value="#{documentoController.documento.condpag}" required="true" requiredMessage="[Condições do Pagamento] é obrigatório"/>                           
+                        <h:outputText id="condPagm"/>  
+                        </p:panelGrid>                             
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '301' and documentoController.documento.seqTipoDocumento ne '401'}">    
+                        <h:outputText value="Observações Gerais"/>
+                        <p:editor controls=""  value="#{documentoController.documento.observacao}" /> 
+                        <h:outputText id="observacao"/>
+                        </p:panelGrid>
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '301' and documentoController.documento.seqTipoDocumento ne '401'}"  >    
+                        <h:outputText value="Condições Gerais de Despesas"/>
+                        <p:inputTextarea value="#{documentoController.documento.condicoesGerais}" rows="10" cols="50" completeMethod="#{documentoController.completeArea}" queryDelay="750"
+                         minQueryLength="1" required="true" requiredMessage="[Condições Gerais de Despesa] é obrigatório">
+                        </p:inputTextarea>
+                        </p:panelGrid>
+                        <!-- <p:editor controls="" value="#{documentoController.documento.condicoesGerais}" required="true" requiredMessage="[Condições Gerais de Despesa] é obrigatório"/>
+                        <h:outputText id="condesp"/>-->                                                
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '401'}"  >
+                        <h:outputText value="Escopo Técnico" />
+                        <p:editor width="1670" height="800"  value="#{documentoController.documento.escopo}"  required="true"  requiredMessage="[Escopo] é obrigatório"/>
+                        <h:outputText id="Escopo"/>
+                        </p:panelGrid>
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '301' and documentoController.documento.seqTipoDocumento ne '401'}"  >    
+                        <h:outputText value="Validade da Proposta"/>
+                        <p:editor controls="" value="#{documentoController.documento.validade}" required="true" requiredMessage="[Validade da Proposta] é obrigatório"/>
+                        </p:panelGrid>
+                     </p:panelGrid>
                         
-                         <h:outputText value="Escopo Técnico" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
-                         <p:inputTextarea counter="Escopo" counterTemplate="{0} caracteres restantes." maxlength="4000"  value="#{documentoController.documento.escopo}"/>
-                         <h:outputText id="Escopo"/>
-
-                     
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        
                         
                         
                         
@@ -560,23 +619,15 @@
 
                         <p:panelGrid id="pnlComMaterial" columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.bMaterial}">
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.bMaterial}">
-                                <p:panelGrid id="pnlMaterial" columns="3" layout="grid" styleClass="ui-panelgrid-blank">
-                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
-                                        <p:outputLabel value="Grupo de Serviço"/>
-                                        <p:selectOneMenu id="mnGrupoServico" value="#{documentoController.pGrupoServico}" filter="true" filterMatchMode="contains" >
-                                            <f:selectItem value="#{null}" itemLabel="Selecione um Grupo de Serviço" itemValue="#{null}" />
-                                            <f:selectItem itemLabel="Todos" itemValue="todos"  itemDisabled="#{documentoController.listaMaterialReferencia.size() == 0}"/>
-                                            <f:selectItems value="#{documentoController.listaMaterialReferencia}" var="p"  itemLabel="#{p.referencia}" itemValue="#{p.referencia}" />
-                                            <p:ajax event="change" listener="#{documentoController.buscarServicoNome}" update="pnlPreco pnlPrecoTotal pnlNomeGrupoServico"/>
-                                        </p:selectOneMenu>
-                                    </p:panelGrid>
+                                <p:panelGrid id="pnlMaterial" columns="2" layout="grid" styleClass="ui-panelgrid-blank">
+
 
                                     <p:panelGrid columns="1" id="pnlNomeGrupoServico" layout="grid" styleClass="ui-panelgrid-blank">
                                         <p:outputLabel value="Serviço"/>
                                         <p:selectOneMenu id="mnServico" value="#{documentoController.documentoItemMaterial.seqMaterial}" filter="true" filterMatchMode="contains" >
                                             <f:selectItem value="#{null}" itemLabel="Selecione um Serviço" itemValue="#{null}" />
-                                            <f:selectItems value="#{documentoController.listaMaterialPreco}" var="p"  itemLabel="#{p.material}" itemValue="#{p.seqMaterial}" />
-                                            <p:ajax event="change" listener="#{documentoController.buscarPreco}" update="pnlPreco pnlPrecoTotal pnlPrecoMinimo pnlPrecoMaximo"/>
+                                            <f:selectItems value="#{documentoController.listaMaterial}" var="p"  itemLabel="#{p.nome}" itemValue="#{p.seqMaterial}" />
+                                            <!--<p:ajax event="change" listener="#{documentoController.buscarPreco}" update="pnlPreco pnlPrecoTotal pnlPrecoMinimo pnlPrecoMaximo"/>-->
                                         </p:selectOneMenu>
                                     </p:panelGrid>
 
@@ -626,9 +677,9 @@
                                             <p:ajax event="keyup" listener="#{documentoController.calcularTotalItem}" update="pnlPrecoTotal"/>
                                         </p:inputText>
                                     </p:panelGrid>
-
-                                    <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
-                                    <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.idTipoDocumento eq '401'}">
+                                    
+                                     <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                                     <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.idTipoDocumento eq '401'}">
                                         <p:outputLabel value="Qtde Exec. no Período" />
                                         <p:inputText value="#{documentoController.documentoItemMaterial.qtdePeriodo}" required="#{param['frmPrincipal:btnSalvarItem']!=null}" requiredMessage="Informe a Qtde Exec. no Período">
                                             <f:convertNumber locale="pt_BR" pattern="#0" minFractionDigits="0" groupingUsed="true" maxIntegerDigits="20"  />
@@ -644,7 +695,12 @@
 
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
                                         <br/>
-                                        <p:commandButton value="Incluir" id="btnSalvarItem" actionListener="#{documentoController.salvarDocumentoItemMaterial()}"  process="@this,pnlServico,pnlMaterial" update="listaMaterial pnlComMaterial pnlValor pnlVTotal pnlVRestante" disabled="#{(documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1) or (loginController.usuario.acDocNovo != 1 and documentoController.idTipoDocumento ne '401')}"/>
+                                    <p:commandButton value="Incluir" id="btnSalvarItem" actionListener="#{documentoController.salvarDocumentoItemMaterial()}"  process="@this,pnlServico,pnlMaterial" update="listaMaterial pnlComMaterial pnlValor pnlVTotal pnlVRestante" disabled="#{(documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1) or (loginController.usuario.acDocNovo != 1 and documentoController.idTipoDocumento ne '401')}"/>
+                                    <h:outputText value="Imprime Total?" />
+                                    <p:selectOneMenu value="#{documentoController.documento.mostraTotal}" >
+                                        <f:selectItem itemLabel="Sim" itemValue="S" />
+                                        <f:selectItem itemLabel="Não" itemValue="N" />
+                                    </p:selectOneMenu>                                        
                                     </p:panelGrid>
                                 </p:panelGrid>
                             </p:panelGrid>
@@ -678,7 +734,7 @@
                                         <p:outputLabel value="#{rowIndex+1}" />
                                     </p:column>
                                     <p:column>
-                                        <p:commandLink value="#{i.materialReferencia}-#{i.materialNome} - #{i.descricao}"  title="#{i.materialNome}"  actionListener="#{documentoController.selecionarDocumentoItemMaterial(i)}" update=":frmPrincipal" process="@this"/>
+                                        <p:commandLink value="#{i.materialReferencia}-#{i.materialNome} - #{i.descricao}"  title="#{i.materialNome}"  actionListener="#{documentoController.selecionarDocumentoItemMaterial(i)}" update=":frmPrincipal" />
                                     </p:column>
 
                                     <p:column sortBy="#{i.qtde }"  style="text-align: center">
@@ -913,22 +969,24 @@
 
                         <p:separator rendered="#{documentoController.idTipoDocumento eq '401'}" />
 
-                        <p:panelGrid id="pnl" columns="1" layout="grid" styleClass="ui-panelgrid-blank"> 
-                            <h:outputText value="Descrição" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
-                           
-                            
-                            <p:inputTextarea counter="descricao" counterTemplate="{0} caracteres restantes." maxlength="1000"  value="#{documentoController.documento.descricao}"/>
-                            <!--<p:editor controls=""  value="#{documentoController.documento.descricao}" />-->
-                            <h:outputText id="descricao"/>
+                        <p:panelGrid id="pnl" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            <h:outputText value="Descrição da Remuneração" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '301' and documentoController.idTipoDocumento ne '401'}"/>
+                            <p:editor controls=""  value="#{documentoController.documento.descRemuneracao}" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '301' and documentoController.idTipoDocumento ne '401'}"/>
+                        <h:outputText id="descricaorem"/>                        
+                        
+                        <h:outputText value="Descrição" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                        <p:editor controls="" value="#{documentoController.documento.descricao}" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                        <h:outputText id="descricao"/>
 
                             <p:separator rendered="#{documentoController.idTipoDocumento ne '401'}"/>
 
-                            <!--<h:outputText value="Observação" rendered="#{documentoController.idTipoDocumento ne '401'}"/>-->
-                            <h:outputText value="Observações" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
-                            <p:inputTextarea counter="observacao" counterTemplate="{0} caracteres restantes." maxlength="1000"  value="#{documentoController.documento.observacao}" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
-                            <!--<p:editor controls=""  value="#{documentoController.documento.observacao}" rendered="#{documentoController.idTipoDocumento ne '401'}"/>-->
-                            <h:outputText id="observacao" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
-
+                           
+                            <h:outputText value="Observações" rendered="#{documentoController.idTipoDocumento eq '381'}"/>
+                            <p:inputTextarea counter="observacao" counterTemplate="{0} caracteres restantes." maxlength="1000"  value="#{documentoController.documento.observacao}" rendered="#{documentoController.idTipoDocumento eq '381'}"/>
+                            <h:outputText id="observacaoOC" rendered="#{documentoController.idTipoDocumento eq '381'}"/>
+                            <h:outputText value="Observações" rendered="#{documentoController.idTipoDocumento eq '401'}"/>
+                            <p:inputTextarea counter="observacao" counterTemplate="{0} caracteres restantes." maxlength="1000"  value="#{documentoController.documento.observacao}" rendered="#{documentoController.idTipoDocumento eq '401'}"/>
+                            <h:outputText id="observacaoBM" rendered="#{documentoController.idTipoDocumento eq '401'}"/>
                         </p:panelGrid>
 
 
@@ -953,6 +1011,10 @@
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                             <p:outputLabel value="Tipo de Arquivo"/>
                                             <p:inputText value="#{documentoController.upload.tipoArquivo}" />
+                                                <h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{documentoController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{documentoController.upload.dataValidade}"/>                                              
                                         </p:panelGrid>                            
                                         <p:fileUpload label="Selecionar Arquivo" value="#{documentoController.arquivo}" mode="simple" skinSimple="true"/>
                                         <p:commandButton value="Adicionar" ajax="false" actionListener="#{documentoController.upload}" rendered="#{loginController.usuario.acDocNovo == 1}" update="tabAnexos"/>
@@ -992,9 +1054,9 @@
 
                             </p:tab>
                         </p:accordionPanel>
-                        <h2 class="BigTopic">Comentários</h2>
+                        <h2 class="BigTopic">Email de solicitação do cliente</h2>
                         <p:accordionPanel >
-                            <p:tab title="Comentários" id="comentario">
+                            <p:tab title="Email de solicitação do cliente" id="comentario">
                                 <p:dataTable id="tbComentario" var="c" value="#{documentoController.listaDocumentoComentario}" emptyMessage="Lista vazia" reflow="true" >
 
                                     <p:column headerText="Comentário" sortBy="#{c.comentario}">
@@ -1030,7 +1092,7 @@
                             </p:tab>
                         </p:accordionPanel>
 
-                        <!-- MEXER AQUI Alex-->
+                        
                         <h2 class="BigTopic">Documentos Gerados</h2>
                         <p:accordionPanel >
                             <p:tab title="Documentos Gerados" >
@@ -1058,8 +1120,21 @@
                         </p:accordionPanel>
 
                         <p:dialog id="telaComentario" header="Tela de Comentário" widgetVar="telaComentario" modal="true" height="150" >
-                            <p:inputTextarea id="lblComentario" value="#{documentoController.documento.comentarioEtapa}" rows="6" cols="15" placeholder="Informe o Motivo do Cancelamento"/>
-                            <!--p:inputTextarea id="lblComentario" value="#{documentoController.documento.comentarioEtapa}" rows="6" cols="15" placeholder="Informe o Motivo do Cancelamento" required="true" requiredMessage="Informe o Motivo do Cancelamento"/-->
+                            <p:selectOneMenu id="lblComentario" value="#{documentoController.documento.comentarioEtapa}" filter="true" filterMatchMode="contains" >
+                                    <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                    <f:selectItem itemLabel="PREÇO" itemValue="PREÇO" />
+                                    <f:selectItem itemLabel="MELHOR OFERTA DO CONCORRENTE" itemValue="MELHOR OFERTA DO CONCORRENTE" />
+                                    <f:selectItem itemLabel="SERVIÇO ADIADO OU NÃO REALIZADO PELO CLIENTE" itemValue="SERVIÇO ADIADO OU NÃO REALIZADO PELO CLIENTE" />
+                                    <f:selectItem itemLabel="CAPACIDADE E CERTIFICAÇÕES TÉCNICAS" itemValue="CAPACIDADE E CERTIFICAÇÕES TÉCNICAS" />
+                                    <f:selectItem itemLabel="FALTA DE PRESENÇA NO LOCAL" itemValue="FALTA DE PRESENÇA NO LOCAL" />
+                                    <f:selectItem itemLabel="MOTIVO NÃO DEFINIDO PELO CLIENTE" itemValue="MOTIVO NÃO DEFINIDO PELO CLIENTE" />
+                                    </p:selectOneMenu>                                 
+                            
+
+
+
+
+<!--p:inputTextarea id="lblComentario" value="#{documentoController.documento.comentarioEtapa}" rows="6" cols="15" placeholder="Informe o Motivo do Cancelamento" required="true" requiredMessage="Informe o Motivo do Cancelamento"/-->
                             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"> 
                                 <p:commandButton value="Salvar"  actionListener="#{documentoController.salvarComentario()}" disabled="#{documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1}" onclick="PF('telaComentario').hide();" update="acdOcorrencias" process="@this,lblComentario"/>
                                 <p:commandButton value="Cancelar" onclick="PF('telaComentario').hide();"/>

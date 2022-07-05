@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
-<!-- 2020-06-26T13:23:06 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CERTIFICADO DE CONFORMIDADE DE EQUIPAMENTO" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="231a48c0-0b0d-4284-9662-fd0f202b31d9">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CERTIFICADO DE CONFORMIDADE DE EQUIPAMENTO" columnDirection="RTL" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="231a48c0-0b0d-4284-9662-fd0f202b31d9">
 	<property name="ireport.zoom" value="1.2100000000000006"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="1200"/>
+	<property name="ireport.y" value="198"/>
 	<parameter name="pSeqCertificado" class="java.lang.Integer">
 		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
 	</parameter>
 	<queryString>
-		<![CDATA[select t.*, p.nome,p.documento,p.logradouro,p.numero,p.complemento,p.bairro,p.cidade,p.uf,e.nome,e.tipo_equipamento,e.fmas,e.carga,e.tipo_acionamento,e.cabo_tracao,c.nome nome_colaborador , c.documento documento_colaborador from NV_CERTIFICADO_EQUIPAMENTO t 
+		<![CDATA[select t.*, p.nome,p.documento,p.logradouro,p.numero,p.complemento,p.bairro,p.cidade,p.uf,e.nome,e.tipo_equipamento,e.fmas,e.carga,e.tipo_acionamento,e.cabo_tracao,c.nome nome_colaborador , c.documento documento_colaborador from NV_CERTIFICADO_EQUIPAMENTO t
 inner join parceiro p on p.seq_parceiro=t.seq_parceiro
 inner join equipamento e on e.seq_equipamento=t.seq_nv_equipamento
 inner join colaborador c on c.seq_colaborador=t.seq_colaborador
@@ -78,7 +76,7 @@ t.seq_nv_certificado = $P{pSeqCertificado}]]>
 				<reportElement x="158" y="723" width="245" height="1" uuid="7bafbcee-122d-421e-bb74-fcbc5bd58f5e"/>
 			</line>
 			<textField isBlankWhenNull="true">
-				<reportElement x="126" y="634" width="100" height="20" uuid="2885b2ff-e704-4df9-b85a-26536d7f8e3c"/>
+				<reportElement x="126" y="634" width="59" height="20" uuid="2885b2ff-e704-4df9-b85a-26536d7f8e3c"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
 				</textElement>
@@ -92,7 +90,7 @@ t.seq_nv_certificado = $P{pSeqCertificado}]]>
 				<textFieldExpression><![CDATA[$F{DOCUMENTO_COLABORADOR}]]></textFieldExpression>
 			</textField>
 			<textField isBlankWhenNull="true">
-				<reportElement positionType="FixRelativeToBottom" x="126" y="656" width="100" height="20" uuid="d14454e7-2745-4f8c-a30d-f81629abb284"/>
+				<reportElement positionType="FixRelativeToBottom" x="126" y="656" width="59" height="20" uuid="d14454e7-2745-4f8c-a30d-f81629abb284"/>
 				<textElement>
 					<font fontName="Times New Roman" size="12" pdfFontName="Times-Bold"/>
 				</textElement>
@@ -426,7 +424,7 @@ t.seq_nv_certificado = $P{pSeqCertificado}]]>
 			</textField>
 			<image>
 				<reportElement x="-2" y="-7" width="127" height="55" uuid="c62b9672-b095-4f3c-bd8c-c86eb367e258"/>
-				<imageExpression><![CDATA["C:/Users/beto/Documents/Projetos JAva/aws-master/src/main/webapp/relatorio/awsnew.png"]]></imageExpression>
+				<imageExpression><![CDATA[".."+File.separator+"awsnew.png"]]></imageExpression>
 			</image>
 			<staticText>
 				<reportElement x="121" y="3" width="420" height="27" uuid="50c87c3d-552b-4d0c-a2a5-989ab7369968"/>

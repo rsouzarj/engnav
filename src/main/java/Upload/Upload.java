@@ -18,6 +18,10 @@
 /*     */   private String nomeUsuario;
             private String seqFinanceiro;
             private String seqNvEmbarcacao;
+            private Date   dataEmissao;
+            private Date   dataValidade;
+            private String seqParceiro;
+            private String seqCertificado;
            
 /*     */   
 /*     */   public String getSeqUpload()
@@ -35,6 +39,22 @@
 /*     */   
 /*     */   public void setDataCadastro(Date dataCadastro) {
 /*  41 */     this.dataCadastro = dataCadastro;
+/*     */   }
+
+/*     */   public Date getDataEmissao() {
+/*  37 */     return this.dataEmissao;
+/*     */   }
+/*     */   
+/*     */   public void setDataEmissao(Date dataEmissao) {
+/*  41 */     this.dataEmissao = dataEmissao;
+/*     */   }
+
+/*     */   public Date getDataValidade() {
+/*  37 */     return this.dataValidade;
+/*     */   }
+/*     */   
+/*     */   public void setDataValidade(Date dataValidade) {
+/*  41 */     this.dataValidade = dataValidade;
 /*     */   }
 /*     */   
 /*     */   public String getSeqDocumento() {
@@ -122,6 +142,21 @@
 /*     */   
 /*     */   public void setSeqNvEmbarcacao(String seqNvEmbarcacao) {
 /*  49 */     this.seqNvEmbarcacao = seqNvEmbarcacao;
+            }
+/*     */   public String getSeqParceiro() {
+/*  45 */     return this.seqParceiro;
+/*     */   }
+/*     */   
+/*     */   public void setSeqParceiro(String seqParceiro) {
+/*  49 */     this.seqParceiro = seqParceiro;
+            }
+
+/*     */   public String getSeqCertificado() {
+/*  45 */     return this.seqCertificado;
+/*     */   }
+/*     */   
+/*     */   public void setSeqCertificado(String seqCertificado) {
+/*  49 */     this.seqCertificado = seqCertificado;
             }
          
 /*     */ }

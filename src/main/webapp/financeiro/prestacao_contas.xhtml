@@ -322,15 +322,17 @@
                         </div>
                     </h:form>
 
-                    <h:form id="frmDetalhe">
+                    <h:form id="frmDetalhe" enctype="multipart/form-data">
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{prestacaoContasController.tela == 1}"> 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{prestacaoContasController.financeiro.seqFinanceiro eq null}"> 
                                 <h2 class="BigTopic" >Prestação de Contas</h2>     
                             </p:panelGrid>
-                            <p:panelGrid id="pnlStatus" columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-0" rendered="#{prestacaoContasController.financeiro.seqFinanceiro ne null}"> 
+                            <p:panelGrid id="pnlStatus" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-0" rendered="#{prestacaoContasController.financeiro.seqFinanceiro ne null}"> 
                                 <h2 class="BigTopic">Prestação de Contas - nº#{prestacaoContasController.financeiro.seqFinanceiro}  /   #{prestacaoContasController.financeiro.etapa}</h2>
                                 <p:commandButton value="Imprimir"  actionListener="#{prestacaoContasController.imprimirPrestacaoContas()}" immediate="true" ajax="false"  onclick="this.form.target = '_blank'" disabled = "#{prestacaoContasController.financeiro.etapa == 'CANCELADO'}"/>
-                                            
+                                <p:menuButton value="Gerar" rendered="#{loginController.usuario.acFinContasPagar == 1}" disabled="#{prestacaoContasController.financeiro.etapa != 'APROVADA'}" >
+                                    <p:menuitem icon="fa fa-arrow-right cor" value="Contas a Pagar"  actionListener="#{prestacaoContasController.gerarContasPagar()}" target="_blank" immediate="true" ajax="false"/>
+                                </p:menuButton>                                             
                             </p:panelGrid>
                             
                                                        
@@ -339,9 +341,9 @@
                                 <p:outputLabel value="Status"/>
                                 <p:selectOneMenu value="#{prestacaoContasController.financeiro.etapa}" filter="true" filterMatchMode="contains">
                                     <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
-                                    <f:selectItem itemLabel="A VENCER" itemValue="A VENCER" />
-                                    <f:selectItem itemLabel="VENCIDO" itemValue="VENCIDO" />
-                                    <f:selectItem itemLabel="STANDY-BY" itemValue="STANDY-BY" />
+                                    <f:selectItem itemLabel="ABERTO" itemValue="ABERTO" />
+                                    <f:selectItem itemLabel="APROVADA" itemValue="APROVADA" />
+                                    <f:selectItem itemLabel="REPROVADA" itemValue="REPROVADA" />
                                     </p:selectOneMenu>
                                 <h:outputText value="DOCUMENTO " />
                                     <h:outputText value="#{prestacaoContasController.financeiro.seqDocumento}" />
@@ -423,13 +425,13 @@
                                         </p:inputText>
                                     </p:panelGrid>
                                 </p:panelGrid>
-                                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                <p:panelGrid id="pnlVTotal"  columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                         <h:outputText value="Total da Movimentação" class="Fs16 gray FontRalewaySemiBold"/>
-                                        <p:inputText value="#{prestacaoContasController.financeiro.valorTotalMovimentacao}" >                
+                                        <p:outputLabel  value="#{prestacaoContasController.financeiro.valorTotalMovimentacao}" >                
                                             <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
                                             <p:ajax event="keyup" listener="#{prestacaoContasController.calcularSaldo}" update="pnlSaldo"/>
-                                        </p:inputText>
+                                        </p:outputLabel>
                                     </p:panelGrid>
                                     <p:panelGrid id="pnlSaldo" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                         <p:outputLabel value="Saldo" class="BigTopic"/>
@@ -441,8 +443,7 @@
                                          </p:outputLabel >
                                         <!--</p:inputText>-->
                                     </p:panelGrid>
-                                </p:panelGrid>
-                            
+                                </p:panelGrid>                            
 
                             <p:separator/>
 
@@ -458,15 +459,18 @@
                                             <f:selectItem value="#{null}" itemLabel="Selecione" itemValue="#{null}" />
                                             <f:selectItems value="#{prestacaoContasController.listaDocumentoFiscal}" var="df"  itemLabel="#{df.nome}"  itemValue="#{df.seqDocumentoFiscal}"/>
                                             <p:ajax event="change" listener="#{prestacaoContasController.selecionarDocumentoFiscal()}"/>
+                                            <p:ajax event="change" update="pnlDoc "/>
                                         </p:selectOneMenu>
                                     </p:panelGrid>
                                     <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank">
                                         <p:outputLabel value="Nº Documento"  class="Fs16 gray FontRalewaySemiBold"/>
                                         <p:inputText value="#{prestacaoContasController.financeiroItemPc.numeroDocumento}" required="#{param['frmDetalhe:btnSalvarItem']!=null}" />
                                     </p:panelGrid>
-                                    <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank">
-                                        <p:outputLabel value="CNPJ/CPF"  class="Fs16 gray FontRalewaySemiBold"/>
-                                        <p:inputText value="#{prestacaoContasController.financeiroItemPc.cnpjCpf}" required="#{param['frmDetalhe:btnSalvarItem']!=null}"/>
+                                    <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" id="pnlDoc">
+                                        <p:outputLabel value="CNPJ" rendered="#{prestacaoContasController.financeiroItemPc.nomeDocumentoFiscal != 'Recibo PF'}" class="Fs16 gray FontRalewaySemiBold"/>
+                                        <p:outputLabel value="CPF" rendered="#{prestacaoContasController.financeiroItemPc.nomeDocumentoFiscal == 'Recibo PF'}" class="Fs16 gray FontRalewaySemiBold"/>
+                                        <p:inputMask value="#{prestacaoContasController.financeiroItemPc.cnpjCpf}"  mask="99.999.999/9999-99" rendered="#{prestacaoContasController.financeiroItemPc.nomeDocumentoFiscal != 'Recibo PF'}" required="#{param['frmDetalhe:btnSalvarItem']!=null}"/>
+                                        <p:inputMask value="#{prestacaoContasController.financeiroItemPc.cnpjCpf}"  mask="999.999.999-99" rendered="#{prestacaoContasController.financeiroItemPc.nomeDocumentoFiscal == 'Recibo PF'}" required="#{param['frmDetalhe:btnSalvarItem']!=null}"/>
                                     </p:panelGrid>
                                     <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank">
                                         <p:outputLabel value="Razão Social"  class="Fs16 gray FontRalewaySemiBold"/>
@@ -535,15 +539,23 @@
 
                             <!--<p:separator/>-->
                                          
-                            <p:accordionPanel id="apnlUpload" rendered="#{prestacaoContasController.financeiro.seqFinanceiro != null}">
-                                <p:tab title="Anexos"  >
-                               	<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                          <p:accordionPanel> 
+                                <p:tab title="Anexos"  id="tabAnexos" rendered="#{prestacaoContasController.financeiro.seqFinanceiro != null}">
+                               	<p:panelGrid id="pnlAnexos" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <p:growl id="messagesg" showDetail="true" />
                                     <p:panelGrid columns="3" layout="grid" styleClass=" ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-4,ui-grid-col-4"> 
-                                           
-                                        
-                                        <p:fileUpload label="Selecionar Arquivo" value="#{prestacaoContasController.arquivo}" mode="simple" skinSimple="true"/>
-                                        <p:commandButton value="Adicionar" ajax="false" actionListener="#{prestacaoContasController.upload}" rendered="#{loginController.usuario.acFinPrestacaoContas == 1}" update=" tblAnexos"/>
+                                      <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <p:outputLabel value="Tipo de Arquivo"/>
+                                            <p:inputText value="#{prestacaoContasController.upload.tipoArquivo}" />
+                                                <h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{prestacaoContasController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{prestacaoContasController.upload.dataValidade}"/>                                             
+                                            
+                                            
+                                      </p:panelGrid>        
+                                        <p:fileUpload label="Selecionar Arquivo" value="#{prestacaoContasController.file}" mode="simple" skinSimple="true"/>
+                                        <p:commandButton value="Adicionar" ajax="false" actionListener="#{prestacaoContasController.upload}" rendered="#{loginController.usuario.acFinPrestacaoContas== 1}" update=" tblAnexos"/>
                                     </p:panelGrid>                            
                                 </p:panelGrid>
                                     <p:dataTable id="tblAnexos" var="a" rowIndexVar="id" value="#{prestacaoContasController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
@@ -554,7 +566,7 @@
                                         <p:outputLabel value="#{a.nomeArquivo}"/>
                                     </p:column>
                                      <p:column headerText="Tipo" style="text-align: center">
-                                            <p:outputLabel value="#{a.tipoArquivo}"/>
+                                         <p:outputLabel value="#{a.tipoArquivo}"/>
                                         </p:column>
                                     <p:column headerText="Usuário" style="text-align: center">
                                         <p:outputLabel value="#{a.nomeUsuario}"/>
@@ -569,7 +581,7 @@
                                         </p:commandButton>
                                     </p:column>
                                     <p:column headerText="Remover" width="8%" style="text-align: center">
-                                        <p:commandButton icon="fa fa-eraser white" style="width: 50px" styleClass="RedButton" actionListener="#{prestacaoContasController.removerAnexo(a)}" rendered="#{prestacaoContasController.idDocumento !=0 and loginController.usuario.acDocNovo == 1}" update=":frmDetalhe :frmLista">
+                                        <p:commandButton icon="fa fa-eraser white" style="width: 50px" styleClass="RedButton" actionListener="#{prestacaoContasController.removerAnexo(a)}" rendered="#{loginController.usuario.acDocNovo == 1}" update=":frmDetalhe :frmLista">
                                             <p:confirm header="Confirmação" message="Deseja excluir o anexo?" icon="ui-icon-alert" />
                                         </p:commandButton>
                                         <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
@@ -605,14 +617,14 @@
                                 <p:commandButton value="Salvar" actionListener="#{prestacaoContasController.salvar(0)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acFinPrestacaoContas== 1}"/>
                                 <p:commandButton value="Voltar" immediate="true" actionListener="#{prestacaoContasController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
 
-                                <p:commandButton value="Cancelar" styleClass="RedButton" onclick="PF('motivoCancelamento').show();" rendered="#{prestacaoContasController.financeiro.seqFinanceiro != null and loginController.usuario.acFinPrestacaoContas == 1}" />
+                                <p:commandButton value="Reprovar" styleClass="RedButton" onclick="PF('motivoCancelamento').show();" rendered="#{prestacaoContasController.financeiro.seqFinanceiro != null and loginController.usuario.acFinPrestacaoContas == 1}" />
 
 
                                 <p:dialog id="motivoCancelamento" header="Motivo do Cancelamento" widgetVar="motivoCancelamento" modal="true" height="150" >
                                     <p:inputTextarea id="lblComentario" value="#{prestacaoContasController.financeiro.motivoCancelamento}" rows="6" cols="15" placeholder="Informe o Motivo do Cancelamento"/>
                                     <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"> 
                                         <p:commandButton value="Salvar"  actionListener="#{prestacaoContasController.cancelar()}"  onclick="PF('motivoCancelamento').hide();" process="@this,lblComentario"/>
-                                        <p:commandButton value="Cancelar" onclick="PF('telaComentario').hide();"/>
+                                        <p:commandButton value="Reprovar" onclick="PF('telaComentario').hide();"/>
                                     </p:panelGrid>
                                 </p:dialog>
                                 
@@ -627,14 +639,7 @@
 </p:confirmDialog-->                                                              
                             </p:panelGrid>
                         </p:panelGrid>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+
                     </h:form>
                 </div>
             </div>

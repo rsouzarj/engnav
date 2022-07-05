@@ -12,15 +12,7 @@
 /*     */ import java.util.Date;
 /*     */ import java.util.List;
 /*     */ import java.util.Random;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class UsuarioService
 /*     */ {
 /*     */   public Usuario validarAcesso(String pUsuario, String pSenha, String pChave, Modulo pModulo)
@@ -81,7 +73,7 @@
 /*  81 */     System.out.println("==> " + usuario.getSeqUsuario());
 /*  82 */     if (usuario.getSeqUsuario() == null) {
 /*  83 */       Random ran = new Random();
-/*  84 */       String senha = "123";
+/*  84 */       String senha = "@123";
 /*  85 */       usuario.setSenha(senha);
 /*  86 */       usuario.setDataCadastro(new Date());
 /*  87 */       return dao.inserir(usuario);
@@ -141,22 +133,7 @@
 /*     */     
 /* 142 */     return retorno;
 /*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */   public boolean deletarUsuario(Usuario usuario)
 /*     */   {
 /* 162 */     UsuarioDAO dao = new UsuarioDAO();
@@ -164,8 +141,3 @@
 /*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Usuario/UsuarioService.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

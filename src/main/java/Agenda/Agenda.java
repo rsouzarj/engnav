@@ -1,16 +1,7 @@
 /*     */ package Agenda;
 /*     */ 
 /*     */ import java.util.Date;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+ 
 /*     */ public class Agenda
 /*     */ {
 /*     */   private String seqTipoAgendaNome;
@@ -25,6 +16,7 @@
 /*     */   private String cor;
 /*     */   private String seqTipoAgenda;
 /*     */   private String nomeParceiro;
+            private String nomeUsuario;
 /*     */   
             public String getSeqAgenda()
 /*     */   {
@@ -40,16 +32,7 @@
 /*  29 */     return this.seqTipoAgendaNome;
 /*     */   }
 /*     */   
-            
-/*     */   public void setNomeParceiro(String nomeParceiro) {
-/*  33 */     this.nomeParceiro = nomeParceiro;
-/*     */   }
 
-            public String getnomeParceiro()
-/*     */   {
-/*  29 */     return this.nomeParceiro;
-/*     */   }
-            
 /*     */   public void setSeqAgenda(String seqAgenda) {
 /*  33 */     this.seqAgenda = seqAgenda;
 /*     */   }
@@ -125,10 +108,20 @@
 /*     */   public void setSeqTipoAgenda(String seqTipoAgenda) {
 /* 105 */     this.seqTipoAgenda = seqTipoAgenda;
 /*     */   }
+
+/*     */   public String getNomeUsuario() {
+/* 101 */     return this.nomeUsuario;
+/*     */   }
+/*     */   
+/*     */   public void setNomeUsuario(String nomeUsuario) {
+/* 105 */     this.nomeUsuario = nomeUsuario;
+/*     */   }
+
+            public String getNomeParceiro() {
+/*  29 */     return this.nomeParceiro;
+/*     */   }
+            
+/*     */   public void setNomeParceiro(String nomeParceiro) {
+/*  33 */     this.nomeParceiro = nomeParceiro;
+/*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Agenda/Agenda.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

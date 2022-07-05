@@ -8,14 +8,7 @@
 /*    */ import java.util.ArrayList;
 /*    */ import java.util.Date;
 /*    */ import java.util.List;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /*    */ public class NvCertificadoService
 /*    */ {
 /*    */   public NvCertificado salvar(NvCertificado nvCertificado)
@@ -36,7 +29,7 @@
 /* 36 */     List<NvCertificado> listaNvCertificado = new ArrayList();
 /* 37 */     ClausulaWhere condicao = new ClausulaWhere();
 /*    */     
-/* 39 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "NV_CERTIFICADO.identificacao", GeneroCondicaoWhere.contem, pString, TipoCondicaoWhere.Texto);
+/* 39 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "NV_CERTIFICADO.seq_nv_certificado", GeneroCondicaoWhere.igual, pString, TipoCondicaoWhere.Numero);
 /* 40 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "NV_CERTIFICADO.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
 /*    */     
 /* 42 */     if (pSituacao == Situacao.ATIVO) {

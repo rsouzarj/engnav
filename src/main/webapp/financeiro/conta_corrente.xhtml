@@ -172,7 +172,7 @@
 
                             <p:panelGrid id="pnlFiltroData" columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{financeiroController.tela == 0}">
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
-                                    <p:selectBooleanCheckbox  itemLabel="Informar Data de Pagamento/Recebimentoxxx" value="#{financeiroController.porDataPagamento}">
+                                    <p:selectBooleanCheckbox  itemLabel="Informar Data de Pagamento/Recebimento" value="#{financeiroController.porDataPagamento}">
                                         <p:ajax event="change" update="pnlFiltroData"/>
                                     </p:selectBooleanCheckbox>
                                     <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{financeiroController.porDataPagamento}">
@@ -224,7 +224,7 @@
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"  >
                                     <h:outputLabel value="DÉBITO" class="Fs16 gray FontRalewaySemiBold"/>
                                     <h:outputText value="R$#{financeiroController.totalDebito}">
-                                        <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
+                                        <f:convertNumber locale="pt_BR" pattern="#,###.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
                                     </h:outputText>
                                 </p:panelGrid>
 
@@ -232,7 +232,7 @@
                                 <p:panelGrid columns="1" layout="grid" rendered="#{financeiroController.seqContaSelecionado != null}" styleClass="ui-panelgrid-blank" >
                                     <h:outputLabel value="SALDO INICIAL" class="Fs16 gray FontRalewaySemiBold"/>
                                     <h:outputText value="R$#{financeiroController.saldoInicial}">
-                                        <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
+                                        <f:convertNumber locale="pt_BR" pattern="#.###,00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
                                     </h:outputText>
                                 </p:panelGrid>
 

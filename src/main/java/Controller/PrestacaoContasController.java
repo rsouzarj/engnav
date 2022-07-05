@@ -40,6 +40,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintStream;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -107,9 +108,8 @@ UploadService uploadService = new UploadService();
 UploadController uploadController = new UploadController();
 List<Upload> listaUpload = new ArrayList();
 UploadedFile file;
-
-	StreamedContent fileDownload;
-	StreamedContent arquivoVisualizar;
+StreamedContent fileDownload;
+StreamedContent arquivoVisualizar;
 	       
        
   
@@ -142,6 +142,10 @@ UploadedFile file;
   String dataPeriodoFinalFinal;
   String seqParceiroSelecionado;
   String seqColaboradorSelecionado;
+  BigDecimal valorTotalPC = BigDecimal.ZERO;
+  BigDecimal saldoPC = BigDecimal.ZERO;
+  BigDecimal ItnTotal = BigDecimal.ZERO;
+  
   boolean id;
   Integer tela = Integer.valueOf(0);
 
@@ -168,6 +172,9 @@ UploadedFile file;
     if (this.financeiro.getParcelaFim() == null) {
       this.financeiro.setParcelaFim(Integer.valueOf(0));
     }
+    
+    this.financeiro.setValor(this.saldoPC);
+    
     
     this.financeiro.setOrigemLCM("6");
     this.financeiro = this.financeiroService.salvar(this.financeiro);
@@ -277,16 +284,6 @@ UploadedFile file;
     this.listaFinanceiro = this.financeiroService.listarFiltro(condicao);
   }
   
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 
   public void iniciarPrestacaoContas()
   {
@@ -299,7 +296,7 @@ UploadedFile file;
     ClausulaWhere condicao = new ClausulaWhere();
     
     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "documento.seq_tipo_documento", GeneroCondicaoWhere.igual, String.valueOf("301"), TipoCondicaoWhere.Numero);
-    condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "documento.seq_documento_etapa", GeneroCondicaoWhere.igual, String.valueOf("282"), TipoCondicaoWhere.Numero);
+    /*condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "documento.seq_documento_etapa", GeneroCondicaoWhere.igual, String.valueOf("282"), TipoCondicaoWhere.Numero);*/
     
     this.listaDocumento = this.documentoService.listarDocumentoFiltro(condicao);
     
@@ -309,6 +306,7 @@ UploadedFile file;
     this.listaFinanceiroCategoria = this.financeiroCategoriaService.listar(this.loginController.empresa.getSeqEmpresa(), "", Situacao.ATIVO);
     this.listaParceiro = this.parceiroService.listarParceiro(this.loginController.usuario.getSeqUsuario(), "");
     this.listaColaborador = this.colaboradorService.listar(this.loginController.empresa.getSeqEmpresa(), "", Situacao.ATIVO);
+    /*this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());*/
   }
   
   public void listarEquipEmbarc() {
@@ -316,12 +314,33 @@ UploadedFile file;
     this.listaNvEmbarcacaoParceiro = this.nvEmbarcacaoParceiroService.listarPorParceiro(this.financeiro.getSeqParceiro());
   }
   
-  public void salvarFinanceiroItemPC()
-  {
-    this.listaFinanceiroItemPc.add(this.financeiroItemPc);
-    this.financeiroItemPc = new FinanceiroItemPc();
-  }
-  
+    public void salvarFinanceiroItemPC() {
+      
+        if  (this.financeiro.getValorTotalMovimentacao() == null) {
+            this.financeiro.setValorTotalMovimentacao(new BigDecimal(0));
+             }
+            this.financeiro.setValorTotalMovimentacao(this.financeiro.getValorTotalMovimentacao().add(this.financeiroItemPc.getValor()));
+        
+          
+        if  (this.financeiro.getValorRecebido() !=null) {
+            this.saldoPC = this.financeiro.getValorRecebido().subtract(this.financeiro.getValorTotalMovimentacao());            
+        } else {
+            this.saldoPC = this.financeiro.getValorTotalMovimentacao();
+        }   
+                 
+            
+            /*if (this.financeiro.getValorTotalMovimentacao() != null) {
+	    this.valorTotalPC = this.financeiro.getValorTotalMovimentacao().add(this.financeiroItemPc.getValor());
+	    } 
+        
+        if (this.financeiro.getValor() != null) {
+	    this.financeiro.setValor(this.valorTotalPC.add(this.financeiroItemPc.getValor())); 
+	    }      */  
+       
+        this.listaFinanceiroItemPc.add(this.financeiroItemPc);
+        this.financeiroItemPc = new FinanceiroItemPc();
+    }
+
   public void selecionarDocumentoFiscal() {
     for (DocumentoFiscal df : this.listaDocumentoFiscal) {
       if (df.getSeqDocumentoFiscal().equals(this.financeiroItemPc.getSeqDocumentoFiscal())) {
@@ -337,10 +356,58 @@ UploadedFile file;
   
   public void removerFinanceiroItemPC(FinanceiroItemPc pFinanceiroItemPc) {
     this.listaFinanceiroItemPc.remove(pFinanceiroItemPc);
+      
+    if  (this.financeiro.getValorTotalMovimentacao() != null) {
+      this.financeiro.setValorTotalMovimentacao(this.financeiro.getValorTotalMovimentacao().subtract(pFinanceiroItemPc.getValor()));
+    } 
+        if  (this.financeiro.getValorRecebido() !=null) {
+            this.saldoPC = this.financeiro.getValorRecebido().subtract(this.financeiro.getValorTotalMovimentacao());            
+        } else {
+            this.saldoPC = this.financeiro.getValorTotalMovimentacao();
+        }     
+    
+    /*else { 
+        this.financeiro.setValorTotalMovimentacao(this.financeiro.getValorTotalMovimentacao().subtract(pFinanceiroItemPc.getValor()));
+    }*/
+    
     if (pFinanceiroItemPc.getSeqFinanceiroItemPc() != null) {
       this.listaFinanceiroItemPcDeletado.add(pFinanceiroItemPc);
     }
   }
+    
+    public void gerarContasPagar() {
+		Financeiro pFinanceiro = new Financeiro();
+		pFinanceiro.setSeqFinanceiro(null);
+		pFinanceiro.setSeqParceiro(this.financeiro.getSeqParceiro());
+		pFinanceiro.setSeqUsuario(this.financeiro.getSeqUsuario());
+		pFinanceiro.setSeqEmpresa(this.loginController.empresa.getSeqEmpresa());
+		pFinanceiro.setSeqTipoMovimento(this.financeiro.getSeqTipoMovimento());
+		pFinanceiro.setSeqCentroCusto(this.financeiro.getSeqCentroCusto());
+		pFinanceiro.setValor(this.financeiro.getValor());
+		pFinanceiro.setValorConvertido(this.financeiro.getValorConvertido());
+		pFinanceiro.setDataEmissao(new Date());
+		pFinanceiro.setOrigemLCM("2");
+		pFinanceiro.setOperacao("DÉBITO");
+		pFinanceiro.setEtapa("A VENCER");
+		pFinanceiro.setOutrasInformacoes(
+				"Gerado a partir da Prestação de Contas nº" + this.financeiro.getSeqFinanceiro() + ".");
+		pFinanceiro.setOcorrencias(Integer.valueOf(0));
+		pFinanceiro.setIntervaloNumero(Integer.valueOf(0));
+		pFinanceiro.setParcelaFim(Integer.valueOf(0));
+		pFinanceiro.setParcelaInicio(Integer.valueOf(0));
+
+		pFinanceiro = this.financeiroService.salvar(pFinanceiro);
+
+		FacesContext ctx = FacesContext.getCurrentInstance();
+		try {
+			FacesContext.getCurrentInstance().getExternalContext()
+					.redirect(ctx.getExternalContext().getRequestContextPath() + "/financeiro/contas_pagar.jsf?id="
+							+ pFinanceiro.getSeqFinanceiro());
+		} catch (IOException ex) {
+			Logger.getLogger(FinanceiroController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}  
+  
   
   public void imprimirPrestacaoContas() throws IOException, JRException {
     Conexao conexao = new Conexao();
@@ -380,21 +447,34 @@ UploadedFile file;
   }
   /*Add Roberto Souza*/
   public void calcularSaldo() {
-		this.financeiro
-				.setValor(this.financeiro.getValorRecebido().subtract(this.financeiro.getValorTotalMovimentacao()));
-                
+		this.saldoPC = this.financeiro.getValorRecebido().subtract(this.financeiro.getValorTotalMovimentacao());
+                  
   }  
+  
+  /*Add Roberto Souza*/
+  
+      public BigDecimal getItnTotal() {
+        if (ItnTotal == null) {
+            ItnTotal = this.financeiroItemPc.getValor().add(this.financeiroItemPc.getValor());
+        }
+        return ItnTotal;
+    }
+  
+  
+  
+  
   /*add Roberto Souza*/              
-       public void upload() {
-		String id1 = this.financeiro.getEtapa().replace("/", "-");
-                this.upload.setSeqDocumento(this.financeiro.getSeqFinanceiro());
-		this.upload.setOrigem("PRESTACAO" + id1 + this.financeiro.getSeqFinanceiro());
+        public void upload() {
+		String id1 = this.financeiro.getSeqColaborador();
+                this.upload.setSeqFinanceiro(this.financeiro.getSeqFinanceiro());
+		this.upload.setOrigem("PREST" + "-" + id1 + "-" + this.financeiro.getSeqFinanceiro());
 		this.upload.setSeqEmpresa(this.loginController.empresa.getSeqEmpresa());
 		this.upload.setSeqUsuario(this.loginController.usuario.getSeqUsuario());
 		this.uploadController.upload(this.file, this.upload);
-		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
-                        this.financeiro.getSeqFinanceiro());
+                this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
 		this.upload = new Upload();
+                /*this.idFinanceiro = this.financeiro.getSeqFinanceiro();*/
+                
 	}
  
  	public void download(Upload pUpload) {
@@ -440,10 +520,8 @@ UploadedFile file;
 	public void removerAnexo(Upload pUpload) {
 		this.uploadController.deletar(pUpload);
 		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
-	}    
-          
-                
-
+	}       
+  
 
   public LoginController getLoginController()
   {
@@ -854,6 +932,22 @@ UploadedFile file;
 
 	public void setFile(UploadedFile file) {
 		this.file = file;
-	}    
+	}
+        
+	public BigDecimal getValorTotalPC() {
+		return this.valorTotalPC;
+	}
+
+	public void setValorTotalPC(BigDecimal valorTotalPC) {
+		this.valorTotalPC = valorTotalPC;
+	}
+
+	public BigDecimal getSaldoPC() {
+		return this.saldoPC;
+	}
+
+	public void setSaldoPC(BigDecimal saldoPC) {
+		this.saldoPC = saldoPC;
+	}        
 
 }

@@ -39,7 +39,8 @@ public class NvAvisosDAO
                 NvAvisos.setDataEmissao(rs.getDate("DATA_EMISSAO"));
                 NvAvisos.setDataValidade(rs.getDate("DATA_VALIDADE"));
                 NvAvisos.setDataInicial(rs.getDate("DATA_INICIAL"));
-                NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));           
+                NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));
+                NvAvisos.setEmail(rs.getString("EMAIL"));
                 listaNvAvisos.add(NvAvisos);
             }
             ps.execute();
@@ -151,7 +152,8 @@ public class NvAvisosDAO
                 NvAvisos.setDataEmissao(rs.getDate("DATA_EMISSAO"));
                 NvAvisos.setDataValidade(rs.getDate("DATA_VALIDADE"));
                 NvAvisos.setDataInicial(rs.getDate("DATA_INICIAL"));
-                NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));           
+                NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));
+                NvAvisos.setEmail(rs.getString("EMAIL"));
                 listaNvAvisosJanelas.add(NvAvisos);
             }
             ps.execute();
@@ -190,7 +192,8 @@ public class NvAvisosDAO
                 NvAvisos.setDataEmissao(rs.getDate("DATA_EMISSAO"));
                 NvAvisos.setDataValidade(rs.getDate("DATA_VALIDADE"));
                 NvAvisos.setDataInicial(rs.getDate("DATA_INICIAL"));
-                NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));           
+                NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));
+                NvAvisos.setEmail(rs.getString("EMAIL"));
                 listaNvAvisosJanelas30.add(NvAvisos);
             }
             ps.execute();
@@ -228,7 +231,8 @@ public class NvAvisosDAO
                 NvAvisos.setDataEmissao(rs.getDate("DATA_EMISSAO"));
                 NvAvisos.setDataValidade(rs.getDate("DATA_VALIDADE"));
                 NvAvisos.setDataInicial(rs.getDate("DATA_INICIAL"));
-                NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));           
+                NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));
+                NvAvisos.setEmail(rs.getString("EMAIL"));
                 listaNvAvisosJanelas60.add(NvAvisos);
             }
             ps.execute();

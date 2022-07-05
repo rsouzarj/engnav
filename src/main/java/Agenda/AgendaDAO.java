@@ -100,7 +100,7 @@
 /*     */     try {
 /* 101 */       Conexao conexao = new Conexao();
 /* 102 */       Connection conn = Conexao.getConnection();
-/* 103 */       String sql = "SELECT AGENDA.*, parceiro.nome parceiro_nome,tipo_agenda.nome tp_ag_nome FROM AGENDA INNER JOIN PARCEIRO ON PARCEIRO.SEQ_PARCEIRO = AGENDA.SEQ_PARCEIRO INNER JOIN TIPO_AGENDA ON  TIPO_AGENDA.SEQ_TIPO_AGENDA = AGENDA.SEQ_TIPO_AGENDA" + sClausula.montarsClausula();
+/* 103 */       String sql = "SELECT AGENDA.*, parceiro.nome parceiro_nome,tipo_agenda.nome tp_ag_nome, usuario.usuario usuario FROM AGENDA INNER JOIN PARCEIRO ON PARCEIRO.SEQ_PARCEIRO = AGENDA.SEQ_PARCEIRO INNER JOIN TIPO_AGENDA ON  TIPO_AGENDA.SEQ_TIPO_AGENDA = AGENDA.SEQ_TIPO_AGENDA INNER JOIN USUARIO ON USUARIO.SEQ_USUARIO=AGENDA.SEQ_USUARIO" + sClausula.montarsClausula();
 /*     */       
 /* 105 */       List<Agenda> listaAgenda = new ArrayList();
 /* 106 */       PreparedStatement ps = conn.prepareStatement(sql);
@@ -120,6 +120,7 @@
 /* 120 */         agenda.setSeqTipoAgenda(rs.getString("seq_tipo_agenda"));
                   agenda.setNomeParceiro(rs.getString("parceiro_nome"));
                   agenda.setSeqTipoAgendaNome(rs.getString("tp_ag_nome"));
+                  agenda.setNomeUsuario(rs.getString("usuario"));
 /* 121 */         
                   listaAgenda.add(agenda);
 /*     */       }
@@ -156,7 +157,3 @@
 /*     */ }
 
 
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Agenda/AgendaDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

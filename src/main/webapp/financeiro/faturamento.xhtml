@@ -395,7 +395,7 @@
                         </div>
                     </h:form>
 
-                    <h:form id="frmDetalhe">
+                    <h:form id="frmDetalhe" enctype="multipart/form-data">
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{financeiroController.tela == 1}"> 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{financeiroController.financeiro.seqFinanceiro eq null}"> 
                                 <h2 class="BigTopic">Faturamento</h2>     
@@ -586,8 +586,8 @@
                                         <h:outputText value="Alíquota ISSQN" class="Fs16 gray FontRalewaySemiBold"/>
                                         <p:selectOneMenu  value="#{financeiroController.financeiro.seqAliquotaISSQN}" disabled="#{financeiroController.financeiro.retencaoISSQN == 1 or financeiroController.id}" filter="true" filterMatchMode="contains">
                                             <f:selectItem value="#{null}" itemLabel="Selecione" itemValue="#{null}" />
-                                            <f:selectItems value="#{financeiroController.listaISSQN}" var="a"  itemLabel="#{a.nome}- Código #{a.codigo}" itemValue="#{a.seqAliquota}" />
-                                            <p:ajax event="change" listener="#{financeiroController.calcularAliquota('ISSQN')}" update="pnlValorISSQN pnlValorLiquido pnlCodigoFiscal pnlSeqCodigoFiscal"/>
+                                            <f:selectItems value="#{financeiroController.listaISSQN}" var="a"  itemLabel="#{a.nome}" itemValue="#{a.seqAliquota}" />
+                                            <p:ajax event="change" listener="#{financeiroController.calcularAliquota('ISSQN')}" update="pnlValorISSQN pnlValorLiquido pnlCodigoFiscal "/>
                                         </p:selectOneMenu>
                                     </p:panelGrid>                                    
                                     <p:panelGrid id="pnlValorISSQN" columns="1" layout="grid" styleClass="ui-panelgrid-blank">
@@ -687,7 +687,60 @@
                                 <p:inputTextarea counter="outros"  disabled="#{financeiroController.id}" counterTemplate="{0} caracteres restantes." maxlength="1000"  value="#{financeiroController.financeiro.outrasInformacoes}"/>
                                 <h:outputText id="outros"/>
                             </p:panelGrid>
+                            
 
+                            
+                            <p:accordionPanel id="apnlUpload" activeIndex="#{financeiroController.idAccordionPanel}" rendered="#{financeiroController.financeiro.seqFinanceiro != null}" >
+                                <p:tab title="Anexos">
+                               	<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <p:growl id="messagesg" showDetail="true" />
+                                    <p:panelGrid columns="3" layout="grid" styleClass=" ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-4,ui-grid-col-4"> 
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >     
+                                            <p:outputLabel value="Tipo de Arquivo"/>
+                                            <p:inputText value="#{financeiroController.upload.tipoArquivo}" />
+						<h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{financeiroController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{financeiroController.upload.dataValidade}"/>  
+                                </p:panelGrid>                                     
+                                <p:fileUpload label="Selecionar" value="#{financeiroController.file}" mode="simple" skinSimple="true"/>
+                                <p:commandButton value="Adicionar" ajax="false" actionListener="#{financeiroController.upload}" rendered="#{loginController.usuario.acFinContasPagar == 1}" update=" tblAnexos"/>
+                                </p:panelGrid>                            
+                                </p:panelGrid>
+                                    <p:dataTable id="tblAnexos" var="a" rowIndexVar="id" value="#{financeiroController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
+                                    <p:column headerText="ID" width="8%" style="text-align: center">
+                                        <p:outputLabel value="#{id+1}"/>
+                                    </p:column>
+                                    <p:column headerText="Nome" style="text-align: center">
+                                        <p:outputLabel value="#{a.nomeArquivo}"/>
+                                    </p:column>
+                                     <p:column headerText="Tipo" style="text-align: center">
+                                         <p:outputLabel value="#{a.tipoArquivo}"/>
+                                        </p:column>
+                                    <p:column headerText="Usuário" style="text-align: center">
+                                        <p:outputLabel value="#{a.nomeUsuario}"/>
+                                    </p:column>
+                                    <!--<p:column headerText="Visualizar" width="8%" style="text-align: center" >
+                                        <p:commandButton actionListener="#{prestacaoContasController.visualizar(a)}" style="width: 50px" immediate="true" ajax="false"  onclick="this.form.target = '_blank'" icon="fa fa-eye white"/>
+                                    </p:column>-->
+                                                                       
+                                    <p:column headerText="Download" width="8%" style="text-align: center" >
+                                        <p:commandButton actionListener="#{financeiroController.download(a)}" style="width: 50px" ajax="false" onclick="this.form.target = '_blank'" icon="fa fa-arrow-circle-down white">
+                                            <p:fileDownload value="#{financeiroController.fileDownload}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column headerText="Remover" width="8%" style="text-align: center">
+                                        <p:commandButton icon="fa fa-eraser white" style="width: 50px" styleClass="RedButton" actionListener="#{financeiroController.removerAnexo(a)}" rendered="#{loginController.usuario.acFinContasPagar == 1}" update=":frmDetalhe :frmLista">
+                                            <p:confirm header="Confirmação" message="Deseja excluir o anexo?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+                                        </p:confirmDialog> 
+                                    </p:column>
+                                </p:dataTable>
+                            </p:tab>
+                        </p:accordionPanel>     
                             <p:separator/>
 
                             <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank">

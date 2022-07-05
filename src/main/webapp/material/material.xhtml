@@ -157,8 +157,10 @@
 
                                 <h:outputText value="Situação" />
                                 <p:selectOneMenu style="width: 181px" value="#{materialController.material.situacao}" >
+                                    <f:selectItem itemLabel="Ativo Novo Padrão" itemValue="ATIVONP" />
                                     <f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
                                     <f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
+                                    
                                 </p:selectOneMenu>
 
                                 <!--h:outputText value="Qtde. Estoque" />

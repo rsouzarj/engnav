@@ -6,20 +6,22 @@
         <Node id="principal/principal.xhtml" x="2150" y="900" zoom="true"/>
         <Node id="naval/certificado_equipamento_1.xhtml" x="650" y="750" zoom="true"/>
         <Node id="financeiro/prestacao_contas.xhtml" x="400" y="900" zoom="true"/>
-        <Node id="documento/novo.xhtml" x="1650" y="450" zoom="true"/>
         <Node id="organizacional/usuario.xhtml" x="400" y="1050" zoom="true"/>
+        <Node id="documento/novo.xhtml" x="1650" y="450" zoom="true"/>
         <Node id="naval/tipo_embarcacao.xhtml" x="1650" y="900" zoom="true"/>
         <Node id="painel/pesquisa_satisfacao.xhtml" x="150" y="600" zoom="true"/>
         <Node id="agenda/agenda.xhtml" x="900" y="1200" zoom="true"/>
-        <Node id="financeiro/RLBM.xhtml" x="400" y="1350" zoom="true"/>
         <Node id="painel/tarefa.xhtml" x="1400" y="750" zoom="true"/>
+        <Node id="financeiro/RLBM.xhtml" x="400" y="1350" zoom="true"/>
         <Node id="test-resbeans.html" x="1150" y="1200" zoom="true"/>
+        <Node id="naval/equipamento_1.xhtml" x="150" y="2100" zoom="true"/>
         <Node id="parceiro/tipo_anotacao.xhtml" x="900" y="1650" zoom="true"/>
         <Node id="naval/equipamento.xhtml" x="900" y="1500" zoom="true"/>
         <Node id="tarefa/tipo_tarefa.xhtml" x="400" y="1800" zoom="true"/>
-        <Node id="naval/embarcacao.xhtml" x="3150" y="150" zoom="true"/>
         <Node id="financeiro/contas_pagar.xhtml" x="2400" y="300" zoom="true"/>
+        <Node id="naval/embarcacao.xhtml" x="3150" y="150" zoom="true"/>
         <Node id="naval/vistoria_status.xhtml" x="150" y="300" zoom="true"/>
+        <Node id="comercial/relatorio_visita.xhtml" x="400" y="150" zoom="true"/>
         <Node id="painel/exception.xhtml" x="900" y="1350" zoom="true"/>
         <Node id="naval/certificado_externo.xhtml" x="2900" y="300" zoom="true"/>
         <Node id="documento/boleto.xhtml" x="400" y="750" zoom="true"/>
@@ -28,8 +30,10 @@
         <Node id="documento/documento.xhtml" x="2650" y="300" zoom="true"/>
         <Node id="etiqueta/etiqueta.xhtml" x="150" y="150" zoom="true"/>
         <Node id="naval/avisos30.xhtml" x="1400" y="1350" zoom="true"/>
+        <Node id="naval/equipamento_2.xhtml" x="3650" y="150" zoom="true"/>
         <Node id="documento/processo_view.xhtml" x="900" y="300" zoom="true"/>
         <Node id="login/alterarSenha.xhtml" x="1650" y="750" zoom="true"/>
+        <Node id="parceiro/parceiro_1.xhtml" x="150" y="150" zoom="true"/>
         <Node id="financeiro/condicao_pagamento.xhtml" x="2650" y="600" zoom="true"/>
         <Node id="financeiro/documento_fiscal.xhtml" x="900" y="150" zoom="true"/>
         <Node id="parceiro/tipo_endereco.xhtml" x="150" y="1200" zoom="true"/>
@@ -38,29 +42,31 @@
         <Node id="financeiro/contas_receber.xhtml" x="1150" y="150" zoom="true"/>
         <Node id="comercial/lista_planos.xhtml" x="150" y="1500" zoom="true"/>
         <Node id="naval/avisos.xhtml" x="650" y="450" zoom="true"/>
-        <Node id="naval/licenca.xhtml" x="150" y="1950" zoom="true"/>
         <Node id="financeiro/projecao_tributaria.xhtml" x="150" y="1050" zoom="true"/>
+        <Node id="naval/licenca.xhtml" x="150" y="1950" zoom="true"/>
         <Node id="financeiro/tipo_unidade.xhtml" x="2400" y="600" zoom="true"/>
         <Node id="financeiro/ordem_pagamento.xhtml" x="2150" y="150" zoom="true"/>
         <Node id="naval/janelas30.xhtml" x="1900" y="300" zoom="true"/>
         <Node id="naval/certificado_calculo.xhtml" x="1400" y="600" zoom="true"/>
+        <Node id="naval/embarcacao_usuario.xhtml" x="3400" y="300" zoom="true"/>
         <Node id="naval/certificado_externo_1.xhtml" x="650" y="1650" zoom="true"/>
         <Node id="financeiro/centro_custo.xhtml" x="1150" y="1050" zoom="true"/>
         <Node id="naval/lista_certificados.xhtml" x="650" y="1050" zoom="true"/>
-        <Node id="naval/vistoria.xhtml" x="650" y="1350" zoom="true"/>
-        <Node id="upload.xhtml" x="1900" y="450" zoom="true"/>
         <Node id="parceiro/tipo_vinculo.xhtml" x="1150" y="900" zoom="true"/>
+        <Node id="upload.xhtml" x="1900" y="450" zoom="true"/>
+        <Node id="naval/vistoria.xhtml" x="650" y="1350" zoom="true"/>
         <Node id="welcomePrimefaces.xhtml" x="3150" y="300" zoom="true"/>
         <Node id="financeiro/forma_pagamento.xhtml" x="650" y="1500" zoom="true"/>
         <Node id="financeiro/aliquota_issqn.xhtml" x="1400" y="1050" zoom="true"/>
         <Node id="naval/janelas60.xhtml" x="1650" y="150" zoom="true"/>
         <Node id="parceiro/tipo_parceiro.xhtml" x="150" y="1800" zoom="true"/>
+        <Node id="financeiro/equipamento.xhtml" x="150" y="150" zoom="true"/>
         <Node id="financeiro/natureza.xhtml" x="400" y="450" zoom="false"/>
         <Node id="material/tabela_preco.xhtml" x="1900" y="900" zoom="true"/>
         <Node id="naval/arquivo_sms.xhtml" x="2400" y="450" zoom="true"/>
-        <Node id="documento/copia/processo_view.xhtml" x="150" y="1650" zoom="true"/>
         <Node id="financeiro/faturamento.xhtml" x="1150" y="600" zoom="true"/>
         <Node id="naval/tipo_licenca.xhtml" x="2150" y="450" zoom="true"/>
+        <Node id="documento/copia/processo_view.xhtml" x="150" y="1650" zoom="true"/>
         <Node id="pesquisa.xhtml" x="2650" y="450" zoom="true"/>
         <Node id="parceiro/tipo_caracteristica.xhtml" x="1650" y="600" zoom="true"/>
         <Node id="documento/copia/documento.xhtml" x="2900" y="450" zoom="true"/>
@@ -72,13 +78,13 @@
         <Node id="comissao/comissao.xhtml" x="2650" y="150" zoom="true"/>
         <Node id="financeiro/nota_debito.xhtml" x="1150" y="1350" zoom="true"/>
         <Node id="mensagem_nao_usado/mensagem.xhtml" x="150" y="750" zoom="true"/>
-        <Node id="naval/certificado_equipamento.xhtml" x="650" y="1200" zoom="true"/>
         <Node id="resources/ezcomp/imgview.xhtml" x="2400" y="750" zoom="true"/>
-        <Node id="naval/certificado.xhtml" x="1900" y="1050" zoom="true"/>
+        <Node id="naval/certificado_equipamento.xhtml" x="650" y="1200" zoom="true"/>
         <Node id="servico/escopo.xhtml" x="1400" y="900" zoom="true"/>
+        <Node id="naval/certificado.xhtml" x="1900" y="1050" zoom="true"/>
         <Node id="painel/parceiro.xhtml" x="1400" y="450" zoom="true"/>
-        <Node id="financeiro/prestacao_contas_colaborador.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="financeiro/informacao_importante.xhtml" x="2150" y="750" zoom="true"/>
+        <Node id="financeiro/prestacao_contas_colaborador.xhtml" x="1400" y="150" zoom="true"/>
         <Node id="comercial/central_relacionamento.xhtml" x="391" y="150" zoom="false"/>
         <Node id="financeiro/categoria.xhtml" x="1650" y="300" zoom="true"/>
         <Node id="naval/avisos60.xhtml" x="2400" y="150" zoom="true"/>
@@ -92,18 +98,20 @@
         <Node id="financeiro/conta_corrente.xhtml" x="400" y="600" zoom="true"/>
         <Node id="documento/copia/boleto.xhtml" x="1150" y="1500" zoom="true"/>
         <Node id="documento/tipo_documento.xhtml" x="900" y="750" zoom="true"/>
-        <Node id="naval/tipo_certificado.xhtml" x="900" y="1050" zoom="true"/>
+        <Node id="test-services.html" x="400" y="1950" zoom="true"/>
         <Node id="organizacional/acessonegado.xhtml" x="2150" y="600" zoom="true"/>
+        <Node id="naval/tipo_certificado.xhtml" x="900" y="1050" zoom="true"/>
         <Node id="painel/documento.xhtml" x="650" y="150" zoom="false"/>
         <Node id="documento/copia/novo.xhtml" x="2150" y="300" zoom="true"/>
         <Node id="financeiro/aliquota_federal.xhtml" x="150" y="900" zoom="true"/>
-        <Node id="parceiro/parceiro.xhtml" x="650" y="300" zoom="true"/>
+        <Node id="naval/embarcacao_consulta.xhtml" x="400" y="150" zoom="true"/>
         <Node id="material/familia.xhtml" x="150" y="1350" zoom="true"/>
+        <Node id="parceiro/parceiro.xhtml" x="650" y="300" zoom="true"/>
         <Node id="agenda/tipo_agenda.xhtml" x="650" y="600" zoom="true"/>
         <Node id="naval/tipo_vinculo_emb_par.xhtml" x="650" y="900" zoom="true"/>
         <Node id="naval/vistoriaEqp.xhtml" x="400" y="300" zoom="true"/>
-        <Node id="organizacional/unidade_negocio.xhtml" x="900" y="900" zoom="true"/>
         <Node id="organizacional/departamento.xhtml" x="1400" y="1200" zoom="true"/>
+        <Node id="organizacional/unidade_negocio.xhtml" x="900" y="900" zoom="true"/>
         <Node id="painel/metrica.xhtml" x="1900" y="150" zoom="true"/>
     </Scope>
     <Scope Scope="All Faces Configurations"/>

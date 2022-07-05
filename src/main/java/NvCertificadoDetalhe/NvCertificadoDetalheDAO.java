@@ -155,6 +155,47 @@
 /* 155 */       System.out.println(ex.getMessage()); }
 /* 156 */     return null;
 /*     */   }
+
+/*     */   public List<NvCertificadoDetalhe> listarE(ClausulaWhere sClausula) {
+/*     */     try {
+/* 124 */       Conexao conexao = new Conexao();
+/* 125 */       Connection conn = Conexao.getConnection();
+/* 126 */       String sql = "SELECT * FROM VW_BI_LISTA_CONVALIDACAO" + sClausula.montarsClausula();
+/* 127 */       System.out.println(sql);
+/*     */       
+/* 129 */       List<NvCertificadoDetalhe> listaNvCertificadoDetalhe = new ArrayList();
+/* 130 */       PreparedStatement ps = conn.prepareStatement(sql);
+/* 131 */       ResultSet rs = ps.executeQuery();
+/*     */       
+/* 133 */       while (rs.next()) {
+/* 134 */         NvCertificadoDetalhe nvCertificadoDetalhe = new NvCertificadoDetalhe();
+
+/* 136 */         nvCertificadoDetalhe.setArealiza(rs.getString("AREALIZA"));
+/* 137 */         nvCertificadoDetalhe.setNomeVistoriador(rs.getString("NOME_VISTORIADOR"));
+/* 138 */         nvCertificadoDetalhe.setDataFinal(rs.getDate("DATA_FINAL"));
+/* 139 */         nvCertificadoDetalhe.setDataRealizacao(rs.getDate("DATA_REALIZACAO"));
+/* 140 */         nvCertificadoDetalhe.setLugar(rs.getString("LUGAR"));
+/* 141 */         nvCertificadoDetalhe.setSeqNvCertificado(rs.getString("SEQ_NV_CERTIFICADO"));
+/* 142 */         nvCertificadoDetalhe.setDataInicial(rs.getDate("DATA_INICIAL"));
+/* 143 */         nvCertificadoDetalhe.setStatus(rs.getString("STATUS"));
+/* 144 */         nvCertificadoDetalhe.setPrazo(rs.getDate("PRAZO"));
+
+                  nvCertificadoDetalhe.setSeqNvEmbarcacao(rs.getString("SEQ_NV_EMBARCACAO"));
+/* 146 */         listaNvCertificadoDetalhe.add(nvCertificadoDetalhe);
+
+/*     */       }
+/*     */       
+/* 149 */       ps.execute();
+/* 150 */       ps.close();
+/*     */       
+/* 152 */       return listaNvCertificadoDetalhe;
+/*     */     } catch (SQLException ex) {
+/* 154 */       Logger.getLogger(NvCertificadoDetalheDAO.class.getName()).log(Level.SEVERE, null, ex);
+/* 155 */       System.out.println(ex.getMessage()); }
+/* 156 */     return null;
+/*     */   }
+
+
 /*     */   
 /*     */   public boolean deletar(NvCertificadoDetalhe nvCertificadoDetalhe)
 /*     */   {
@@ -178,7 +219,3 @@
 /*     */ }
 
 
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/NvCertificadoDetalhe/NvCertificadoDetalheDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

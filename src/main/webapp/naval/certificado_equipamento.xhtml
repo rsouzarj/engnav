@@ -80,7 +80,7 @@
         </style>
     </ui:define>
 
-    <ui:define name="content"  >
+    <ui:define name="content">
 
         <div class="layout-portlets-box" >
             <div class="Container100 ui-fluid">
@@ -88,35 +88,63 @@
 
                     <a href="#top"><p:commandButton icon="fa fa-arrow-up Fs18 white"/></a>
 
-                    <h:form id="frmLista" >
+                     <h:form id="frmLista">
 
                             <div class="Container100 Responsive100">
                             <p:messages id="messages"  autoUpdate="true" closable="true" />
-
+                            
+                           
+                                
                              <p:panelGrid rendered="#{nvCertificadoEquipamentoController.tela == 0}">
                                 <h2>Certificado Equipamento</h2>
                                  <h2 class="BigTopic"/>                       
                                  </p:panelGrid>
-                                <p:panelGrid rendered="#{nvCertificadoEquipamentoController.tela == 0}" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-2,ui-grid-col-2,ui-grid-col-0">
+                                
+                                <p:panelGrid rendered="#{nvCertificadoEquipamentoController.tela == 0}"  columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                
+                                <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                        <h:outputText value="Equipamento" />
+                                        <p:selectOneMenu value="#{nvCertificadoEquipamentoController.seqEquipamentoSelecionado}" filter="true" filterMatchMode="contains" >
+                                            <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                            <f:selectItems value="#{nvCertificadoEquipamentoController.listaEquipamento}" var="tp"  itemLabel="#{tp.nome}" itemValue="#{tp.seqEquipamento}" />
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                        <h:outputText value="Cliente" />
+                                        <p:selectOneMenu value="#{nvCertificadoEquipamentoController.seqParceiroSelecionado}" filter="true" filterMatchMode="contains" >
+                                            <f:selectItem value="#{null}" itemLabel="Todas" itemValue="#{null}" />
+                                            <f:selectItems value="#{nvCertificadoEquipamentoController.listaParceiro}" var="e"  itemLabel="#{e.nome}" itemValue="#{e.seqParceiro}" />
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                                    </p:panelGrid>
+
+
+
+
+                                <!--<p:panelGrid rendered="#{nvCertificadoEquipamentoController.tela == 0}" columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-2,ui-grid-col-2,ui-grid-col-0">
                                 <p:outputLabel value="Pesquisa"/>
                                 <p:outputLabel value=""/>
                                 <p:outputLabel value=""/>
-                                <p:inputText value="#{nvCertificadoEquipamentoController.pesquisa}"/>
+                                <p:inputText value="#{nvCertificadoEquipamentoController.pesquisa}"/>-->
                                     
-                                <p:commandButton value="Buscar" actionListener="#{nvCertificadoEquipamentoController.listar()}" update="listaPesquisa"/>
-                                <p:commandButton value="Novo" actionListener="#{nvCertificadoEquipamentoController.novo()}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpLicenca == 1}"/>
+                                <p:commandButton value="Buscar" actionListener="#{nvCertificadoEquipamentoController.filtrar()}" update="listaPesquisa"/>
+                                <p:commandButton value="Novo" ajax="false" actionListener="#{nvCertificadoEquipamentoController.novo()}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
                                 </p:panelGrid>
                             </div>
-                        
-                        
-                        
+
                             <div class="Container100 Responsive100" >
                                 <p:dataTable id="listaPesquisa" var="p" value="#{nvCertificadoEquipamentoController.listaNvCertificadoEquipamento}" rendered="#{nvCertificadoEquipamentoController.tela == 0}" reflow="true" style="" emptyMessage="Lista vazia" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
                                 <p:column headerText="Identificação" sortBy="#{p.identificacao}">
                                     <p:commandLink value="#{p.identificacao}"  title="#{p.identificacao}"  actionListener="#{nvCertificadoEquipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
-                                    <p:column headerText="Equipamento" sortBy="#{p.equipamentoNome}">
+                                <p:column headerText="Parceiro" sortBy="#{p.nomeParceiro}">
+                                        <p:commandLink value="#{p.nomeParceiro}"  title="#{p.nomeParceiro}"  actionListener="#{nvCertificadoEquipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column> 
+                                    
+                                <p:column headerText="Equipamento" sortBy="#{p.equipamentoNome}">
                                         <p:commandLink value="#{p.equipamentoNome}"  title="#{p.equipamentoNome}"  actionListener="#{nvCertificadoEquipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
@@ -135,7 +163,6 @@
                                 </p:column>
 
 
-
                                 <p:column headerText="Detalhe" width="8%">
                                     <p:commandButton icon="fa fa-search Fs18 white"  actionListener="#{nvCertificadoEquipamentoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista"/>
                                 </p:column>
@@ -144,15 +171,15 @@
                         </div>
                     </h:form>
 
-                    <h:form id="frmDetalhe">
+                    <h:form id="frmDetalhe" enctype="multipart/form-data">
                         <p:panelGrid rendered="#{nvCertificadoEquipamentoController.tela == 1}" columns="6"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-2,ui-grid-col-2,ui-grid-col-0">
                             <h2>#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.identificacao}</h2>
-                            <p:commandButton value="Salvar" actionListener="#{nvCertificadoEquipamentoController.salvar(1)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpLicenca == 1}"/>
+                            <p:commandButton value="Salvar" actionListener="#{nvCertificadoEquipamentoController.salvar(1)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpEquipamento == 1}"/>
                             <p:commandButton value="Voltar" immediate="true" actionListener="#{nvCertificadoEquipamentoController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
 
                             <p:commandButton value="Imprimir" actionListener="#{nvCertificadoEquipamentoController.imprimir()}" immediate="true" ajax="false"  onclick="this.form.target = '_blank'"/>
 
-                            <p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{nvCertificadoEquipamentoController.deletar()}" rendered="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.seqCertificado!=0 and loginController.usuario.acOpLicenca == 1 }" update=":frmDetalhe :frmLista">
+                            <p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{nvCertificadoEquipamentoController.deletar()}" rendered="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.seqCertificado!=0 and loginController.usuario.acOpEquipamento == 1 }" update=":frmDetalhe :frmLista">
                                 <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert" />
                             </p:commandButton>
 
@@ -167,59 +194,55 @@
                             <p:separator/>
 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                <div class="Fs16 gray FontRalewaySemiBold">Parceiro</div>
-                                <p:selectOneMenu value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.seqParceiro}" filter="true" filterMatchMode="contains"  required="true" requiredMessage="[PARCEIRO] é Obrigatório"   >
+                                <h4>Parceiro</h4>
+                                    <p:selectOneMenu value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.seqParceiro}" filter="true" filterMatchMode="contains"  required="true" requiredMessage="[PARCEIRO] é Obrigatório"   >
                                     <f:selectItem value="#{null}" itemLabel="Selecione um Parceiro" itemValue="#{null}" />
                                     <f:selectItems value="#{nvCertificadoEquipamentoController.listaParceiro}" var="pa"  itemLabel="#{pa.nome}" itemValue="#{pa.seqParceiro}" />
                                     <p:ajax event="change" listener="#{nvCertificadoEquipamentoController.listarEquipamento()}" update=":frmDetalhe"/>
                                 </p:selectOneMenu>
                             </p:panelGrid>
                              
-                                           
+                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >        
                                      <h4>Equipamento</h4>
                                      <h4>#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.equipamentoNome}</h4>
-                                   <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                                   
                                        <p:selectOneMenu value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.seqEquipamento}" filter="true" filterMatchMode="contains"  required="true" requiredMessage="[EQUIPAMENTO] é Obrigatório"   >
                                            <f:selectItem value="#{null}" itemLabel="Selecione um Equipamento" itemValue="#{null}" /> 
-                                           <f:selectItems value="#{nvCertificadoEquipamentoController.listaEquipamento}" var="e" itemLabel="#{e.nome} - #{e.seqEquipamento}" itemValue="#{e.seqEquipamento}" />
-                                       </p:selectOneMenu>
-                                                 
-                                  
-                                 </p:panelGrid>
+                                           <f:selectItems value="#{nvCertificadoEquipamentoController.listaEquipamento}" var="e" itemLabel="#{e.nome} - #{e.tag} - #{e.localizacao}" itemValue="#{e.seqEquipamento}" />
+                                           <p:ajax event="change" listener="#{nvCertificadoEquipamentoController.listarEquipamento()}" update=":frmDetalhe"/>
+                                       </p:selectOneMenu>                        
+                                 </p:panelGrid>    
                                      <p:separator>
                                          
                                      </p:separator>
-                              
-                                                    
-                           <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                <h:outputText value="Normas" />
-                                <p:inputText value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.normas}" required="true" requiredMessage="Informar a Norma é obrigatório!" />                
-                           </p:panelGrid>
-                           
-                           <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"  > 
-                                <h:outputText value="Relatórios de Ensaio e Avaliação" />
-                                <p:editor height="200" value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.realtorioEnsaio}"/>
-                            </p:panelGrid>
-                           
-                           <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"  > 
-                                <h:outputText value="Relatórios de Avaliação da Conformidade Técnica" />
-                                <p:editor height="200" value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.relatorioConformidade}"/>
-                            </p:panelGrid>
-                           
-                           <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"  > 
-                                <h:outputText value="Conformidade Técnica" />
-                                <p:editor height="200" value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.conformidadeTecnica}"/>
-                            </p:panelGrid>
-              
                             <p:panelGrid id="pnlIdentificacao" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <h:outputText value="Número do Certificado" />
-                                <p:inputText value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.identificacao}" required="true" requiredMessage="Identificação é obrigatória!"/>
+                               <p:inputText value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.identificacao}" required="true" requiredMessage="Identificação é obrigatória!"/>
                                 <!--<p:inputMask value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.identificacao}" mask="Nº717LC99999/2099" required="true" requiredMessage="Identificação é obrigatória!"/>
                                 <p:inputMask value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.identificacao}" mask="Nº717LR99999/2099" required="true" requiredMessage="Identificação é obrigatória!"/>
                                 <p:inputMask value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.identificacao}" mask="Nº717EC99999/2099" required="true" requiredMessage="Identificação é obrigatória!"/>-->
-                            </p:panelGrid>
-
-                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            </p:panelGrid>                           
+                            
+                           <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"  > 
+                                <h4>Relatório</h4>
+                                <p:inputTextarea autoResize="true" counter="Rel" counterTemplate="{0} caracteres restantes." maxlength="3000" value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.realtorioEnsaio}" required="true" requiredMessage="Relatório é obrigatório!" /> 
+                                <h:outputText id="Rel"/>
+                                <!--<p:editor width="800" height="400" value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.realtorioEnsaio}"/>-->
+                                </p:panelGrid>                              
+                                                    
+                           <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                <h4>Normas</h4>
+                                <p:inputTextarea counter="NORM" counterTemplate="{0} caracteres restantes." maxlength="1000" value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.normas}" required="true" requiredMessage="Informar a Norma é obrigatório!" /> 
+                                <h:outputText id="NORM"/>
+                           </p:panelGrid>
+                         
+                           <!--<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"  > 
+                                <h4>Equipamentos Utilizados</h4>
+                                <p:inputTextarea counter="CT" counterTemplate="{0} caracteres restantes." maxlength="4000" value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.conformidadeTecnica}"/>
+                                <h:outputText id="CT"/>
+                           </p:panelGrid>-->
+              
+                           <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <h:outputText value="Nome do Vistoriador" />
                                     <p:selectOneMenu value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.nomeVistoriador}" >
                                     <f:selectItem value="#{null}" itemLabel="Selecione o Vistoriador" itemValue="#{null}" />
@@ -230,7 +253,7 @@
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                         <h:outputText value="Filial"/>
                                         <p:selectOneMenu value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.filial}" >
-                                            <f:selectItem itemLabel="RJ" itemValue="#{null}" />
+                                            <f:selectItem itemLabel="RJ" itemValue="RJ" />
                                             <f:selectItem itemLabel="PA" itemValue="(PA)" />
                                             <f:selectItem itemLabel="AM" itemValue="(AM)" />
                                         </p:selectOneMenu>
@@ -251,11 +274,11 @@
                                
                                 
                                 <h:outputText value="Data do Teste de Carga" />
-                                 <p:calendar locale="pt" pattern="dd/MM/yyyy"   value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.emstCarga}" required="true" requiredMessage="Data de Teste de Craga é obrigatório!"/> 
+                                 <p:calendar locale="pt" pattern="dd/MM/yyyy"   value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.emstCarga}" required="false" requiredMessage="Data de Teste de Craga é obrigatório!"/> 
                               
                                 
                                 <h:outputText value="Validade do Teste de Carga" />
-                                <p:calendar locale="pt" pattern="dd/MM/yyyy"   value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.valtCarga}" required="true" requiredMessage="Data de Validade de Teste de Carga é obrigatório!"/> 
+                                <p:calendar locale="pt" pattern="dd/MM/yyyy"   value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.valtCarga}" required="false" requiredMessage="Data de Validade de Teste de Carga é obrigatório!"/> 
                               
                             
                                 
@@ -295,6 +318,63 @@
                                     <p:inputText value="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.assinaturaDigital}"/>
                                 </p:panelGrid-->
                             </p:panelGrid>
+                            
+                            
+                            <p:accordionPanel id="apnlUpload" rendered="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.seqCertificado != null}">
+                                <p:tab title="Anexos"  >
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:growl id="messagesg" showDetail="true" />
+                                        <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-4,ui-grid-col-4"> 
+                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                                <p:outputLabel value="Tipo de Arquivo"/>
+                                                <p:selectOneMenu value="#{nvVistoriaController.upload.tipoArquivo}" >
+                                                    <f:selectItem itemLabel="Relatorio" itemValue="RELATORIO" />
+
+                                                </p:selectOneMenu>
+                                                <h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvCertificadoEquipamentoController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvCertificadoEquipamentoController.upload.dataValidade}"/>                                                
+                                            </p:panelGrid>                            
+                                            <p:fileUpload label="Selecionar Arquivo" value="#{nvCertificadoEquipamentoController.file}" mode="simple" skinSimple="true"/>
+                                            <p:commandButton value="Adicionar" ajax="false" actionListener="#{nvCertificadoEquipamentoController.upload}" rendered="#{loginController.usuario.acOpEquipamento == 1}" update=" tblAnexos"/>
+                                        </p:panelGrid>                            
+                                    </p:panelGrid>
+                                    
+                                    <p:dataTable id="tblAnexos" var="a" rowIndexVar="index" value="#{nvCertificadoEquipamentoController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
+                                        <p:column headerText="ID" width="8%" style="text-align: center">
+                                            <p:outputLabel value="#{index+1}"/>
+                                        </p:column>
+                                        <p:column headerText="Nome" style="text-align: center">
+                                            <p:outputLabel value="#{a.nomeArquivo}"/>
+                                        </p:column>
+                                        <p:column headerText="Tipo" style="text-align: center">
+                                            <p:outputLabel value="#{a.tipoArquivo}"/>
+                                        </p:column>
+                                        <p:column headerText="Usuário" style="text-align: center">
+                                            <p:outputLabel value="#{a.nomeUsuario}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Download" width="8%" style="text-align: center" >
+                                            <p:commandButton actionListener="#{nvCertificadoEquipamentoController.download(a)}" onclick="this.form.target = '_blank'" style="width: 50px" ajax="false"  icon="fa fa-arrow-circle-down white">
+                                                <p:fileDownload value="#{nvCertificadoEquipamentoController.fileDownload}" />
+                                            </p:commandButton>
+                                        </p:column>
+                                        <p:column headerText="Remover" width="8%" style="text-align: center">
+                                            <p:commandButton icon="fa fa-eraser white" style="width: 50px" styleClass="RedButton" actionListener="#{nvCertificadoEquipamentoController.removerAnexo(a)}" rendered="#{nvCertificadoEquipamentoController.nvCertificadoEquipamento.seqCertificado!=0 and loginController.usuario.acOpEquipamento == 1}" update=":frmDetalhe :frmLista">
+                                                <p:confirm header="Confirmação" message="Deseja excluir o anexo?" icon="ui-icon-alert" />
+                                            </p:commandButton>
+                                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+                                            </p:confirmDialog> 
+                                            </p:column>
+                                      
+                                        
+                                    </p:dataTable>
+
+                                </p:tab>
+                            </p:accordionPanel>                
 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank"  > 
                                 <h:outputText value="Observações" />

@@ -275,7 +275,7 @@
                         </div>
                     </h:form>
 
-                    <h:form id="frmDetalhe">
+                    <h:form id="frmDetalhe" enctype="multipart/form-data">
                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{financeiroController.tela == 1}"> 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{financeiroController.financeiro.seqFinanceiro eq null}"> 
                                 <h2 class="BigTopic">Ordem de Pagamento</h2>     
@@ -334,7 +334,7 @@
                                     </p:selectOneMenu>
                                 </p:panelGrid> 
                             </p:panelGrid> 
-                            <p:panelGrid columns="7" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Condição de Pagamento" class="Fs16 gray FontRalewaySemiBold"/>
                                     <p:selectOneMenu value="#{financeiroController.financeiro.seqCondicaoPagamento}" filter="true" filterMatchMode="contains"  required="false" requiredMessage="[FORMA DE PAGAMENTO] é Obrigatório"  >
@@ -343,7 +343,7 @@
                                     </p:selectOneMenu>
                                 </p:panelGrid>
                                   <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                            <h:outputText value="Data Prevista para Pagamento" class="Fs16 gray FontRalewaySemiBold" />
+                                            <h:outputText value="Data de Vencimento" class="Fs16 gray FontRalewaySemiBold" />
                                             <p:calendar locale="pt"    pattern="dd/MM/yyyy"  value="#{financeiroController.financeiro.dataPagamento}" />                
                                  </p:panelGrid>   
                                 
@@ -380,19 +380,8 @@
                                         <p:ajax event="keyup" listener="#{financeiroController.aplicarTaxa()}" update="pnlValores"/>
                                     </p:inputText>
                                 </p:panelGrid>
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Período da Despesa Inicial" class="Fs16 gray FontRalewaySemiBold" />
-                                    <p:calendar locale="pt"    pattern="dd/MM/yyyy"  value="#{financeiroController.financeiro.dataPeriodoInicio}" disabled="#{financeiroController.financeiro.etapa != null}"/>                
-                                </p:panelGrid>  
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Período da Despesa Final" class="Fs16 gray FontRalewaySemiBold" />
-                                    <p:calendar locale="pt"    pattern="dd/MM/yyyy"  value="#{financeiroController.financeiro.dataPeriodoFinal}" disabled="#{financeiroController.financeiro.etapa != null}"/>                
-                                </p:panelGrid>  
-                                
-                                
-                                
-                                
-                            </p:panelGrid>
+
+                                </p:panelGrid>
                             <p:separator/>
                             <p:panelGrid id="pnlServicos" columns="1" layout="grid" styleClass="ui-panelgrid-blank">
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
@@ -410,7 +399,7 @@
                                         </p:panelGrid>
 
                                         <p:panelGrid id="pnlPreco" columns="1" layout="grid" styleClass="ui-panelgrid-blank">
-                                            <p:outputLabel value="VL. Unitário" class="Fs16 gray FontRalewaySemiBold"/>
+                                            <p:outputLabel value="Valor unit" class="Fs16 gray FontRalewaySemiBold"/>
                                             <p:inputText value="#{financeiroController.financeiroItem.valorUnitario}">
                                                 <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
                                                 <p:ajax event="keyup" listener="#{financeiroController.calcularTotalItem}" update="pnlPrecoTotal"/>
@@ -418,7 +407,7 @@
                                         </p:panelGrid>
                                         
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                            <h:outputText value="Ordem de Serviço" class="Fs16 gray FontRalewaySemiBold"/>
+                                            <h:outputText value="OS" class="Fs16 gray FontRalewaySemiBold"/>
                                             <p:selectOneMenu value="#{financeiroController.financeiroItem.seqDocumento}" filter="true" filterMatchMode="contains">
                                                 <f:selectItem value="#{null}" itemLabel="Selecione" itemValue="#{null}"/>
                                                 <f:selectItems value="#{financeiroController.listaDocumento}" var="d" itemLabel="Nº#{d.codigo}" itemValue="#{d.codigo}"/>
@@ -608,8 +597,8 @@
 
 
                             <p:panelGrid id="pnlDescricao" columns="1" layout="grid" styleClass="ui-panelgrid-blank"> 
-                                <h:outputText value="Informações Importantes" class="Fs16 gray FontRalewaySemiBold"/>
-                                <p:inputTextarea counter="descricao" counterTemplate="{0} caracteres restantes." maxlength="1000"  value="#{financeiroController.financeiro.descricaoServicosPrestados}" disabled="#{financeiroController.financeiro.etapa != null}"/>
+                                <h:outputText value="Informações Importantes/Cotação" class="Fs16 gray FontRalewaySemiBold"/>
+                                <p:inputTextarea counter="descricao" counterTemplate="{0} caracteres restantes." maxlength="2000"  value="#{financeiroController.financeiro.descricaoServicosPrestados}" disabled="#{financeiroController.financeiro.etapa != null}"/>
                                 <h:outputText id="descricao"/>
 
                                 <p:separator />
@@ -622,12 +611,73 @@
                                 <h:outputText id="outros"/>
 
                             </p:panelGrid>
+                            
+                            <p:accordionPanel> 
+                                <p:tab title="Anexos"  id="tabAnexos" rendered="#{financeiroController.financeiro.seqFinanceiro != null}">
+                               	<p:panelGrid id="pnlAnexos" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <p:growl id="messagesg" showDetail="true" />
+                                    <p:panelGrid columns="3" layout="grid" styleClass=" ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-4,ui-grid-col-4"> 
+                                      <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <p:outputLabel value="Tipo de Arquivo"/>
+                                            <p:inputText value="#{financeiroController.upload.tipoArquivo}" />
+                                                <h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{financeiroController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{financeiroController.upload.dataValidade}"/>                                             
+                                            
+                                            
+                                      </p:panelGrid>        
+                                        <p:fileUpload label="Selecionar Arquivo" value="#{financeiroController.file}" mode="simple" skinSimple="true"/>
+                                        <p:commandButton value="Adicionar" ajax="false" actionListener="#{financeiroController.upload}" rendered="#{loginController.usuario.acFinPrestacaoContas== 1}" update=" tblAnexos"/>
+                                    </p:panelGrid>                            
+                                </p:panelGrid>
+                                    <p:dataTable id="tblAnexos" var="a" rowIndexVar="id" value="#{financeiroController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
+                                    <p:column headerText="ID" width="8%" style="text-align: center">
+                                        <p:outputLabel value="#{id+1}"/>
+                                    </p:column>
+                                    <p:column headerText="Nome" style="text-align: center">
+                                        <p:outputLabel value="#{a.nomeArquivo}"/>
+                                    </p:column>
+                                     <p:column headerText="Tipo" style="text-align: center">
+                                         <p:outputLabel value="#{a.tipoArquivo}"/>
+                                        </p:column>
+                                    <p:column headerText="Usuário" style="text-align: center">
+                                        <p:outputLabel value="#{a.nomeUsuario}"/>
+                                    </p:column>
+                                    <!--<p:column headerText="Visualizar" width="8%" style="text-align: center" >
+                                        <p:commandButton actionListener="#{prestacaoContasController.visualizar(a)}" style="width: 50px" immediate="true" ajax="false"  onclick="this.form.target = '_blank'" icon="fa fa-eye white"/>
+                                    </p:column>-->
+                                                                       
+                                    <p:column headerText="Download" width="8%" style="text-align: center" >
+                                        <p:commandButton actionListener="#{financeiroController.download(a)}" style="width: 50px" ajax="false" onclick="this.form.target = '_blank'" icon="fa fa-arrow-circle-down white">
+                                            <p:fileDownload value="#{financeiroController.fileDownload}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column headerText="Remover" width="8%" style="text-align: center">
+                                        <p:commandButton icon="fa fa-eraser white" style="width: 50px" styleClass="RedButton" actionListener="#{financeiroController.removerAnexo(a)}" rendered="#{loginController.usuario.acDocNovo == 1}" update=":frmDetalhe :frmLista">
+                                            <p:confirm header="Confirmação" message="Deseja excluir o anexo?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+                                        </p:confirmDialog> 
+                                    </p:column>
+                                </p:dataTable>
+                            </p:tab>
+                        </p:accordionPanel>
+                            
+                            
+                            
                             <p:separator/>
-                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText class="Fs16 gray FontRalewaySemiBold" value="Responsável" />
                                     <h:outputText value="#{financeiroController.financeiro.responsavel}"/>
                                 </p:panelGrid>
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText class="Fs16 gray FontRalewaySemiBold" value="Aprovador" />
+                                    <h:outputText value="#{financeiroController.financeiro.aprovador}"/>
+                                </p:panelGrid>                                
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText class="Fs16 gray FontRalewaySemiBold" value="Data de Lançamento " />
                                     <h:outputText value="#{financeiroController.financeiro.dataCadastro}">
@@ -652,7 +702,7 @@
                                     <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
                                     <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
                                 </p:confirmDialog> 
-                                <p:commandButton value="Aprovar PO" styleClass="GreenButton" actionListener="#{financeiroController.aprovar()}" update=":frmDetalhe :frmLista" rendered="#{financeiroController.financeiro.seqFinanceiro != null and loginController.usuario.acFinOrdemPagamento == 1}" />
+                                <p:commandButton value="Aprovar PO" styleClass="GreenButton" actionListener="#{financeiroController.aprovar()}" update=":frmDetalhe :frmLista" rendered="#{financeiroController.financeiro.seqFinanceiro != null and loginController.usuario.acAprovaPO == 1}" />
                             </p:panelGrid>
                         </p:panelGrid>
 

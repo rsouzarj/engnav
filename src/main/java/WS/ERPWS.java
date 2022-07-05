@@ -24,6 +24,7 @@ import Util.Situacao;
 import Util.Util;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.ws.rs.Consumes;
@@ -167,10 +168,10 @@ public class ERPWS {
 		return gson.toJson(retorno);
 	}
 
-	@POST
+	@GET
 	@Path("Parceiro/BuscarDadosReceita")
 	@Consumes({ "application/json" })
-	public String buscarDadosReceita(String pConteudo) {
+	public String buscarDadosReceita(String pConteudo) throws IOException {
 		Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy'T'HH:mm:ss").create();
 		Parceiro parceiro = (Parceiro) gson.fromJson(pConteudo, Parceiro.class);
 

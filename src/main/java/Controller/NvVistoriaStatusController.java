@@ -14,12 +14,6 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
-
-
-
-
-
-
 @ManagedBean(name="nvVistoriaStatusController")
 @ViewScoped
 public class NvVistoriaStatusController
@@ -134,9 +128,3 @@ public class NvVistoriaStatusController
     this.tela = tela;
   }
 }
-
-
-/* Location:              C:\Users\diogo\Documents\workspace\others\prod erp\deploy\erp3.war!\WEB-INF\classes\Controller\NvVistoriaStatusController.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

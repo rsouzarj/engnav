@@ -92,6 +92,20 @@
 /*     */   private String cepEstaleiroConstrutor;
 /*     */   private String requisitosTransporteColetivo;
             private String bandeira;
+            private String seqUsuario;
+            private String apmaritimo;  
+            private String cabotagem;    
+            private String longocurso;  
+            private String maarea1;     
+            private String maarea12;    
+            private String maarea123;   
+            private String maarea1234;  
+            private String navint;      
+            private String navarea1;    
+            private String navarea2;
+            private String apportuario; 
+            private String aparea1;
+            private String aparea2; 
 /*     */   List<OperacionalOcorrencia> listaOperacionalOcorrencia;
 /*     */   
 /*     */   public NvEmbarcacao()
@@ -699,141 +713,7 @@
 /*     */   public void setBandeira(String bandeira) {
 /* 718 */     this.bandeira = bandeira;
 /*     */   }
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */   public String getPotenciaNominalEletrica()
 /*     */   {
 /* 859 */     return this.potenciaNominalEletrica;
@@ -922,5 +802,118 @@
 /*     */   public void setComentarioEtapa(String comentarioEtapa) {
 /* 943 */     this.comentarioEtapa = comentarioEtapa;
 /*     */   }
+/*     */   public String getSeqUsuario() {
+/* 154 */     return this.seqUsuario;
+/*     */   }
+/*     */   
+/*     */   public void setSeqUsuario(String seqUsuario) {
+/* 158 */     this.seqUsuario = seqUsuario;
+/*     */   }
+
+/*     */   public String getApmaritimo() {
+/* 154 */     return this.apmaritimo;
+/*     */   }
+/*     */   
+/*     */   public void setApmaritimo(String apmaritimo) {
+/* 158 */     this.apmaritimo = apmaritimo;
+/*     */   }
+
+/*     */   public String getCabotagem() {
+/* 154 */     return this.cabotagem;
+/*     */   }
+/*     */   
+/*     */   public void setCabotagem(String cabotagem) {
+/* 158 */     this.cabotagem = cabotagem;
+/*     */   }
+/*     */   
+            public String getLongoCurso() {
+/* 154 */     return this.longocurso;
+/*     */   }
+/*     */   
+/*     */   public void setLongoCurso(String longocurso) {
+/* 158 */     this.longocurso = longocurso;
+/*     */   }
+
+/*     */   public String getMaarea1() {
+/* 154 */     return this.maarea1;
+/*     */   }
+/*     */   
+/*     */   public void setMaarea1(String maarea1) {
+/* 158 */     this.maarea1 = maarea1;
+/*     */   }
+
+/*     */   public String getMaarea12() {
+/* 154 */     return this.maarea12;
+/*     */   }
+/*     */   
+/*     */   public void setMaarea12(String maarea12) {
+/* 158 */     this.maarea12 = maarea12;
+/*     */   }
+
+/*     */   public String getMaarea123() {
+/* 154 */     return this.maarea123;
+/*     */   }
+/*     */   
+/*     */   public void setMaarea123(String maarea123) {
+/* 158 */     this.maarea123 = maarea123;
+/*     */   }
+
+/*     */   public String getMaarea1234() {
+/* 154 */     return this.maarea1234;
+/*     */   }
+/*     */   
+/*     */   public void setMaarea1234(String maarea1234) {
+/* 158 */     this.maarea1234 = maarea1234;
+/*     */   }
+
+/*     */   public String getNavint() {
+/* 154 */     return this.navint;
+/*     */   }
+/*     */   
+/*     */   public void setNavint(String navint) {
+/* 158 */     this.navint = navint;
+/*     */   }
+
+/*     */   public String getNavarea1() {
+/* 154 */     return this.navarea1;
+/*     */   }
+/*     */   
+/*     */   public void setNavarea1(String navarea1) {
+/* 158 */     this.navarea1 = navarea1;
+/*     */   }
+
+/*     */   public String getNavarea2() {
+/* 154 */     return this.navarea2;
+/*     */   }
+/*     */   
+/*     */   public void setNavarea2(String navarea2) {
+/* 158 */     this.navarea2 = navarea2;
+            }
+
+/*     */   public String getApportuario() {
+/* 154 */     return this.apportuario;
+/*     */   }
+/*     */   
+/*     */   public void setApportuario(String apportuario) {
+/* 158 */     this.apportuario = apportuario;
+/*     */   }
+
+/*     */   public String getAparea1() {
+/* 154 */     return this.aparea1;
+/*     */   }
+/*     */   
+/*     */   public void setAparea1(String aparea1) {
+/* 158 */     this.aparea1 = aparea1;
+/*     */   }
+
+/*     */   public String getAparea2() {
+/* 154 */     return this.aparea2;
+/*     */   }
+/*     */   
+/*     */   public void setAparea2(String aparea2) {
+/* 158 */     this.aparea2 = aparea2;
+/*     */   }
+
+
 /*     */ }
 

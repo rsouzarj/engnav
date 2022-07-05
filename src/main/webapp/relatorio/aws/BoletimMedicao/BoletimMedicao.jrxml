@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.5.1  -->
-<!-- 2021-01-11T17:44:57 -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PROPOSTA DE PRESTAÇÃO DE SERVIÇOS " pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="985c1e67-9c03-47dd-bdd7-3c6a0b73a2f3">
-	<property name="ireport.zoom" value="1.1269722013523664"/>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PROPOSTA DE PRESTAÇÃO DE SERVIÇOS " pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="NoPages" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="985c1e67-9c03-47dd-bdd7-3c6a0b73a2f3">
+	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
-	<property name="ireport.y" value="0"/>
+	<property name="ireport.y" value="38"/>
 	<style name="table">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
@@ -323,27 +322,17 @@
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
+	<style name="table 16_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
 	<style name="table 15_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
 	</style>
 	<style name="table 15_TD" mode="Opaque" backcolor="#FFFFFF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 16">
-		<box>
-			<pen lineWidth="1.0" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 16_TH" mode="Opaque" backcolor="#F0F8FF">
-		<box>
-			<pen lineWidth="0.5" lineColor="#000000"/>
-		</box>
-	</style>
-	<style name="table 16_CH" mode="Opaque" backcolor="#BFE1FF">
 		<box>
 			<pen lineWidth="0.5" lineColor="#000000"/>
 		</box>
@@ -355,6 +344,16 @@
 	</style>
 	<style name="BM" mode="Opaque" forecolor="#000000" backcolor="#B5B5B5"/>
 	<style name="table 17">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 16_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 16">
 		<box>
 			<pen lineWidth="1.0" lineColor="#000000"/>
 		</box>
@@ -417,7 +416,6 @@
 	<style name="BRANCO">
 		<pen lineColor="#FFFFFF"/>
 	</style>
-	<style name="TD_R" mode="Transparent"/>
 	<subDataset name="Escopo_Servico" uuid="51663f6a-6249-4831-9ece-83b014e3c2ff">
 		<parameter name="pSeqDocumentoEscopoServico" class="java.lang.Integer">
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -579,7 +577,7 @@ where
 		<field name="SEQ_EMPRESA" class="java.math.BigDecimal"/>
 		<field name="DATA_CADASTRO" class="java.sql.Timestamp"/>
 		<field name="SITUACAO" class="java.lang.String"/>
-		<field name="DESCRICAO" class="java.sql.Clob"/>
+		<field name="DESCRICAO" class="oracle.sql.CLOB"/>
 		<field name="TIPO_DOCUMENTO_DESTINO" class="java.lang.String"/>
 		<field name="VL_TARIFA" class="java.math.BigDecimal"/>
 		<field name="SEQ_CONTA" class="java.math.BigDecimal"/>
@@ -710,13 +708,9 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 	<field name="GRUPO_SERVICO" class="java.lang.String"/>
 	<field name="MOEDA" class="java.lang.String"/>
 	<field name="ID_COMPLEMENTAR" class="java.math.BigDecimal"/>
-	<field name="OBSERVACAO" class="java.sql.Clob"/>
+	<field name="OBSERVACAO" class="oracle.sql.CLOB"/>
 	<field name="TAXA_CAMBIO" class="java.math.BigDecimal"/>
 	<field name="MOEDA_DESTINO" class="java.lang.String"/>
-	<field name="EMBARCACAO" class="java.lang.String"/>
-	<field name="ARMADOR" class="java.lang.String"/>
-	<field name="ESCOPO" class="oracle.sql.CLOB"/>
-	<field name="VL_TOTALCAMBIO" class="java.math.BigDecimal"/>
 	<variable name="vl_restante" class="java.lang.String">
 		<variableExpression><![CDATA[$F{VL_TOTAL_DOCUMENTO}.subtract($F{VL_ENTRADA})]]></variableExpression>
 	</variable>
@@ -726,7 +720,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 	<background>
 		<band height="555">
 			<frame>
-				<reportElement x="0" y="0" width="802" height="550" uuid="b4602ca3-4755-4c9b-b6d4-683c14116da1"/>
+				<reportElement x="0" y="0" width="802" height="530" uuid="b4602ca3-4755-4c9b-b6d4-683c14116da1"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -737,10 +731,14 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 		</band>
 	</background>
 	<detail>
-		<band height="261">
+		<band height="314">
+			<image>
+				<reportElement mode="Transparent" x="2" y="2" width="97" height="45" uuid="99bd7cca-dc66-4da6-9542-b5b4a0827fb7"/>
+				<imageExpression><![CDATA["..\\aws.png"]]></imageExpression>
+			</image>
 			<componentElement>
 				<reportElement key="table 4" style="table 4" positionType="Float" isPrintRepeatedValues="false" x="0" y="178" width="537" height="13" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#FFFFFF" uuid="47b02ab5-d68a-4db4-bf81-a6f59dd58b5e"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
 					<datasetRun subDataset="Equipamentos_1" uuid="8ce53e18-2ad0-4337-9727-382b3a30aba9">
 						<datasetParameter name="pSeqDocumentoEquipamento">
 							<datasetParameterExpression><![CDATA[$P{pSeqDocumento}]]></datasetParameterExpression>
@@ -801,8 +799,8 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				</jr:table>
 			</componentElement>
 			<componentElement>
-				<reportElement key="table 16" style="table 16" positionType="Float" x="0" y="199" width="802" height="25" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#D9D9D9" uuid="ea9912c6-5cd8-4ce9-9224-1e09045fb07d"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<reportElement key="table 16" style="table 16" positionType="Float" x="0" y="199" width="798" height="25" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#D9D9D9" uuid="ea9912c6-5cd8-4ce9-9224-1e09045fb07d"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
 					<datasetRun subDataset="Tabela_Preco" uuid="75ddda54-ec06-46a1-b8b8-09ba087a212f">
 						<datasetParameter name="pSeqDocumentoPreco">
 							<datasetParameterExpression><![CDATA[$P{pSeqDocumento}]]></datasetParameterExpression>
@@ -810,72 +808,465 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
 					</datasetRun>
 					<jr:column width="33" uuid="b4803e25-f4bb-43c4-862c-a21cbc1b4456">
-						<jr:tableFooter style="BM" height="19" rowSpan="2"/>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2"/>
-						<jr:detailCell style="table 16_TH" height="30" rowSpan="1"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column1"/>
+						<jr:tableFooter style="BM" height="21" rowSpan="2">
+							<textField>
+								<reportElement style="table 13_TD" x="0" y="0" width="33" height="21" forecolor="#000000" backcolor="#DEDDDD" uuid="af017c27-4f8b-4d52-9802-6494a636944b"/>
+								<box>
+									<topPen lineWidth="2.5" lineColor="#999999"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}+1]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="33" height="24" forecolor="#000000" backcolor="#DEDDDD" uuid="c5c62bd8-a7ed-4246-aa5a-d4b912d01133"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[ITEM]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 16_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement style="table 13_TD" x="0" y="0" width="33" height="30" forecolor="#000000" backcolor="#DEDDDD" uuid="9d6d3480-de1c-40d8-8a22-cb27b7e1feef"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
-					<jr:column width="227" uuid="1d72e26f-f956-44dd-b5a6-0f2b2e330e00">
-						<jr:tableFooter style="BM" height="19" rowSpan="2"/>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2"/>
-						<jr:detailCell style="table 16_TH" height="30" rowSpan="1"/>
+					<jr:column width="220" uuid="1d72e26f-f956-44dd-b5a6-0f2b2e330e00">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column2"/>
+						<jr:tableFooter style="BM" height="21" rowSpan="2">
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="220" height="21" backcolor="#E6E4D5" uuid="d82a7f9b-d3d7-4ff4-81e2-7fd7bdb31327"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{VL_TRIBUTO_N_INCLUSO}.intValue() ==0) ? "Tributos Incluídos":"Impostos não inclusos (PIS, COFINS, CSLL, IR, ISSQN) "]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="220" height="24" forecolor="#000000" backcolor="#DEDDDD" uuid="689d30f3-6dfb-4a02-b64b-85ab70676ed8"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[DESCRIÇÃO DOS SERVIÇOS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 16_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement style="table 13_TD" positionType="Float" x="0" y="0" width="220" height="30" uuid="d21d1492-375b-482b-ac84-2c17baef0040"/>
+								<box leftPadding="2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DESCRICAO}==null?$F{NOME} : $F{NOME}+" - "+$F{DESCRICAO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 					<jr:column width="75" uuid="a387e3e1-b98e-4af5-ae98-7a129b44e420">
-						<jr:tableFooter style="BM" height="19" rowSpan="2"/>
-						<jr:columnHeader height="24" rowSpan="2"/>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column3"/>
+						<jr:tableFooter style="BM" height="21" rowSpan="2">
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="75" height="21" backcolor="#E6E4D5" uuid="fa6ec926-263d-488a-8543-d5a9197347e5"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[($F{VL_TRIBUTO_N_INCLUSO}.intValue() ==0) ? "-" : "1"]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader height="24" rowSpan="2">
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="75" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="be2577e1-5712-4349-b1c2-a3a2f28749f0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[QUANTIDADES PREV.]]></text>
+							</staticText>
+							<staticText>
+								<reportElement style="BM" x="0" y="12" width="75" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="7c4aaad9-4a10-40bc-8ae9-9145fb3c2937"/>
+								<box>
+									<pen lineWidth="0.75"/>
+									<topPen lineWidth="0.0"/>
+									<leftPen lineWidth="0.5"/>
+									<bottomPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[(PLANO DE TRABALHO)]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement style="table 13_TD" x="0" y="0" width="75" height="30" uuid="d5c32b26-3310-4cf9-974d-bac4fdf55a83"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{QTDE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
-					<jr:columnGroup width="159" uuid="e2c37594-770b-4082-91d3-c41a56d776bf">
-						<jr:tableFooter style="BM" height="19" rowSpan="1"/>
-						<jr:columnHeader height="12" rowSpan="1"/>
+					<jr:columnGroup width="152" uuid="e2c37594-770b-4082-91d3-c41a56d776bf">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [3]"/>
+						<jr:tableFooter style="BM" height="19" rowSpan="1">
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="152" height="19" backcolor="#E6E4D5" uuid="f6a35ead-e146-4001-83cf-95adab91d712"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[($F{VL_TRIBUTO_N_INCLUSO}.intValue() ==0) ? "-" : "1"]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader height="12" rowSpan="1">
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="152" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="934696e6-184d-4eeb-b7e4-a702f3b97f1e"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[QUANTIDADES EXECUTADAS]]></text>
+							</staticText>
+						</jr:columnHeader>
 						<jr:column width="45" uuid="b100e9d1-9dd3-48ba-bcbb-bcb1939626ba">
-							<jr:columnHeader height="12" rowSpan="1"/>
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column4"/>
+							<jr:columnHeader height="12" rowSpan="1">
+								<staticText>
+									<reportElement style="table 13_TD" x="0" y="0" width="45" height="12" forecolor="#000000" uuid="fab70a56-fa5c-4ae1-845e-0cce0ea7a661"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+									</textElement>
+									<text><![CDATA[ANTERIOR]]></text>
+								</staticText>
+							</jr:columnHeader>
 							<jr:columnFooter height="0" rowSpan="1"/>
-							<jr:detailCell style="table 13_TH" height="30" rowSpan="1"/>
+							<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
+								<textField>
+									<reportElement style="table 13_TD" x="0" y="0" width="45" height="30" uuid="62eb50d7-0c34-4051-884d-ed3289443113"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{QTDE_ANTERIOR}==null?"-":$F{QTDE_ANTERIOR}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
 						</jr:column>
-						<jr:columnGroup width="114" uuid="f6b208d7-e631-470f-95a2-a58a61a920a8">
-							<jr:column width="57" uuid="1695a0a3-7005-4d3c-81a6-8a2cd8954a74">
-								<jr:columnHeader height="12" rowSpan="1"/>
-								<jr:detailCell style="table 13_TH" height="30" rowSpan="1"/>
+						<jr:columnGroup width="107" uuid="f6b208d7-e631-470f-95a2-a58a61a920a8">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [2]"/>
+							<jr:column width="54" uuid="1695a0a3-7005-4d3c-81a6-8a2cd8954a74">
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column5"/>
+								<jr:columnHeader height="12" rowSpan="1">
+									<staticText>
+										<reportElement style="table 13_TD" x="0" y="0" width="54" height="12" forecolor="#000000" uuid="76e5b5d0-3d9d-4e36-a035-73ada6fd3a2b"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+										</textElement>
+										<text><![CDATA[NO PERÍODO]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
+									<textField>
+										<reportElement style="table 13_TD" x="0" y="0" width="54" height="30" uuid="e201ad48-b61d-4f1d-aaae-43df8bed3234"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="9"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{QTDE_PERIODO}==null?"-":$F{QTDE_PERIODO}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
 							</jr:column>
-							<jr:column width="57" uuid="4d2d29a1-c03a-4e71-be6f-f1d5e43ffd93">
-								<jr:columnHeader height="12" rowSpan="1"/>
-								<jr:detailCell style="table 13_TH" height="30" rowSpan="1"/>
+							<jr:column width="53" uuid="4d2d29a1-c03a-4e71-be6f-f1d5e43ffd93">
+								<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column6"/>
+								<jr:columnHeader height="12" rowSpan="1">
+									<staticText>
+										<reportElement style="table 13_TD" x="0" y="0" width="53" height="12" forecolor="#000000" uuid="0cf82527-2406-4f5a-aa7f-548d52105007"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+										</textElement>
+										<text><![CDATA[ACUMULADO]]></text>
+									</staticText>
+								</jr:columnHeader>
+								<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
+									<textField>
+										<reportElement style="table 13_TD" x="0" y="0" width="53" height="30" uuid="3719c4bd-a67b-4bfd-894e-28de39c7a762"/>
+										<textElement textAlignment="Center" verticalAlignment="Middle">
+											<font size="9"/>
+										</textElement>
+										<textFieldExpression><![CDATA[$F{QTDE_ACUMULADO}==null?"-":$F{QTDE_ACUMULADO}]]></textFieldExpression>
+									</textField>
+								</jr:detailCell>
 							</jr:column>
 						</jr:columnGroup>
 					</jr:columnGroup>
 					<jr:column width="36" uuid="d4e6c853-58a3-4e41-9207-3450985fa723">
-						<jr:tableFooter style="BM" height="19" rowSpan="2"/>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2"/>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column7"/>
+						<jr:tableFooter style="BM" height="21" rowSpan="2">
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="36" height="21" backcolor="#E6E4D5" uuid="614d337a-4538-4454-9e0b-c3165ce6baa6"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[($F{VL_TRIBUTO_N_INCLUSO}.intValue() ==0) ? "-" : "1"]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="36" height="24" forecolor="#000000" backcolor="#DEDDDD" uuid="216bd089-7587-4565-9491-eef71ecc60c5"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[UNID.]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
+							<textField>
+								<reportElement style="table 13_TD" x="0" y="0" width="36" height="30" uuid="a05c934c-8fb5-4449-a883-b208d20357f6"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{ABREVIATURA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
-					<jr:column width="40" uuid="a805cea2-81cf-4c7c-b669-61472f1c78d0">
-						<jr:tableFooter style="BM" height="19" rowSpan="2"/>
-						<jr:columnHeader height="24" rowSpan="2"/>
-						<jr:detailCell style="table 13_TH" height="30"/>
+					<jr:column width="55" uuid="9a81eb02-f199-4e3c-ba45-8dd4ea553bde">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column8"/>
+						<jr:tableFooter style="BM" height="21" rowSpan="2">
+							<textField pattern="R$ #,##0.00">
+								<reportElement mode="Opaque" x="0" y="0" width="55" height="21" backcolor="#E6E4D5" uuid="e86602a9-ca1f-4ad5-b69d-ad91f128e209"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+									<leftPen lineWidth="1.0"/>
+									<bottomPen lineWidth="1.0"/>
+									<rightPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[($F{TAXA_CAMBIO}.intValue() ==0) ? $F{VL_TRIBUTO_N_INCLUSO} :  $F{VL_TRIBUTO_N_INCLUSO}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="55" height="24" forecolor="#000000" backcolor="#DEDDDD" uuid="8ca8955f-8bf9-491a-8990-2ddc5abb6018"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[VL UNITÁRIO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<textField pattern="#,##0.00">
+								<reportElement style="table 13_TD" x="14" y="0" width="41" height="30" uuid="5150fc5d-bbaa-444d-a5c8-c9f1c8f0d774"/>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{VL_UNITARIO}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement mode="Opaque" x="0" y="0" width="14" height="30" uuid="4431ebf3-1065-483a-b88f-3cbdaea36bd9"/>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MOEDA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
-					<jr:column width="53" uuid="9a81eb02-f199-4e3c-ba45-8dd4ea553bde">
-						<jr:tableFooter style="BM" height="19" rowSpan="2"/>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2"/>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1"/>
+					<jr:column width="49" uuid="5cebcead-90a1-46b2-875d-70f8eeacbf0b">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column9"/>
+						<jr:tableFooter style="BM" height="21" rowSpan="2">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="49" height="21" backcolor="#E6E4D5" uuid="263c2d65-32aa-4ba7-9151-cb4095b2daed"/>
+								<box>
+									<topPen lineWidth="1.0"/>
+								</box>
+								<text><![CDATA[]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="49" height="24" forecolor="#000000" backcolor="#DEDDDD" uuid="6147a86b-e8d1-4529-8da5-77aacd6ace0f"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[TAXA DE CÂMBIO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TH" height="30">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<textField pattern=" #,##0.00">
+								<reportElement mode="Opaque" x="16" y="0" width="32" height="30" uuid="ff6edfa8-dd82-41d0-a25b-a752bcf4437d"/>
+								<box>
+									<bottomPen lineWidth="1.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{TAXA_CAMBIO}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement mode="Opaque" x="1" y="0" width="15" height="30" uuid="bcb46873-491d-4ad3-a366-0967e11f8d79"/>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA["R$"]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
 					<jr:column width="48" uuid="be71cb9c-5fbc-4992-90e8-efeefb4939c8">
-						<jr:tableFooter style="BM" height="19" rowSpan="2"/>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2"/>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1"/>
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column10"/>
+						<jr:tableFooter style="BM" height="21" rowSpan="2">
+							<staticText>
+								<reportElement mode="Opaque" x="0" y="0" width="48" height="21" backcolor="#E6E4D5" uuid="62581c43-267c-41fa-afb9-ed74cc35ede9"/>
+								<box>
+									<topPen lineWidth="2.5" lineColor="#999999"/>
+								</box>
+								<text><![CDATA[]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="48" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="6dbb08cf-dfe9-4e6a-9e96-7b409c31cc35"/>
+								<box>
+									<bottomPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[VALOR DO ]]></text>
+							</staticText>
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="12" width="48" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="a8388174-0441-4ced-893c-cee8e6bb5dfc"/>
+								<box>
+									<topPen lineWidth="0.0"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[DESCONTO]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<textField pattern="#,##0.00">
+								<reportElement style="table 13_TD" x="0" y="0" width="48" height="30" uuid="7cd3865e-0004-4091-ae41-2b4118b5ba7c"/>
+								<box>
+									<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="9"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{VL_DESCONTO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
 					</jr:column>
-					<jr:columnGroup width="130" uuid="cdcac734-9eb1-4af2-a21c-aaa74439b7b9">
-						<jr:tableFooter style="BM" height="19" rowSpan="1"/>
-						<jr:columnHeader height="12" rowSpan="1"/>
-						<jr:column width="64" uuid="9bc1dcf1-7012-4842-8929-f1e7d59afd92">
-							<jr:tableFooter height="0" rowSpan="1"/>
-							<jr:columnHeader height="12" rowSpan="1"/>
-							<jr:detailCell style="table 16_TH" height="30" rowSpan="1"/>
-						</jr:column>
-						<jr:column width="66" uuid="90fff780-eae7-40b5-8ede-e501be8663a8">
-							<jr:tableHeader height="0" rowSpan="1"/>
-							<jr:tableFooter height="0" rowSpan="1"/>
-							<jr:columnHeader height="12" rowSpan="1"/>
-							<jr:detailCell style="table 16_TH" height="30" rowSpan="1"/>
+					<jr:columnGroup width="131" uuid="cdcac734-9eb1-4af2-a21c-aaa74439b7b9">
+						<property name="com.jaspersoft.studio.components.table.model.column.name" value="Columns [1]"/>
+						<jr:tableFooter style="BM" height="19" rowSpan="1">
+							<textField pattern="#,##0.00">
+								<reportElement style="BM" mode="Transparent" x="0" y="0" width="131" height="19" backcolor="#E6E4D5" uuid="9b2e0d9c-a841-4f54-b946-73918d934371"/>
+								<box>
+									<topPen lineWidth="2.5" lineColor="#999999"/>
+									<leftPen lineWidth="0.5"/>
+									<rightPen lineWidth="0.5"/>
+								</box>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="10"/>
+								</textElement>
+								<textFieldExpression><![CDATA[""]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:columnHeader height="12" rowSpan="1">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+							<staticText>
+								<reportElement style="table 8_CH" x="0" y="0" width="131" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="dc41e62a-8bed-4a8a-b11e-a45268a3c4f2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+								</textElement>
+								<text><![CDATA[VALORES EXECUTADOS]]></text>
+							</staticText>
+						</jr:columnHeader>
+						<jr:column width="131" uuid="9bc1dcf1-7012-4842-8929-f1e7d59afd92">
+							<property name="com.jaspersoft.studio.components.table.model.column.name" value="Column11"/>
+							<jr:tableFooter height="2" rowSpan="1"/>
+							<jr:columnHeader height="12" rowSpan="1">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+								<staticText>
+									<reportElement style="table 13_TH" x="0" y="0" width="131" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="cba9b285-d3d3-46d1-a085-750898530b46"/>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+									</textElement>
+									<text><![CDATA[NO PERÍODO]]></text>
+								</staticText>
+							</jr:columnHeader>
+							<jr:detailCell style="table 16_TH" height="30" rowSpan="1">
+								<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
+								<textField pattern="#,##0.00">
+									<reportElement style="table 13_TD" x="40" y="0" width="91" height="30" uuid="d8a6ca5c-bb73-4604-acdf-97f074332753"/>
+									<box>
+										<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{VL_PERIODO}==null?"-":$F{VL_PERIODO}]]></textFieldExpression>
+								</textField>
+								<textField>
+									<reportElement mode="Opaque" x="0" y="0" width="39" height="30" uuid="59ff63b4-4654-475d-806c-2f99a4a06ce6"/>
+									<box>
+										<topPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<leftPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<bottomPen lineWidth="1.0" lineStyle="Solid" lineColor="#000000"/>
+										<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+									</box>
+									<textElement textAlignment="Center" verticalAlignment="Middle">
+										<font size="9"/>
+									</textElement>
+									<textFieldExpression><![CDATA[$F{MOEDA_DESTINO}]]></textFieldExpression>
+								</textField>
+							</jr:detailCell>
 						</jr:column>
 					</jr:columnGroup>
 				</jr:table>
@@ -894,7 +1285,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[SISTEMA DE GESTÃO DA QUALIDADE - BOLETIM DE MEDIÇÃO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="0" y="45" width="489" height="12" forecolor="#0000FF" backcolor="#DEDDDD" uuid="ee96babc-1edf-42f1-be2f-934abe6cb84b"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="0" y="45" width="480" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="ee96babc-1edf-42f1-be2f-934abe6cb84b"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -907,7 +1298,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[RAZÃO SOCIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="490" y="45" width="182" height="12" forecolor="#0000FF" backcolor="#DEDDDD" uuid="bbe3c50b-64c7-4e6c-bc79-e21a13faf582"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="480" y="45" width="102" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="bbe3c50b-64c7-4e6c-bc79-e21a13faf582"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -918,7 +1309,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[CNPJ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="672" y="29" width="130" height="16" forecolor="#0033FF" backcolor="#DEDDDD" uuid="2ab4359b-cee1-4942-87b9-5cfa27043ced"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="672" y="29" width="130" height="16" forecolor="#000000" backcolor="#DEDDDD" uuid="2ab4359b-cee1-4942-87b9-5cfa27043ced"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 				</box>
@@ -928,7 +1319,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[BOLETIM DE MEDIÇÃO Nº]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="0" y="115" width="129" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="67f09fbf-020d-428b-80e1-f799a3638c2b"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="495" y="115" width="81" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="67f09fbf-020d-428b-80e1-f799a3638c2b"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -940,7 +1331,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[CONTRATO Nº]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="310" y="115" width="126" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="0718e956-d547-48ab-a234-aeb105620bf0"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="576" y="115" width="80" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="0718e956-d547-48ab-a234-aeb105620bf0"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 				</box>
@@ -962,7 +1353,19 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[CONTRATADA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="582" y="89" width="90" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="f71b4c55-e3d2-4779-a6d0-24a02697d5d6"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="582" y="45" width="90" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="43099dfd-d60a-49c6-a5ad-5df246397315"/>
+				<box>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[INSC. MUNICIPAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement style="table 8_CH" mode="Opaque" x="582" y="89" width="90" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="f71b4c55-e3d2-4779-a6d0-24a02697d5d6"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -973,7 +1376,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[INSC. MUNICIPAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="0" y="89" width="256" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="5b5edf95-03ec-4871-b087-1f62f94ab789"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="0" y="89" width="495" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="5b5edf95-03ec-4871-b087-1f62f94ab789"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -984,7 +1387,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[RAZÃO SOCIAL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="256" y="89" width="82" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="c9128f50-3917-4a8a-83df-d8ab91596ada"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="495" y="89" width="87" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="c9128f50-3917-4a8a-83df-d8ab91596ada"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -995,7 +1398,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[CNPJ]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="338" y="89" width="244" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="8be01093-28ae-49c6-b7e2-54b1598caa7f"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="0" y="115" width="495" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="8be01093-28ae-49c6-b7e2-54b1598caa7f"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -1006,7 +1409,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[ENDEREÇO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="580" y="115" width="223" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="0eeabe6a-4fd6-4b7b-a8e4-de78476e793d"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="656" y="115" width="146" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="0eeabe6a-4fd6-4b7b-a8e4-de78476e793d"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -1018,21 +1421,31 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[REQUISITANTE DO SERVIÇO]]></text>
 			</staticText>
 			<textField>
-				<reportElement x="0" y="57" width="489" height="14" uuid="381e78f8-aa88-4f45-854d-826895b55fda"/>
+				<reportElement x="0" y="57" width="480" height="14" uuid="381e78f8-aa88-4f45-854d-826895b55fda"/>
 				<box>
 					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10" isPdfEmbedded="true"/>
+					<font size="8" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RAZAOSOCIALCONTRATADA}==null?"-":$F{RAZAOSOCIALCONTRATADA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="490" y="57" width="179" height="14" uuid="50ce9c42-f839-4797-85c5-9c8d1be9de23"/>
+				<reportElement x="480" y="57" width="102" height="14" uuid="50ce9c42-f839-4797-85c5-9c8d1be9de23"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="10"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{CNPJCONTRATADA}==null?"S/Nº.":$F{CNPJCONTRATADA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="582" y="57" width="90" height="14" uuid="31ec0f02-ed60-4bb7-a9c7-b0e56af03ea0"/>
+				<box>
+					<leftPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{INSCMUNICIPALCONTRATADA}==null?" - ": $F{INSCMUNICIPALCONTRATADA}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="672" y="44" width="130" height="27" uuid="fd947a0c-e6d9-4980-92b1-9cf7730ec2ea"/>
@@ -1045,18 +1458,18 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<textFieldExpression><![CDATA[$F{CODIGO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="101" width="256" height="14" uuid="b6db45af-0437-4497-a9e5-1f8afcc5959a"/>
+				<reportElement x="0" y="101" width="495" height="14" uuid="b6db45af-0437-4497-a9e5-1f8afcc5959a"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="6"/>
+					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{RAZAOSOCIALCONTRATANTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="256" y="101" width="82" height="14" uuid="b56048dd-5e93-4129-ba70-601f4930607d"/>
+				<reportElement x="495" y="101" width="87" height="14" uuid="b56048dd-5e93-4129-ba70-601f4930607d"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -1067,13 +1480,13 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<textFieldExpression><![CDATA[$F{CNPJCONTRATANTE}==null?"S/Nº." : $F{CNPJCONTRATANTE}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="338" y="101" width="244" height="14" uuid="dc46dc28-b46b-4d10-ac05-7f401049ffdc"/>
+				<reportElement x="0" y="127" width="495" height="14" uuid="dc46dc28-b46b-4d10-ac05-7f401049ffdc"/>
 				<box>
 					<leftPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
 				</box>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font size="6" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					<font size="8" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{ENDERECOCONTRATANTE}==null?" - ":$F{ENDERECOCONTRATANTE}]]></textFieldExpression>
 			</textField>
@@ -1084,7 +1497,9 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{INSCMUNICIPALCONTRATANTE}==null?"-":$F{INSCMUNICIPALCONTRATANTE}]]></textFieldExpression>
 			</textField>
 			<textField pattern="dd/MM/yyyy">
@@ -1092,25 +1507,31 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{DATA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="0" y="127" width="129" height="14" uuid="7a3b5ca5-9bbc-41ad-ba13-8488ab57b5c7"/>
+				<reportElement x="495" y="127" width="81" height="14" uuid="7a3b5ca5-9bbc-41ad-ba13-8488ab57b5c7"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{N_CONTRATO}==null?"-":$F{N_CONTRATO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="310" y="127" width="126" height="14" uuid="3ce32028-4247-442f-af11-e891850f73c8"/>
+				<reportElement x="576" y="127" width="80" height="14" uuid="3ce32028-4247-442f-af11-e891850f73c8"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{N_PROPOSTA}==null?"-":$F{N_PROPOSTA}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -1119,34 +1540,42 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{FORMA_PAGAMENTO}==null?"-":$F{FORMA_PAGAMENTO}]]></textFieldExpression>
 			</textField>
-			<textField pattern="¤ #,##0.00" isBlankWhenNull="false">
-				<reportElement x="291" y="156" width="93" height="14" uuid="3953ee8c-e349-41d4-ae2b-d4fc2f14ec0c"/>
+			<textField>
+				<reportElement x="291" y="156" width="47" height="14" uuid="3953ee8c-e349-41d4-ae2b-d4fc2f14ec0c"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{TAXA_CAMBIO}]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONDICAO_PAGAMENTO}==null?"-":$F{CONDICAO_PAGAMENTO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="384" y="156" width="153" height="14" uuid="38357a77-c1a5-4806-896d-f0d359d5523e"/>
+				<reportElement x="338" y="156" width="153" height="14" uuid="38357a77-c1a5-4806-896d-f0d359d5523e"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{QTDE_PARCELA}==null?"-":$F{QTDE_PARCELA}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="537" y="156" width="265" height="14" uuid="c159cf5a-3cd5-40db-b536-eab9b1d878b6"/>
+				<reportElement x="491" y="156" width="311" height="14" uuid="c159cf5a-3cd5-40db-b536-eab9b1d878b6"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{DATA_PAGAMENTO_PARCELADO}==null?"-":$F{DATA_PAGAMENTO_PARCELADO}]]></textFieldExpression>
 			</textField>
 			<textField>
@@ -1155,23 +1584,34 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
 				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
-				<textFieldExpression><![CDATA[$F{TRIBUTOS_IMPOSTOS}==null?"-":($F{TRIBUTOS_IMPOSTOS}.equals(BigDecimal.ZERO)? "Não Incluído" :"Incluído")]]></textFieldExpression>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{VL_TRIBUTO_N_INCLUSO}.intValue() ==0) ? "Incluído"  : "Não Incluído"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="580" y="127" width="223" height="14" uuid="77d6d067-1319-47a7-a2b3-96185accd1fe"/>
-				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="656" y="127" width="146" height="14" uuid="77d6d067-1319-47a7-a2b3-96185accd1fe"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="8"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{NOMEREQUISITANTE}==null?"-":$F{NOMEREQUISITANTE}]]></textFieldExpression>
 			</textField>
+			<staticText>
+				<reportElement style="table 8_CH" positionType="Float" mode="Opaque" x="405" y="57" width="204" height="13" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#DEDDDD" uuid="e1006b6c-bcac-4b91-ba97-c6d9f2eba288"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[OBSERVAÇÕES]]></text>
+			</staticText>
 			<componentElement>
 				<reportElement key="table 19" style="BRANCO" positionType="Float" mode="Opaque" x="0" y="236" width="802" height="19" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" uuid="2b6ac573-4ca4-46ed-aaca-567ec1152b85"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
 					<datasetRun subDataset="Informacao_Importante" uuid="51a0ca7f-8cc2-4156-aed8-88f966f7d4e9">
 						<datasetParameter name="pSeq_Documento">
 							<datasetParameterExpression><![CDATA[$P{pSeqDocumento}]]></datasetParameterExpression>
@@ -1181,14 +1621,15 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 					<jr:column width="802" uuid="44af4252-9beb-4ee8-bbab-e9ea14d182dc">
 						<jr:tableHeader style="table 19_TH" height="16" rowSpan="1">
 							<staticText>
-								<reportElement x="0" y="0" width="800" height="15" forecolor="#0033FF" uuid="2452957d-d1e8-4c34-831c-b8e315eb4efa"/>
+								<reportElement x="0" y="0" width="802" height="16" forecolor="#000000" uuid="2452957d-d1e8-4c34-831c-b8e315eb4efa"/>
 								<textElement textAlignment="Center" verticalAlignment="Middle">
 									<font isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
 								</textElement>
 								<text><![CDATA[INFORMAÇÕES IMPORTANTES]]></text>
 							</staticText>
 						</jr:tableHeader>
-						<jr:tableFooter style="BRANCO" height="12" rowSpan="1">
+						<jr:tableFooter style="BRANCO" height="43" rowSpan="1">
+							<property name="com.jaspersoft.studio.layout" value="com.jaspersoft.studio.editor.layout.FreeLayout"/>
 							<textField>
 								<reportElement mode="Opaque" x="0" y="0" width="802" height="12" isRemoveLineWhenBlank="true" uuid="647c337a-180d-493e-b43c-837fc205d4fa">
 									<printWhenExpression><![CDATA[$F{SEQ_FORMA_PAGAMENTO}.equals(new BigDecimal(83))?true:false]]></printWhenExpression>
@@ -1257,7 +1698,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[CONTRATANTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="0" y="144" width="117" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="7acd3b4c-7d88-4cc8-99d1-1d441f920a76"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="0" y="144" width="117" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="7acd3b4c-7d88-4cc8-99d1-1d441f920a76"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -1268,7 +1709,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[TRIBUTAÇÃO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="672" y="73" width="130" height="16" forecolor="#0033FF" backcolor="#DEDDDD" uuid="9137861f-6a91-4e76-803b-c9f2efeb1165"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="672" y="73" width="130" height="16" forecolor="#000000" backcolor="#DEDDDD" uuid="9137861f-6a91-4e76-803b-c9f2efeb1165"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -1281,7 +1722,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[DATA DE EMISSÃO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="117" y="144" width="174" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="74706ae7-21bb-45f5-82dd-fbe49d2866ef"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="117" y="144" width="174" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="74706ae7-21bb-45f5-82dd-fbe49d2866ef"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -1292,7 +1733,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[FORMA DE PAGAMENTO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="291" y="144" width="93" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="d4d7a55e-e38b-4204-8a80-a6a4e7439ce8"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="291" y="144" width="47" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="d4d7a55e-e38b-4204-8a80-a6a4e7439ce8"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 					<rightPen lineWidth="0.75"/>
@@ -1300,10 +1741,10 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="10" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<text><![CDATA[TAXA DE CAMBIO]]></text>
+				<text><![CDATA[PRAZO]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="384" y="144" width="153" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="1fa2bb56-f0cb-4ddd-a9ad-1ff1c8700612"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="338" y="144" width="153" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="1fa2bb56-f0cb-4ddd-a9ad-1ff1c8700612"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -1315,7 +1756,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[QUANTIDADE DE PARCELAS]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" mode="Opaque" x="537" y="144" width="265" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="3822a9af-a908-4c16-a552-b13208c3a8b5"/>
+				<reportElement style="table 8_CH" mode="Opaque" x="491" y="144" width="311" height="12" forecolor="#000000" backcolor="#DEDDDD" uuid="3822a9af-a908-4c16-a552-b13208c3a8b5"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<bottomPen lineWidth="0.75"/>
@@ -1326,377 +1767,12 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				</textElement>
 				<text><![CDATA[CONDIÇÃO DE PAGAMENTO]]></text>
 			</staticText>
-			<componentElement>
-				<reportElement key="table 16" style="table 16" positionType="Float" x="0" y="200" width="802" height="25" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#D9D9D9" uuid="ee2e30f4-712d-44bb-8690-63bcc1519535"/>
-				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd">
-					<datasetRun subDataset="Tabela_Preco" uuid="8bed49a6-6d61-4136-ba74-4918a8bc5246">
-						<datasetParameter name="pSeqDocumentoPreco">
-							<datasetParameterExpression><![CDATA[$P{pSeqDocumento}]]></datasetParameterExpression>
-						</datasetParameter>
-						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
-					</datasetRun>
-					<jr:column width="33" uuid="30491cde-a346-4010-8e4d-14fa9185d8bd">
-						<jr:tableFooter style="BM" height="19" rowSpan="1">
-							<textField>
-								<reportElement style="table 13_TD" x="0" y="0" width="33" height="19" forecolor="#0033FF" backcolor="#DEDDDD" uuid="639dc4f5-ebdf-4815-ab55-e631595d219e"/>
-								<box>
-									<topPen lineWidth="2.5" lineColor="#999999"/>
-								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{REPORT_COUNT}+1]]></textFieldExpression>
-							</textField>
-						</jr:tableFooter>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="0" width="33" height="24" forecolor="#0033FF" backcolor="#DEDDDD" uuid="75701571-7fe9-4079-9315-fc8024b63433"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[ITEM]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 16_TH" height="30" rowSpan="1">
-							<textField>
-								<reportElement style="table 13_TD" x="0" y="0" width="33" height="30" forecolor="#0033FF" backcolor="#DEDDDD" uuid="4563532f-432e-424d-a944-4952968b4c91"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="227" uuid="9f84fc9e-f8ab-475a-92e9-fbcd326a28bb">
-						<jr:tableFooter style="BM" height="19" rowSpan="1">
-							<staticText>
-								<reportElement style="table 13_TD" mode="Opaque" x="0" y="0" width="227" height="19" backcolor="#FFFFFF" uuid="63886918-8cf8-4c1b-b82c-76ae168bcd1e"/>
-								<box>
-									<topPen lineWidth="2.5" lineColor="#999999"/>
-								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="6"/>
-								</textElement>
-								<text><![CDATA[Tributos não inclusos]]></text>
-							</staticText>
-						</jr:tableFooter>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="0" width="227" height="24" forecolor="#0033FF" backcolor="#DEDDDD" uuid="bfc9e6eb-b345-4719-bf10-3763519a1655"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[DESCRIÇÃO DOS SERVIÇOS]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 16_TH" height="30" rowSpan="1">
-							<textField>
-								<reportElement style="table 13_TD" positionType="Float" x="0" y="0" width="227" height="30" uuid="01a5fd46-96c4-4b25-a5f8-a62ee89ae105"/>
-								<box leftPadding="2"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{DESCRICAO}==null?$F{NOME} : $F{NOME}+" - "+$F{DESCRICAO}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="75" uuid="e3810acf-f599-4b31-b21d-adde31ae914d">
-						<jr:tableFooter style="BM" height="19" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="75" height="19" backcolor="#E6E4D5" uuid="9fd510bd-ba35-4879-8d9f-a77c4d8bb8c6"/>
-								<box>
-									<topPen lineWidth="2.5" lineColor="#999999"/>
-									<leftPen lineWidth="0.5"/>
-								</box>
-								<text><![CDATA[]]></text>
-							</staticText>
-						</jr:tableFooter>
-						<jr:columnHeader height="24" rowSpan="2">
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="0" width="75" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="37672cf0-ff5b-441b-89a1-4921adbcd478"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[QUANTIDADES PREV.]]></text>
-							</staticText>
-							<staticText>
-								<reportElement style="BM" x="0" y="12" width="75" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="34479b13-8aad-40d0-a36c-5dcc496ef6c7"/>
-								<box>
-									<pen lineWidth="0.75"/>
-									<topPen lineWidth="0.0"/>
-									<leftPen lineWidth="0.5"/>
-									<bottomPen lineWidth="0.5"/>
-									<rightPen lineWidth="0.5"/>
-								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[(PLANO DE TRABALHO)]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
-							<textField>
-								<reportElement style="table 13_TD" x="0" y="0" width="75" height="30" uuid="877b3259-5473-4268-923f-57fdbee6e196"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle"/>
-								<textFieldExpression><![CDATA[$F{QTDE}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:columnGroup width="159" uuid="8e494d88-189b-4275-8808-ac1e2ce87988">
-						<jr:tableFooter style="BM" height="19" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="159" height="19" backcolor="#E6E4D5" uuid="7c3eb9cb-e2b7-43cf-8cc9-ec988b00cce7"/>
-								<box>
-									<topPen lineWidth="2.5" lineColor="#999999"/>
-								</box>
-								<text><![CDATA[]]></text>
-							</staticText>
-						</jr:tableFooter>
-						<jr:columnHeader height="12" rowSpan="1">
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="0" width="159" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="4051ad95-d080-4cdf-ba84-c916f6c015c7"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[QUANTIDADES EXECUTADAS]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:column width="45" uuid="e5c7d5c1-177b-4db3-a084-dbd3d1a99ce8">
-							<jr:columnHeader height="12" rowSpan="1">
-								<staticText>
-									<reportElement style="table 13_TD" x="0" y="0" width="45" height="12" forecolor="#0033FF" uuid="b832bbae-c44c-48ff-ac65-abcc12f4224b"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle">
-										<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-									</textElement>
-									<text><![CDATA[ANTERIOR]]></text>
-								</staticText>
-							</jr:columnHeader>
-							<jr:columnFooter height="0" rowSpan="1"/>
-							<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
-								<textField>
-									<reportElement style="table 13_TD" x="0" y="0" width="45" height="30" uuid="6e08cd81-a4fd-45ec-9cb8-04d21dc6ff40"/>
-									<textElement textAlignment="Center" verticalAlignment="Middle"/>
-									<textFieldExpression><![CDATA[$F{QTDE_ANTERIOR}==null?"-":$F{QTDE_ANTERIOR}]]></textFieldExpression>
-								</textField>
-							</jr:detailCell>
-						</jr:column>
-						<jr:columnGroup width="114" uuid="f5e3f485-19b6-49dd-a773-217722985d33">
-							<jr:column width="57" uuid="35aed1cc-7876-49ab-93c5-97d0c502e82c">
-								<jr:columnHeader height="12" rowSpan="1">
-									<staticText>
-										<reportElement style="table 13_TD" x="0" y="0" width="57" height="12" forecolor="#0033FF" uuid="924ded76-29c4-4b56-a79c-56d3fdfb829c"/>
-										<textElement textAlignment="Center" verticalAlignment="Middle">
-											<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-										</textElement>
-										<text><![CDATA[NO PERÍODO]]></text>
-									</staticText>
-								</jr:columnHeader>
-								<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
-									<textField>
-										<reportElement style="table 13_TD" x="0" y="0" width="57" height="30" uuid="f9dad0a1-e866-4de9-af8a-a95b293dbf75"/>
-										<textElement textAlignment="Center" verticalAlignment="Middle"/>
-										<textFieldExpression><![CDATA[$F{QTDE_PERIODO}==null?"-":$F{QTDE_PERIODO}]]></textFieldExpression>
-									</textField>
-								</jr:detailCell>
-							</jr:column>
-							<jr:column width="57" uuid="753c46f9-bd43-4448-ae0d-427750be3492">
-								<jr:columnHeader height="12" rowSpan="1">
-									<staticText>
-										<reportElement style="table 13_TD" x="0" y="0" width="57" height="12" forecolor="#0033FF" uuid="6aa0b379-7d5e-492a-bf85-5c28e91d397b"/>
-										<textElement textAlignment="Center" verticalAlignment="Middle">
-											<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-										</textElement>
-										<text><![CDATA[ACUMULADO]]></text>
-									</staticText>
-								</jr:columnHeader>
-								<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
-									<textField>
-										<reportElement style="table 13_TD" x="0" y="0" width="57" height="30" uuid="7a91cb4c-0f27-4044-b469-481db5101f90"/>
-										<textElement textAlignment="Center" verticalAlignment="Middle"/>
-										<textFieldExpression><![CDATA[$F{QTDE_ACUMULADO}==null?"-":$F{QTDE_ACUMULADO}]]></textFieldExpression>
-									</textField>
-								</jr:detailCell>
-							</jr:column>
-						</jr:columnGroup>
-					</jr:columnGroup>
-					<jr:column width="36" uuid="a8f18400-cb03-4195-a931-edb494ae3456">
-						<jr:tableFooter style="BM" height="19" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="36" height="19" backcolor="#E6E4D5" uuid="49728e54-f919-4585-b3d3-1462bb35a684"/>
-								<box>
-									<topPen lineWidth="2.5" lineColor="#999999"/>
-								</box>
-								<text><![CDATA[]]></text>
-							</staticText>
-						</jr:tableFooter>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="0" width="36" height="24" forecolor="#0033FF" backcolor="#DEDDDD" uuid="ac9558c9-f38c-499a-ad97-08aad48ffc84"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[UNID.]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
-							<textField>
-								<reportElement style="table 13_TD" x="0" y="0" width="36" height="30" uuid="9f17edf9-c162-4369-b6e8-8591da94e411"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{ABREVIATURA}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="53" uuid="d9bd9a5c-e36d-42c8-852e-572059801087">
-						<jr:tableFooter style="BM" height="19" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="53" height="19" backcolor="#E6E4D5" uuid="dc95ce99-f73a-407f-ad57-69c408d45a7e"/>
-								<box>
-									<topPen lineWidth="2.5" lineColor="#999999"/>
-								</box>
-								<text><![CDATA[]]></text>
-							</staticText>
-						</jr:tableFooter>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="0" width="53" height="24" forecolor="#0033FF" backcolor="#DEDDDD" uuid="f6066cfb-317a-44ce-a3c9-3560400f4cfa"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[VALOR UNITÁRIO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
-							<textField pattern="###0.00" isBlankWhenNull="true">
-								<reportElement style="TD_R" stretchType="RelativeToBandHeight" mode="Opaque" x="21" y="0" width="32" height="30" uuid="baeb2ae3-71bf-4669-9ffe-c389ce7f12b6"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{VL_UNITARIO}]]></textFieldExpression>
-							</textField>
-							<textField>
-								<reportElement style="TD_R" mode="Opaque" x="0" y="0" width="21" height="30" uuid="c7b9dcdc-1e95-4622-97b7-4364ff4cb713"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{MOEDA}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="40" uuid="51ad7b0c-4be2-47d8-9046-097018f0fd56">
-						<jr:tableFooter style="BM" height="19" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="40" height="19" backcolor="#E6E4D5" uuid="9051361b-41b6-442e-aee8-b868de24a4ab"/>
-								<box>
-									<topPen lineWidth="2.5" lineColor="#999999"/>
-								</box>
-								<text><![CDATA[]]></text>
-							</staticText>
-						</jr:tableFooter>
-						<jr:columnHeader height="24" rowSpan="2">
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="0" width="40" height="24" forecolor="#0033FF" backcolor="#DEDDDD" uuid="0b3778d3-6cc6-40a9-99d9-4547481e44c1"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[CÂMBIO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
-							<textField pattern="¤ #,##0.00">
-								<reportElement mode="Opaque" x="0" y="0" width="40" height="30" uuid="23d4b367-5666-4bdb-9c01-bc2b58ace78c"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{TAXA_CAMBIO}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="67" uuid="6732af2a-a5c1-45b2-80b9-bd242b8684b8">
-						<jr:tableFooter style="BM" height="19" rowSpan="1">
-							<staticText>
-								<reportElement mode="Opaque" x="0" y="0" width="67" height="19" backcolor="#E6E4D5" uuid="f54b5e4c-d5d3-44de-aee7-3ab06df7b10a"/>
-								<box>
-									<topPen lineWidth="2.5" lineColor="#999999"/>
-								</box>
-								<text><![CDATA[]]></text>
-							</staticText>
-						</jr:tableFooter>
-						<jr:columnHeader style="table 16_CH" height="24" rowSpan="2">
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="0" width="67" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="ecb902f3-67cb-4e39-ac35-971dda3a7c3c"/>
-								<box>
-									<bottomPen lineWidth="0.0"/>
-								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[VALOR DO ]]></text>
-							</staticText>
-							<staticText>
-								<reportElement style="table 8_CH" x="0" y="12" width="67" height="12" forecolor="#0033FF" backcolor="#DEDDDD" uuid="4edd127b-e42e-468c-a91b-25274883fe12"/>
-								<box>
-									<topPen lineWidth="0.0"/>
-								</box>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[DESCONTO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 13_TH" height="30" rowSpan="1">
-							<textField pattern="#,##0.00">
-								<reportElement style="table 13_TD" x="0" y="0" width="67" height="30" uuid="b5ccff0a-b121-4e61-9151-ba0c4df3ad82"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{VL_DESCONTO}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-					<jr:column width="110" uuid="6333e6d7-d853-45a4-ade3-3698fab9abb0">
-						<jr:tableFooter height="19" rowSpan="1"/>
-						<jr:columnHeader height="24" rowSpan="2">
-							<staticText>
-								<reportElement style="table 13_TH" x="0" y="0" width="110" height="24" forecolor="#0033FF" backcolor="#DEDDDD" uuid="6be94a95-34d7-4bff-a7cb-820a3c4622ed"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font fontName="Times New Roman" size="6" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-								</textElement>
-								<text><![CDATA[NO PERÍODO]]></text>
-							</staticText>
-						</jr:columnHeader>
-						<jr:detailCell style="table 16_TH" height="30" rowSpan="1">
-							<textField>
-								<reportElement style="TD_R" mode="Opaque" x="0" y="0" width="25" height="30" uuid="4e7b6c07-a7e6-492a-8f8d-519ef6c2aad6"/>
-								<textElement textAlignment="Center" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{MOEDA_DESTINO}]]></textFieldExpression>
-							</textField>
-							<textField pattern="¤ #,##0.00">
-								<reportElement style="TD_R" mode="Opaque" x="25" y="0" width="85" height="30" uuid="9e5c218b-2384-4836-b550-7784192b67af"/>
-								<textElement textAlignment="Left" verticalAlignment="Middle">
-									<font size="8"/>
-								</textElement>
-								<textFieldExpression><![CDATA[$F{VL_ACUMULADO}]]></textFieldExpression>
-							</textField>
-						</jr:detailCell>
-					</jr:column>
-				</jr:table>
-			</componentElement>
-			<image>
-				<reportElement x="0" y="0" width="99" height="45" uuid="3b0e149b-490a-4952-ab1e-2528af45434d"/>
-				<box>
-					<topPen lineWidth="1.0"/>
-					<leftPen lineWidth="1.0"/>
-					<bottomPen lineWidth="1.0"/>
-					<rightPen lineWidth="1.0"/>
-				</box>
-				<imageExpression><![CDATA["C:/Users/beto/Documents/Projetos JAva/aws-master/src/main/webapp/images/14A2B99C-A34D-4155-B517-BC6B5AA7DAAC.jpeg"]]></imageExpression>
-			</image>
 		</band>
 	</detail>
 	<lastPageFooter>
-		<band height="79">
+		<band height="118">
 			<frame>
-				<reportElement positionType="Float" x="609" y="0" width="193" height="70" isPrintWhenDetailOverflows="true" uuid="787b4029-fda2-48f1-b3e4-e18e0d2b1ad2"/>
+				<reportElement positionType="Float" x="609" y="23" width="193" height="70" isPrintWhenDetailOverflows="true" uuid="787b4029-fda2-48f1-b3e4-e18e0d2b1ad2"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -1705,7 +1781,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				</box>
 			</frame>
 			<staticText>
-				<reportElement style="table 8_CH" positionType="Float" mode="Opaque" x="609" y="0" width="193" height="20" isPrintWhenDetailOverflows="true" forecolor="#0033FF" backcolor="#DEDDDD" uuid="37976095-42c8-44e8-8271-a3362d21801b"/>
+				<reportElement style="table 8_CH" positionType="Float" mode="Opaque" x="609" y="23" width="193" height="20" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#DEDDDD" uuid="37976095-42c8-44e8-8271-a3362d21801b"/>
 				<box>
 					<bottomPen lineWidth="0.75"/>
 				</box>
@@ -1715,24 +1791,24 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[IMPORTA A PRESENTE MEDIÇÃO EM:]]></text>
 			</staticText>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="653" y="20" width="106" height="50" isPrintWhenDetailOverflows="true" uuid="d52d269f-d577-4e61-ae64-9eda953dc682"/>
+				<reportElement positionType="Float" x="653" y="43" width="106" height="50" isPrintWhenDetailOverflows="true" uuid="d52d269f-d577-4e61-ae64-9eda953dc682"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font size="14" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{MOEDA_DESTINO}+" "+$F{VL_TOTAL_DOCUMENTO}==null?"-":$V{vl_tributos n_incluso} == null?$F{VL_ACUMULADO}:$F{VL_TOTAL_DOCUMENTO}.add($V{vl_tributos n_incluso})]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{VL_ACUMULADO}.add($V{vl_tributos n_incluso})]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" mode="Transparent" x="609" y="20" width="44" height="50" isPrintWhenDetailOverflows="true" uuid="e38e236b-b186-4fb2-a433-d0bb26d132bf">
+				<reportElement positionType="Float" x="609" y="43" width="44" height="50" isPrintWhenDetailOverflows="true" uuid="e38e236b-b186-4fb2-a433-d0bb26d132bf">
 					<printWhenExpression><![CDATA[$F{MOEDA_DESTINO}.equals("€")?false:true]]></printWhenExpression>
 				</reportElement>
 				<box leftPadding="0"/>
 				<textElement textAlignment="Right" verticalAlignment="Middle">
 					<font size="14" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{MOEDA_DESTINO}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{MOEDA_DESTINO}==null?"-":$F{MOEDA_DESTINO}]]></textFieldExpression>
 			</textField>
 			<textField pattern="#,##0.00">
-				<reportElement positionType="Float" x="759" y="20" width="43" height="50" isPrintWhenDetailOverflows="true" uuid="26a982ce-1824-4a91-8934-6884175c23be">
+				<reportElement positionType="Float" x="759" y="43" width="43" height="50" isPrintWhenDetailOverflows="true" uuid="26a982ce-1824-4a91-8934-6884175c23be">
 					<printWhenExpression><![CDATA[$F{MOEDA_DESTINO}.equals("€")?true:false]]></printWhenExpression>
 				</reportElement>
 				<textElement verticalAlignment="Middle">
@@ -1741,7 +1817,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<textFieldExpression><![CDATA[$F{MOEDA_DESTINO}==null?"-":$F{MOEDA_DESTINO}]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table 8_CH" positionType="Float" mode="Opaque" x="201" y="0" width="204" height="20" isPrintWhenDetailOverflows="true" forecolor="#0033FF" backcolor="#DEDDDD" uuid="1f8bcc30-d8bb-4f72-81e6-7155ef29bd0b"/>
+				<reportElement style="table 8_CH" positionType="Float" mode="Opaque" x="201" y="23" width="204" height="20" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#DEDDDD" uuid="1f8bcc30-d8bb-4f72-81e6-7155ef29bd0b"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -1754,20 +1830,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[CONTRATANTE]]></text>
 			</staticText>
 			<staticText>
-				<reportElement style="table 8_CH" positionType="Float" mode="Opaque" x="405" y="0" width="204" height="20" isPrintWhenDetailOverflows="true" forecolor="#0033FF" backcolor="#DEDDDD" uuid="e1006b6c-bcac-4b91-ba97-c6d9f2eba288"/>
-				<box>
-					<topPen lineWidth="0.75"/>
-					<leftPen lineWidth="0.75"/>
-					<bottomPen lineWidth="0.75"/>
-					<rightPen lineWidth="0.75"/>
-				</box>
-				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font pdfFontName="Times-Bold" isPdfEmbedded="true"/>
-				</textElement>
-				<text><![CDATA[OBSERVAÇÕES]]></text>
-			</staticText>
-			<staticText>
-				<reportElement positionType="Float" x="201" y="20" width="204" height="50" isPrintWhenDetailOverflows="true" uuid="0087c15b-6993-4a98-9f7a-56306d8bd3f7"/>
+				<reportElement positionType="Float" x="201" y="43" width="204" height="50" isPrintWhenDetailOverflows="true" uuid="0087c15b-6993-4a98-9f7a-56306d8bd3f7"/>
 				<box>
 					<rightPen lineWidth="0.75"/>
 				</box>
@@ -1777,15 +1840,15 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[ASSINATURA]]></text>
 			</staticText>
 			<textField>
-				<reportElement positionType="Float" x="405" y="20" width="204" height="50" isPrintWhenDetailOverflows="true" uuid="47d883d1-2351-48ed-8f46-81040cbbc791"/>
+				<reportElement positionType="Float" x="-1" y="-73" width="798" height="62" isPrintWhenDetailOverflows="true" uuid="47d883d1-2351-48ed-8f46-81040cbbc791"/>
 				<box leftPadding="3"/>
-				<textElement verticalAlignment="Middle">
+				<textElement verticalAlignment="Middle" markup="html">
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{DESCRICAO}==null?"":$F{DESCRICAO}.getSubString( new Long(01), new Long($F{DESCRICAO}.length()).intValue())]]></textFieldExpression>
 			</textField>
 			<staticText>
-				<reportElement style="table 8_CH" positionType="Float" mode="Opaque" x="0" y="0" width="201" height="20" isPrintWhenDetailOverflows="true" forecolor="#0033FF" backcolor="#DEDDDD" uuid="abe477d9-e868-4976-9397-91539c6fc3c2"/>
+				<reportElement style="table 8_CH" positionType="Float" mode="Opaque" x="0" y="23" width="201" height="20" isPrintWhenDetailOverflows="true" forecolor="#000000" backcolor="#DEDDDD" uuid="abe477d9-e868-4976-9397-91539c6fc3c2"/>
 				<box>
 					<topPen lineWidth="0.75"/>
 					<leftPen lineWidth="0.75"/>
@@ -1798,7 +1861,7 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[CONTRATADA]]></text>
 			</staticText>
 			<staticText>
-				<reportElement positionType="Float" x="0" y="21" width="201" height="50" isPrintWhenDetailOverflows="true" uuid="6563a7fe-0e24-45cb-a8e0-d47ed17ecb98"/>
+				<reportElement positionType="Float" x="0" y="43" width="201" height="50" isPrintWhenDetailOverflows="true" uuid="6563a7fe-0e24-45cb-a8e0-d47ed17ecb98"/>
 				<box>
 					<rightPen lineWidth="0.75"/>
 				</box>
@@ -1808,10 +1871,10 @@ DOCUMENTO.seq_documento = $P{pSeqDocumento} and ROWNUM = 1]]>
 				<text><![CDATA[ASSINATURA]]></text>
 			</staticText>
 			<line>
-				<reportElement positionType="Float" x="214" y="60" width="180" height="1" isPrintWhenDetailOverflows="true" uuid="165783b5-1b75-4580-bebf-3e54a94526e2"/>
+				<reportElement positionType="Float" x="214" y="83" width="180" height="1" isPrintWhenDetailOverflows="true" uuid="165783b5-1b75-4580-bebf-3e54a94526e2"/>
 			</line>
 			<line>
-				<reportElement positionType="Float" x="13" y="59" width="176" height="1" isPrintWhenDetailOverflows="true" uuid="53906a35-adfd-4131-8455-933d8308fb3e"/>
+				<reportElement positionType="Float" x="13" y="82" width="176" height="1" isPrintWhenDetailOverflows="true" uuid="53906a35-adfd-4131-8455-933d8308fb3e"/>
 			</line>
 		</band>
 	</lastPageFooter>

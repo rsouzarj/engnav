@@ -147,8 +147,15 @@ public class NvCertificadoController {
 	String seqVistoriaEmissao = "";
 
 	String seqTipoCertificadoEmissao = "";
+        
+        String identificacao;
 
 	int limitePrazo = 0;
+        
+       String maraberto;
+        
+       
+    
 
 	public void iniciar() {
 		if ((this.loginController.usuario.getAcOpCertificado() == null)
@@ -285,7 +292,8 @@ public class NvCertificadoController {
 			}
 		}
 
-		this.nvCertificado.setSeqNvCertificado("-1");
+		
+                this.nvCertificado.setSeqNvCertificado("-1");
 		this.nvCertificado.setSeqNvEmbarcacao(this.nvEmbarcacao.getSeqNvEmbarcacao());
 		this.nvCertificado.setEmbarcacaoNome(this.nvEmbarcacao.getNome());
 		this.nvCertificado.setDataEmissao(new Date());
@@ -480,7 +488,7 @@ public class NvCertificadoController {
 	}
 
 	public void salvar(int pTela) {
-		/*this.nvCertificado.setSeqUnidadeNegocio(this.unidadeNegocio.getSeqUnidadeNegocio());*/
+		
                 this.nvTipoCertificado = this.nvTipoCertificadoService
 				.buscar(this.nvCertificado.getSeqNvTipoCertificado());
 		NvVistoria nvVistoriaTMP = this.nvVistoriaService
@@ -603,13 +611,15 @@ public class NvCertificadoController {
 			System.out.println(
 					"SEQ COLABORADOR -> " + this.nvCertificado.getSeqColaborador());
 		}
-		verificarPrazo();
-		listar();
-		FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
-				FacesMessage.SEVERITY_INFO, "Registro armazenado com sucesso.", ""));
-		this.tela = pTela;
-	}
+        
 
+                    verificarPrazo();
+                    listar();
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(
+                            FacesMessage.SEVERITY_INFO, "Registro armazenado com sucesso.", ""));
+                    this.tela = pTela;
+        }
+        
 	public void novo() {
 		this.nvCertificado = new NvCertificado();
 		listarDetalhe();
@@ -619,7 +629,7 @@ public class NvCertificadoController {
 
 	public void listar() {
 		this.listaNvCertificado = this.nvCertificadoService.listar(
-				this.loginController.getEmpresa().getSeqEmpresa(), this.pesquisa,
+				this.loginController.getEmpresa().getSeqEmpresa(), this.nvCertificado.getSeqNvCertificado(),
 				Situacao.TODOS);
 	}
 
@@ -749,7 +759,7 @@ public class NvCertificadoController {
 			}
 			else if (this.nvCertificado.getSeqNvTipoCertificado().equals("161")) {
 				//feito
-				caminho = "/relatorio/CSN/NAVEGAÇÃO INTERIOR/03/03 - PROV-COND.jasper"; //
+				caminho = "/relatorio/CSN/NAVEGAÇÃO INTERIOR/03/03 - PROV-COND.jasper"; 
 			}
 			else if (this.nvCertificado.getSeqNvTipoCertificado().equals("162")) {
 				//feito
@@ -951,7 +961,7 @@ public class NvCertificadoController {
 		parametro.put("pEmissao",
 				this.util.DataPorExtenso(
 						"Expedido em: " + this.nvCertificado.getLocalEmissao() + ", ",
-						this.nvCertificado.getDataCadastro()));
+						this.nvCertificado.getDataEmissao()));
 		Date data = new Date();
 		Locale local = new Locale("pt", "BR");
 		DateFormat dateFormat = new SimpleDateFormat("dd 'de' MMMM 'de' yyyy", local);
@@ -1525,5 +1535,21 @@ public class NvCertificadoController {
         public void setSeqUnidadeNegocioSelecionada(String seqUnidadeNegocioSelecionada) {
         this.seqUnidadeNegocioSelecionada = seqUnidadeNegocioSelecionada;
         }
+        
+        public String getMaraberto() {
+            return this.maraberto;
+        }
+
+        public void setMaraberto(String maraberto) {
+            this.maraberto = maraberto;
+        }
+        
+	public String getIdentificacao() {
+		return this.identificacao;
+	}
+
+	public void setIdentificacao(String identificacao) {
+		this.identificacao = identificacao;
+	}        
       
 }

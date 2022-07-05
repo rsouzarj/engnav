@@ -5,10 +5,8 @@
 /*    */ 
 /*    */ public class ParceiroCaracteristica
 /*    */ {
-/*    */   private String seqTipoCaracteristica;
-/*    */   
-/*    */ 
-/*    */ 
+/*    */   private String seqParceiroCaracteristica;
+           private String seqTipoCaracteristica;
 /*    */   private String seqParceiro;
 /*    */   
 /*    */ 
@@ -29,10 +27,12 @@
 /*    */   public void setSeqParceiro(String seqParceiro) {
 /* 30 */     this.seqParceiro = seqParceiro;
 /*    */   }
+
+/*    */   public String getSeqParceiroCaracteristica() {
+/* 26 */     return this.seqParceiroCaracteristica;
+/*    */   }
+/*    */   
+/*    */   public void setSeqParceiroCaracteristica(String seqParceiroCaracteristica) {
+/* 30 */     this.seqParceiroCaracteristica = seqParceiroCaracteristica;
+/*    */   }
 /*    */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/ParceiroCaracteristica/ParceiroCaracteristica.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

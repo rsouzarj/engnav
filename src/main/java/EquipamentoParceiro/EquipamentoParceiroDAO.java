@@ -12,12 +12,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class EquipamentoParceiroDAO
 /*     */ {
 /*     */   public EquipamentoParceiro inserir(EquipamentoParceiro equipamentoParceiro)
@@ -74,14 +69,8 @@
 /*     */     try {
 /*  75 */       Conexao conexao = new Conexao();
 /*  76 */       Connection conn = Conexao.getConnection();
-/*  77 */       String sql = "SELECT EQUIPAMENTO_PARCEIRO.*,\n equipamento.nome nomeEquipamento,\n parceiro.nome nomeParceiro FROM EQUIPAMENTO_PARCEIRO inner join equipamento on equipamento.seq_equipamento = equipamento_parceiro.seq_equipamento\n inner join parceiro on parceiro.seq_parceiro = EQUIPAMENTO_PARCEIRO.seq_parceiro " + sClausula.montarsClausula();
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+/*  77 */       String sql = "SELECT EQUIPAMENTO.*, equipamento_parceiro.seq_equipamento_parceiro, equipamento_parceiro.seq_parceiro ,parceiro.nome nomeParceiro, equipamento.nome nomeEquipamento, equipamento.nserie, equipamento.capacidade_max , equipamento.modelo, equipamento.fmas FROM EQUIPAMENTO inner join equipamento_parceiro on equipamento_parceiro.seq_equipamento = equipamento.seq_equipamento inner join parceiro on parceiro.seq_parceiro = EQUIPAMENTO_PARCEIRO.seq_parceiro " + sClausula.montarsClausula();
+
 /*  85 */       System.out.println(sql);
 /*     */       
 /*  87 */       List<EquipamentoParceiro> listaEquipamentoParceiro = new ArrayList();
@@ -95,6 +84,11 @@
 /*  95 */         equipamentoParceiro.setSeqEquipamento(rs.getString("SEQ_EQUIPAMENTO"));
 /*  96 */         equipamentoParceiro.setParceiroNome(rs.getString("nomeParceiro"));
 /*  97 */         equipamentoParceiro.setEquipamentoNome(rs.getString("nomeEquipamento"));
+                  equipamentoParceiro.setCapacidadeMax(rs.getString("capacidade_max"));
+                  equipamentoParceiro.setModelo(rs.getString("MODELO"));
+/*  97 */         equipamentoParceiro.setNserie(rs.getString("NSERIE"));
+                  equipamentoParceiro.setFmas(rs.getString("FMAS"));
+
 /*  98 */         listaEquipamentoParceiro.add(equipamentoParceiro);
 /*     */       }
 /*     */       
@@ -129,8 +123,3 @@
 /*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/EquipamentoParceiro/EquipamentoParceiroDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

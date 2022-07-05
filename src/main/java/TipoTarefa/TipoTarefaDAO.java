@@ -12,13 +12,9 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
+
+
 /*     */ public class TipoTarefaDAO
 /*     */ {
 /*     */   public TipoTarefa inserir(TipoTarefa tipoTarefa)
@@ -144,9 +140,3 @@
 /* 144 */     return false;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/TipoTarefa/TipoTarefaDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

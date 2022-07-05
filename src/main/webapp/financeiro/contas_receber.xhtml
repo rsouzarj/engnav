@@ -620,7 +620,7 @@
                                                 <f:selectItem value="#{null}" itemLabel="Selecione" itemValue="#{null}"/>
                                                 <f:selectItem itemLabel="Parcial" itemValue="PARCIAL"/>
                                                 <f:selectItem itemLabel="Total" itemValue="TOTAL"/>
-                                                <p:ajax event="change" update="quitacao"/>
+                                                <p:ajax event="change" listener="#{financeiroController.calcularSaldoReceber()}" update="quitacao pnlValorR"/>
                                             </p:selectOneMenu>
                                         </p:panelGrid>
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 

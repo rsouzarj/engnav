@@ -13,6 +13,7 @@ public class EventoAdicionais
   String seqTipoAgenda;
   String nomeParceiro;
   String nomeTipoAgenda;
+  String responsavel;
   
   public EventoAdicionais() {}
   
@@ -61,6 +62,14 @@ public class EventoAdicionais
   public void setNomeTipoAgenda(String nomeTipoAgenda) {
     this.nomeTipoAgenda = nomeTipoAgenda;
   }
+
+    public String getResponsavel() {
+        return this.responsavel;
+    }
+
+    public void setResponsavel(String responsavel) {
+        this.responsavel = responsavel;
+    } 
   
 }
 

@@ -35,6 +35,16 @@
 /* 37 */     listaAgenda = dao.listar(condicao);
 /* 38 */     return listaAgenda;
 /*    */   }
+
+/*    */   public List<Agenda> listarTodosUsuarios(String pSeqUsuario)
+/*    */   {
+/* 33 */     AgendaDAO dao = new AgendaDAO();
+/* 34 */     List<Agenda> listaAgenda = new ArrayList();
+/* 35 */     ClausulaWhere condicao = new ClausulaWhere();
+/* 36 */     listaAgenda = dao.listar(condicao);
+/* 38 */     return listaAgenda;
+/*    */   }
+
 /*    */   
 /*    */   public boolean deletar(Agenda agenda) {
 /* 42 */     AgendaDAO dao = new AgendaDAO();
@@ -43,7 +53,3 @@
 /*    */ }
 
 
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Agenda/AgendaService.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

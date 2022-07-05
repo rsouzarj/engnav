@@ -37,6 +37,8 @@ import Util.Modulo;
 import Util.PastaDisco;
 import Util.Situacao;
 import Util.Util;
+import Agenda.Agenda;
+import Agenda.AgendaService;
 
 @SessionScoped
 @ManagedBean(name = "loginController")
@@ -50,7 +52,8 @@ public class LoginController implements HttpSessionListener {
 	EmpresaService empresaService = new EmpresaService();
 
 	List<TipoDocumento> listaTipoDocumento = new ArrayList();
-	TipoDocumentoService tipoDocumentoService = new TipoDocumentoService();
+	TipoDocumento tipoDocumento = new TipoDocumento();
+        TipoDocumentoService tipoDocumentoService = new TipoDocumentoService();
 	HashMap<String, String> listaTipoDocumentoContador = new HashMap();
 
 	List<TipoVinculo> listaTipoVinculo = new ArrayList();
@@ -62,6 +65,12 @@ public class LoginController implements HttpSessionListener {
 
 	ComissaoService comissaoService = new ComissaoService();
 	List<Comissao> listaComissao = new ArrayList();
+        
+      	AgendaService agendaService = new AgendaService();
+	Agenda agenda = new Agenda();
+	List<Agenda> listaAgenda = new ArrayList();  
+        
+             
 
 	private HttpSession session;
 	String vLogin = null;
@@ -88,6 +97,9 @@ public class LoginController implements HttpSessionListener {
 
 		this.listaTipoDocumentoContador = this.tipoDocumentoService.listarContador(this.empresa.getSeqEmpresa(),
 				this.usuario.getSeqUsuario());
+                
+		this.listaTipoDocumentoContador = this.tipoDocumentoService.listarContador(this.empresa.getSeqEmpresa(),
+				this.usuario.getSeqUsuario());                
 	}
 
 	public void iniciarComercial() {
@@ -324,6 +336,14 @@ public class LoginController implements HttpSessionListener {
 	public void setListaTipoDocumento(List<TipoDocumento> listaTipoDocumento) {
 		this.listaTipoDocumento = listaTipoDocumento;
 	}
+        
+	public TipoDocumento getTipoDocumento() {
+		return this.tipoDocumento;
+	}
+
+	public void setTipoDocumento(TipoDocumento tipoDocumento) {
+		this.tipoDocumento = tipoDocumento;
+	}        
 
 	public TipoDocumentoService getTipoDocumentoService() {
 		return this.tipoDocumentoService;

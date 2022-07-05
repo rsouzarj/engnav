@@ -1,7 +1,13 @@
 package Controller;
 
+import UnidadeNegocio.UnidadeNegocio;
+import UnidadeNegocio.UnidadeNegocioService;
 import Anotacao.Anotacao;
 import Anotacao.AnotacaoService;
+import ClausulaSQL.ClausulaWhere;
+import ClausulaSQL.GeneroCondicaoWhere;
+import ClausulaSQL.OperacaoCondicaoWhere;
+import ClausulaSQL.TipoCondicaoWhere;
 import Documento.Documento;
 import Documento.DocumentoService;
 import DocumentoItemMaterial.DocumentoItemMaterial;
@@ -31,30 +37,45 @@ import TipoParceiro.TipoParceiro;
 import TipoParceiro.TipoParceiroService;
 import TipoVinculo.TipoVinculo;
 import TipoVinculo.TipoVinculoService;
+import GrupoEmpresarial.GrupoEmpresarial;
+import GrupoEmpresarial.GrupoEmpresarialService;        
 import Uf.Uf;
 import Uf.UfService;
+import Upload.Upload;
+import Upload.UploadService;
 import Usuario.Usuario;
 import Util.Cep;
+import Util.Conexao;
 import Util.Retorno;
 import Util.Situacao;
 import Util.Util;
+import java.io.ByteArrayOutputStream;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintStream;
+import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-
-
-
-
-
-
-
+import javax.servlet.ServletContext;
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JRExporterParameter;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import org.primefaces.model.StreamedContent;
+import org.primefaces.model.UploadedFile;
 
 
 @ManagedBean(name="parceiroController")
@@ -67,10 +88,11 @@ public class ParceiroController
   Parceiro parceiro = new Parceiro();
   List<Parceiro> listaParceiro = new ArrayList();
   String pesquisa;
+  Long seqParceiroSelecionado;
   Integer tela = Integer.valueOf(0);
   
   List<Uf> listaUf = new ArrayList();
-  
+  boolean bCaractreistica = false;
   String id = "";
   String tituloPagina;
   List<TipoParceiro> listaTipoParceiro = new ArrayList();
@@ -108,6 +130,10 @@ public class ParceiroController
   TipoCaracteristica tipoCaracteristica = new TipoCaracteristica();
   List<TipoCaracteristica> listaTipoCaracteristica = new ArrayList();
   
+  GrupoEmpresarialService grupoEmpresarialService = new GrupoEmpresarialService();
+  GrupoEmpresarial grupoEmpresarial = new GrupoEmpresarial();
+  List<GrupoEmpresarial> listaGrupoEmpresarial = new ArrayList();
+  
   ParceiroCaracteristicaService parceiroCaracteristicaService = new ParceiroCaracteristicaService();
   ParceiroCaracteristica parceiroCaracteristica = new ParceiroCaracteristica();
   List<ParceiroCaracteristica> listaParceiroCaracteristica = new ArrayList();
@@ -130,11 +156,25 @@ public class ParceiroController
   String seqParceiroVinculado;
   TipoParceiroService tipoParceiroService = new TipoParceiroService();
   
+  UnidadeNegocio unidadeNegocio = new UnidadeNegocio();
+  UnidadeNegocioService unidadeNegocioService = new UnidadeNegocioService();
+  List<UnidadeNegocio> listaUnidadeNegocio = new ArrayList();
+  String seqUnidadeNegocioSelecionado = "";  
+  
+  Upload upload = new Upload();
+  UploadService uploadService = new UploadService();
+  UploadController uploadController = new UploadController();
+  List<Upload> listaUpload = new ArrayList();  
+        
+  UploadedFile file;
+  StreamedContent fileDownload;    
+  
 
   public void iniciar()
   {
     this.listaTipoParceiro = this.tipoParceiroService.listar(this.loginController.getEmpresa().getSeqEmpresa(), Situacao.ATIVO);
-    
+    this.listaGrupoEmpresarial = this.grupoEmpresarialService.listarP(this.loginController.getEmpresa().getSeqEmpresa(), Situacao.ATIVO);
+    this.listaParceiro = this.parceiroService.listarTudo(this.loginController.getUsuario().getSeqUsuario());
     if (this.id.equals(""))
     {
       if ((this.loginController.usuario.getAcParTodos() == null) || (this.loginController.usuario.getAcParTodos().equals("-1"))) {
@@ -174,22 +214,13 @@ public class ParceiroController
     this.listaTipoParceiro = tipoParceiroService.listar(this.loginController.getEmpresa().getSeqEmpresa(), Situacao.ATIVO);
     this.listaTipoCaracteristica = this.tipoCaracteristicaService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
     this.listaTipoEndereco = this.tipoEnderecoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
-    
+    this.listaUnidadeNegocio = this.unidadeNegocioService.listar(this.loginController.empresa.getSeqEmpresa(), "", Situacao.ATIVO);    
     this.listaTabelaPreco = this.tabelaPrecoService.listar(this.loginController.getUsuario().getSeqEmpresa(), "", Situacao.ATIVO);
     System.out.println("ID: " + this.id);
   }
-  
 
 
-
-
-
-
-
-
-
-
-  public void buscarDadosReceitaFederal()
+  public void buscarDadosReceitaFederal() throws IOException
   {
     if (this.parceiro.getDocumento().length() == 18) {
       Util util = new Util();
@@ -227,7 +258,10 @@ public class ParceiroController
     this.parceiro.setSeqEmpresa(this.loginController.getEmpresa().getSeqEmpresa());
     
     this.parceiro.setSeqParceiroInclusao(this.loginController.getUsuario().getSeqParceiro());
-    
+    for (ParceiroCaracteristica detalhe : this.listaParceiroCaracteristica) {
+	detalhe.setSeqParceiro(this.parceiro.getSeqParceiro());
+        detalhe = this.parceiroCaracteristicaService.salvar(detalhe);
+    }    
 
     if (this.loginController.getUsuario().getChaveOrigem() != null) {
       this.parceiro.setSeqUsuario(String.valueOf(this.loginController.getUsuario().getChaveOrigem()));
@@ -250,15 +284,16 @@ public class ParceiroController
     this.parceiro = ((Parceiro)retorno.getClasse());
     
 
-    this.parceiroCaracteristicaService.deletar(this.parceiro.getSeqParceiro());
-    
+    /*this.parceiroCaracteristicaService.deletar(this.parceiro.getSeqParceiro());
+      
     for (String s : this.caracteristicasSelecionada) {
       this.parceiroCaracteristica.setSeqParceiro(this.parceiro.getSeqParceiro());
-      this.parceiroCaracteristica.setSeqTipoCaracteristica(String.valueOf(s));
+      this.parceiroCaracteristica.setSeqTipoCaracteristica(s);
       this.parceiroCaracteristicaService.salvar(this.parceiroCaracteristica);
-    }
+    }*/
+    listarContato();
     
-    this.tela = Integer.valueOf(pTela);
+    this.tela = Integer.valueOf(1);
     
     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, retorno.getMsg(), ""));
   }
@@ -269,11 +304,27 @@ public class ParceiroController
     this.tela = Integer.valueOf(1);
     this.listaTipoParceiro = this.tipoParceiroService.listar(this.loginController.getEmpresa().getSeqEmpresa(), Situacao.ATIVO);
     this.parceiro.setTipo("Pessoa Jurídica");
+    this.tela = Integer.valueOf(1);
   }
   
   public void listar() {
     this.listaParceiro = this.parceiroService.listarParceiro(this.loginController.getUsuario().getSeqUsuario(), this.pesquisa);
   }
+  
+  public void filtrar() {
+    boolean executar = true;
+      ClausulaWhere condicao = new ClausulaWhere();
+    condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio,"parceiro.seq_empresa", GeneroCondicaoWhere.igual,String.valueOf(this.loginController.getEmpresa().getSeqEmpresa()), TipoCondicaoWhere.Numero);
+    
+     if  (this.seqParceiroSelecionado != null) {
+			condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "parceiro.seq_parceiro",
+					GeneroCondicaoWhere.igual, String.valueOf(this.seqParceiroSelecionado), TipoCondicaoWhere.Numero);
+                                                }
+    if (executar) {
+         this.listaParceiro = this.parceiroService.listar(condicao);                 
+         			} }
+   
+  
   
   public void deletar() {
     Retorno retorno = this.parceiroService.deletar(this.parceiro.getSeqEmpresa(), this.parceiro.getCodigo());
@@ -355,6 +406,15 @@ public class ParceiroController
     this.listaDocumento = this.processoService.listarPorParceiro(this.loginController.getUsuario().getSeqEmpresa(), this.parceiro.getSeqParceiro());
   }
   
+          public void listarUpload()  {
+                this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
+				this.parceiro.getSeqParceiro());
+		
+        }
+  public void limparCaracteristica() {
+    this.parceiro.getListaParceiroCaracteristica().clear();
+  }        
+  
   public void selecionarDocumento(Documento pDocumento) {
     this.processo = pDocumento;
   }
@@ -387,12 +447,18 @@ public class ParceiroController
     this.listaParceiroEndereco = this.parceiroEnderecoService.listar(this.parceiro.getSeqParceiro(), Situacao.ATIVO);
   }
   
+  
+    public void listarCaracteristica() {
+    this.listaParceiroCaracteristica = this.parceiroCaracteristicaService.listarPorParceiro(this.parceiro.getSeqParceiro());
+  }
+  
   public void salvarEndereco() {
     this.parceiroEndereco.setSeqParceiro(this.parceiro.getSeqParceiro());
     this.parceiroEndereco = this.parceiroEnderecoService.salvar(this.parceiroEndereco);
     listarEndereco();
     FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Endereço armazenado com sucesso!.", ""));
   }
+  
   
   public void deletarEndereco()
   {
@@ -444,34 +510,38 @@ public class ParceiroController
 
   public void selecionar(Parceiro pParceiro)
   {
-    this.parceiro = this.parceiroService.buscar(this.loginController.getUsuario().getSeqEmpresa(), pParceiro.getCodigo());
+    this.parceiro = this.parceiroService.buscar(this.loginController.getUsuario().getSeqEmpresa(), pParceiro.getSeqParceiro());
     
     this.listaParceiroVinculo = this.ParceiroVinculoService.listar(this.parceiro.getSeqParceiro());
     this.listaAnotacao = this.anotacaoService.listarPorParceiro(this.parceiro.getSeqParceiro());
     this.listaDocumento = this.processoService.listarPorParceiro(this.loginController.getUsuario().getSeqEmpresa(), this.parceiro.getSeqParceiro());
     this.listaTipoDocumento = this.tipoDocumentoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO, this.loginController.getUsuario().getSeqUsuario());
-    this.listaParceiroCaracteristica = this.parceiroCaracteristicaService.listarPorParceiro(this.parceiro.getSeqParceiro());
     this.listaTipoParceiro = this.tipoParceiroService.listar(this.loginController.getEmpresa().getSeqEmpresa(), Situacao.ATIVO);
+    
     
     listarEndereco();
     listarContato();
+    listarUpload();
+    listarCaracteristica();
     
+    /*this.parceiro.getListaParceiroCaracteristica().clear();
     for (int i = 0; i < this.listaParceiroCaracteristica.size(); i++) {
       this.caracteristicasSelecionada.add(String.valueOf(((ParceiroCaracteristica)this.listaParceiroCaracteristica.get(i)).getSeqTipoCaracteristica()));
-    }
-    
-    this.tela = Integer.valueOf(1);
+    }*/
+
+    this.tela = 1;
   }
   
-  public void listarCaracteristicaSelecionada()
+ /* public void listarCaracteristicaSelecionada()
   {
     for (String s : this.caracteristicasSelecionada) {
       System.out.println(s);
     }
-  }
+  }*/
   
   public void mudarTela(Integer pTela)
   {
+        
     this.tela = pTela;
   }
   
@@ -495,6 +565,106 @@ public class ParceiroController
   }
   
 
+	public void upload() {
+		this.upload.setSeqParceiro(this.parceiro.getSeqParceiro());
+                this.upload.setOrigem("PARCEIRO" + "-" + this.parceiro.getNome());
+		this.upload.setSeqEmpresa(this.loginController.empresa.getSeqEmpresa());
+		this.upload.setSeqUsuario(this.loginController.usuario.getSeqUsuario());
+		this.uploadController.upload(this.file, this.upload);
+		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
+				this.parceiro.getSeqParceiro());
+		this.upload = new Upload();
+	}
+
+	public void download(Upload pUpload) {
+		if (pUpload.getNomeArquivo().contains("pdf")) {
+			visualizar(pUpload);
+		} else {
+			this.fileDownload = this.uploadController.download(pUpload);
+		}
+	}
+
+	public void visualizar(Upload pUpload) {
+		try {
+			FileInputStream s = new FileInputStream(pUpload.getUrl());
+
+			ByteArrayOutputStream bos = new ByteArrayOutputStream();
+
+			byte[] buf = new byte['Ѐ'];
+			try {
+				int readNum;
+				while ((readNum = s.read(buf)) != -1) {
+					bos.write(buf, 0, readNum);
+					System.out.println("read " + readNum + " bytes,");
+				}
+			} catch (IOException ex) {
+				Logger.getLogger(DocumentoController.class.getName()).log(Level.SEVERE, null, ex);
+			}
+
+			byte[] bytes = bos.toByteArray();
+
+			HttpServletResponse response = (HttpServletResponse) FacesContext.getCurrentInstance().getExternalContext()
+					.getResponse();
+
+			response.setHeader("Content-Disposition", "inline; filename=" + pUpload.getNomeArquivo());
+			OutputStream output = response.getOutputStream();
+			output.write(bytes);
+			response.flushBuffer();
+			FacesContext.getCurrentInstance().responseComplete();
+		} catch (IOException ex) {
+			Logger.getLogger(DocumentoController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public void removerAnexo(Upload pUpload) {
+		this.uploadController.deletar(pUpload);
+		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
+				this.parceiro.getSeqParceiro());
+	}
+        
+        
+        public void imprimir() throws IOException, JRException {
+
+        HashMap parametro = new HashMap();
+        Conexao conexao = new Conexao();
+        Connection conn = Conexao.getConnection();
+
+        String caminho = "/relatorio/PARCEIRO/parceiro.jasper";
+        parametro.put("pSeqParceiro", Integer.valueOf(this.parceiro.getSeqParceiro()));
+        
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+
+        facesContext.responseComplete();
+        ServletContext scontext = (ServletContext) facesContext.getExternalContext()
+                .getContext();
+        System.out.println(caminho);
+        JasperPrint jasperPrint = JasperFillManager
+                .fillReport(scontext.getRealPath(caminho), parametro, conn);
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        JRPdfExporter exporter = new JRPdfExporter();
+
+        exporter.setParameter(JRExporterParameter.JASPER_PRINT, jasperPrint);
+
+        exporter.setParameter(JRExporterParameter.OUTPUT_STREAM, baos);
+
+        exporter.exportReport();
+        byte[] bytes = baos.toByteArray();
+
+        if ((bytes != null) && (bytes.length > 0)) {
+            HttpServletResponse responseeqp = (HttpServletResponse) facesContext
+                    .getExternalContext().getResponse();
+            responseeqp.setContentType("application/pdf");
+            responseeqp.setHeader("Content-disposition",
+                    "inline; filename=\"parceiro.pdf\"");
+            responseeqp.setContentLength(bytes.length);
+            ServletOutputStream outputStream = responseeqp.getOutputStream();
+            outputStream.write(bytes, 0, bytes.length);
+            outputStream.flush();
+            outputStream.close();
+        }
+    }        
+  
+  
   public LoginController getLoginController()
   {
     return this.loginController;
@@ -919,10 +1089,94 @@ public class ParceiroController
   public void setSeqParceiroVinculado(String seqParceiroVinculado) {
     this.seqParceiroVinculado = seqParceiroVinculado;
   }
+  
+	public Upload getUpload() {
+		return this.upload;
+	}
+
+	public void setUpload(Upload upload) {
+		this.upload = upload;
+	}
+
+	public UploadService getUploadService() {
+		return this.uploadService;
+	}
+
+	public void setUploadService(UploadService uploadService) {
+		this.uploadService = uploadService;
+	}
+
+	public List<Upload> getListaUpload() {
+		return this.listaUpload;
+	}
+
+	public void setListaUpload(List<Upload> listaUpload) {
+		this.listaUpload = listaUpload;
+	}
+
+	public UploadedFile getFile() {
+		return this.file;
+	}
+
+	public UploadController getUploadController() {
+		return this.uploadController;
+	}
+
+	public void setUploadController(UploadController uploadController) {
+		this.uploadController = uploadController;
+	}
+
+	public StreamedContent getFileDownload() {
+		return this.fileDownload;
+	}
+
+	public void setFileDownload(StreamedContent fileDownload) {
+		this.fileDownload = fileDownload;
+	}
+
+	public void setFile(UploadedFile file) {
+		this.file = file;
+	} 
+	public UnidadeNegocio getUnidadeNegocio() {
+		return this.unidadeNegocio;
+	}
+
+	public void setUnidadeNegocio(UnidadeNegocio unidadeNegocio) {
+		this.unidadeNegocio = unidadeNegocio;
+	}
+
+	public UnidadeNegocioService getUnidadeNegocioService() {
+		return this.unidadeNegocioService;
+	}
+
+	public void setUnidadeNegocioService(UnidadeNegocioService unidadeNegocioService) {
+		this.unidadeNegocioService = unidadeNegocioService;
+	}
+
+	public List<UnidadeNegocio> getListaUnidadeNegocio() {
+		return this.listaUnidadeNegocio;
+	}
+
+	public void setListaUnidadeNegocio(List<UnidadeNegocio> listaUnidadeNegocio) {
+		this.listaUnidadeNegocio = listaUnidadeNegocio;
+	}
+
+	public Long getSeqParceiroSelecionado() {
+		return this.seqParceiroSelecionado;
+	}
+
+	public void setSeqParceiroSelecionado(Long seqParceiroSelecionado) {
+		this.seqParceiroSelecionado = seqParceiroSelecionado;
+	}
+
+	public List<GrupoEmpresarial> getListaGrupoEmpresarial() {
+		return this.listaGrupoEmpresarial;
+	}
+
+	public void setListaGrupoEmpresarial(List<GrupoEmpresarial> listaGrupoEmpresarial) {
+		this.listaGrupoEmpresarial = listaGrupoEmpresarial;
+	}
+
+       
 }
 
-
-/* Location:              C:\Users\diogo\Documents\workspace\others\prod erp\deploy\erp3.war!\WEB-INF\classes\Controller\ParceiroController.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

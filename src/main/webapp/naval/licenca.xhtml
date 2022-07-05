@@ -166,7 +166,7 @@
                     <h:form id="frmDetalhe">
                         <p:panelGrid rendered="#{nvLicencaController.tela == 1}" columns="6"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-12,ui-grid-col-2,ui-grid-col-2,ui-grid-col-0">
                             <h2>#{nvLicencaController.nvLicenca.embarcacaoNome}</h2>
-                            <p:commandButton value="Salvar" actionListener="#{nvLicencaController.salvar(1)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpLicenca == 1}"/>
+                            <p:commandButton value="Salvar" actionListener="#{nvLicencaController.salvar(0)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acOpLicenca == 1}"/>
                             <p:commandButton value="Voltar" immediate="true" actionListener="#{nvLicencaController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
 
                             <p:commandButton value="Imprimir" actionListener="#{nvLicencaController.imprimir()}" immediate="true" ajax="false"  onclick="this.form.target = '_blank'"/>
@@ -222,12 +222,12 @@
                             </p:panelGrid-->
 
                             <p:panelGrid id="pnlIdentificacao" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                <h:outputText value="Identificação" />
+                               <!-- <h:outputText value="Identificação" />
                                 <p:inputText value="#{nvLicencaController.nvLicenca.identificacao}" required="true" requiredMessage="Identificação é obrigatória!" rendered="#{nvLicencaController.nvLicenca.seqNvTipoLicenca == null or nvLicencaController.nvLicenca.seqNvTipoLicenca eq '16'}"/>                
                                 <p:inputMask value="#{nvLicencaController.nvLicenca.identificacao}" mask="Nº717LA99999/2099" rendered="#{nvLicencaController.nvLicenca.seqNvTipoLicenca eq '19'}" required="true" requiredMessage="Identificação é obrigatória!"/>
                                 <p:inputMask value="#{nvLicencaController.nvLicenca.identificacao}" mask="Nº717LC99999/2099" rendered="#{nvLicencaController.nvLicenca.seqNvTipoLicenca eq '18'}" required="true" requiredMessage="Identificação é obrigatória!"/>
                                 <p:inputMask value="#{nvLicencaController.nvLicenca.identificacao}" mask="Nº717LR99999/2099" rendered="#{nvLicencaController.nvLicenca.seqNvTipoLicenca eq '21'}" required="true" requiredMessage="Identificação é obrigatória!"/>
-                                <p:inputMask value="#{nvLicencaController.nvLicenca.identificacao}" mask="Nº717EC99999/2099" rendered="#{nvLicencaController.nvLicenca.seqNvTipoLicenca eq '20'}" required="true" requiredMessage="Identificação é obrigatória!"/>
+                                <p:inputMask value="#{nvLicencaController.nvLicenca.identificacao}" mask="Nº717EC99999/2099" rendered="#{nvLicencaController.nvLicenca.seqNvTipoLicenca eq '20'}" required="true" requiredMessage="Identificação é obrigatória!"/>-->
                             </p:panelGrid>
 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
@@ -252,16 +252,14 @@
 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <h:outputText value="Data de Emissão" />
-                                <p:inputMask mask="99/99/9999"   value="#{nvLicencaController.nvLicenca.dataEmissao}" required="true" requiredMessage="Data de Emissão é obrigatório!">                
-                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
-                                </p:inputMask>
+                                <p:calendar locale="pt" pattern="dd/MM/yyyy" value="#{nvLicencaController.nvLicenca.dataEmissao}" required="true" requiredMessage="Data de Emissão é obrigatório!"/>                
                             </p:panelGrid>
 
                             <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <h:outputText value="Data de Validade" />
-                                <p:inputMask mask="99/99/9999"   value="#{nvLicencaController.nvLicenca.validadeLicencaTemporaria}">                
-                                    <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
-                                </p:inputMask>
+                                <p:calendar locale="pt" pattern="dd/MM/yyyy"     value="#{nvLicencaController.nvLicenca.validadeLicencaTemporaria}"/>                
+                                 <!--<p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{nvVistoriaController.upload.dataEmissao}"/>   <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>-->
+                                
                             </p:panelGrid>
 
                             <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" > 

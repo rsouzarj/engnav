@@ -18,6 +18,7 @@ public class NvAvisos
     private Date dataInicial;
     private Date dataFinal;
     private String seqEmpresa;
+    private String email;
     
      /*private Date dataEmissao;
     private Date dataValidade;
@@ -135,4 +136,12 @@ public class NvAvisos
     public void setSeqEmpresa(String seqEmpresa) {
         this.seqEmpresa = seqEmpresa;
     }
+  public String getEmail() {
+        return this.email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
+    }    
+    
 }

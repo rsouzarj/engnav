@@ -20,6 +20,7 @@
 /*     */   private String email;
 /*     */   private String seqEmpresa;
 /*     */   private String seqParceiro;
+            private String cargo;
 /*     */   
 /*     */   public String getSeqParceiroContato()
 /*     */   {
@@ -101,10 +102,13 @@
 /*     */   public void setTelefone2(String telefone2) {
 /* 102 */     this.telefone2 = telefone2;
 /*     */   }
+
+/*     */   public String getCargo() {
+/*  98 */     return this.cargo;
+/*     */   }
+/*     */   
+/*     */   public void setCargo(String cargo) {
+/* 102 */     this.cargo = cargo;
+/*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/ParceiroContato/ParceiroContato.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

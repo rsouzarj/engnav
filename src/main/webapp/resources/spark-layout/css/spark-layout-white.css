@@ -95,10 +95,10 @@ body{margin:0px; background-image:url("#{resource['spark-layout:images/backgroun
 .menu-mask-open{width:100%; height:100%; opacity:0.4 !important;}
 
 /* Layout Top Bar*/
-#layout-topbar{height:100px; width:100%; border-top:solid 6px #F1F6F9; background-color:#F6FAFC/*#F1F6F9*/; display:table;}
+#layout-topbar{height:100px; width:100%; border-top:solid 6px #F1F6F9; background-color:#FFFFFF/*#F1F6F9*/; display:table;}
 	#layout-topbar-indent{width:92%; margin:0px auto;}
 		#logo{height:50px; margin-top:26px;}
-		#mobile-menu-button{padding:10px 15px; background-color:#F1F6F9; float:right; margin-top:20px; font-size:14px; position:relative; z-index:999;}
+		#mobile-menu-button{padding:10px 15px; background-color:#828282; float:right; margin-top:20px; font-size:14px; position:relative; z-index:999;}
 		#mobile-menu-button:hover{color:#A6D9ED;}
 		#mobile-menu-button-gray{background-color:#778D9B; padding:8px 13px; float:right; margin-top:20px; font-size:14px; margin-right:10px; position:relative; z-index:999;}
 		#mobile-menu-button-gray:hover{opacity:0.8;}
@@ -120,7 +120,7 @@ body{margin:0px; background-image:url("#{resource['spark-layout:images/backgroun
 				/* #layout-topbar-menu li:hover ul{border-bottom:solid 5px #71CC8D; border-top:solid 5px #71CC8D; height:auto; margin-top:0px; opacity:1;} */
 
 /*Layout Menu*/
-#layout-menu{width:89%; min-height:50px; background-color:#F1F6F9; margin:-25px auto 8px auto; padding:0px 1.5%;
+#layout-menu{width:89%; min-height:50px; background-color:#828282; margin:-25px auto 8px auto; padding:0px 1.5%;
              -webkit-box-shadow: 0px 1px 0px 0px rgba(44, 140, 176,1);
              -moz-box-shadow: 0px 1px 0px 0px rgba(44, 140, 176,1);
              box-shadow: 0px 1px 0px 0px rgba(44, 140, 176,1);}
