@@ -7,6 +7,8 @@ import ClausulaSQL.ClausulaWhere;
 import ClausulaSQL.GeneroCondicaoWhere;
 import ClausulaSQL.OperacaoCondicaoWhere;
 import ClausulaSQL.TipoCondicaoWhere;
+import NvCertificadoDetalhe.NvCertificadoDetalhe;
+import NvCertificadoDetalhe.NvCertificadoDetalheDAO;
 import java.util.List;
 import java.util.Date;
 
@@ -58,26 +60,14 @@ public class NvAvisosService
         final ClausulaWhere condicao = new ClausulaWhere();
         condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "VW_BI_JANELAS_AVISOS60.seq_nv_certificado", GeneroCondicaoWhere.igual, String.valueOf(seqCertificado), TipoCondicaoWhere.Numero);
         return (List<NvAvisos>) dao.listarjanelas(condicao);
-        
+
     }
-     
-     
-     /*
-     public List<NvListaCertificado> listar(final String seqEmpresa) {
-        final NvListaCertificadoDAO dao = new NvListaCertificadoDAO();
-        final ClausulaWhere condicao = new ClausulaWhere();
-        condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "NV_LISTA_CERTIFICADO.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(seqEmpresa), TipoCondicaoWhere.Numero);
-        return (List<NvListaCertificado>)dao.listar(condicao);
+
+    public NvAvisos salvar(NvAvisos nvAvisos) {
+        NvAvisosDAO dao = new NvAvisosDAO();       
+        return dao.inserirAviso(nvAvisos);
     }
     
     
-    
-    
-    public List<NvAvisos> listarql(final String tipoCertificado) {
-        final NvAvisosDAO dao = new NvAvisosDAO();
-        final ClausulaWhere condicao = new ClausulaWhere();
-        condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "NV_LISTA_CERTIFICADO.tipo_certificado", GeneroCondicaoWhere.igual,"Qualidade", TipoCondicaoWhere.Texto);
-        return (List<NvAvisos>)dao.listar(condicao);
-    }*/   
-       
+
 }

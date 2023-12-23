@@ -17,6 +17,8 @@
 /*     */   private String seqTipoAgenda;
 /*     */   private String nomeParceiro;
             private String nomeUsuario;
+            private String embarcacao;
+            private String os;
 /*     */   
             public String getSeqAgenda()
 /*     */   {
@@ -124,4 +126,28 @@
 /*     */   public void setNomeParceiro(String nomeParceiro) {
 /*  33 */     this.nomeParceiro = nomeParceiro;
 /*     */   }
+
+            public String getEmbarcacao() {
+/*  29 */     return this.embarcacao;
+/*     */   }
+            
+/*     */   public void setEmbarcacao(String embarcacao) {
+/*  33 */     this.embarcacao = embarcacao;
+/*     */   }
+
+            public String getOs() {
+/*  29 */     return this.os;
+/*     */   }
+            
+/*     */   public void setOs(String os) {
+/*  33 */     this.os = os;
+/*     */   }
+
+
+
+
 /*     */ }
+
+
+
+

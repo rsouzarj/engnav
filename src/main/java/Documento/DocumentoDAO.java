@@ -34,7 +34,7 @@
 /*   38 */       documento.setSeqDocumento(seq);
 /*   39 */       Conexao conexao = new Conexao();
 /*   40 */       Connection conn = Conexao.getConnection();
-/*   41 */       String sql = "insert into DOCUMENTO (SEQ_DOCUMENTO,DESCRICAO,DATA_PREVISAO_CONCLUSAO,SEQ_FORMA_PAGAMENTO,SEQ_CONTA,SEQ_CONDICAO_PAGAMENTO,SEQ_TIPO_MOVIMENTO_FINANCEIRO,SEQ_DOCUMENTO_DONO,SEQ_ASS_COLABORADOR,N_CONTRATO,REEMBOLSO_TRANSPORTE,REEMBOLSO_ALIMENTACAO,REEMBOLSO_HOSPEDAGEM,REEMBOLSO_PLOTAGENS,REEMBOLSO_OUTROS,CODIGO,SEQ_EMPRESA,SEQ_PARCEIRO,SEQ_TIPO_DOCUMENTO,SEQ_DOCUMENTO_ETAPA,DATA_CADASTRO,SEQ_USUARIO_CADASTRO,DATA,SEQ_LUGAR,local_servico,vl_entrada,qtde_parcela,DATA_PAGAMENTO_PARCELADO,vl_total_documento,TRIBUTOS_IMPOSTOS,seq_parceiro_contato,seq_parceiro_conta_pagar,origem_parceiro,seq_unidade_negocio,id_revisao,comentario_etapa,retencao_issqn,seq_projecao_tributaria,aliquota_issqn_retido,seq_aliquota_federal,vl_acumulado,vl_tributo_n_incluso,vl_bruto,vl_issqn_retido,vl_retencao_federal,vl_liquido,sequencia, moeda,id_complementar,observacao,taxa_cambio,MOEDA_DESTINO,ESCOPO,VL_TOTALCAMBIO,MOSTRA_TOTAL,CAMINHO,objetivo, validade, desc_remuneracao, cond_gerais, condpag, assunto) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+/*   41 */       String sql = "insert into DOCUMENTO (SEQ_DOCUMENTO,DESCRICAO,DATA_PREVISAO_CONCLUSAO,SEQ_FORMA_PAGAMENTO,SEQ_CONTA,SEQ_CONDICAO_PAGAMENTO,SEQ_TIPO_MOVIMENTO_FINANCEIRO,SEQ_DOCUMENTO_DONO,SEQ_ASS_COLABORADOR,N_CONTRATO,REEMBOLSO_TRANSPORTE,REEMBOLSO_ALIMENTACAO,REEMBOLSO_HOSPEDAGEM,REEMBOLSO_PLOTAGENS,REEMBOLSO_OUTROS,CODIGO,SEQ_EMPRESA,SEQ_PARCEIRO,SEQ_TIPO_DOCUMENTO,SEQ_DOCUMENTO_ETAPA,DATA_CADASTRO,SEQ_USUARIO_CADASTRO,DATA,SEQ_LUGAR,local_servico,vl_entrada,qtde_parcela,DATA_PAGAMENTO_PARCELADO,vl_total_documento,TRIBUTOS_IMPOSTOS,seq_parceiro_contato,seq_parceiro_conta_pagar,origem_parceiro,seq_unidade_negocio,id_revisao,comentario_etapa,retencao_issqn,seq_projecao_tributaria,aliquota_issqn_retido,seq_aliquota_federal,vl_acumulado,vl_tributo_n_incluso,vl_bruto,vl_issqn_retido,vl_retencao_federal,vl_liquido,sequencia, moeda,id_complementar,observacao,taxa_cambio,MOEDA_DESTINO,ESCOPO,VL_TOTALCAMBIO,MOSTRA_TOTAL,CAMINHO,objetivo, validade, desc_remuneracao, cond_gerais, condpag, assunto,boca,ab, comprimento, embarcacao) values  (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 /*      */       
 /*      */ 
 /*      */ 
@@ -115,6 +115,10 @@
 /*      */       ps.setString(60, documento.getCondicoesGerais());
 /*      */       ps.setString(61, documento.getCondpag());
 /*      */       ps.setString(62, documento.getAssunto());
+                 ps.setString(63, documento.getBoca());
+                 ps.setString(64, documento.getAb());
+                 ps.setString(65, documento.getComprimento());
+                 ps.setString(66, documento.getNvEmbarcacaoNome());
 /*  113 */       ps.execute();
 /*  114 */       ps.close();
 /*      */       
@@ -174,7 +178,7 @@
 /*      */     try {
 /*  170 */       Conexao conexao = new Conexao();
 /*  171 */       Connection conn = Conexao.getConnection();
-/*  172 */       String sql = "update DOCUMENTO set DESCRICAO = ?,DATA_PREVISAO_CONCLUSAO = ?,SEQ_FORMA_PAGAMENTO = ?,SEQ_CONTA = ?,SEQ_CONDICAO_PAGAMENTO = ?,SEQ_TIPO_MOVIMENTO_FINANCEIRO = ?,SEQ_DOCUMENTO_DONO = ?,SEQ_ASS_COLABORADOR = ?,N_CONTRATO = ?,REEMBOLSO_TRANSPORTE = ?,REEMBOLSO_ALIMENTACAO = ?,REEMBOLSO_HOSPEDAGEM = ?,REEMBOLSO_PLOTAGENS = ?,REEMBOLSO_OUTROS = ?,CODIGO = ?,SEQ_EMPRESA = ?,SEQ_PARCEIRO = ?,SEQ_TIPO_DOCUMENTO = ?,SEQ_DOCUMENTO_ETAPA = ?,DATA_CADASTRO = ?,SEQ_USUARIO_CADASTRO = ?,DATA = ?,SEQ_LUGAR = ?, local_servico = ?, vl_entrada = ?, qtde_parcela = ?, DATA_PAGAMENTO_PARCELADO = ?, vl_total_documento = ?, TRIBUTOS_IMPOSTOS = ?, seq_parceiro_contato = ?, seq_parceiro_conta_pagar = ?, origem_parceiro = ?,seq_unidade_negocio = ?, id_revisao = ?, comentario_etapa = ?,retencao_issqn = ?,seq_projecao_tributaria = ?,aliquota_issqn_retido = ?,seq_aliquota_federal = ?,vl_acumulado = ?,vl_tributo_n_incluso = ?,vl_bruto = ?,vl_issqn_retido = ?,vl_retencao_federal = ?,vl_liquido = ?, sequencia = ?, MOEDA = ?, id_complementar = ?, observacao = ?, taxa_cambio = ?, MOEDA_DESTINO = ?, ESCOPO = ?, VL_TOTALCAMBIO = ?, MOSTRA_TOTAL = ?, CAMINHO = ?, OBJETIVO = ?, VALIDADE = ?, DESC_REMUNERACAO = ?, COND_GERAIS = ?, CONDPAG = ?, ASSUNTO = ? where SEQ_DOCUMENTO = ?";
+/*  172 */       String sql = "update DOCUMENTO set DESCRICAO = ?,DATA_PREVISAO_CONCLUSAO = ?,SEQ_FORMA_PAGAMENTO = ?,SEQ_CONTA = ?,SEQ_CONDICAO_PAGAMENTO = ?,SEQ_TIPO_MOVIMENTO_FINANCEIRO = ?,SEQ_DOCUMENTO_DONO = ?,SEQ_ASS_COLABORADOR = ?,N_CONTRATO = ?,REEMBOLSO_TRANSPORTE = ?,REEMBOLSO_ALIMENTACAO = ?,REEMBOLSO_HOSPEDAGEM = ?,REEMBOLSO_PLOTAGENS = ?,REEMBOLSO_OUTROS = ?,CODIGO = ?,SEQ_EMPRESA = ?,SEQ_PARCEIRO = ?,SEQ_TIPO_DOCUMENTO = ?,SEQ_DOCUMENTO_ETAPA = ?,DATA_CADASTRO = ?,SEQ_USUARIO_CADASTRO = ?,DATA = ?,SEQ_LUGAR = ?, local_servico = ?, vl_entrada = ?, qtde_parcela = ?, DATA_PAGAMENTO_PARCELADO = ?, vl_total_documento = ?, TRIBUTOS_IMPOSTOS = ?, seq_parceiro_contato = ?, seq_parceiro_conta_pagar = ?, origem_parceiro = ?,seq_unidade_negocio = ?, id_revisao = ?, comentario_etapa = ?,retencao_issqn = ?,seq_projecao_tributaria = ?,aliquota_issqn_retido = ?,seq_aliquota_federal = ?,vl_acumulado = ?,vl_tributo_n_incluso = ?,vl_bruto = ?,vl_issqn_retido = ?,vl_retencao_federal = ?,vl_liquido = ?, sequencia = ?, MOEDA = ?, id_complementar = ?, observacao = ?, taxa_cambio = ?, MOEDA_DESTINO = ?, ESCOPO = ?, VL_TOTALCAMBIO = ?, MOSTRA_TOTAL = ?, CAMINHO = ?, OBJETIVO = ?, VALIDADE = ?, DESC_REMUNERACAO = ?, COND_GERAIS = ?, CONDPAG = ?, ASSUNTO = ?, BOCA = ?, AB = ?, COMPRIMENTO = ?, EMBARCACAO = ? where SEQ_DOCUMENTO = ?";
 /*      */       
 /*  174 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*      */       
@@ -252,7 +256,11 @@
 /*      */       ps.setString(59, documento.getCondicoesGerais());
 /*      */       ps.setString(60, documento.getCondpag());
 /*      */       ps.setString(61, documento.getAssunto());
-                 ps.setString(62, documento.getSeqDocumento());
+                 ps.setString(62, documento.getBoca());
+                 ps.setString(63, documento.getAb());
+                 ps.setString(64, documento.getComprimento());
+                 ps.setString(65, documento.getNvEmbarcacaoNome());
+                 ps.setString(66, documento.getSeqDocumento());
 /*  241 */       ps.execute();
 /*  242 */       ps.close();
 /*      */       
@@ -352,7 +360,7 @@
 /*      */     try {
 /*  338 */       Conexao conexao = new Conexao();
 /*  339 */       Connection conn = Conexao.getConnection();
-/*  340 */       String sql = "select \ndocumento.* ,\nparceiro.nome parceiro,\nparceiro.tipo tipo_pessoa,parceiro.logradouro || ', ' || parceiro.numero||' ' || parceiro.complemento||' - '||parceiro.bairro||' - '||parceiro.cidade||'-'||parceiro.uf||' | CEP:'||parceiro.cep endereco,parceiro.documento,parceiro.telefone_1||' | '||parceiro.telefone_2||' | '|| parceiro.telefone_3 telefone,parceiro.email,tipo_parceiro.nome tipo_parceiro,\ntipo_documento.nome tipo_documento,\ntipo_documento.template template,\ndocumento_etapa.nome documento_etapa,\nusuario.usuario usuario_cadastro,\nusuario.seq_unidade_negocio unidadeNegocioUsuario,\ndoc_dono.codigo DocDonoCodigo,\ntp_dono.nome DocDonoTipo,\ntp_dono.seq_tipo_documento DocDonoSeqTipo,\nconta.*,\nunidade_negocio.nome filial,\nnv_embarcacao.nome embarcacaoNome,\nequipamento.nome equipamentoNome,\ntipo_movimento_financeiro.nome natureza,\nfinanceiro_categoria.nome categoria\nfrom \ndocumento\ninner join parceiro on parceiro.seq_parceiro = documento.seq_parceiro\ninner join tipo_parceiro on tipo_parceiro.seq_tipo_parceiro = parceiro.seq_tipo_parceiro\ninner join tipo_documento on tipo_documento.seq_tipo_documento = documento.seq_tipo_documento\ninner join documento_etapa on documento_etapa.seq_documento_etapa = documento.seq_documento_etapa\nleft join usuario on usuario.seq_usuario = documento.seq_usuario_cadastro\nleft join unidade_negocio on usuario.SEQ_UNIDADE_NEGOCIO = unidade_negocio.SEQ_UNIDADE_NEGOCIO \nleft join documento doc_dono on doc_dono.seq_documento = documento.seq_documento_dono\nleft join tipo_documento tp_dono on tp_dono.seq_tipo_documento = doc_dono.seq_tipo_documento\nleft join conta on conta.seq_conta = documento.seq_conta\nleft join tipo_movimento_financeiro on tipo_movimento_financeiro.seq_tipo_movimento_financeiro = documento.seq_tipo_movimento_financeiro\nleft join financeiro_categoria on financeiro_categoria.seq_financeiro_categoria = tipo_movimento_financeiro.seq_tipo_movimento_financeiro\nleft join documento_item_equipamento on documento_item_equipamento.seq_documento = documento.SEQ_DOCUMENTO\nleft join documento_item_embarcacao on documento_item_embarcacao.seq_documento = documento.SEQ_DOCUMENTO\nleft join equipamento on equipamento.seq_equipamento = documento_item_equipamento.seq_equipamento and documento_item_equipamento.seq_documento = documento.seq_documento\nleft join nv_embarcacao on nv_embarcacao.seq_nv_embarcacao = documento_item_embarcacao.SEQ_NV_EMBARCACAO and documento_item_embarcacao.seq_documento = documento.seq_documento\n   \n" + sClausula.montarsClausula() + " order by documento.codigo asc";
+/*  340 */       String sql = "select \ndocumento.* ,\nparceiro.nome parceiro,\nparceiro.tipo tipo_pessoa,parceiro.logradouro || ', ' || parceiro.numero||' ' || parceiro.complemento||' - '||parceiro.bairro||' - '||parceiro.cidade||'-'||parceiro.uf||' | CEP:'||parceiro.cep endereco,parceiro.documento,parceiro.telefone_1||' | '||parceiro.telefone_2||' | '|| parceiro.telefone_3 telefone,parceiro.email,tipo_parceiro.nome tipo_parceiro,\ntipo_documento.nome tipo_documento,\ntipo_documento.template template,\ndocumento_etapa.nome documento_etapa,\nusuario.usuario usuario_cadastro,\nusuario.seq_unidade_negocio unidadeNegocioUsuario,\ndoc_dono.codigo DocDonoCodigo,\ntp_dono.nome DocDonoTipo,\ntp_dono.seq_tipo_documento DocDonoSeqTipo,\nconta.*,\nunidade_negocio.nome filial,\nnv_embarcacao.nome embarcacaoNome,\nequipamento.nome equipamentoNome,\nmaterial.nome materialNome,\ntipo_movimento_financeiro.nome natureza,\nfinanceiro_categoria.nome categoria\nfrom \ndocumento\ninner join parceiro on parceiro.seq_parceiro = documento.seq_parceiro\ninner join tipo_parceiro on tipo_parceiro.seq_tipo_parceiro = parceiro.seq_tipo_parceiro\ninner join tipo_documento on tipo_documento.seq_tipo_documento = documento.seq_tipo_documento\ninner join documento_etapa on documento_etapa.seq_documento_etapa = documento.seq_documento_etapa\nleft join usuario on usuario.seq_usuario = documento.seq_usuario_cadastro\nleft join unidade_negocio on usuario.SEQ_UNIDADE_NEGOCIO = unidade_negocio.SEQ_UNIDADE_NEGOCIO \nleft join documento doc_dono on doc_dono.seq_documento = documento.seq_documento_dono\nleft join tipo_documento tp_dono on tp_dono.seq_tipo_documento = doc_dono.seq_tipo_documento\nleft join conta on conta.seq_conta = documento.seq_conta\nleft join tipo_movimento_financeiro on tipo_movimento_financeiro.seq_tipo_movimento_financeiro = documento.seq_tipo_movimento_financeiro\nleft join financeiro_categoria on financeiro_categoria.seq_financeiro_categoria = tipo_movimento_financeiro.seq_tipo_movimento_financeiro\nleft join documento_item_equipamento on documento_item_equipamento.seq_documento = documento.SEQ_DOCUMENTO\nleft join documento_item_embarcacao on documento_item_embarcacao.seq_documento = documento.SEQ_DOCUMENTO\nleft join equipamento on equipamento.seq_equipamento = documento_item_equipamento.seq_equipamento and documento_item_equipamento.seq_documento = documento.seq_documento\nleft join nv_embarcacao on nv_embarcacao.seq_nv_embarcacao = documento_item_embarcacao.SEQ_NV_EMBARCACAO and documento_item_embarcacao.seq_documento = documento.seq_documento\nleft join documento_item_material on documento_item_material.seq_documento = documento.seq_documento\nleft join material on material.seq_material = documento_item_material.seq_material\n \n" + sClausula.montarsClausula() + " order by documento.codigo asc";
 
 /*  386 */       System.out.println(sql);
 /*      */       
@@ -440,9 +448,10 @@
 /*  469 */         documento.setObservacao(rs.getString("observacao"));
 /*  470 */         documento.setTaxaCambio(rs.getBigDecimal("taxa_cambio"));
 /*      */         
-/*  472 */         documento.setNvEmbarcacaoNome(rs.getString("embarcacaoNome"));
+/*  472 */         documento.setNvEmbarcacaoNome(rs.getString("embarcacao"));
 /*  473 */         documento.setEquipamentoNome(rs.getString("equipamentoNome"));
-/*      */         
+/*      */         documento.setMaterialNome(rs.getString("materialNome"));
+
 /*  475 */         documento.setNatureza(rs.getString("natureza"));
 /*  476 */         documento.setCategoria(rs.getString("categoria"));
 /*  477 */         documento.setMoedaDestino(rs.getString("MOEDA_DESTINO"));
@@ -456,6 +465,9 @@
 /*      */         documento.setCondicoesGerais(rs.getString("COND_GERAIS"));
 /*      */         documento.setCondpag(rs.getString("CONDPAG"));
 /*      */         documento.setAssunto(rs.getString("ASSUNTO"));
+/*      */         documento.setBoca(rs.getString("BOCA"));
+/*      */         documento.setAb(rs.getString("AB"));
+                   documento.setComprimento(rs.getString("COMPRIMENTO"));
 /*  480 */         listaDocumento.add(documento);
 /*      */       }
 /*      */       
@@ -560,7 +572,7 @@
 /*  625 */         documento.setObservacao(rs.getString("observacao"));
 /*  626 */         documento.setTaxaCambio(rs.getBigDecimal("taxa_cambio"));
 /*      */         
-/*  628 */         documento.setNvEmbarcacaoNome(rs.getString("embarcacaoNome"));
+/*  628 */         documento.setNvEmbarcacaoNome(rs.getString("embarcacao"));
 /*  629 */         documento.setEquipamentoNome(rs.getString("equipamentoNome"));
 /*      */         
 /*  631 */         documento.setNatureza(rs.getString("natureza"));
@@ -571,7 +583,10 @@
 /*      */         documento.setDescRemuneracao(rs.getString("DESC_REMUNERACAO"));
 /*      */         documento.setCondicoesGerais(rs.getString("COND_GERAIS"));
 /*      */         documento.setCondpag(rs.getString("CONDPAG"));
-/*      */         documento.setAssunto(rs.getString("ASSUNTO"));         
+/*      */         documento.setAssunto(rs.getString("ASSUNTO"));
+/*      */         documento.setBoca(rs.getString("BOCA"));
+/*      */         documento.setAb(rs.getString("AB"));
+                   documento.setComprimento(rs.getString("COMPRIMENTO"));
 /*  635 */         listaDocumento.add(documento);
 /*      */       }
 /*      */       
@@ -681,6 +696,9 @@
 /*  782 */         documento.setObservacao(rs.getString("observacao"));
 /*  783 */         documento.setTaxaCambio(rs.getBigDecimal("taxa_cambio"));
 /*  784 */         documento.setMoedaDestino(rs.getString("MOEDA_DESTINO"));
+/*      */         documento.setBoca(rs.getString("BOCA"));
+/*      */         documento.setAb(rs.getString("AB"));
+                   documento.setComprimento(rs.getString("COMPRIMENTO"));
 /*      */         
 /*  786 */         if (documento.getDocDonoSeqTipo() != null) {
 /*  787 */           if ((documento.getDocDonoSeqTipo().equals("282")) && (rs.getString("seqOCRegEstat") != null))

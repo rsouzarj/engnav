@@ -130,7 +130,8 @@ public class UploadController
     if (this.file != null) {
       try
       {
-        File dir = new File("C:\\Upload\\" + pUpload.getOrigem());
+        File dir = new File("../applications/erp/upload/"+ pUpload.getOrigem());
+        //File dir = new File("C:\\Upload\\"+ pUpload.getOrigem());
         
 
         if (!dir.exists()) {

@@ -1,16 +1,8 @@
 /*    */ package Colaborador;
 /*    */ 
+import java.sql.Blob;
 /*    */ import java.util.Date;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+ 
 /*    */ public class Colaborador
 /*    */ {
 /*    */   private String seqColaborador;
@@ -19,7 +11,7 @@
 /*    */   private String seqTipoColaborador;
 /*    */   private String nomeAssinatura;
 /*    */   private String documento;
-/*    */   private String informacao;
+/*    */   private Blob informacao;
 /*    */   private String seqEmpresa;
 /*    */   private String nome;
            private String vistoriador;
@@ -73,11 +65,11 @@
 /* 72 */     this.documento = documento;
 /*    */   }
 /*    */   
-/*    */   public String getInformacao() {
+/*    */   public Blob getInformacao() {
 /* 76 */     return this.informacao;
 /*    */   }
 /*    */   
-/*    */   public void setInformacao(String informacao) {
+/*    */   public void setInformacao(Blob informacao) {
 /* 80 */     this.informacao = informacao;
 /*    */   }
 /*    */   

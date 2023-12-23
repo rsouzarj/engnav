@@ -18,214 +18,213 @@
             </f:facet>
         </p:ajaxStatus>
 
-        <ps:menu rendered="#{loginController.vModulo == 'ADM'}" style=" background-image:url(../images/backgrounderp.png);">
-            <f:facet name="options">
-                <!--<p:commandButton type="button" icon="fa fa-search Fs18 white" styleClass="Fright"/>
-                <p:inputText placeholder="Search" styleClass="Fright"/>-->    
+        <!--<ps:menu rendered="#{loginController.vModulo == 'ADM'}" style=" background-image:url(../images/backgrounderp.png);">-->
+        
+        
+      
+        <p:megaMenu orientation="horizontal" autoDisplay="false"  style="text-align: center; position: relative;margin: 0;" rendered="#{loginController.vModulo == 'ADM'}">
+             <f:facet name="options">
             </f:facet>
-
             <p:submenu label="Parceiros" icon="fa fa-group " rendered="#{loginController.usuario.acParceiro > 0}">
-                <p:menuitem value="Novo" icon="fa cor fa-file-o" url="/parceiro/parceiro.jsf?id=-1" rendered="#{loginController.usuario.acParNovo == 1}"/>
-                <p:menuitem value="Todos" icon="fa cor fa-male" url="/parceiro/parceiro.jsf" rendered="#{loginController.usuario.acParTodos  > 0}"/>
-
+                <p:column>
+                    <p:submenu label="Ações">
+                        <p:menuitem value="Novo" url="/parceiro/parceiro.jsf?id=-1" rendered="#{loginController.usuario.acParNovo == 1}"/>
+                        <p:menuitem value="Listar Todos" url="/parceiro/parceiro.jsf" rendered="#{loginController.usuario.acParTodos  > 0}"/>
+                    </p:submenu>
+                </p:column>
             </p:submenu>
-
-            <p:separator rendered="#{loginController.usuario.acParceiro > 0}"/>
-
-            <p:submenu label="Documentos" icon="fa  fa-windows" rendered="#{loginController.usuario.acDocumento > 0}">
-                <p:menuitem value="Novo" icon="fa cor fa-file-o" url="/documento/novo.jsf" rendered="#{loginController.usuario.acDocNovo  == 1}"/>
-
-                <c:forEach items="${loginController.listaTipoDocumento}" var="tp">
+            <p:submenu label="Documento" icon="fa  fa-newspaper-o" rendered="#{loginController.usuario.acDocumento > 0}">
+                <p:column>
+                    <p:submenu label="Documentos">
+                       <p:menuitem  value="Painel"  url="/documento/documento_painel.jsf" /> 
+                       <p:menuitem  value="Novo"  url="/documento/novo.jsf" rendered="#{loginController.usuario.acDocNovo  == 1}"/>
+                       <c:forEach items="${loginController.listaTipoDocumento}" var="tp">
                     <p:menuitem value="#{tp.nome}"  icon="fa fa-windows cor "  url="/painel/documento_etapa.jsf?id=#{tp.seqTipoDocumento}" rendered="#{tp.seqTipoDocumento ne '401'}"/>
-                </c:forEach>
-            </p:submenu>
-
-            <p:separator rendered="#{loginController.usuario.acDocumento > 0}"/>
-
-            <!--p:submenu label="Comissão" icon="fa fa-money" >
-                <p:menuitem value="Lançamento" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/comissao/comissao.jsf')}"/>
-                <p:menuitem value="Painel" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/comissao/comissao.jsf')}"/>
-            </p:submenu>
-
-            <p:separator /-->
-
-            <p:submenu label="Relatórios" icon="fa fa-th" rendered="#{loginController.usuario.acRelatorio  > 0}" >
-                <p:menuitem value="Documento" icon="fa cor fa-newspaper-o" actionListener="#{loginController.mudarPagina('/painel/documento.jsf')}" rendered="#{loginController.usuario.acRelDocumento  > 0}"/>
-                <p:menuitem value="Parceiro" icon="fa cor fa-rebel" actionListener="#{loginController.mudarPagina('/painel/parceiro.jsf')}" rendered="#{loginController.usuario.acRelParceiro  > 0}"/>
-                <p:submenu label="Abertura de Janelas" icon="fa cor fa-envelope" rendered="#{loginController.usuario.acOpCertificado == 1}">
-                    <p:menuitem value="90 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/janelas.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
-                    <p:menuitem value="60 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/janelas60.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
-                    <p:menuitem value="30 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/janelas30.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+                </c:forEach>                      
                     </p:submenu>
-                <!--<p:menuitem value="Comercial" icon="fa cor fa-rebel" actionListener="#{loginController.mudarPagina('/comercial/central_relacionamento.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>-->
-                <p:menuitem value="Pesquisa de Satisfação" icon="fa cor fa-list-alt" actionListener="#{loginController.mudarPagina('/painel/pesquisa_satisfacao.jsf')}" rendered="#{loginController.usuario.acRelPesqSatisfacao > 0}"/>
+                </p:column>
             </p:submenu>
-
-            <p:separator rendered="#{loginController.usuario.acRelatorio  > 0}"/>
-
-            <p:submenu label="Operacional" icon="fa  fa-ship" rendered="#{loginController.usuario.acOperacional  > 0}">
-                
-                <p:menuitem value="Embarcação" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/naval/embarcacao_consulta.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>
-                <p:menuitem value="Vistoria" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/naval/vistoria.jsf')}" rendered="#{loginController.usuario.acOpVistoria  > 0}"/>
-                <p:menuitem value="Licença" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/naval/licenca.jsf')}" rendered="#{loginController.usuario.acOpLicenca  > 0}"/>
-                <p:menuitem value="Certificado" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/naval/certificado.jsf')}" rendered="#{loginController.usuario.acOpCertificado  > 0}"/>
-                <p:menuitem value="Certificado Equipamento" icon="fa cor  fa-wrench" actionListener="#{loginController.mudarPagina('/naval/certificado_equipamento.jsf')}" rendered="#{loginController.usuario.acOpCertificado  > 0}"/>
-                <!--<p:menuitem value="Certificado Externo" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/naval/certificado_externo.jsf')}" rendered="#{loginController.usuario.acOpCertificado  > 0}"/>-->
-                
-                <!--<p:submenu label="Avisos" icon="fa cor fa-envelope" rendered="#{loginController.usuario.acOpCertificado == 1}">
-                    <p:submenu label="Vencimento" icon="fa cor fa-envelope" rendered="#{loginController.usuario.acOpCertificado == 1}">
-                    <p:menuitem value="90 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/avisos.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
-                    <p:menuitem value="60 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/avisos60.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
-                    <p:menuitem value="30 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/avisos30.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
-                    </p:submenu>-->
-                    <p:submenu label="Abertura de Janelas" icon="fa cor fa-envelope" rendered="#{loginController.usuario.acOpCertificado == 1}">
-                    <p:menuitem value="90 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/janelas.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
-                    <p:menuitem value="60 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/janelas60.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
-                    <p:menuitem value="30 Dias" icon="fa cor fa-calendar" actionListener="#{loginController.mudarPagina('/naval/janelas30.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+            <p:submenu label="Relatórios" rendered="#{loginController.usuario.acRelatorio  > 0}">
+                <p:column>
+                    <p:submenu label="Documentos">
+                        <p:menuitem value="Documento"  actionListener="#{loginController.mudarPagina('/painel/documento.jsf')}" rendered="#{loginController.usuario.acRelDocumento  > 0}"/>
+                        </p:submenu>
+                    <p:submenu label="Parceiros">
+                        <p:menuitem value="Parceiro" actionListener="#{loginController.mudarPagina('/painel/parceiro.jsf')}" rendered="#{loginController.usuario.acRelParceiro  > 0}"/>
                     </p:submenu>
-                    
-                    
-                    
-                    <p:submenu label="Cadastros" icon="fa cor fa-folder" rendered="#{loginController.usuario.acOpCadastro  > 0}">
-                    <p:menuitem value="Embarcação" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/naval/embarcacao.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>
-                    <p:menuitem value="Equipamento" icon="fa cor fa-wrench" actionListener="#{loginController.mudarPagina('/naval/equipamento.jsf')}" rendered="#{loginController.usuario.acOpEquipamento  > 0}"/>
-                    <p:menuitem value="Tipo de Vínculo - Embarcação" icon="cor " actionListener="#{loginController.mudarPagina('/naval/tipo_vinculo_emb_par.jsf')}" rendered="#{loginController.usuario.acOpTvinculo  > 0}"/>
-                    <p:menuitem value="Tipo de Vistoria" icon="cor "  actionListener="#{loginController.mudarPagina('/naval/tipo_vistoria.jsf')}" rendered="#{loginController.usuario.acOpTvistoria  > 0}"/>
-                    <p:menuitem value="Tipo de Certificado" icon="cor "  actionListener="#{loginController.mudarPagina('/naval/tipo_certificado.jsf')}" rendered="#{loginController.usuario.acOpTcertificado  > 0}"/>
-                    <p:menuitem value="Tipo de Licença" icon="cor"  actionListener="#{loginController.mudarPagina('/naval/tipo_licenca.jsf')}" rendered="#{loginController.usuario.acOpTlicenca  > 0}"/>
-                    <p:menuitem value="Tipo de Embarcação" icon="cor"  actionListener="#{loginController.mudarPagina('/naval/tipo_embarcacao.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>
-                    <p:menuitem value="Status da Vistoria" icon="cor"  actionListener="#{loginController.mudarPagina('/naval/vistoria_status.jsf')}" rendered="#{loginController.usuario.acOpStatusVistoria  > 0}"/>
-                    <p:menuitem value="Cálculo de Datas" icon="cor "  actionListener="#{loginController.mudarPagina('/naval/certificado_calculo.jsf')}" rendered="#{loginController.usuario.acOpCalculoData  > 0}"/>
-                    <p:menuitem value="UsuárioxEmbarcação"  actionListener="#{loginController.mudarPagina('/naval/embarcacao_usuario.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>
-                </p:submenu>
+                </p:column>
+
+                <p:column>
+                    <p:submenu label="Janelas para Convalidação">
+                        <p:menuitem value="30 Dias" actionListener="#{loginController.mudarPagina('/naval/janelas30.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+                        <p:menuitem value="60 Dias" actionListener="#{loginController.mudarPagina('/naval/janelas60.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+                        <p:menuitem value="90 Dias"  actionListener="#{loginController.mudarPagina('/naval/janelas.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+                    </p:submenu>
+                </p:column>
             </p:submenu>
-
-
-            <p:separator rendered="#{loginController.usuario.acOperacional > 0}"/>
-
-
 
             <p:submenu label="Comercial" icon="fa fa-exchange" rendered="#{loginController.usuario.acComercial  > 0}">
-                <!--p:menuitem value="Família" icon="fa  fa-male"  actionListener="#{loginController.mudarPagina('/material/familia.jsf')}"/-->
-                <p:menuitem value="Relatorio de Visitas" icon="fa cor fa-pencil"  actionListener="#{loginController.mudarPagina('/comercial/relatorio_visita.jsf')}" rendered="#{loginController.usuario.acComServico  > 0}"/>
-                <p:menuitem value="Serviços" icon="fa cor fa-exchange"  actionListener="#{loginController.mudarPagina('/material/material.jsf')}" rendered="#{loginController.usuario.acComServico  > 0}"/>
-                <p:menuitem value="Tabela de Preço" icon="fa cor fa-exchange"  actionListener="#{loginController.mudarPagina('/material/tabela_preco.jsf')}" rendered="#{loginController.usuario.acComTpreco  > 0}"/>
-                <p:menuitem value="Escopo" icon="fa cor fa-exchange"  actionListener="#{loginController.mudarPagina('/servico/escopo.jsf')}" rendered="#{loginController.usuario.acComEscopo  > 0}"/>
-                <p:menuitem value="Ponto de Serviço" icon="fa cor fa-exchange" actionListener="#{loginController.mudarPagina('/servico/ponto_servico.jsf')}" rendered="#{loginController.usuario.acComPservico  > 0}"/>
+                <p:column>
+                    <p:submenu label="Tabelas e Serviços">
+                        <p:menuitem value="Tabela de Preço" actionListener="#{loginController.mudarPagina('/material/tabela_preco.jsf')}" rendered="#{loginController.usuario.acComTpreco  > 0}"/>
+                        <p:menuitem value="Grupo de Serviços" actionListener="#{loginController.mudarPagina('/material/familia.jsf')}" rendered="#{loginController.usuario.acComServico  > 0}"/>
+                        <p:menuitem value="Serviços" actionListener="#{loginController.mudarPagina('/material/material.jsf')}" rendered="#{loginController.usuario.acComServico  > 0}"/>
+                        <p:menuitem value="Ponto de Serviço"  actionListener="#{loginController.mudarPagina('/servico/ponto_servico.jsf')}" rendered="#{loginController.usuario.acComPservico  > 0}"/>
+                    </p:submenu>
+                </p:column>
+                <p:column>
+                    <p:submenu label="Escopo=">
+                        <p:menuitem value="Escopo" actionListener="#{loginController.mudarPagina('/servico/escopo.jsf')}" rendered="#{loginController.usuario.acComEscopo  > 0}"/>
+                        </p:submenu>
+                </p:column>
+                <p:column>
+                    <p:submenu label="Ponto de Serviço">
+                        <p:menuitem value="Ponto de Serviço"  actionListener="#{loginController.mudarPagina('/servico/ponto_servico.jsf')}" rendered="#{loginController.usuario.acComPservico  > 0}"/>
+                        
+                    </p:submenu>
+                </p:column>
+                <p:column>
+                    <p:submenu label="Condição de Pagamento">
+                        <p:menuitem value="Condição de Pagamento" actionListener="#{loginController.mudarPagina('/financeiro/condicao_pagamento.jsf')}" rendered="#{loginController.usuario.acFinCpagamento  > 0}"/>
                 <!--p:menuitem value="Tipo de Tarefa" icon="fa cor fa-ship" actionListener="#{loginController.mudarPagina('/tarefa/tipo_tarefa.jsf')}"/-->
                 <!--p:submenu label="Cadastro" icon="fa cor fa-list-alt" rendered="#{loginController.usuario.acCadastro  > 0}"-->
-                <p:submenu label="Parceiros" icon="fa cor fa-folder" rendered="#{loginController.usuario.acCadastro  > 0 and loginController.usuario.acCadParceiro  > 0}">
-                    <p:menuitem value="Grupo Empresarial" icon="fa cor fa-sitemap"  actionListener="#{loginController.mudarPagina('/parceiro/grupo_empresarial.jsf')}" rendered="#{loginController.usuario.acCadTvinculo  > 0}"/>
-                    <p:menuitem value="Tipo de Parceiro" icon="fa cor fa-male"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_parceiro.jsf')}" rendered="#{loginController.usuario.acCadTparceiro  > 0}"/>
-                    <p:menuitem value="Tipo de Vínculo" icon="fa cor fa-male"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_vinculo.jsf')}" rendered="#{loginController.usuario.acCadTvinculo  > 0}"/>
-                    <p:menuitem value="Perfil do Cliente" icon="fa cor fa-male"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_caracteristica.jsf')}" rendered="#{loginController.usuario.acCadTcaracteristica  > 0}"/>
-                    <p:menuitem value="Tipo de Endereço" icon="fa cor fa-male"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_endereco.jsf')}" rendered="#{loginController.usuario.acCadTendereco  > 0}"/>
-                    <p:menuitem value="Tipo de Anotação" icon="fa cor fa-pencil-square-o"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_anotacao.jsf')}" rendered="#{loginController.usuario.acCadTparceiro  > 0}"/>
-                </p:submenu>
-
-                <p:submenu label="Documento" icon="fa cor fa-folder" rendered="#{loginController.usuario.acCadDocumento  > 0}">
-                    <p:menuitem value="Tipo de Documento" icon="fa cor fa-male"  actionListener="#{loginController.mudarPagina('/documento/tipo_documento.jsf')}" rendered="#{loginController.usuario.acCadTdocumento  > 0}"/>
-                </p:submenu>
-                <!--/p:submenu-->
-            </p:submenu>
-
-            <p:separator rendered="#{loginController.usuario.acComercial  > 0}"/>
-
-
-            <p:submenu label="Administrativo" icon="fa fa-line-chart" rendered="#{loginController.usuario.acAdministrativo  > 0}">                
-
-                <!--p:menuitem value="Contas a Receber" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/contas_receber.jsf')}" rendered="#{loginController.usuario.acFinContasReceber  > 0}"/>
-                <p:menuitem value="Contas a Pagar" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/contas_pagar.jsf')}" rendered="#{loginController.usuario.acFinContasPagar  > 0}"/>
-                <p:menuitem value="Solicitação Contas a Pagar" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/solicitacao.jsf')}" rendered="#{loginController.usuario.acFinSolicitacao  > 0}"/>
-                <p:menuitem value="Ordem de Pagamento" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/ordem_pagamento.jsf')}" rendered="#{loginController.usuario.acFinOrdemPagamento  > 0}"/>
-                <p:menuitem value="Contas a Receber" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/contas_receber.jsf')}" rendered="#{loginController.usuario.acFinContasReceber  > 0}"/>
-
-                <p:submenu label="Contas a Pagar" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinContasPagar  > 0}">
-                </p:submenu-->
-
-                <p:submenu label="Faturamento" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinFaturamento  > 0}">
-                    <p:menuitem value="Boletim de Medição" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/painel/documento_etapa.jsf?id=401')}"/>
-                    <p:menuitem value="Faturamento" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/faturamento.jsf')}" rendered="#{loginController.usuario.acFinFFaturamento  > 0}"/>
-                    <p:menuitem value="Contas a Receber" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/contas_receber.jsf')}" rendered="#{loginController.usuario.acFinContasReceber  > 0}"/>
-                    <p:menuitem value="Nota de Débito" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/nota_debito.jsf')}" rendered="#{loginController.usuario.acFinNotaDebito  > 0}"/>
-                    <p:menuitem value="RLBM - Recibo de Locação de Bens Móveis" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/RLBM.jsf')}" rendered="#{loginController.usuario.acFinRLBM  > 0}"/>
-                </p:submenu>
-                <p:submenu label="Financeiro" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinanceiro  > 0}">
-                    <p:menuitem value="Ordem de Pagamento" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/ordem_pagamento.jsf')}" rendered="#{loginController.usuario.acFinOrdemPagamento  > 0}"/>
-                    <p:menuitem value="Contas a Pagar" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/contas_pagar.jsf')}" rendered="#{loginController.usuario.acFinContasPagar  > 0}"/>
-                    <p:menuitem value="Conta Corrente" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/conta_corrente.jsf')}" rendered="#{loginController.usuario.acFinContaCorrente  > 0}"/>
-                    <p:menuitem value="Prestação de Contas" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/prestacao_contas.jsf')}" rendered="#{loginController.usuario.acFinPrestacaoContas  > 0}"/>
-                </p:submenu>
-
-                <!--p:submenu label="Recebimento" icon="fa cor fa-folder" >
-                </p:submenu-->
-
-                <!--p:submenu label="Pagamento" icon="fa cor fa-folder" >
-                </p:submenu-->
-
-                <p:submenu label="Cadastros" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinCadastro  > 0}">
-                    <p:submenu label="Fiscal" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinCadastro  > 0}">
-                        <p:menuitem value="Alíquotas Federais" actionListener="#{loginController.mudarPagina('/financeiro/aliquota_federal.jsf')}" rendered="#{loginController.usuario.acFinAliquotaRetencaoFederal  > 0}"/>
+                    </p:submenu>
+                </p:column>
+                <p:column>
+                    <p:submenu label="Parceiro">
+                        <p:menuitem value="Grupo Empresarial"  actionListener="#{loginController.mudarPagina('/parceiro/grupo_empresarial.jsf')}" rendered="#{loginController.usuario.acCadTvinculo  > 0}"/>
+                    <p:menuitem value="Tipo de Parceiro"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_parceiro.jsf')}" rendered="#{loginController.usuario.acCadTparceiro  > 0}"/>
+                    <p:menuitem value="Tipo de Vínculo"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_vinculo.jsf')}" rendered="#{loginController.usuario.acCadTvinculo  > 0}"/>
+                    <p:menuitem value="Perfil do Cliente"   actionListener="#{loginController.mudarPagina('/parceiro/tipo_caracteristica.jsf')}" rendered="#{loginController.usuario.acCadTcaracteristica  > 0}"/>
+                    <p:menuitem value="Tipo de Endereço"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_endereco.jsf')}" rendered="#{loginController.usuario.acCadTendereco  > 0}"/>
+                    <p:menuitem value="Tipo de Anotação"  actionListener="#{loginController.mudarPagina('/parceiro/tipo_anotacao.jsf')}" rendered="#{loginController.usuario.acCadTparceiro  > 0}"/>
+                    </p:submenu>
+                </p:column>                
+                <p:column>
+                    <p:submenu label="Documento">
+                        <p:menuitem value="Tipo de Documento" actionListener="#{loginController.mudarPagina('/documento/tipo_documento.jsf')}" rendered="#{loginController.usuario.acCadTdocumento  > 0}"/>
+                    </p:submenu>
+                </p:column>         
+                    </p:submenu>          
+                     <p:submenu label="Operacional" icon="fa  fa-ship" rendered="#{loginController.usuario.acOperacional  > 0}">
+                <p:column>
+                    <p:submenu label="Embarcação">
+                <p:menuitem value="Histórico da Embarcação" actionListener="#{loginController.mudarPagina('/naval/embarcacao_consulta.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>
+                <p:menuitem value="Cadastrar Embarcação" actionListener="#{loginController.mudarPagina('/naval/embarcacao.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>
+                    </p:submenu>
+                </p:column>
+                <p:column>
+                    <p:submenu label="Vistoria e Certificação">
+                <p:menuitem value="Vistoria"  actionListener="#{loginController.mudarPagina('/naval/vistoria.jsf')}" rendered="#{loginController.usuario.acOpVistoria  > 0}"/>
+                <p:menuitem value="Licença"  actionListener="#{loginController.mudarPagina('/naval/licenca.jsf')}" rendered="#{loginController.usuario.acOpLicenca  > 0}"/>
+                <p:menuitem value="Certificado"  actionListener="#{loginController.mudarPagina('/naval/certificado.jsf')}" rendered="#{loginController.usuario.acOpCertificado  > 0}"/>
+                <p:menuitem value="Certificado Equipamento" actionListener="#{loginController.mudarPagina('/naval/certificado_equipamento.jsf')}" rendered="#{loginController.usuario.acOpCertificado  > 0}"/>
+                <p:menuitem value="Certificado Externo"  actionListener="#{loginController.mudarPagina('/naval/certificado_externo.jsf')}" rendered="#{loginController.usuario.acOpCertificado  > 0}"/>
+                    </p:submenu>
+                </p:column>         
+                <p:column>         
+                    <p:submenu label="Cadastros">
+                        <p:menuitem value="Equipamento" actionListener="#{loginController.mudarPagina('/naval/equipamento.jsf')}" rendered="#{loginController.usuario.acOpEquipamento  > 0}"/>
+                    <p:menuitem value="Tipo de Vínculo - Embarcação"  actionListener="#{loginController.mudarPagina('/naval/tipo_vinculo_emb_par.jsf')}" rendered="#{loginController.usuario.acOpTvinculo  > 0}"/>
+                    <p:menuitem value="Tipo de Vistoria"  actionListener="#{loginController.mudarPagina('/naval/tipo_vistoria.jsf')}" rendered="#{loginController.usuario.acOpTvistoria  > 0}"/>
+                    <p:menuitem value="Tipo de Certificado"  actionListener="#{loginController.mudarPagina('/naval/tipo_certificado.jsf')}" rendered="#{loginController.usuario.acOpTcertificado  > 0}"/>
+                    <p:menuitem value="Tipo de Licença"  actionListener="#{loginController.mudarPagina('/naval/tipo_licenca.jsf')}" rendered="#{loginController.usuario.acOpTlicenca  > 0}"/>
+                    <p:menuitem value="Tipo de Embarcação" actionListener="#{loginController.mudarPagina('/naval/tipo_embarcacao.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>
+                    <p:menuitem value="Status da Vistoria" actionListener="#{loginController.mudarPagina('/naval/vistoria_status.jsf')}" rendered="#{loginController.usuario.acOpStatusVistoria  > 0}"/>
+                    <p:menuitem value="Cálculo de Datas"  actionListener="#{loginController.mudarPagina('/naval/certificado_calculo.jsf')}" rendered="#{loginController.usuario.acOpCalculoData  > 0}"/>
+                    <p:menuitem value="UsuárioxEmbarcação"  actionListener="#{loginController.mudarPagina('/naval/embarcacao_usuario.jsf')}" rendered="#{loginController.usuario.acOpEmbarcacao  > 0}"/>
+                    </p:submenu>
+                </p:column>
+                <p:column>
+                    <p:submenu label="Janelas de Convalidação Abertas" icon="fa cor fa-envelope" rendered="#{loginController.usuario.acOpCertificado == 1}">
+                    <p:menuitem value="90 Dias"  actionListener="#{loginController.mudarPagina('/naval/janelas.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+                    <p:menuitem value="60 Dias"  actionListener="#{loginController.mudarPagina('/naval/janelas60.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+                    <p:menuitem value="30 Dias"  actionListener="#{loginController.mudarPagina('/naval/janelas30.jsf')}" rendered="#{loginController.usuario.acOpCertificado == 1}"/>
+                    </p:submenu>
+                </p:column>
+            </p:submenu> 
+            
+                        <p:submenu label="Finanças" icon="fa fa-line-chart" rendered="#{loginController.usuario.acAdministrativo  > 0}"> 
+                <p:column>
+                    <p:submenu label="Tesouraria">  
+                    <p:menuitem value="Contas a Receber" actionListener="#{loginController.mudarPagina('/financeiro/contas_receber.jsf')}" rendered="#{loginController.usuario.acFinContasReceber  > 0}"/>
+                    <p:menuitem value="Contas a Pagar" actionListener="#{loginController.mudarPagina('/financeiro/contas_pagar.jsf')}" rendered="#{loginController.usuario.acFinContasPagar  > 0}"/>
+                    <p:menuitem value="Conta Corrente" actionListener="#{loginController.mudarPagina('/financeiro/conta_corrente.jsf')}" rendered="#{loginController.usuario.acFinContaCorrente  > 0}"/>
+                    <p:menuitem value="Solicitação Contas a Pagar" actionListener="#{loginController.mudarPagina('/financeiro/solicitacao.jsf')}" rendered="#{loginController.usuario.acFinSolicitacao  > 0}"/>
+                    <p:menuitem value="Ordem de Pagamento" actionListener="#{loginController.mudarPagina('/financeiro/ordem_pagamento.jsf')}" rendered="#{loginController.usuario.acFinOrdemPagamento  > 0}"/>
+                    <p:menuitem value="Prestação de Contas" actionListener="#{loginController.mudarPagina('/financeiro/prestacao_contas.jsf')}" rendered="#{loginController.usuario.acFinPrestacaoContas  > 0}"/>
+                    </p:submenu>
+                    </p:column>
+                    <p:column>
+                    <p:submenu label="Faturamento" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinFaturamento  > 0}">
+                    <p:menuitem value="Boletim de Medição" actionListener="#{loginController.mudarPagina('/painel/documento_etapa.jsf?id=401')}"/>
+                    <p:menuitem value="Faturamento" actionListener="#{loginController.mudarPagina('/financeiro/faturamento.jsf')}" rendered="#{loginController.usuario.acFinFFaturamento  > 0}"/>
+                    <p:menuitem value="Nota de Débito" actionListener="#{loginController.mudarPagina('/financeiro/nota_debito.jsf')}" rendered="#{loginController.usuario.acFinNotaDebito  > 0}"/>
+                    <p:menuitem value="RLBM - Recibo de Locação de Bens Móveis" actionListener="#{loginController.mudarPagina('/financeiro/RLBM.jsf')}" rendered="#{loginController.usuario.acFinRLBM  > 0}"/>
+                    </p:submenu>
+                    </p:column> 
+                    <p:column>
+                    <p:submenu label="Cadastro Fiscal">
+                     <p:menuitem value="Alíquotas Federais" actionListener="#{loginController.mudarPagina('/financeiro/aliquota_federal.jsf')}" rendered="#{loginController.usuario.acFinAliquotaRetencaoFederal  > 0}"/>
                         <p:menuitem value="Alíquotas de ISSQN" actionListener="#{loginController.mudarPagina('/financeiro/aliquota_issqn.jsf')}" rendered="#{loginController.usuario.acFinAliquotaRetencaoFederal  > 0}"/>
                         <p:menuitem value="Projeção Tributária"  actionListener="#{loginController.mudarPagina('/financeiro/projecao_tributaria.jsf')}" rendered="#{loginController.usuario.acFinProjecaoTributaria  > 0}"/>
-                        <p:menuitem value="Documento Fiscal" actionListener="#{loginController.mudarPagina('/financeiro/documento_fiscal.jsf')}" rendered="#{loginController.usuario.acFinDocFiscal  > 0}"/>
+                        <p:menuitem value="Documento Fiscal" actionListener="#{loginController.mudarPagina('/financeiro/documento_fiscal.jsf')}" rendered="#{loginController.usuario.acFinDocFiscal  > 0}"/>   
                     </p:submenu>
-                    <p:submenu label="Gerencial" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinCadastro  > 0}">
+                     <p:submenu label="Cadastro Gerencial" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinCadastro  > 0}">
                         <p:menuitem value="Categoria (Nível I)" actionListener="#{loginController.mudarPagina('/financeiro/categoria.jsf')}" rendered="#{loginController.usuario.acFinCategoria  > 0}"/>
                         <p:menuitem value="Categoria (Nível II)" actionListener="#{loginController.mudarPagina('/financeiro/natureza.jsf')}" rendered="#{loginController.usuario.acFinTLancamento  > 0}"/>
-                        <p:menuitem value="Centro de Custo" actionListener="#{loginController.mudarPagina('/financeiro/centro_custo.jsf')}" rendered="#{loginController.usuario.acFinCentroCusto  > 0}"/>
-                    </p:submenu>
-                    <p:submenu label="Geral" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinCadastro  > 0}">
+                        <p:menuitem value="Centro de Custo" actionListener="#{loginController.mudarPagina('/financeiro/centro_custo.jsf')}" rendered="#{loginController.usuario.acFinCentroCusto  > 0}"/>  
+                    </p:submenu>      
+                    <p:submenu label="Cadastro Geral" icon="fa cor fa-folder" rendered="#{loginController.usuario.acFinCadastro  > 0}">
                         <p:menuitem value="Equipamentos"  actionListener="#{loginController.mudarPagina('/financeiro/equipamento.jsf')}" rendered="#{loginController.usuario.acFinEquipamento  > 0}"/>
                         <p:menuitem value="Tipo de Unidade"  actionListener="#{loginController.mudarPagina('/financeiro/tipo_unidade.jsf')}" rendered="#{loginController.usuario.acFinTunidade  > 0}"/>
                         <p:menuitem value="Contas Bancárias"  actionListener="#{loginController.mudarPagina('/financeiro/conta.jsf')}" rendered="#{loginController.usuario.acFinContas  > 0}"/>
                         <p:menuitem value="Forma Pagamento"  actionListener="#{loginController.mudarPagina('/financeiro/forma_pagamento.jsf')}" rendered="#{loginController.usuario.acFinFpagamento  > 0}"/>
                         <p:menuitem value="Condição de Pagamento"  actionListener="#{loginController.mudarPagina('/financeiro/condicao_pagamento.jsf')}" rendered="#{loginController.usuario.acFinCpagamento  > 0}"/>
                         <p:menuitem value="Informações Importantes" actionListener="#{loginController.mudarPagina('/financeiro/informacao_importante.jsf')}" rendered="#{loginController.usuario.acFinInformacaoImportante  > 0}"/>
+                    </p:submenu>                                     
+                    </p:column> 
+            </p:submenu>
+            
+             <p:submenu label="Pessoal" icon="fa cor fa-smile-o">
+                <p:column>
+                    <p:submenu label="Senha">
+                    <p:menuitem value="Alterar Senha" actionListener="#{loginController.mudarPagina('/login/alterarSenha.jsf')}"/>
                     </p:submenu>
-                </p:submenu>
-
+                    <p:submenu label="Agenda">
+                        <p:menuitem value="Agenda" actionListener="#{loginController.mudarPagina('/agenda/agenda.jsf')}"/>
+                        <p:menuitem value="Tipo Agenda"  actionListener="#{loginController.mudarPagina('/agenda/tipo_agenda.jsf')}"/>
+                    </p:submenu>
+                    <p:submenu label="Reembolso de Despesas">
+                        <p:menuitem value="Prestação de Contas" actionListener="#{loginController.mudarPagina('/financeiro/prestacao_contas_colaborador.jsf')}" />
+                    </p:submenu>
+                </p:column>
+                </p:submenu> 
+            <p:submenu label="Sistema" icon="fa cor fa-cogs">
+                <p:column>
+                    <p:submenu label="Cadastros">
+                        <p:menuitem value="Usuário" actionListener="#{loginController.mudarPagina('/organizacional/usuario.jsf')}" rendered="#{loginController.usuario.acOrgUsuario  > 0}"/>
+                <p:menuitem value="Unidade de Negócio"  actionListener="#{loginController.mudarPagina('/organizacional/unidade_negocio.jsf')}" rendered="#{loginController.usuario.acOrgUnegocio  > 0}"/>
+                <p:menuitem value="Departamento" actionListener="#{loginController.mudarPagina('/organizacional/departamento.jsf')}" rendered="#{loginController.usuario.acOrgDepartamento  > 0}"/>
+                <p:menuitem value="Função" actionListener="#{loginController.mudarPagina('/colaborador/tipo_colaborador.jsf')}" rendered="#{loginController.usuario.acOrgFuncao  > 0}"/>
+                <p:menuitem value="Colaborador" actionListener="#{loginController.mudarPagina('/colaborador/colaborador.jsf')}" rendered="#{loginController.usuario.acOrgColaborador  > 0}"/>
+                <p:menuitem value="Parâmetro" actionListener="#{loginController.mudarPagina('/organizacional/parametro.jsf')}" rendered="#{loginController.usuario.acOrgParametro  > 0}"/>
+                    </p:submenu>
+               </p:column>              
             </p:submenu>
 
-            <p:separator rendered="#{loginController.usuario.acAdministrativo  > 0}"/>
-
-
-            <p:submenu label="Pessoal" icon="fa  fa-cogs">
-                <p:menuitem value="Agenda" icon="fa  fa-calendar "  actionListener="#{loginController.mudarPagina('/agenda/agenda.jsf')}"/>
-                <p:menuitem value="Tipo Agenda" icon="fa  fa-calendar "  actionListener="#{loginController.mudarPagina('/agenda/tipo_agenda.jsf')}"/>
-                <p:menuitem value="Alterar Senha" icon="fa cor fa-user-secret" actionListener="#{loginController.mudarPagina('/login/alterarSenha.jsf')}"/>
-                <p:menuitem value="Prestação de Contas" icon="fa cor fa-line-chart" actionListener="#{loginController.mudarPagina('/financeiro/prestacao_contas_colaborador.jsf')}" />
-                <!--p:submenu label="Cor do Sistema" icon="fa cor fa-paint-brush" >
-                    <p:menuitem value="Verde" icon="fa green fa-paint-brush" actionListener="#{loginController.mudarCor('green')}" ajax="false"/>
-                    <p:menuitem value="Azul" icon="fa blue fa-paint-brush" actionListener="#{loginController.mudarCor('blue')}" ajax="false"/>
-                    <p:menuitem value="Laranja" icon="fa orange fa-paint-brush" actionListener="#{loginController.mudarCor('orange')}" ajax="false"/>
-                    <p:menuitem value="Vermelho" icon="fa red fa-paint-brush" actionListener="#{loginController.mudarCor('red')}" ajax="false"/>
-                    <p:menuitem value="Preto" icon="fa black fa-paint-brush" actionListener="#{loginController.mudarCor('black')}" ajax="false"/>
-                </p:submenu-->
-
-            </p:submenu>
-
-            <p:separator rendered="#{loginController.usuario.acOrgListArquivo > 0}"/>
-
-            <p:submenu label="Organizacional" icon="fa  fa-key" rendered="#{loginController.usuario.acOrganizacional  > 0}">
-                <p:menuitem value="Usuário" icon="fa cor fa-user" actionListener="#{loginController.mudarPagina('/organizacional/usuario.jsf')}" rendered="#{loginController.usuario.acOrgUsuario  > 0}"/>
-                <p:menuitem value="Unidade de Negócio" icon="fa cor fa-check-square-o" actionListener="#{loginController.mudarPagina('/organizacional/unidade_negocio.jsf')}" rendered="#{loginController.usuario.acOrgUnegocio  > 0}"/>
-                <p:menuitem value="Departamento" icon="fa cor fa-check-square-o" actionListener="#{loginController.mudarPagina('/organizacional/departamento.jsf')}" rendered="#{loginController.usuario.acOrgDepartamento  > 0}"/>
-                <p:menuitem value="Função" icon="fa cor fa-male"  actionListener="#{loginController.mudarPagina('/colaborador/tipo_colaborador.jsf')}" rendered="#{loginController.usuario.acOrgFuncao  > 0}"/>
-                <p:menuitem value="Colaborador" icon="fa cor fa-male"  actionListener="#{loginController.mudarPagina('/colaborador/colaborador.jsf')}" rendered="#{loginController.usuario.acOrgColaborador  > 0}"/>
-                <p:menuitem value="Parâmetro" icon="fa cor fa-check-square-o" actionListener="#{loginController.mudarPagina('/organizacional/parametro.jsf')}" rendered="#{loginController.usuario.acOrgParametro  > 0}"/>
-            </p:submenu>
-      
-            <!--<p:separator rendered="#{loginController.usuario.acOrganizacional  > 0}"/>
-          
-       <p:submenu label="Arquivos" icon="fa fa-folder-open" rendered="true">
+       <!--<p:submenu label="Arquivos" icon="fa fa-folder-open" rendered="true">
               <p:menuitem value="Qualidade" icon="fa  fa-book" actionListener="#{loginController.mudarPagina('/naval/arquivo_qualidade.jsf')}" rendered="#{loginController.usuario.acOrgListArquivo > 0}"/>
                 <p:menuitem value="Procedimento Tecnico" icon="fa cor  fa-wrench" actionListener="#{loginController.mudarPagina('/naval/arquivo_pt.jsf')}" rendered="#{loginController.usuario.acOrgListArquivo  > 0}"/>
                 <p:menuitem value="SMS" icon="fa fa-life-bouy" actionListener="#{loginController.mudarPagina('/naval/arquivo_sms.jsf')}" rendered="#{loginController.usuario.acOrgListArquivo  > 0}"/>
-          </p:submenu>-->
-
-        </ps:menu>
-      
+          </p:submenu>-->            
+            
+        </p:megaMenu>
+        
+        
+        
+        
+        
     </h:form>
 
 </ui:composition>

@@ -243,14 +243,14 @@
 /*     */     try {
 /* 246 */       Conexao conexao = new Conexao();
 /* 247 */       Connection conn = Conexao.getConnection();
-/* 248 */       String sql = "select \ntipo_documento.seq_tipo_documento,\ntipo_documento.nome,\ntipo_documento.ordem,\ncount(documento.seq_documento) total\nFrom \n tipo_documento\nleft join documento on documento.seq_tipo_documento = tipo_documento.seq_tipo_documento \nleft join USUARIO_TIPO_DOCUMENTO on USUARIO_TIPO_DOCUMENTO.seq_tipo_documento = tipo_documento.seq_tipo_documento where  tipo_documento.seq_empresa = " + String.valueOf(pSeqEmpresa) + " and USUARIO_TIPO_DOCUMENTO.SEQ_USUARIO = " + String.valueOf(pSeqUsuario) + " group by \n" + "tipo_documento.nome,\n" + "tipo_documento.seq_tipo_documento,\n" + "tipo_documento.ordem\n" + "order by tipo_documento.ordem";
+/* 248 */       String sql = "select \ntipo_documento.seq_tipo_documento,\ntipo_documento.nome,\ntipo_documento.ordem,\ncount(documento.seq_documento) total\nFrom \n tipo_documento\nleft join documento on documento.seq_tipo_documento = tipo_documento.seq_tipo_documento \nleft join USUARIO_TIPO_DOCUMENTO on USUARIO_TIPO_DOCUMENTO.seq_tipo_documento = tipo_documento.seq_tipo_documento where  tipo_documento.seq_empresa = " + String.valueOf(pSeqEmpresa) + " and USUARIO_TIPO_DOCUMENTO.SEQ_USUARIO = " + String.valueOf(pSeqUsuario) + " and tipo_documento.situacao = 'ATIVO' " + " group by \n" + "tipo_documento.nome,\n" + "tipo_documento.seq_tipo_documento,\n" + "tipo_documento.ordem\n" + "order by 2";
 
 /* 266 */       System.out.println(sql);
 /* 267 */       PreparedStatement ps = conn.prepareStatement(sql);
 /* 268 */       ResultSet rs = ps.executeQuery();
 /*     */       
 /* 270 */       while (rs.next()) {
-/* 271 */         retorno.put(rs.getString("SEQ_TIPO_DOCUMENTO"), rs.getString("NOME") + " (" + rs.getString("TOTAL") + ")");
+/* 271 */         retorno.put(rs.getString("SEQ_TIPO_DOCUMENTO"), rs.getString("NOME") +"  "+ rs.getString("TOTAL"));
 /*     */       }
 /*     */       
 /* 274 */       ps.execute();

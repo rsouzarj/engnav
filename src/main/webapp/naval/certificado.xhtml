@@ -282,6 +282,14 @@
                                         <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                     </h:outputText>
                                 </p:column>
+                                
+                                <p:column headerText="Situação" sortBy="#{p.status}">
+                                    <h:outputText value="#{p.status}"  title="#{p.status}"  />
+                                </p:column> 
+                                
+                                <p:column headerText="Status" sortBy="#{p.situacao}">
+                                    <h:outputText value="#{p.situacao}"  title="#{p.situacao}"  />
+                                </p:column>                                 
 
 
                                 <p:column headerText="Detalhe" width="8%">
@@ -314,7 +322,7 @@
                         <p:separator/>
 
                         <p:panelGrid columns="1" rendered="#{nvCertificadoController.tela == 1}" layout="grid" styleClass="ui-panelgrid-blank" > 
-                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
+                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Nº do Certificado " />
                                     <h:outputText value="#{nvCertificadoController.nvCertificado.identificacao}"/>
@@ -322,9 +330,9 @@
                                     <h:outputText value="#{nvCertificadoController.nvCertificado.tipoCertificado}" />
                                 </p:panelGrid>
 
-                                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <!--<h:outputText value="Embarcação: " />
-                                    <h:outputText value="#{nvCertificadoController.nvCertificado.embarcacaoNome}" />-->
+                                <!--<p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Embarcação: " />
+                                    <h:outputText value="#{nvCertificadoController.nvCertificado.embarcacaoNome}" />
                                     
                               
                                     <p:selectOneMenu value="#{nvCertificadoController.nvCertificado.maraberto}" >
@@ -344,12 +352,10 @@
                                             <f:selectItem itemLabel="ÁREA 2 SELECIONADO" itemValue="S" />
                                     </p:selectOneMenu>                                            
                               
-                                </p:panelGrid>
+                                </p:panelGrid>-->
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Data da Docagem/Borda Livre: " />
-                                            <h:outputText value="#{nvCertificadoController.nvVistoria.dataDocagem}" >
-                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy"/>
-                                    </h:outputText>
+                                    <h:outputText value="Data da Docagem/Borda Livre:" />
+                                    <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy" value="#{nvCertificadoController.nvVistoria.dataDocagem}" />
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Data de Validade" />
                                     <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy" value="#{nvCertificadoController.nvCertificado.dataValidade}" />       
@@ -519,21 +525,23 @@
                                     <p:panelGrid columns="7" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{loginController.usuario.acOpCertificado == 1}" > 
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                             <h:outputText value="A REALIZAR" style="font-size: 90%"/>
-                                            <h:outputText value="#{nvCertificadoController.nvCertificadoDetalhe.arealiza}" />
+                                            <p:inputText value="#{nvCertificadoController.nvCertificadoDetalhe.arealiza}" />
                                         </p:panelGrid>
 
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                             <h:outputText value="ENTRE" style="font-size: 90%"/>
-                                            <h:outputText value="#{nvCertificadoController.nvCertificadoDetalhe.dataInicial}" >
+                                            <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy" value="#{nvCertificadoController.nvCertificadoDetalhe.dataInicial}"/>
+                                            <!--<h:outputText value="#{nvCertificadoController.nvCertificadoDetalhe.dataInicial}" >
                                                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
-                                            </h:outputText >
+                                            </h:outputText >-->
                                         </p:panelGrid>
 
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                             <h:outputText value="E" style="font-size: 90%"/>
-                                            <h:outputText value="#{nvCertificadoController.nvCertificadoDetalhe.dataFinal}" >
+                                            <p:calendar mask="99/99/9999" pattern="dd/MM/yyyy" value="#{nvCertificadoController.nvCertificadoDetalhe.dataFinal}"/>
+                                            <!--<h:outputText value="#{nvCertificadoController.nvCertificadoDetalhe.dataFinal}" >
                                                 <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
-                                            </h:outputText>
+                                            </h:outputText>-->
                                         </p:panelGrid>
 
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 

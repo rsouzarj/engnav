@@ -12,12 +12,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class NvCertificadoDetalheDAO
 /*     */ {
 /*     */   public NvCertificadoDetalhe inserir(NvCertificadoDetalhe nvCertificadoDetalhe)
@@ -28,7 +23,7 @@
 /*  28 */       nvCertificadoDetalhe.setSeqNvCertificadoDetalhe(seq);
 /*  29 */       Conexao conexao = new Conexao();
 /*  30 */       Connection conn = Conexao.getConnection();
-/*  31 */       String sql = "insert into NV_CERTIFICADO_DETALHE (SEQ_NV_CERTIFICADO_DETALHE,AREALIZA,NOME_VISTORIADOR,DATA_FINAL,DATA_REALIZACAO,LUGAR,SEQ_NV_CERTIFICADO,DATA_INICIAL, status, prazo, documento_vistoriador) values  (?,?,?,?,?,?,?,?,?,?,?)";
+/*  31 */       String sql = "insert into NV_CERTIFICADO_DETALHE (SEQ_NV_CERTIFICADO_DETALHE,AREALIZA,NOME_VISTORIADOR,DATA_FINAL,DATA_REALIZACAO,LUGAR,SEQ_NV_CERTIFICADO,DATA_INICIAL, status, prazo, documento_vistoriador, aviso) values  (?,?,?,?,?,?,?,?,?,?,?,?)";
 /*     */       
 /*     */ 
 /*     */ 
@@ -61,7 +56,7 @@
 /*  61 */         ps.setDate(10, null);
 /*     */       }
 /*  63 */       ps.setString(11, nvCertificadoDetalhe.getDocumentoVistoriador());
-/*     */       
+/*     */       ps.setString(12, nvCertificadoDetalhe.getAviso());
 /*  65 */       ps.execute();
 /*  66 */       ps.close();
 /*     */     }
@@ -76,7 +71,7 @@
 /*     */     try {
 /*  77 */       Conexao conexao = new Conexao();
 /*  78 */       Connection conn = Conexao.getConnection();
-/*  79 */       String sql = "update NV_CERTIFICADO_DETALHE set AREALIZA = ?,NOME_VISTORIADOR = ?,DATA_FINAL = ?,DATA_REALIZACAO = ?,LUGAR = ?,SEQ_NV_CERTIFICADO = ?,DATA_INICIAL = ?, status = ?, prazo = ?, documento_vistoriador = ? where SEQ_NV_CERTIFICADO_DETALHE = ?";
+/*  79 */       String sql = "update NV_CERTIFICADO_DETALHE set AREALIZA = ?,NOME_VISTORIADOR = ?,DATA_FINAL = ?,DATA_REALIZACAO = ?,LUGAR = ?,SEQ_NV_CERTIFICADO = ?,DATA_INICIAL = ?, status = ?, prazo = ?, documento_vistoriador = ?, aviso = ? where SEQ_NV_CERTIFICADO_DETALHE = ?";
 /*     */       
 /*  81 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
@@ -106,8 +101,9 @@
 /* 106 */         ps.setDate(9, null);
 /*     */       }
 /* 108 */       ps.setString(10, nvCertificadoDetalhe.getDocumentoVistoriador());
+                ps.setString(11, nvCertificadoDetalhe.getAviso());
 /*     */       
-/* 110 */       ps.setString(11, nvCertificadoDetalhe.getSeqNvCertificadoDetalhe());
+/* 110 */       ps.setString(12, nvCertificadoDetalhe.getSeqNvCertificadoDetalhe());
 /* 111 */       ps.execute();
 /* 112 */       ps.close();
 /*     */     }
@@ -143,6 +139,7 @@
 /* 143 */         nvCertificadoDetalhe.setStatus(rs.getString("STATUS"));
 /* 144 */         nvCertificadoDetalhe.setPrazo(rs.getDate("PRAZO"));
 /* 145 */         nvCertificadoDetalhe.setDocumentoVistoriador(rs.getString("documento_vistoriador"));
+                  nvCertificadoDetalhe.setAviso(rs.getString("aviso"));
 /* 146 */         listaNvCertificadoDetalhe.add(nvCertificadoDetalhe);
 /*     */       }
 /*     */       
@@ -160,7 +157,7 @@
 /*     */     try {
 /* 124 */       Conexao conexao = new Conexao();
 /* 125 */       Connection conn = Conexao.getConnection();
-/* 126 */       String sql = "SELECT * FROM VW_BI_LISTA_CONVALIDACAO" + sClausula.montarsClausula();
+/* 126 */       String sql = "SELECT * FROM VW_BI_LISTA_CONVALIDACAO" + sClausula.montarsClausula() + "ORDER BY VW_BI_LISTA_CONVALIDACAO.DATA_INICIAL";
 /* 127 */       System.out.println(sql);
 /*     */       
 /* 129 */       List<NvCertificadoDetalhe> listaNvCertificadoDetalhe = new ArrayList();
@@ -179,8 +176,8 @@
 /* 142 */         nvCertificadoDetalhe.setDataInicial(rs.getDate("DATA_INICIAL"));
 /* 143 */         nvCertificadoDetalhe.setStatus(rs.getString("STATUS"));
 /* 144 */         nvCertificadoDetalhe.setPrazo(rs.getDate("PRAZO"));
-
                   nvCertificadoDetalhe.setSeqNvEmbarcacao(rs.getString("SEQ_NV_EMBARCACAO"));
+                  nvCertificadoDetalhe.setAviso(rs.getString("AVISO"));
 /* 146 */         listaNvCertificadoDetalhe.add(nvCertificadoDetalhe);
 
 /*     */       }
@@ -216,6 +213,8 @@
 /* 175 */       System.out.println(ex.getMessage()); }
 /* 176 */     return false;
 /*     */   }
+
+
 /*     */ }
 
 

@@ -17,16 +17,7 @@
 /*     */ import java.lang.reflect.Type;
 /*     */ import java.util.ArrayList;
 /*     */ import java.util.List;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class WSConsumir
 /*     */ {
 /*  32 */   private String url = "http://localhost:8081/ERP/recursos/ws";
@@ -63,14 +54,7 @@
 /*     */     
 /* 235 */     return usuario;
 /*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */   public boolean enviarSenhaEmail(String pEmail)
 /*     */   {
 /* 247 */     WSUtil wsUtil = new WSUtil();
@@ -127,14 +111,7 @@
 /*     */     
 /* 305 */     return retorno;
 /*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */   public Usuario salvarUsuario(Usuario pUsuario)
 /*     */   {
 /* 317 */     String caminho = this.url + "/Usuario/SalvarUsuario/";
@@ -152,14 +129,7 @@
 /* 330 */     Usuario usuario = (Usuario)gson.fromJson(retorno, tipo);
 /* 331 */     return usuario;
 /*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */   public List<Parceiro> listarParceiro(String pSeqUsuario)
 /*     */   {
 /* 343 */     String caminho = this.url + "/Parceiro/ListarParceiro/" + String.valueOf(pSeqUsuario);
@@ -175,15 +145,7 @@
 /*     */     
 /* 356 */     return listaparceiro;
 /*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */   public Parceiro buscarParceiro(String pSeqEmpresa, String pCodigo)
 /*     */   {
 /* 369 */     String caminho = this.url + "/Parceiro/BuscarParceiro/" + String.valueOf(pSeqEmpresa) + "/" + pCodigo + "/";

@@ -97,18 +97,7 @@
 /*  97 */       Conexao conexao = new Conexao();
 /*  98 */       Connection conn = Conexao.getConnection();
 /*  99 */       String sql = "SELECT NV_EMBARCACAO_PARCEIRO.*, parceiro.nome parceiro_nome, tipo_vinculo.nome tipo_vinc_nome,nv_embarcacao.nome nvEmbarcacaoNome FROM NV_EMBARCACAO_PARCEIRO inner join parceiro on parceiro.seq_parceiro = NV_EMBARCACAO_PARCEIRO.seq_parceiro inner join tipo_vinculo on tipo_vinculo.seq_TIPO_VINCulo = NV_EMBARCACAO_PARCEIRO.seq_NV_TIPO_VINC_PARC_EMBARCA inner join nv_embarcacao on nv_embarcacao.seq_nv_embarcacao = NV_EMBARCACAO_PARCEIRO.seq_embarcacao " + sClausula.montarsClausula();
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 112 */       List<NvEmbarcacaoParceiro> listaNvEmbarcacaoParceiro = new ArrayList();
 /* 113 */       PreparedStatement ps = conn.prepareStatement(sql);
 /* 114 */       ResultSet rs = ps.executeQuery();
@@ -137,6 +126,8 @@
 /* 137 */       System.out.println(ex.getMessage()); }
 /* 138 */     return null;
 /*     */   }
+
+
 /*     */   
 /*     */   public boolean deletar(NvEmbarcacaoParceiro nvEmbarcacaoParceiro)
 /*     */   {
@@ -158,9 +149,3 @@
 /* 158 */     return false;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/NvEmbarcacaoParceiro/NvEmbarcacaoParceiroDAO.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

@@ -104,6 +104,7 @@ public class NvCertificadoEquipamentoController
     if ((this.loginController.usuario.getAcOpCertificado() == null) || (this.loginController.usuario.getAcOpCertificado().equals("-1"))) {
       this.loginController.mudarPagina("/organizacional/acessonegado.jsf");
        }
+   
    this.listaParceiro = this.parceiroService.listarParceiro(this.loginController.getUsuario().getSeqUsuario(),"");
    this.listaColaborador = this.colaboradorService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
    this.listaEquipamento = this.equipamentoService.listarPorParceiro(this.loginController.getEmpresa().getSeqEmpresa(), this.nvCertificadoEquipamento.getSeqParceiro(), Situacao.ATIVO);

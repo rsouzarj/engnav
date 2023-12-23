@@ -103,8 +103,8 @@
                         
                         <p:panelGrid rendered="#{parceiroController.tela == 0}"  columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                              <p:separator/>
-                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" >
-                                        <h:outputText value=" " />
+                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                        
                                         <p:selectOneMenu value="#{parceiroController.seqParceiroSelecionado}" filter="true" filterMatchMode="contains" >
                                             <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
                                             <f:selectItems value="#{parceiroController.listaParceiroVinculado}" var="e"  itemLabel="#{e.nome}" itemValue="#{e.seqParceiro}" />
@@ -117,8 +117,12 @@
                                 <p:column headerText="Nome" sortBy="#{p.nome}">
                                     <p:commandLink value="#{p.nome}"  title="#{p.nome}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
+                                
+                                <p:column headerText="Nome Fantasia"  sortBy="#{p.nome}">
+                                    <p:commandLink value="#{p.fantasia}"  title="#{p.fantasia}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                </p:column>
 
-                                <p:column headerText="CNPJ/CPF" filterBy="#{p.documento}" sortBy="#{p.documento}">
+                                <p:column headerText="CNPJ/CPF"  sortBy="#{p.documento}">
                                     <p:commandLink value="#{p.documento}"  title="#{p.documento}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>                                
                                 
@@ -126,17 +130,17 @@
                                     <p:commandLink value="#{p.cidade}"  title="#{p.cidade}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
-                                <p:column headerText="Perfil" sortBy="#{p.uf}">
+                                <p:column headerText="Perfil"  sortBy="#{p.uf}">
                                     <p:commandLink value="#{p.perfil}"  title="#{p.perfil}"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
-                                <p:column headerText="Situação" sortBy="#{p.situacao}" >
+                                <!--<p:column headerText="Situação" sortBy="#{p.situacao}" >
                                     <h:outputText value="#{p.situacao}" />
                                 </p:column>
 
                                 <p:column headerText="Detalhe" width="8%">
                                     <p:commandButton icon="fa fa-search Fs18 white"  actionListener="#{parceiroController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista"/>
-                                </p:column>
+                                </p:column>-->
                             </p:dataTable>
 
                         </div>
@@ -150,7 +154,7 @@
                             <p:panelGrid rendered="#{parceiroController.tela == 1}"  columns="4"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2">
                             <p:commandButton value="Salvar" actionListener="#{parceiroController.salvar(0)}" update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acParNovo == 1}"/>
                             <p:commandButton value="Voltar" immediate="true" actionListener="#{parceiroController.mudarTela(0)}" update=":frmDetalhe :frmLista" />
-                            <p:commandButton value="Imprimir" actionListener="#{parceiroController.imprimir()}" immediate="true" ajax="false"  onclick="this.form.target = '_blank'"/> 
+                            <!--<p:commandButton value="Imprimir" actionListener="#{parceiroController.imprimir()}" immediate="true" ajax="false"  onclick="this.form.target = '_blank'"/> -->
                             <p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{parceiroController.deletar()}"  update=":frmDetalhe :frmLista" rendered="#{loginController.usuario.acParNovo == 1}">
                                 <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert" />
                             </p:commandButton>
@@ -171,7 +175,7 @@
                                
                                 <p:tab title="Dados do Parceiro">
                             
-                                <p:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Tipo de Parceiro" />
                                     <p:selectOneMenu value="#{parceiroController.parceiro.seqTipoParceiro}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[TIPO DE PARCEIRO] é Obrigatório!">
@@ -204,34 +208,17 @@
                                 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" id="pnlBuscarRF" > 
                                     <h:outputText value="." />
-                                    <p:commandButton value="Buscar Dados da Empresa" actionListener="#{parceiroController.buscarDadosReceitaFederal()}" update=":frmDetalhe" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}" />
+                                    <p:commandButton value="Buscar Dados" actionListener="#{parceiroController.buscarDadosReceitaFederal()}" update=":frmDetalhe" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}" />
                                 </p:panelGrid>
                                 
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Unidade de Negócio" />
-                                    <p:selectOneMenu value="#{parceiroController.parceiro.unidadeNegocio}" filter="true" filterMatchMode="contains" >
-                                    <f:selectItem itemLabel="Selecione a Unidade de Negócio" itemValue="#{null}"/>
-                                    <f:selectItems value="#{parceiroController.listaUnidadeNegocio}" var="un"  itemLabel="#{un.nome}" itemValue="#{un.seqUnidadeNegocio}"/>
-                                    </p:selectOneMenu>
-                                </p:panelGrid>
-
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Grupo Empresarial" />
-                                    <p:selectOneMenu value="#{parceiroController.parceiro.grupo}" filter="true" filterMatchMode="contains" >
-                                    <f:selectItem itemLabel="Selecione o Grupo Empresarial" itemValue="#{null}"/>
-                                    <f:selectItems value="#{parceiroController.listaGrupoEmpresarial}" var="gp"  itemLabel="#{gp.nome}" itemValue="#{gp.seqGrupo}"/>
-                                    </p:selectOneMenu>
-                                </p:panelGrid>                                   
+                                
 
                             </p:panelGrid>
 
                             <p:separator/>
 
-                            <p:panelGrid id="pnlNome" columns="7" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-5,ui-grid-col-4,ui-grid-col-2"> 
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Código"  />                
-                                    <p:inputText value="#{parceiroController.parceiro.codigo}" readonly="#{loginController.empresa.tipoNumeracaoCodParceiro != null}" />                
-                                </p:panelGrid>
+                            <p:panelGrid id="pnlNome" columns="5" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-5,ui-grid-col-5,ui-grid-col-2,ui-grid-col-2"> 
+
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Razão Social" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
@@ -256,30 +243,58 @@
                                 </p:panelGrid>
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Insc. Municipal" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
+                                    <h:outputText value="I. Municipal" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
                                     <h:outputText value="" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Física'}"/>
                                     <p:inputText value="#{parceiroController.parceiro.im}" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
                                 </p:panelGrid>
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Insc. Estadual" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
+                                    <h:outputText value="I. Estadual" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
                                     <h:outputText value="" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Física'}"/>
                                     <p:inputText value="#{parceiroController.parceiro.ie}" rendered="#{parceiroController.parceiro.tipo == 'Pessoa Jurídica'}"/>
                                 </p:panelGrid>
-                                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+
+                            </p:panelGrid>
+                            
+                            <p:separator/>
+                            
+                            <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-2,ui-grid-col-5,ui-grid-col-4,ui-grid-col-2"> 
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Código"  />                
+                                    <p:inputText value="#{parceiroController.parceiro.codigo}" readonly="#{loginController.empresa.tipoNumeracaoCodParceiro != null}" />                
+                                </p:panelGrid>
+                                
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Unidade de Negócio" />
+                                    <p:selectOneMenu value="#{parceiroController.parceiro.unidadeNegocio}" filter="true" filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="Selecione a Unidade de Negócio" itemValue="#{null}"/>
+                                    <f:selectItems value="#{parceiroController.listaUnidadeNegocio}" var="un"  itemLabel="#{un.nome}" itemValue="#{un.seqUnidadeNegocio}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <h:outputText value="Grupo Empresarial" />
+                                    <p:selectOneMenu value="#{parceiroController.parceiro.grupo}" filter="true" filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="Selecione o Grupo Empresarial" itemValue="#{null}"/>
+                                    <f:selectItems value="#{parceiroController.listaGrupoEmpresarial}" var="gp"  itemLabel="#{gp.nome}" itemValue="#{gp.seqGrupo}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>                                   
+                                                   
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                 <h:outputText value="Situação" />
                                 <p:selectOneMenu value="#{parceiroController.parceiro.situacao}" >
                                     <f:selectItem itemLabel="Ativo" itemValue="ATIVO" />
                                     <f:selectItem itemLabel="Inativo" itemValue="INATIVO" />
                                 </p:selectOneMenu>
-                            </p:panelGrid> 
-                            </p:panelGrid>
+                            </p:panelGrid>                            
+                            
+                             </p:panelGrid>
                            
                             </p:tab>
                               
                                 <p:tab title="Endereço Principal">
                             
-                                <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank" id="pnlEnd"> 
+                                <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank" id="pnlEnd" columnClasses="ui-grid-col-2,ui-grid-col-2,ui-grid-col-5,ui-grid-col-2,ui-grid-col-5"> 
                                 
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="CEP" />
@@ -312,7 +327,7 @@
 
 
 
-                            <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" id="pnlEnd_2" columnClasses="ui-grid-col-6,ui-grid-col-4,ui-grid-col-10">  
+                            <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" id="pnlEnd_2" columnClasses="ui-grid-col-4,ui-grid-col-5,ui-grid-col-3,ui-grid-col-3">  
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                     <h:outputText value="Bairro" />
@@ -659,7 +674,14 @@
                                 <f:selectItems itemLabel="Selecione o Perfil" itemValue="#{null}" />
                                 <f:selectItems value="#{parceiroController.listaTipoCaracteristica}" var="tc"  itemLabel="#{tc.nome}" itemValue="#{tc.nome}" />
                                 </p:selectOneMenu>
-                            </p:panelGrid>                      
+                            </p:panelGrid>
+                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                <h:outputText value="Tabela de Preço" />
+                                <p:selectOneMenu value="#{parceiroController.parceiro.seqTabelaPreco}" filter="true" filterMatchMode="contains" >
+                                    <f:selectItem itemLabel="Selecione a tabela de Preço" itemValue="#{null}" />
+                                    <f:selectItems value="#{parceiroController.listaTabelaPreco}" var="tp"  itemLabel="#{tp.nome}" itemValue="#{tp.seqTabelaPreco}" />
+                                </p:selectOneMenu>
+                            </p:panelGrid>    
                             </p:tab>              
                                 
                                 
@@ -883,7 +905,36 @@
 
                                 </p:tab>                                
 
-                               
+                                <p:tab title="Lista de Embarcações" rendered="#{parceiroController.parceiro.seqParceiro > 0}" >
+                                    <p:dataTable id="barcos" var="b" rowIndexVar="index" value="#{parceiroController.listaNvEmbarcacaoParceiro}" emptyMessage="Lista vazia" reflow="true">
+                                        <p:column headerText="Nome da Embarcação" width="8%" style="text-align: center">
+                                            <p:outputLabel value="#{b.nvEmbarcacaoNome}"/>
+                                        </p:column>
+                                        <p:column headerText="Tipo de Vinculo" width="8%" style="text-align: center">
+                                            <p:outputLabel value="#{b.tipoVinculoNome}"/>
+                                        </p:column>
+                                        <!--<p:column headerText="Nome" style="text-align: center">
+                                            <p:outputLabel value="#{a.nomeArquivo}"/>
+                                        </p:column>
+                                        <p:column headerText="Tipo" style="text-align: center">
+                                            <p:outputLabel value="#{a.tipoArquivo}"/>
+                                        </p:column>
+                                        <p:column headerText="Usuário" style="text-align: center">
+                                            <p:outputLabel value="#{a.nomeUsuario}"/>
+                                        </p:column>
+                                        <p:column headerText="Dt. Emissao do Documento" sortBy="#{a.dataEmissao}">
+                                            <h:outputText value="#{a.dataEmissao}"  title="#{a.dataEmissao}"  >
+                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>
+                                        <p:column headerText="Dt. Validade do Documento" sortBy="#{a.dataValidade}">
+                                            <h:outputText value="#{a.dataValidade}"  title="#{a.dataValidade}"  >
+                                            <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
+                                            </h:outputText>
+                                        </p:column>-->
+                                    </p:dataTable>
+
+                                </p:tab>                               
 
                                 <p:tab title="Parceiros Vinculados" rendered="#{parceiroController.parceiro.seqParceiro > 0}">
                                     <p:messages  autoUpdate="true" closable="true" />
@@ -987,7 +1038,7 @@
 
                                 </p:tab>  
                                 
-                                <p:tab title="Documentos do Colaborador/Cliente/Fornecedor"  rendered="#{parceiroController.parceiro.seqParceiro > 0}">
+                                <p:tab title="Anexar Documentos"  rendered="#{parceiroController.parceiro.seqParceiro > 0}">
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
                                         <p:growl id="messagesg" showDetail="true" />
                                         <p:panelGrid columns="5" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-4,ui-grid-col-4"> 
@@ -1047,7 +1098,9 @@
                                         
                                     </p:dataTable>
 
-                                </p:tab>                              
+                                </p:tab>
+                            
+
                                 
                             </p:tabView>                              
                             

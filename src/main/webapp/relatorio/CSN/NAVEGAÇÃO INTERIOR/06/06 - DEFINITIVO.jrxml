@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.9.0.final using JasperReports Library version 6.9.0-cb8f9004be492ccc537180b49c026951f4220bf3  -->
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="CSN NAVEGAÇÃO INTERIOR PROPULSADA" columnDirection="RTL" pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c228adc4-7dbc-4e63-ab17-465914eda5cc">
 	<property name="ireport.zoom" value="1.5"/>
 	<property name="ireport.x" value="0"/>
 	<property name="ireport.y" value="394"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="aws"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
 	<subDataset name="Detalhe_1" whenResourceMissingType="Empty" uuid="65909928-a594-4a37-9571-339c6910be18">
 		<parameter name="pSeqCertificadoIN" class="java.lang.Long">
 			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
@@ -14,7 +16,7 @@
 FROM
      "NV_CERTIFICADO_DETALHE" NV_CERTIFICADO_DETALHE
 WHERE
-     SEQ_NV_CERTIFICADO = $P{pSeqCertificadoIN} AND ROWNUM <= 4]]>
+     SEQ_NV_CERTIFICADO = $P{pSeqCertificadoIN} AND ROWNUM < 5]]>
 		</queryString>
 		<field name="SEQ_NV_CERTIFICADO_DETALHE" class="java.math.BigDecimal"/>
 		<field name="SEQ_NV_CERTIFICADO" class="java.math.BigDecimal"/>
@@ -87,118 +89,421 @@ left join nv_tipo_embarcacao on nv_embarcacao.seq_nv_tipo_embarcacao = nv_tipo_e
 where
 NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 	</queryString>
-	<field name="SEQ_NV_CERTIFICADO" class="java.math.BigDecimal"/>
-	<field name="IDENTIFICACAO" class="java.lang.String"/>
-	<field name="SEQ_EMPRESA" class="java.math.BigDecimal"/>
-	<field name="DATA_CADASTRO" class="java.sql.Timestamp"/>
-	<field name="SITUACAO" class="java.lang.String"/>
-	<field name="SEQ_NV_TIPO_CERTIFICADO" class="java.math.BigDecimal"/>
-	<field name="SEQ_NV_EMBARCACAO" class="java.math.BigDecimal"/>
-	<field name="DATA_EMISSAO" class="java.sql.Timestamp"/>
-	<field name="DATA_VALIDADE" class="java.sql.Timestamp"/>
-	<field name="LOCAL_EMISSAO" class="java.lang.String"/>
-	<field name="SEQ_COLABORADOR" class="java.math.BigDecimal"/>
-	<field name="OBSERVACAO" class="oracle.sql.CLOB"/>
-	<field name="NOME_VISTORIADOR" class="java.lang.String"/>
-	<field name="STATUS" class="java.lang.String"/>
-	<field name="SEQ_NV_VISTORIA" class="java.math.BigDecimal"/>
-	<field name="PRAZO" class="java.math.BigDecimal"/>
-	<field name="PRAZO_TOTAL" class="java.math.BigDecimal"/>
-	<field name="ASSINATURA_DIGITAL" class="java.lang.String"/>
-	<field name="FILIAL" class="java.lang.String"/>
-	<field name="NOME" class="java.lang.String"/>
-	<field name="NUMERO_INSCRICAO" class="java.lang.String"/>
-	<field name="DATA_INSCRICAO" class="java.sql.Timestamp"/>
-	<field name="LIVRO_INSCRICAO" class="java.lang.String"/>
-	<field name="FOLHA_INSCRICAO" class="java.lang.String"/>
-	<field name="IND_RADIO_INTERNAC" class="java.lang.String"/>
-	<field name="SEQ_NV_TIPO_EMBARCACAO" class="java.math.BigDecimal"/>
-	<field name="AREA_NAVEGACAO" class="java.lang.String"/>
-	<field name="TIPO_PROPULSAO" class="java.lang.String"/>
-	<field name="TIPO_ATIVIDADE_MAR" class="java.lang.String"/>
-	<field name="TRIPULANTES" class="java.lang.String"/>
-	<field name="PASSAGEIROS" class="java.lang.String"/>
-	<field name="ANO_CONSTRUCAO" class="java.lang.String"/>
-	<field name="CONSTRUTOR" class="java.lang.String"/>
-	<field name="MATERIAL_CONSTRU_CASCO" class="java.lang.String"/>
-	<field name="MATERIAL_SUPERTRUTURA" class="java.lang.String"/>
-	<field name="POTENCIA_MOTOR" class="java.lang.String"/>
-	<field name="TOTAL_MAQUINA" class="java.lang.String"/>
-	<field name="TIPO_COMBUSTIVEL" class="java.lang.String"/>
-	<field name="CAPAC_ARMAZENAMENTO" class="java.lang.String"/>
-	<field name="ARQUEACAO_BRUTA" class="java.lang.String"/>
-	<field name="ARQUEACAO_LIQUIDA" class="java.lang.String"/>
-	<field name="TONELAGEM_PORTE_BRUTA" class="java.lang.String"/>
-	<field name="COMPRIMENTO_TOTAL" class="java.lang.String"/>
-	<field name="BOCA" class="java.lang.String"/>
-	<field name="PONTAL" class="java.lang.String"/>
-	<field name="CALADO_LEVE" class="java.lang.String"/>
-	<field name="CALADO_CARREGADO" class="java.lang.String"/>
-	<field name="NOME_PROPRIETARIO" class="java.lang.String"/>
-	<field name="CPF_CNPJ" class="java.lang.String"/>
-	<field name="ENDERECO" class="java.lang.String"/>
-	<field name="CIDADE_ESTADO" class="java.lang.String"/>
-	<field name="NOME_PROPRIETARIO2" class="java.lang.String"/>
-	<field name="CPF_CNPJ2" class="java.lang.String"/>
-	<field name="ENDERECO2" class="java.lang.String"/>
-	<field name="CIDADE_ESTADO2" class="java.lang.String"/>
-	<field name="IMO" class="java.lang.String"/>
-	<field name="SEQ_PARCEIRO" class="java.math.BigDecimal"/>
-	<field name="INDICATIVO" class="java.lang.String"/>
-	<field name="PORTO_INSCRICAO" class="java.lang.String"/>
-	<field name="TIPO" class="java.lang.String"/>
-	<field name="CENTRO_DISCO_CONVES" class="java.lang.String"/>
-	<field name="CENTRO_DISCO_PROA" class="java.lang.String"/>
-	<field name="LINHA_CONVES" class="java.lang.String"/>
-	<field name="MARCA_LINHA_DAGUA" class="java.lang.String"/>
-	<field name="AREA_NAVEGACAO_TIPO" class="java.lang.String"/>
-	<field name="CASCO_NUMERO" class="java.lang.String"/>
-	<field name="COMPRIMENTO_ENTRE_PERPEND" class="java.lang.String"/>
-	<field name="SEQ_NV_CERTIFICADO_CALCULO_CSN" class="java.math.BigDecimal"/>
-	<field name="SEQ_NV_CERTIFICADO_CALCULO_ARQ" class="java.math.BigDecimal"/>
-	<field name="SEQ_NV_CERTIFICADO_CALCULO_BLR" class="java.math.BigDecimal"/>
-	<field name="CORRECAO_NAVEGACAO_AGUA_DOCE" class="java.lang.String"/>
-	<field name="CORRECAO_NAV_AGUA_SALGADA" class="java.lang.String"/>
-	<field name="MARCA_LINHA_CARGA_AREA1" class="java.lang.String"/>
-	<field name="MARCA_LINHA_CARGA_AREA2" class="java.lang.String"/>
-	<field name="ESPACOS_FECHADOS_ABAIXO_CONVES" class="java.lang.String"/>
-	<field name="ESPACOS_FECHADOS_ACIMA_CONVES" class="java.lang.String"/>
-	<field name="VOLUME_TOTAL_ESPACOS_FECHADOS" class="java.lang.String"/>
-	<field name="ESPACO_CARGA" class="java.lang.String"/>
-	<field name="DATA_LOCAL_ARQUEACAO_ORIGINAL" class="java.lang.String"/>
-	<field name="DATA_LOCAL_ULTIMA_REARQUEACAO" class="java.lang.String"/>
-	<field name="TOTAL_PASSAG_CAMAR_8_BELICHES" class="java.lang.String"/>
-	<field name="TIPO_MARCA_MOTOR" class="java.lang.String"/>
-	<field name="NUMERO_MOTOR" class="java.lang.String"/>
-	<field name="AUTORIZADO_TRANSP_CARGA_CONVES" class="java.lang.String"/>
-	<field name="BORDA_LIVRE" class="java.lang.String"/>
-	<field name="DESTINACAO_REBOQUE" class="java.lang.String"/>
-	<field name="POTENCIA_NOMINAL_ELETRICA" class="java.lang.String"/>
-	<field name="MERCADORIAS_PERIGOSAS" class="java.lang.String"/>
-	<field name="APOIO_PORTUARIO" class="java.lang.String"/>
-	<field name="TIPO_ATIVIDADE_INTERIOR" class="java.lang.String"/>
-	<field name="CEP_ESTALEIRO_CONSTRUTOR" class="java.lang.String"/>
-	<field name="CEP_ARMADOR" class="java.lang.String"/>
-	<field name="REQUISITOS_TRANSPORTE_COLETIVO" class="java.lang.String"/>
-	<field name="AREA_EMBARCACAO_1" class="java.lang.String"/>
-	<field name="AREA_EMBARCACAO_2" class="java.lang.String"/>
-	<field name="AREA_EMBARCACAO_3" class="java.lang.String"/>
-	<field name="TIPO_PLANTA_PROPULSORA" class="java.lang.String"/>
-	<field name="COMPRIMENTO_REGRA" class="java.lang.String"/>
-	<field name="NOME_ASSINATURA" class="java.lang.String"/>
-	<field name="DOCUMENTO_COLABORADOR" class="java.lang.String"/>
-	<field name="NOME_COLABORADOR" class="java.lang.String"/>
-	<field name="TIPO_DE_COLABORADOR" class="java.lang.String"/>
-	<field name="TIPO_EMBARCACAO" class="java.lang.String"/>
+	<field name="SEQ_NV_CERTIFICADO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_CERTIFICADO"/>
+	</field>
+	<field name="IDENTIFICACAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IDENTIFICACAO"/>
+	</field>
+	<field name="SEQ_EMPRESA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_EMPRESA"/>
+	</field>
+	<field name="DATA_CADASTRO" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_CADASTRO"/>
+	</field>
+	<field name="SITUACAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SITUACAO"/>
+	</field>
+	<field name="SEQ_NV_TIPO_CERTIFICADO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_TIPO_CERTIFICADO"/>
+	</field>
+	<field name="SEQ_NV_EMBARCACAO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_EMBARCACAO"/>
+	</field>
+	<field name="DATA_EMISSAO" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_EMISSAO"/>
+	</field>
+	<field name="DATA_VALIDADE" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_VALIDADE"/>
+	</field>
+	<field name="LOCAL_EMISSAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="LOCAL_EMISSAO"/>
+	</field>
+	<field name="SEQ_COLABORADOR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_COLABORADOR"/>
+	</field>
+	<field name="OBSERVACAO" class="oracle.sql.CLOB">
+		<property name="com.jaspersoft.studio.field.label" value="OBSERVACAO"/>
+	</field>
+	<field name="NOME_VISTORIADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME_VISTORIADOR"/>
+	</field>
+	<field name="STATUS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="STATUS"/>
+	</field>
+	<field name="SEQ_NV_VISTORIA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_VISTORIA"/>
+	</field>
+	<field name="PRAZO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="PRAZO"/>
+	</field>
+	<field name="PRAZO_TOTAL" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="PRAZO_TOTAL"/>
+	</field>
+	<field name="ASSINATURA_DIGITAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ASSINATURA_DIGITAL"/>
+	</field>
+	<field name="FILIAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FILIAL"/>
+	</field>
+	<field name="CHAVE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CHAVE"/>
+	</field>
+	<field name="DATA_EMS_LAUDO" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_EMS_LAUDO"/>
+	</field>
+	<field name="UUID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="UUID"/>
+	</field>
+	<field name="AVISO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AVISO"/>
+	</field>
+	<field name="SEQ_UNIDADE_NEGOCIO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_UNIDADE_NEGOCIO"/>
+	</field>
+	<field name="MARABERTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MARABERTO"/>
+	</field>
+	<field name="NAVINT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NAVINT"/>
+	</field>
+	<field name="AREA1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AREA1"/>
+	</field>
+	<field name="AREA2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AREA2"/>
+	</field>
+	<field name="UPDATED" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="UPDATED"/>
+	</field>
+	<field name="COLUMN_30" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_EMBARCACAO"/>
+	</field>
+	<field name="COLUMN_31" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_EMPRESA"/>
+	</field>
+	<field name="COLUMN_32" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SITUACAO"/>
+	</field>
+	<field name="COLUMN_33" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_CADASTRO"/>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME"/>
+	</field>
+	<field name="NUMERO_INSCRICAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMERO_INSCRICAO"/>
+	</field>
+	<field name="DATA_INSCRICAO" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_INSCRICAO"/>
+	</field>
+	<field name="LIVRO_INSCRICAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="LIVRO_INSCRICAO"/>
+	</field>
+	<field name="FOLHA_INSCRICAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="FOLHA_INSCRICAO"/>
+	</field>
+	<field name="IND_RADIO_INTERNAC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IND_RADIO_INTERNAC"/>
+	</field>
+	<field name="SEQ_NV_TIPO_EMBARCACAO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_TIPO_EMBARCACAO"/>
+	</field>
+	<field name="AREA_NAVEGACAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AREA_NAVEGACAO"/>
+	</field>
+	<field name="TIPO_PROPULSAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_PROPULSAO"/>
+	</field>
+	<field name="TIPO_ATIVIDADE_MAR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_ATIVIDADE_MAR"/>
+	</field>
+	<field name="TRIPULANTES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TRIPULANTES"/>
+	</field>
+	<field name="PASSAGEIROS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PASSAGEIROS"/>
+	</field>
+	<field name="ANO_CONSTRUCAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ANO_CONSTRUCAO"/>
+	</field>
+	<field name="CONSTRUTOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CONSTRUTOR"/>
+	</field>
+	<field name="MATERIAL_CONSTRU_CASCO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MATERIAL_CONSTRU_CASCO"/>
+	</field>
+	<field name="MATERIAL_SUPERTRUTURA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MATERIAL_SUPERTRUTURA"/>
+	</field>
+	<field name="POTENCIA_MOTOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="POTENCIA_MOTOR"/>
+	</field>
+	<field name="TOTAL_MAQUINA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL_MAQUINA"/>
+	</field>
+	<field name="TIPO_COMBUSTIVEL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_COMBUSTIVEL"/>
+	</field>
+	<field name="CAPAC_ARMAZENAMENTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CAPAC_ARMAZENAMENTO"/>
+	</field>
+	<field name="ARQUEACAO_BRUTA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ARQUEACAO_BRUTA"/>
+	</field>
+	<field name="ARQUEACAO_LIQUIDA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ARQUEACAO_LIQUIDA"/>
+	</field>
+	<field name="TONELAGEM_PORTE_BRUTA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TONELAGEM_PORTE_BRUTA"/>
+	</field>
+	<field name="COMPRIMENTO_TOTAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="COMPRIMENTO_TOTAL"/>
+	</field>
+	<field name="BOCA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BOCA"/>
+	</field>
+	<field name="PONTAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PONTAL"/>
+	</field>
+	<field name="CALADO_LEVE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CALADO_LEVE"/>
+	</field>
+	<field name="CALADO_CARREGADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CALADO_CARREGADO"/>
+	</field>
+	<field name="NOME_PROPRIETARIO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME_PROPRIETARIO"/>
+	</field>
+	<field name="CPF_CNPJ" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CPF_CNPJ"/>
+	</field>
+	<field name="ENDERECO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ENDERECO"/>
+	</field>
+	<field name="CIDADE_ESTADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CIDADE_ESTADO"/>
+	</field>
+	<field name="NOME_PROPRIETARIO2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME_PROPRIETARIO2"/>
+	</field>
+	<field name="CPF_CNPJ2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CPF_CNPJ2"/>
+	</field>
+	<field name="ENDERECO2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ENDERECO2"/>
+	</field>
+	<field name="CIDADE_ESTADO2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CIDADE_ESTADO2"/>
+	</field>
+	<field name="IMO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="IMO"/>
+	</field>
+	<field name="SEQ_PARCEIRO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_PARCEIRO"/>
+	</field>
+	<field name="INDICATIVO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="INDICATIVO"/>
+	</field>
+	<field name="PORTO_INSCRICAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PORTO_INSCRICAO"/>
+	</field>
+	<field name="TIPO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO"/>
+	</field>
+	<field name="CENTRO_DISCO_CONVES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CENTRO_DISCO_CONVES"/>
+	</field>
+	<field name="CENTRO_DISCO_PROA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CENTRO_DISCO_PROA"/>
+	</field>
+	<field name="LINHA_CONVES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="LINHA_CONVES"/>
+	</field>
+	<field name="MARCA_LINHA_DAGUA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MARCA_LINHA_DAGUA"/>
+	</field>
+	<field name="AREA_NAVEGACAO_TIPO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AREA_NAVEGACAO_TIPO"/>
+	</field>
+	<field name="CASCO_NUMERO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CASCO_NUMERO"/>
+	</field>
+	<field name="COMPRIMENTO_ENTRE_PERPEND" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="COMPRIMENTO_ENTRE_PERPEND"/>
+	</field>
+	<field name="SEQ_NV_CERTIFICADO_CALCULO_CSN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_CERTIFICADO_CALCULO_CSN"/>
+	</field>
+	<field name="SEQ_NV_CERTIFICADO_CALCULO_ARQ" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_CERTIFICADO_CALCULO_ARQ"/>
+	</field>
+	<field name="SEQ_NV_CERTIFICADO_CALCULO_BLR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_NV_CERTIFICADO_CALCULO_BLR"/>
+	</field>
+	<field name="CORRECAO_NAVEGACAO_AGUA_DOCE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CORRECAO_NAVEGACAO_AGUA_DOCE"/>
+	</field>
+	<field name="CORRECAO_NAV_AGUA_SALGADA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CORRECAO_NAV_AGUA_SALGADA"/>
+	</field>
+	<field name="MARCA_LINHA_CARGA_AREA1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MARCA_LINHA_CARGA_AREA1"/>
+	</field>
+	<field name="MARCA_LINHA_CARGA_AREA2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MARCA_LINHA_CARGA_AREA2"/>
+	</field>
+	<field name="ESPACOS_FECHADOS_ABAIXO_CONVES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESPACOS_FECHADOS_ABAIXO_CONVES"/>
+	</field>
+	<field name="ESPACOS_FECHADOS_ACIMA_CONVES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESPACOS_FECHADOS_ACIMA_CONVES"/>
+	</field>
+	<field name="VOLUME_TOTAL_ESPACOS_FECHADOS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="VOLUME_TOTAL_ESPACOS_FECHADOS"/>
+	</field>
+	<field name="ESPACO_CARGA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ESPACO_CARGA"/>
+	</field>
+	<field name="DATA_LOCAL_ARQUEACAO_ORIGINAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_LOCAL_ARQUEACAO_ORIGINAL"/>
+	</field>
+	<field name="DATA_LOCAL_ULTIMA_REARQUEACAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_LOCAL_ULTIMA_REARQUEACAO"/>
+	</field>
+	<field name="TOTAL_PASSAG_CAMAR_8_BELICHES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TOTAL_PASSAG_CAMAR_8_BELICHES"/>
+	</field>
+	<field name="TIPO_MARCA_MOTOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_MARCA_MOTOR"/>
+	</field>
+	<field name="NUMERO_MOTOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NUMERO_MOTOR"/>
+	</field>
+	<field name="AUTORIZADO_TRANSP_CARGA_CONVES" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AUTORIZADO_TRANSP_CARGA_CONVES"/>
+	</field>
+	<field name="BORDA_LIVRE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BORDA_LIVRE"/>
+	</field>
+	<field name="DESTINACAO_REBOQUE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DESTINACAO_REBOQUE"/>
+	</field>
+	<field name="POTENCIA_NOMINAL_ELETRICA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="POTENCIA_NOMINAL_ELETRICA"/>
+	</field>
+	<field name="MERCADORIAS_PERIGOSAS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MERCADORIAS_PERIGOSAS"/>
+	</field>
+	<field name="APOIO_PORTUARIO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="APOIO_PORTUARIO"/>
+	</field>
+	<field name="TIPO_ATIVIDADE_INTERIOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_ATIVIDADE_INTERIOR"/>
+	</field>
+	<field name="CEP_ESTALEIRO_CONSTRUTOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CEP_ESTALEIRO_CONSTRUTOR"/>
+	</field>
+	<field name="CEP_ARMADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CEP_ARMADOR"/>
+	</field>
+	<field name="REQUISITOS_TRANSPORTE_COLETIVO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="REQUISITOS_TRANSPORTE_COLETIVO"/>
+	</field>
+	<field name="AREA_EMBARCACAO_1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AREA_EMBARCACAO_1"/>
+	</field>
+	<field name="AREA_EMBARCACAO_2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AREA_EMBARCACAO_2"/>
+	</field>
+	<field name="AREA_EMBARCACAO_3" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AREA_EMBARCACAO_3"/>
+	</field>
+	<field name="TIPO_PLANTA_PROPULSORA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_PLANTA_PROPULSORA"/>
+	</field>
+	<field name="COMPRIMENTO_REGRA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="COMPRIMENTO_REGRA"/>
+	</field>
+	<field name="BANDEIRA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="BANDEIRA"/>
+	</field>
+	<field name="SEQ_USUARIO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_USUARIO"/>
+	</field>
+	<field name="AP_MARITIMO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AP_MARITIMO"/>
+	</field>
+	<field name="CABOTAGEM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CABOTAGEM"/>
+	</field>
+	<field name="LONGO_CURSO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="LONGO_CURSO"/>
+	</field>
+	<field name="MA_AREA1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MA_AREA1"/>
+	</field>
+	<field name="MA_AREA12" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MA_AREA12"/>
+	</field>
+	<field name="MA_AREA123" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MA_AREA123"/>
+	</field>
+	<field name="MA_AREA1234" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MA_AREA1234"/>
+	</field>
+	<field name="NAV_INT" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NAV_INT"/>
+	</field>
+	<field name="NAV_AREA1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NAV_AREA1"/>
+	</field>
+	<field name="NAV_AREA2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NAV_AREA2"/>
+	</field>
+	<field name="AP_PORTUARIO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AP_PORTUARIO"/>
+	</field>
+	<field name="AP_AREA1" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AP_AREA1"/>
+	</field>
+	<field name="AP_AREA2" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="AP_AREA2"/>
+	</field>
+	<field name="NOME_ASSINATURA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME_ASSINATURA"/>
+	</field>
+	<field name="DOCUMENTO_COLABORADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTO_COLABORADOR"/>
+	</field>
+	<field name="NOME_COLABORADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME_COLABORADOR"/>
+	</field>
+	<field name="TIPO_DE_COLABORADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_DE_COLABORADOR"/>
+	</field>
+	<field name="TIPO_EMBARCACAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TIPO_EMBARCACAO"/>
+	</field>
 	<background>
 		<band height="802" splitType="Stretch">
 			<rectangle>
 				<reportElement positionType="Float" mode="Transparent" x="1" y="0" width="554" height="802" uuid="ca5a7ddb-d793-4a86-8309-9dae92f94112"/>
 			</rectangle>
+			<image>
+				<reportElement x="0" y="0" width="555" height="802" uuid="546a68c9-2bfb-4364-afa9-6e95061c1bfe"/>
+				<imageExpression><![CDATA[".."+File.separator+".."+File.separator+".."+File.separator+"papeltimbrado.jpg"]]></imageExpression>
+			</image>
 		</band>
 	</background>
 	<detail>
 		<band height="781">
+			<image>
+				<reportElement x="210" y="700" width="109" height="60" uuid="dbaf1ff1-a134-458f-ac18-9fdbc5cd5fd1">
+					<printWhenExpression><![CDATA[$F{ASSINATURA_DIGITAL}.equals("Lucas Caldas Ferraz")]]></printWhenExpression>
+				</reportElement>
+				<imageExpression><![CDATA[".."+File.separator+".."+File.separator+".."+File.separator+"LUCAS.png"]]></imageExpression>
+			</image>
 			<image>
 				<reportElement x="235" y="707" width="85" height="69" isPrintWhenDetailOverflows="true" uuid="94b25cd9-aa7c-474e-bbd3-e16ee68e26ac">
 					<printWhenExpression><![CDATA[$F{ASSINATURA_DIGITAL}.equals("Edinilson Moises do Nascimento")]]></printWhenExpression>
@@ -234,13 +539,6 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 				<text><![CDATA[MARINHA DO BRASIL]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="57" y="105" width="489" height="20" uuid="ff873f51-df58-428d-9c90-164f8e38eb70"/>
-				<textElement textAlignment="Center">
-					<font fontName="Times New Roman" size="13" isBold="true" pdfFontName="Times-Bold"/>
-				</textElement>
-				<text><![CDATA[AWS SERVICE]]></text>
-			</staticText>
-			<staticText>
 				<reportElement x="59" y="120" width="487" height="20" uuid="22ac9a1a-5955-4550-b082-6c55af636b42"/>
 				<textElement textAlignment="Center">
 					<font fontName="Times New Roman" size="13" isBold="true" pdfFontName="Times-Bold"/>
@@ -252,7 +550,7 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 				<textElement verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[A AWS SERVICE certifica:]]></text>
+				<text><![CDATA[A ENGNAV certifica:]]></text>
 			</staticText>
 			<staticText>
 				<reportElement x="9" y="610" width="536" height="19" uuid="4f8b60f1-f024-410d-a803-c0b81e6712b9"/>
@@ -289,7 +587,7 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 				<textElement>
 					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold"/>
 				</textElement>
-				<textFieldExpression><![CDATA[$F{FILIAL}==null?"N° CSN:AWS   "+$F{IDENTIFICACAO}:"N° CSN:AWS   "+$F{IDENTIFICACAO}+$F{FILIAL}]]></textFieldExpression>
+				<textFieldExpression><![CDATA[$F{FILIAL}==null?"N° CSN:ENGNAV   "+$F{IDENTIFICACAO}:"N° CSN:ENGNAV   "+$F{IDENTIFICACAO}+$F{FILIAL}]]></textFieldExpression>
 			</textField>
 			<textField>
 				<reportElement x="9" y="520" width="537" height="70" uuid="4a450f39-00f1-41a5-8eb9-e54759e6bbba"/>
@@ -465,16 +763,16 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 				<text><![CDATA[Atividades ou Serviços]]></text>
 			</staticText>
 			<staticText>
-				<reportElement x="285" y="219" width="134" height="30" uuid="cc2f51ea-67fa-4edd-9d45-f7905077d467"/>
+				<reportElement x="257" y="219" width="162" height="30" uuid="cc2f51ea-67fa-4edd-9d45-f7905077d467"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
 					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="Times-Roman"/>
 				</textElement>
-				<text><![CDATA[Tipo da Embracação]]></text>
+				<text><![CDATA[Tipo da Embarcação]]></text>
 			</staticText>
 			<textField isBlankWhenNull="true">
-				<reportElement x="285" y="249" width="134" height="20" uuid="991583a0-0838-4e8f-9cfe-4ef29b59764b"/>
+				<reportElement x="257" y="249" width="162" height="20" uuid="991583a0-0838-4e8f-9cfe-4ef29b59764b"/>
 				<textElement textAlignment="Center" verticalAlignment="Middle">
-					<font fontName="Times New Roman" size="11" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+					<font fontName="Times New Roman" size="9" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_EMBARCACAO}]]></textFieldExpression>
 			</textField>
@@ -514,20 +812,6 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 			<rectangle>
 				<reportElement x="440" y="327" width="13" height="14" uuid="5490b812-3ad5-4476-b302-04d1a3925b88"/>
 			</rectangle>
-			<textField>
-				<reportElement mode="Transparent" x="262" y="336" width="30" height="24" uuid="ea833304-d65c-4ce6-a12a-9c87a6ffa578"/>
-				<box>
-					<pen lineWidth="1.0" lineColor="#F0F0F0"/>
-					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
-				</box>
-				<textElement>
-					<font size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
-			</textField>
 			<staticText>
 				<reportElement x="458" y="326" width="58" height="17" uuid="24556b08-83b2-4083-86f9-2ffb57c8b9df"/>
 				<textElement textAlignment="Left" verticalAlignment="Middle">
@@ -552,29 +836,11 @@ NV_CERTIFICADO.SEQ_NV_CERTIFICADO = $P{pSeqCertificado}]]>
 				</textElement>
 				<text><![CDATA[INTERIOR]]></text>
 			</staticText>
-			<textField>
-				<reportElement x="442" y="323" width="20" height="25" uuid="9354ba07-18ce-48de-94a7-81dd1ca75e00">
-					<printWhenExpression><![CDATA[$F{AREA_NAVEGACAO_TIPO}.equals("Área 01")]]></printWhenExpression>
-				</reportElement>
-				<textElement textAlignment="Left">
-					<font size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
-			</textField>
-			<textField>
-				<reportElement x="441" y="347" width="25" height="23" uuid="92873fea-3b17-4c7f-9ae6-2155c5951297">
-					<printWhenExpression><![CDATA[$F{AREA_NAVEGACAO_TIPO}.equals("Área 02")]]></printWhenExpression>
-				</reportElement>
-				<textElement>
-					<font size="16"/>
-				</textElement>
-				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
-			</textField>
 			<line>
 				<reportElement x="421" y="221" width="1" height="48" uuid="d25b14b9-8bfd-4dd8-bffd-e340d45785d8"/>
 			</line>
 			<line>
-				<reportElement x="285" y="220" width="1" height="50" uuid="36786050-f6dd-41bf-811f-0a2f351589fd"/>
+				<reportElement x="257" y="220" width="1" height="50" uuid="36786050-f6dd-41bf-811f-0a2f351589fd"/>
 			</line>
 			<line>
 				<reportElement x="24" y="220" width="511" height="1" uuid="050d6b4e-4f1f-4117-9bbd-e673c79fee43"/>
@@ -700,13 +966,49 @@ Carga no Convés]]></text>
 				<textFieldExpression><![CDATA[$F{INDICATIVO}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="29" y="248" width="256" height="21" uuid="089e1f6a-e547-42a0-b317-555ad504c3bb"/>
-				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<reportElement x="29" y="248" width="228" height="21" uuid="089e1f6a-e547-42a0-b317-555ad504c3bb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
 				<textFieldExpression><![CDATA[$F{TIPO_ATIVIDADE_INTERIOR}]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="442" y="323" width="20" height="25" uuid="ceae6cc1-b59b-43ae-b99e-511a11737183">
-					<printWhenExpression><![CDATA[$F{AREA_NAVEGACAO_TIPO}.equals("Área 01 e 02")]]></printWhenExpression>
+				<reportElement mode="Transparent" x="262" y="302" width="30" height="24" uuid="56b87089-28c8-43ec-9296-136e403e7a02">
+					<printWhenExpression><![CDATA[( $F{AREA_NAVEGACAO}.toString().equals("Mar Aberto") ? true : false ) || 
+( $F{AREA_NAVEGACAO}.toString().equals("Mar Aberto / Navegação Interior") ? true : false )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineColor="#F0F0F0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="262" y="336" width="30" height="24" uuid="d0c88f44-b039-4474-a691-db0897302b0e">
+					<printWhenExpression><![CDATA[( $F{AREA_NAVEGACAO}.toString().equals("Navegação Interior") ? true : false ) || 
+( $F{AREA_NAVEGACAO}.toString().equals("Mar Aberto / Navegação Interior") ? true : false )]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0" lineColor="#F0F0F0"/>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement>
+					<font size="16"/>
+				</textElement>
+				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="442" y="323" width="20" height="25" uuid="5bf51da5-de1a-4417-ad5f-eeaa3095a476">
+					<printWhenExpression><![CDATA[$F{NAV_AREA1}.equals("S")]]></printWhenExpression>
 				</reportElement>
 				<textElement textAlignment="Left">
 					<font size="16"/>
@@ -714,10 +1016,10 @@ Carga no Convés]]></text>
 				<textFieldExpression><![CDATA["X"]]></textFieldExpression>
 			</textField>
 			<textField>
-				<reportElement x="441" y="347" width="20" height="25" uuid="36e6fdbc-2053-4ca1-a1be-feed05a63885">
-					<printWhenExpression><![CDATA[$F{AREA_NAVEGACAO_TIPO}.equals("Área 01 e 02")]]></printWhenExpression>
+				<reportElement x="441" y="347" width="25" height="23" uuid="7c47a70f-04a3-45cd-b097-c2f0e59d7f1b">
+					<printWhenExpression><![CDATA[$F{NAV_AREA2}.equals("S")]]></printWhenExpression>
 				</reportElement>
-				<textElement textAlignment="Left">
+				<textElement>
 					<font size="16"/>
 				</textElement>
 				<textFieldExpression><![CDATA["X"]]></textFieldExpression>

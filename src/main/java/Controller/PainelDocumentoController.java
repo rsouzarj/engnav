@@ -8,9 +8,15 @@ import Documento.Documento;
 import Documento.DocumentoService;
 import DocumentoEtapa.DocumentoEtapa;
 import DocumentoEtapa.DocumentoEtapaService;
+import DocumentoItemMaterial.DocumentoItemMaterial;
+import DocumentoItemMaterial.DocumentoItemMaterialService;
 import Empresa.Empresa;
 import Equipamento.Equipamento;
 import Equipamento.EquipamentoService;
+import Material.Material;
+import Material.MaterialService;
+import MaterialPreco.MaterialPreco;
+import MaterialPreco.MaterialPrecoService;
 import NvEmbarcacao.NvEmbarcacao;
 import NvEmbarcacao.NvEmbarcacaoService;
 import Parceiro.Parceiro;
@@ -28,12 +34,6 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
-
-
-
-
-
-
 @ManagedBean(name="painelDocumentocontroller")
 @ViewScoped
 public class PainelDocumentoController
@@ -49,6 +49,14 @@ public class PainelDocumentoController
   
   DocumentoEtapaService documentoEtapaService = new DocumentoEtapaService();
   List<DocumentoEtapa> listaDocumentoEtapa = new ArrayList();
+  
+  DocumentoItemMaterialService documentoItemMaterialService = new DocumentoItemMaterialService();
+  List<DocumentoItemMaterial> listaDocumentoItemMaterial = new ArrayList();
+  DocumentoItemMaterial documentoItemMaterial = new DocumentoItemMaterial();
+  
+  MaterialService materialService = new MaterialService();
+  List<Material> listaMaterial = new ArrayList();
+  Material material = new Material();    
   
   ParceiroService parceiroService = new ParceiroService();
   List<Parceiro> listaParceiro = new ArrayList();
@@ -69,6 +77,8 @@ public class PainelDocumentoController
   Long seqParceiroSelecionado;
   
   Long seqEmbarcacaoSelecionada;
+  
+  Long seqServicoSelecionado;
   
   Long seqEquipamentoAcessorioSelecionada;
   Long seqUnidadeNegocioSelecionado;
@@ -103,6 +113,7 @@ public class PainelDocumentoController
     this.listaNvEmbarcacao = this.embarcacaoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
     this.listaEquipamento = this.equipamentoService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
     this.listaUnidadeNegocio = this.unidadeNegocioService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
+    this.listaMaterial = this.materialService.listar(this.loginController.getUsuario().getSeqEmpresa(),"",Situacao.ATIVO);
    
   }
   
@@ -149,6 +160,9 @@ public class PainelDocumentoController
     if (this.seqEquipamentoAcessorioSelecionada != null) {
       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "equipamento.seq_equipamento", GeneroCondicaoWhere.igual, String.valueOf(this.seqEquipamentoAcessorioSelecionada), TipoCondicaoWhere.Numero);
     }
+    if (this.seqServicoSelecionado != null) {
+      condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "material.seq_material", GeneroCondicaoWhere.igual, String.valueOf(this.seqServicoSelecionado), TipoCondicaoWhere.Numero);
+    }    
     if (this.seqUnidadeNegocioSelecionado != null) {
       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "usuario.seq_unidade_negocio", GeneroCondicaoWhere.igual, String.valueOf(this.seqUnidadeNegocioSelecionado), TipoCondicaoWhere.Numero);
     }
@@ -365,6 +379,10 @@ public class PainelDocumentoController
     return this.seqEmbarcacaoSelecionada;
   }
   
+  public Long getSeqServicoSelecionado() {
+    return this.seqServicoSelecionado;
+  }  
+  
   public String getCodigoSelecionado() {
     return this.codigoSelecionado;
   }
@@ -376,6 +394,10 @@ public class PainelDocumentoController
   public void setSeqEmbarcacaoSelecionada(Long seqEmbarcacaoSelecionada) {
     this.seqEmbarcacaoSelecionada = seqEmbarcacaoSelecionada;
   }
+  
+  public void setSeqServicoSelecionado(Long seqServicoSelecionado) {
+    this.seqServicoSelecionado = seqServicoSelecionado;
+  }  
   
   public Long getSeqEquipamentoAcessorioSelecionada() {
     return this.seqEquipamentoAcessorioSelecionada;
@@ -445,10 +467,42 @@ public class PainelDocumentoController
     return this.ordemCobranca;
   }
   
-  public void setOrdemCobranca(String ordemCobranca) {
-    this.ordemCobranca = ordemCobranca;
-  }
- 
+    public void setOrdemCobranca(String ordemCobranca) {
+        this.ordemCobranca = ordemCobranca;
+    }
+
+    public DocumentoItemMaterialService getDocumentoItemMaterialService() {
+        return this.documentoItemMaterialService;
+    }
+
+    public void setDocumentoItemMaterialService(DocumentoItemMaterialService documentoItemMaterialService) {
+        this.documentoItemMaterialService = documentoItemMaterialService;
+    }
+
+    public List<DocumentoItemMaterial> getListaDocumentoItemMaterial() {
+        return this.listaDocumentoItemMaterial;
+    }
+
+    public void setListaDocumentoItemMaterial(List<DocumentoItemMaterial> listaDocumentoItemMaterial) {
+        this.listaDocumentoItemMaterial = listaDocumentoItemMaterial;
+    }
+
+    public DocumentoItemMaterial getDocumentoItemMaterial() {
+        return this.documentoItemMaterial;
+    }
+
+    public void setDocumentoItemMaterial(DocumentoItemMaterial documentoItemMaterial) {
+        this.documentoItemMaterial = documentoItemMaterial;
+    }
+    
+	public List<Material> getListaMaterial() {
+		return this.listaMaterial;
+	}
+
+	public void setListaMaterial(List<Material> listaMaterial) {
+		this.listaMaterial = listaMaterial;
+	}       
+
 }
 
 

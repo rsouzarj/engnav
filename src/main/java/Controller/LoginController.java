@@ -148,6 +148,10 @@ public class LoginController implements HttpSessionListener {
 			Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
+        
+        	public void irparaHome() {
+                    mudarPagina("/principal/principal.jsf");
+	}
 
 	public void carregarlogo() {
 		try {
@@ -173,7 +177,7 @@ public class LoginController implements HttpSessionListener {
 			this.home = (ctx.getExternalContext().getRequestContextPath() + "/principal/principal.jsf");
 		}
 
-		this.usuario = this.usuarioService.validarAcesso(this.vLogin, this.vSenha, this.chave, this.modulo);
+		this.usuario = this.usuarioService.validarAcesso(this.vLogin, this.vSenha, "RJ", this.modulo);
 		System.out.println(this.chave);
 
 		if (this.usuario != null) {

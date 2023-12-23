@@ -142,18 +142,17 @@
                                 <!--h:outputText value="Código" />
                                 <p:inputText value="#{materialController.material.codigo}" required="true" requiredMessage="Código"/-->                
                                 
-                                <h:outputText value="Grupo de Serviço" />
-                                <p:inputText value="#{materialController.material.referencia}" required="true" requiredMessage="referência"/>                
-
+                                <!--<h:outputText value="Grupo de Serviço" />
+                                <p:inputText value="#{materialController.material.referencia}" required="true" requiredMessage="referência"/> -->               
+                                
+                                <h:outputText value="Família" />
+                                <p:selectOneMenu value="#{materialController.material.referencia}" filter="true" filterMatchMode="contains" required="false" requiredMessage="[TIPO DE PROCESSO] é Obrigatório" >
+                                    <f:selectItem value="#{null}" itemLabel="Selecione uma Família" itemValue="#{null}" />
+                                    <f:selectItems value="#{materialController.listaMaterialFamilia}" var="fa"  itemLabel="#{fa.nome}" itemValue="#{fa.nome}" />
+                                </p:selectOneMenu>
                                 <h:outputText value="Nome" />
                                 <p:inputText value="#{materialController.material.nome}" required="true" requiredMessage="Nome"/>                
-
-
-                                <!--h:outputText value="Família" />
-                                <p:selectOneMenu value="#{materialController.material.seqMaterialFamilia}" filter="true" filterMatchMode="contains" required="false" requiredMessage="[TIPO DE PROCESSO] é Obrigatório" >
-                                    <f:selectItem value="#{null}" itemLabel="Selecione uma Família" itemValue="#{null}" />
-                                    <f:selectItems value="#{materialController.listaMaterialFamilia}" var="fa"  itemLabel="#{fa.nome}" itemValue="#{fa.seqMaterialFamilia}" />
-                                </p:selectOneMenu-->
+                                
 
                                 <h:outputText value="Situação" />
                                 <p:selectOneMenu style="width: 181px" value="#{materialController.material.situacao}" >

@@ -235,8 +235,8 @@ StreamedContent arquivoVisualizar;
     System.out.println(this.listaFinanceiroItemPc.size() + "-----");
     if (this.financeiro.getSeqParceiro() != null) {
       listarEquipEmbarc();
-      this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),
-				this.financeiro.getSeqFinanceiro());
+      this.listaUpload = this.uploadService.listarP(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
+      
     }
     this.tela = Integer.valueOf(1);
   }
@@ -306,7 +306,7 @@ StreamedContent arquivoVisualizar;
     this.listaFinanceiroCategoria = this.financeiroCategoriaService.listar(this.loginController.empresa.getSeqEmpresa(), "", Situacao.ATIVO);
     this.listaParceiro = this.parceiroService.listarParceiro(this.loginController.usuario.getSeqUsuario(), "");
     this.listaColaborador = this.colaboradorService.listar(this.loginController.empresa.getSeqEmpresa(), "", Situacao.ATIVO);
-    /*this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());*/
+/*    this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());*/
   }
   
   public void listarEquipEmbarc() {
@@ -471,7 +471,7 @@ StreamedContent arquivoVisualizar;
 		this.upload.setSeqEmpresa(this.loginController.empresa.getSeqEmpresa());
 		this.upload.setSeqUsuario(this.loginController.usuario.getSeqUsuario());
 		this.uploadController.upload(this.file, this.upload);
-                this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
+                this.listaUpload = this.uploadService.listarP(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
 		this.upload = new Upload();
                 /*this.idFinanceiro = this.financeiro.getSeqFinanceiro();*/
                 
@@ -519,7 +519,7 @@ StreamedContent arquivoVisualizar;
 
 	public void removerAnexo(Upload pUpload) {
 		this.uploadController.deletar(pUpload);
-		this.listaUpload = this.uploadService.listar(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
+		this.listaUpload = this.uploadService.listarP(this.loginController.empresa.getSeqEmpresa(),this.financeiro.getSeqFinanceiro());
 	}       
   
 

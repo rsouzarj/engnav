@@ -29,7 +29,7 @@
 /*  29 */       agenda.setSeqAgenda(seq);
 /*  30 */       Conexao conexao = new Conexao();
 /*  31 */       Connection conn = Conexao.getConnection();
-/*  32 */       String sql = "insert into AGENDA (SEQ_AGENDA,SEQ_USUARIO,SEQ_PARCEIRO,ASSUNTO, DESCRICAO,DT_INICIO,DT_FIM,DATA_CADASTRO,COR,seq_tipo_agenda) values  (?,?,?,?,?,?,?,?,?,?)";
+/*  32 */       String sql = "insert into AGENDA (SEQ_AGENDA,SEQ_USUARIO,SEQ_PARCEIRO,ASSUNTO, DESCRICAO,DT_INICIO,DT_FIM,DATA_CADASTRO,COR,seq_tipo_agenda,embarcacao,os) values  (?,?,?,?,?,?,?,?,?,?,?,?)";
 /*     */       
 /*     */ 
 /*     */ 
@@ -50,7 +50,8 @@
 /*  50 */       ps.setDate(8, new java.sql.Date(agenda.getDataCadastro().getTime()));
 /*  51 */       ps.setObject(9, agenda.getCor());
 /*  52 */       ps.setObject(10, agenda.getSeqTipoAgenda());
-/*     */       
+                ps.setObject(11, agenda.getEmbarcacao());
+/*     */       ps.setObject(12, agenda.getOs());
 /*  54 */       ps.execute();
 /*  55 */       ps.close();
 /*     */     }
@@ -65,7 +66,7 @@
 /*     */     try {
 /*  66 */       Conexao conexao = new Conexao();
 /*  67 */       Connection conn = Conexao.getConnection();
-/*  68 */       String sql = "update AGENDA set SEQ_USUARIO = ?,SEQ_PARCEIRO = ?,ASSUNTO = ?,DESCRICAO=?,DT_INICIO = ?,DT_FIM = ?, COR = ?, seq_tipo_agenda = ? where SEQ_AGENDA = ?";
+/*  68 */       String sql = "update AGENDA set SEQ_USUARIO = ?,SEQ_PARCEIRO = ?,ASSUNTO = ?,DESCRICAO=?,DT_INICIO = ?,DT_FIM = ?, COR = ?, seq_tipo_agenda = ?, embarcacao = ?, os = ? where SEQ_AGENDA = ?";
 /*     */       
 /*  70 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
@@ -82,8 +83,9 @@
 /*     */       
 /*  83 */       ps.setObject(7, agenda.getCor());
 /*  84 */       ps.setObject(8, agenda.getSeqTipoAgenda());
-/*     */       
-/*  86 */       ps.setString(9, agenda.getSeqAgenda());
+/*     */       ps.setObject(9, agenda.getEmbarcacao());
+                ps.setObject(10, agenda.getOs());
+/*  86 */       ps.setString(11, agenda.getSeqAgenda());
 /*     */       
 /*  88 */       ps.execute();
 /*  89 */       ps.close();
@@ -100,7 +102,7 @@
 /*     */     try {
 /* 101 */       Conexao conexao = new Conexao();
 /* 102 */       Connection conn = Conexao.getConnection();
-/* 103 */       String sql = "SELECT AGENDA.*, parceiro.nome parceiro_nome,tipo_agenda.nome tp_ag_nome, usuario.usuario usuario FROM AGENDA INNER JOIN PARCEIRO ON PARCEIRO.SEQ_PARCEIRO = AGENDA.SEQ_PARCEIRO INNER JOIN TIPO_AGENDA ON  TIPO_AGENDA.SEQ_TIPO_AGENDA = AGENDA.SEQ_TIPO_AGENDA INNER JOIN USUARIO ON USUARIO.SEQ_USUARIO=AGENDA.SEQ_USUARIO" + sClausula.montarsClausula();
+/* 103 */       String sql = "SELECT AGENDA.*, parceiro.nome parceiro_nome,tipo_agenda.nome tp_ag_nome, usuario.usuario usuario FROM AGENDA LEFT JOIN PARCEIRO ON PARCEIRO.SEQ_PARCEIRO = AGENDA.SEQ_PARCEIRO INNER JOIN TIPO_AGENDA ON  TIPO_AGENDA.SEQ_TIPO_AGENDA = AGENDA.SEQ_TIPO_AGENDA INNER JOIN USUARIO ON USUARIO.SEQ_USUARIO=AGENDA.SEQ_USUARIO" + sClausula.montarsClausula();
 /*     */       
 /* 105 */       List<Agenda> listaAgenda = new ArrayList();
 /* 106 */       PreparedStatement ps = conn.prepareStatement(sql);
@@ -121,6 +123,8 @@
                   agenda.setNomeParceiro(rs.getString("parceiro_nome"));
                   agenda.setSeqTipoAgendaNome(rs.getString("tp_ag_nome"));
                   agenda.setNomeUsuario(rs.getString("usuario"));
+                  agenda.setEmbarcacao(rs.getString("embarcacao"));
+                  agenda.setOs(rs.getString("os"));
 /* 121 */         
                   listaAgenda.add(agenda);
 /*     */       }

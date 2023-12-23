@@ -156,8 +156,8 @@
                                 </p:panelGrid>
                             </p:panelGrid>
 
-                            <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
-                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                            <p:panelGrid columns="6" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
                                     <p:outputLabel value="Embarcação"/>
                                     <p:selectOneMenu value="#{painelDocumentocontroller.seqEmbarcacaoSelecionada}" filter="true" filterMatchMode="contains"  >
                                         <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
@@ -172,6 +172,14 @@
                                         <f:selectItems value="#{painelDocumentocontroller.listaEquipamento}" var="ea"  itemLabel="#{ea.nome}"  itemValue="#{ea.seqEquipamento}"/>
                                     </p:selectOneMenu>
                                 </p:panelGrid>
+
+                               <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank">
+                                    <p:outputLabel value="Serviço"/>
+                                    <p:selectOneMenu  value="#{painelDocumentocontroller.seqServicoSelecionado}" filter="true" filterMatchMode="contains" >
+                                        <f:selectItem value="#{null}" itemLabel="Selecione um Serviço" itemValue="#{null}" />
+                                        <f:selectItems value="#{painelDocumentocontroller.listaMaterial}" var="serv"  itemLabel="#{serv.nome}" itemValue="#{serv.seqMaterial}" />
+                                    </p:selectOneMenu>
+                                </p:panelGrid>                              
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                                     <p:outputLabel value="Unidade de Negócio"/>
@@ -275,37 +283,37 @@
                             </p:panelGrid>
                             <p:separator/>
 
-                            <p:dataTable id="DtPrincipal" var="d" value="#{painelDocumentocontroller.listaDocumento}" emptyMessage="Lista vazia" reflow="true" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
-                                <p:column headerText="Código" sortBy="#{d.codigo}">
-                                    <h:outputText value="#{d.codigo}"/>
-                                </p:column>
-
-
-
+                                 <p:dataTable id="DtPrincipal" var="d" value="#{painelDocumentocontroller.listaDocumento}" emptyMessage="Lista vazia" reflow="true" paginator="true" rows="15"  rowsPerPageTemplate="15,50,100">
+                                
                                 <p:column headerText="Tipo de Documento" sortBy="#{d.tipoDocumento}">
                                     <!--a style="color: #778D9B ; text-decoration: underline; "  href="../documento/documento.jsf?idDocumento=#{d.seqDocumento} &#38;idTipoDocumento=#{d.seqTipoDocumento}" target="_blank">
                                     #{d.tipoDocumento}
                                 </a-->
                                     <p:commandLink value="#{d.tipoDocumento}"  title="#{d.tipoDocumento}"  ajax="false" actionListener="#{painelDocumentocontroller.selecionarDocumento(d)}" target="_blank" update=":frmPrincipal" process="@this"/>
+                                </p:column>                                
+                                <p:column headerText="Código" sortBy="#{d.codigo}">
+                                    <h:outputText value="#{d.codigo}"/>
                                 </p:column>
-
-                                <p:column headerText="Etapa" sortBy="#{d.etapa}">
-                                    <h:outputText value="#{d.etapa}"/>
-                                </p:column>
-
                                 <p:column headerText="Parceiro" sortBy="#{d.parceiro}" rendered="#{painelDocumentocontroller.bParceiro}">
                                     <h:outputText value="#{d.parceiro}"/>
                                 </p:column>
+                                 <p:column headerText="Etapa" sortBy="#{d.etapa}">
+                                    <h:outputText value="#{d.etapa}"/>
+                                </p:column>     
 
-                                <p:column headerText="Embarcação" sortBy="#{d.nvEmbarcacaoNome}" >
+                                <p:column headerText="Embarcação" sortBy="#{d.nvEmbarcacaoNome}" rendered="#{painelDocumentocontroller.seqTipoDocumentoSelecionado ne '401'}">
                                     <h:outputText value="#{d.nvEmbarcacaoNome}"/>
                                 </p:column>
 
-                                <p:column headerText="Equipamento/Acessório" sortBy="#{d.equipamentoNome}">
+                                <p:column headerText="Equipamento/Acessório" sortBy="#{d.equipamentoNome}" rendered="#{painelDocumentocontroller.seqTipoDocumentoSelecionado ne '401'}">
                                     <h:outputText value="#{d.equipamentoNome}"/>
                                 </p:column>
+                                     
+                                <p:column headerText="Serviço" sortBy="#{d.materialNome}" rendered="#{painelDocumentocontroller.seqTipoDocumentoSelecionado ne '401'}">
+                                    <h:outputText value="#{d.materialNome}"/>
+                                </p:column>     
                                 
-                                <p:column headerText="Ordem de Cobrança" sortBy="#{d.ordemCobranca}">
+                                <p:column headerText="Ordem de Cobrança" sortBy="#{d.ordemCobranca}" rendered="#{painelDocumentocontroller.seqTipoDocumentoSelecionado ne '401'}">
                                     <h:outputText value="#{d.ordemCobranca}"/>
                                 </p:column>
                           
@@ -314,6 +322,12 @@
                                         <f:convertDateTime pattern="dd/MM/yyyy"/>
                                     </h:outputText>
                                 </p:column>
+                                     <p:column headerText="Valor" sortBy="#{d.vlTotal}" rendered="#{painelDocumentocontroller.seqTipoDocumentoSelecionado eq '401'}">
+                                         <h:outputText value="#{d.moeda}  #{d.vlTotal}">
+                                         <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
+                                         </h:outputText>
+                                </p:column>
+                                
 
                                 <!--p:column headerText="Data do Doc." sortBy="#{d.data}" rendered="#{painelDocumentocontroller.bDataDocumento}">
                                     <h:outputText value="#{d.data}">

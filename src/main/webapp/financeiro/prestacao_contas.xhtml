@@ -269,6 +269,7 @@
                                         <p:column rowspan="2" headerText="Colaborador"  sortBy="#{p.nomeColaborador}" />
                                         <p:column rowspan="2" headerText="Parceiro" sortBy="#{p.nomeParceiroPC}"/>
                                         <p:column colspan="2" headerText="Período" />
+                                        <p:column rowspan="2" headerText="Status" />
                                         <p:column rowspan="2" headerText="Saldo"  sortBy="#{p.valor}" />
                                         <p:column rowspan="2" headerText="Detalhe" width="8%"/>
                                     </p:row>
@@ -300,20 +301,24 @@
                                         <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR"  />
                                     </h:outputText>
                                 </p:column>
+                                
+                                <p:column  width="8%"  style="text-align: center">
+                                    <h:outputText value="#{p.etapa}"  title="#{p.etapa}" />                               
+                                </p:column>                                  
 
                                 <p:column   style="text-align: center">
                                     <h:outputText value="#{p.valor}"  title="#{p.valor}">                               
                                         <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
                                     </h:outputText> 
                                 </p:column>
-
+                                
                                 <p:column width="8%"  style="text-align: center">
                                     <p:commandButton icon="fa fa-search Fs18 white"  actionListener="#{prestacaoContasController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista"/>
                                 </p:column>
 
                                 <p:columnGroup type="footer">
                                     <p:row>
-                                        <p:column colspan="3" style="text-align:right" />
+                                        <p:column colspan="4" style="text-align:right" />
                                         <p:column colspan="4" footerText="" />                                        
                                     </p:row>
                                 </p:columnGroup>

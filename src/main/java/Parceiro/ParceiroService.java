@@ -122,7 +122,7 @@
 /*  92 */     return retorno;
 /*     */   }
 /*     */   
-/*     */   public Parceiro buscar(String pSeqEmpresa, String pCodigo) {
+/*     */   public Parceiro buscar(String pSeqEmpresa, String pSeqParceiro) {
 /*  96 */     Parceiro retorno = new Parceiro();
 /*     */     
 /*  98 */     EmpresaService empresaService = new EmpresaService();
@@ -131,11 +131,22 @@
 /* 101 */     if (empresa.getIntegracao().equals("CROSS")) {
 /* 102 */       ParceiroDAO dao = new ParceiroDAO();
 /* 103 */       ClausulaWhere condicao = new ClausulaWhere();
-/* 104 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_parceiro", GeneroCondicaoWhere.igual, pCodigo, TipoCondicaoWhere.Numero);
+/* 104 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_parceiro", GeneroCondicaoWhere.igual, String.valueOf(pSeqParceiro), TipoCondicaoWhere.Numero);
 /* 105 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "parceiro.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
 /* 106 */       retorno = (Parceiro)dao.listar(condicao).get(0);
 /* 107 */     } 
 /* 113 */     return retorno;
+/*     */   }
+
+/*     */   public List<Parceiro> buscarPesquisa(String pSeqEmpresa, String pSeqParceiro) {
+/*  96 */       List<Parceiro> listaParceiro = new ArrayList();
+                ParceiroDAO dao = new ParceiroDAO();
+/* 103 */       ClausulaWhere condicao = new ClausulaWhere();
+/* 104 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_parceiro", GeneroCondicaoWhere.igual, String.valueOf(pSeqParceiro), TipoCondicaoWhere.Numero);
+/* 105 */       condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "parceiro.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
+/* 106 */       listaParceiro = dao.listar(condicao);
+/* 107 */     
+/* 113 */     return listaParceiro;      
 /*     */   }
 /*     */   
 /*     */   public List<Parceiro> listarParceiroTipo(String pSeqUsuario, String pSeqTipoParceiro)

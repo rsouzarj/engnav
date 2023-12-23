@@ -34,6 +34,8 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 
@@ -45,7 +47,8 @@ public class ERPWS {
 	@GET
 	@Produces({ "application/json" })
 	public String getJson() {
-		return "Meu Primeiro WS RestFULL";
+		 Gson gson = new Gson();
+    return gson.toJson("API TA DE BOA");
 	}
 
 	@PUT
@@ -105,12 +108,12 @@ public class ERPWS {
 	}
 
 	@GET
-	@Path("Parceiro/ListarParceiro/{pSeqUsuario}")
+	@Path("Parceiro/ListarParceiro/{pSeqUsuario}/{pSeqParceiro}")
 	@Produces({ "application/json" })
-	public String listarParceiro(@PathParam("pSeqUsuario") String pSeqUsuario) {
+	public String listarParceiro(@PathParam("pSeqUsuario") String pSeqUsuario,@PathParam("pSeqParceiro") String pSeqParceiro) {
 		List<Parceiro> retorno = new ArrayList();
 		ParceiroService parceiroService = new ParceiroService();
-		retorno = parceiroService.listarParceiro(pSeqUsuario, "");
+		retorno = parceiroService.listarParceiro(pSeqUsuario,pSeqParceiro);
 
 		Gson gson = new GsonBuilder().setDateFormat("dd-MM-yyyy'T'HH:mm:ss").create();
 		return gson.toJson(retorno);

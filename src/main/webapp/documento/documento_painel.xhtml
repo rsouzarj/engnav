@@ -1,196 +1,84 @@
-<!--principal alterada só para documentos centralizados-->
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/WEB-INF/template.xhtml"
-                >
-
-    <ui:define name="head">
-
-        <style type="text/css">
-
-
-            .normal{
-                background: #5fcf80 !important; 
-                background-color: #5fcf80 !important; 
-                border-color: #5fcf80 !important;
-                color: white !important;
-            }
-
-            .moderado{
-                background: #F7941E !important; 
-                background-color: #F7941E !important; 
-                border-color: #F7941E !important;
-                color: white !important;
-            }
-
-            .urgente{
-                background: #D0525D !important;  
-                background-color: #D0525D !important; 
-                border-color: #D0525D !important; 
-                color: white !important;
-            }
-
-        </style>
-
-
-        <script type="text/javascript">
-            PrimeFaces.widget.Schedule.prototype._oldInit = PrimeFaces.widget.Schedule.prototype.init;
-            PrimeFaces.widget.Schedule.prototype.init = function (cfg) {
-                cfg.columnFormat = {
-                    month: 'ddd',
-                    week: 'ddd d/M',
-                    day: 'dddd d/M'
-                };
-
-                this._oldInit.apply(this, arguments);
-            };
-
-            PrimeFaces.locales['pt'] = {
-                closeText: 'Fechar',
-                prevText: 'Anterior',
-                nextText: 'Próximo',
-                currentText: 'Período Atual',
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-                weekHeader: 'Semana',
-                firstDay: 1,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: '',
-                timeOnlyTitle: 'Só Horas',
-                timeText: 'Tempo',
-                hourText: 'Hora',
-                minuteText: 'Minuto',
-                secondText: 'Segundo',
-                ampm: false,
-                month: 'Mês',
-                week: 'Semana',
-                day: 'Dia',
-                allDayText: 'Todo Dia'
-            };
-
-
-        </script>
-        <f:metadata>
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:p="http://primefaces.org/ui"
+        xmlns:c="http://java.sun.com/jsp/jstl/core">
+    
+    
+    
+            <f:metadata>
             <f:viewAction  action="#{loginController.iniciarADM()}" />
         </f:metadata>
+    
+    <h:head>
+        <!-- META TAGS -->
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- tag para renderizar com internet explorer recente -->
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>#{loginController.empresa.fantasia}</title>
+        <!-- CSS -->
+        <h:outputScript name="js/layout.js" library="spark-layout" />
+        <h:outputStylesheet name="bootstrap.min.css" library="template-aws" />
+        <h:outputStylesheet name="themify-icons.css" library="template-aws"/>
+        <h:outputStylesheet name="icofont.css" library="spark-layout"/>
+        <h:outputStylesheet name="style.css" library="template-aws"/>
+        <h:outputStylesheet name="jquery.mCustomScrollbar.css" library="template-aws"/>
+        
+    </h:head>
+    <h:body>
+        <section class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <div class="page-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row"> 
+                                            <ui:fragment rendered="#{loginController.usuario.acDocumento == 1}">
+                                                <c:forEach items="${loginController.listaTipoDocumentoContador}" var="tp"  varStatus="status">
+                                                    
+                                                <div class="col-md-6 col-xl-3"> 
+                                                    <div class="card widget-card-1">
+                                                    <a href="../painel/documento_etapa.jsf?id=#{tp.key}">
+                                                                          <div class="card-block-small">
+                                                                <i class="fa fa-mail-forward  bg-secondary card1-icon"></i>
+                                                                <h2><p:outputLabel  value="#{tp.value}"/></h2>
+                                                                <div>
 
-
-    </ui:define>
-
-    <ui:define name="content">
-
-
-        <!-- BOX START -->
-        <div class="layout-portlets-box" style="background-image:url(../images/backgrounderp.png);">
-
-            <div class="ContainerIndent" > 
-
-                <p:messages id="messages"  autoUpdate="true" closable="true" />
-
-              <!-- <div class="Container30 Responsive100">
-                    <div class="ContainerIndent">
-                        <div class="Container100 TexAlCenter">
-
-                            <div class="DispInlBlock  MarTop20">
-                                <i class="fa fa-group Fs40 cor Fleft MarRight10"></i>
-
-                                <div class="Fright">
-                                    <h2 class="black Fs24 FontRalewayMedium">Relacionamentos</h2>
-                                    <span class="Fs15 gray FontRalewayRegular DispBlock">Organização do seu Relacionamento!</span>
-                                </div>
-                            </div>
-                            <div class="Seperator"></div>
-
-                            <div class="Container100">
-                                <div class="Container100 MarTop20">
-                                    <ui:fragment rendered="#{loginController.usuario.acParNovo == 1}">
-                                        <a href="../parceiro/parceiro.jsf?id=-1" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" style="margin-left:5%;" >
-                                            <div class="ContainerIndent">
-                                                <div class="EmptyBox20"></div>
-                                                <i class="fa fa-file-o cor Fs24"></i>
-                                                <span  class="Fs14 DispBlock "> 
-                                                    <p:outputLabel value="Novo" escape="false" styleClass="cor"/>
-                                                </span>
-                                                <div class="EmptyBox10"></div>
-                                            </div>
-                                        </a>
-                                    </ui:fragment>
-
-                                    <ui:fragment rendered="#{loginController.usuario.acParTodos == 1}">
-                                        <a href="../parceiro/parceiro.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" style="margin-left:10%;">
-                                            <div class="ContainerIndent">
-                                                <div class="EmptyBox20"></div>
-                                                <i class="fa fa-group cor Fs24"></i>
-                                                <span  class="Fs14 DispBlock gray"> 
-                                                    <p:outputLabel value="Todos" escape="false" styleClass="cor" />
-                                                </span>
-                                                <div class="EmptyBox10"></div>
-                                            </div>
-                                        </a>
-                                    </ui:fragment>
-                                </div>                                    
-                            </div>
-
-                        </div>
-                    </div>
-                </div>-->
-
-                <div class="Container40 Responsive100" style="margin-left:30%;" >
-                    <div class="ContainerIndent">
-                        <div class="Container100 TexAlCenter">
-
-                            <div class="DispInlBlock  MarTop20">
-                                <!--<i class="fa fa-folder-open-o Fs40 cor Fleft MarRight10" ></i>-->
-
-                                <div class="Fright">
-                                    <h2 class="white Fs24 FontRalewayMedium">Documentos por Tipo</h2>
-                                    <span class="Fs12 white FontRalewayRegular DispBlock">Documentos organizados!</span>                                     
-                                </div>
-                            </div>
-                            <div class="Seperator"></div>
-                            <div style=" 
-             display: grid;
-  /* aqui eu determino é são 3 colunas de tamanhos iguas, cada coluna tem uma fração */
-  grid-template-columns: repeat(2, 1fr);
-  /* esssa é a altura das linhas, se vc quiser pode apaga-la caso não queira uma altura definida */
-  grid-auto-rows: 90px;
-
-  /* margem interna que afasta os elementos da borda do grid */
-  padding: 2px 10px;">       
-                            <ui:fragment rendered="#{loginController.usuario.acDocumento == 1}">
-                                        <c:forEach items="${loginController.listaTipoDocumentoContador}" var="tp"  varStatus="status">
-
-                                            <a href="../painel/documento_etapa.jsf?id=#{tp.key}" class="Wid100 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                               style="margin-left:0%; background:linear-gradient(rgba(0,250,154, 0.91), rgba(152,251,152, 0.45)); box-shadow: 5px 10px #4F4F4F;  ">
-                                                <div class="ContainerIndent">
-                                                    <div class="EmptyBox20"></div>
-                                                    <span  class="Fs10 DispBlock red"> 
-                                                        <p:outputLabel  value="#{tp.value}" escape="false" styleClass="Fs14 black "/>
-                                                    </span>
-                                                    <div class="EmptyBox20"></div>
+                                                
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
                                                 </div>
-                                            </a>
-                                        </c:forEach>
-                                    </ui:fragment>
-                                </div>
+                                                    </c:forEach>
+                                            </ui:fragment> 
+
+
+
+                                            
+
+                                        </div>   
+                                   </div> 
+                                 </div>   
+                                       
+                            </div>
                         </div>
                     </div>
-                </div>                
-
-
+                </div>
             </div>
-        </div>     
+        </section>
+        <footer class="text-center text-lg-start">
+            <div class="text-center pb-3">© 2022 Copyright <a href="#">Connecti System</a></div>
+        </footer>
+    </h:body>
 
-
-
-    </ui:define>
-
-</ui:composition>
+</html>

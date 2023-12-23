@@ -1,32 +1,24 @@
 package Controller;
 
-/*import java.time.temporal.TemporalAccessor;
-import org.apache.commons.io.FilenameUtils;
-import java.time.format.DateTimeFormatter;
-import java.time.LocalDateTime;
-import java.io.InputStream;
-import java.io.FileNotFoundException;
-import org.primefaces.model.DefaultStreamedContent;
-import java.io.FileInputStream;
-import java.io.OutputStream;
-import org.primefaces.model.UploadedFile;
-import java.io.IOException;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import java.io.FileOutputStream;
-import java.io.File;
-import org.primefaces.event.FileUploadEvent;*/
-import org.primefaces.model.StreamedContent;
 import NvAvisos.NvAvisos;
 import java.util.List;
 import NvAvisos.NvAvisosService;
-import NvListaCertificado.NvListaCertificado;
+import NvCertificadoDetalhe.NvCertificadoDetalhe;
+import NvCertificadoDetalhe.NvCertificadoDetalheService;
+import NvCertificado.NvCertificado;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import Util.Util;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
+import java.time.format.DateTimeFormatter;  
+import java.time.LocalDateTime; 
+import java.util.GregorianCalendar;
 
 @ManagedBean(name = "nvAvisosController")
 @ViewScoped
@@ -43,7 +35,11 @@ public class NvAvisosController
     private List<NvAvisos> listaNvAvisosJanelas30;
     private List<NvAvisos> listaNvAvisosJanelas60;
     NvAvisos nvAvisos = new NvAvisos();
+    NvCertificadoDetalhe nvCertificadoDetalhe = new NvCertificadoDetalhe();
+    NvCertificado nvCertificado = new NvCertificado();
+    NvCertificadoDetalheService nvCertificadoDetalheService = new NvCertificadoDetalheService();
     Util util = new Util();
+    LocalDate dtok = LocalDate.now().plusDays(30);
     public NvAvisosController() {
     this.nvAvisosService = new NvAvisosService();
     }
@@ -72,13 +68,14 @@ public class NvAvisosController
         this.listar30();
     }
        
-           public void iniciarJanelas() {
-        if (this.loginController.usuario.getAcOrgListArquivo()== null || this.loginController.usuario.getAcOrgListArquivo().equals("-1")) {
+    public void iniciarJanelas() {
+        if (this.loginController.usuario.getAcOrgListArquivo() == null || this.loginController.usuario.getAcOrgListArquivo().equals("-1")) {
             this.loginController.mudarPagina("/organizacional/acessonegado.jsf");
             return;
         }
         this.listarJanelas();
-    }    
+
+    }
        
     public void iniciarJanelas30() {
         if (this.loginController.usuario.getAcOrgListArquivo() == null || this.loginController.usuario.getAcOrgListArquivo().equals("-1")) {
@@ -117,23 +114,25 @@ public class NvAvisosController
     }
     
     
-        public void listarJanelas60() {
+    public void listarJanelas60() {
         this.setAvisosJanelas60(this.nvAvisosService.listarJanelas60(this.loginController.getEmpresa().getSeqEmpresa()));
     }
-        
-        public void listarEnvio() {
+
+    public void listarEnvio() {
         this.setAvisosJanelas(this.nvAvisosService.listarPEnvio(this.nvAvisos.getSeqCertificado()));
-    }       
-        
-        public void enviar(NvAvisos pCer) {
-        /*this.setAvisosJanelas(this.nvAvisosService.listarPEnvio(this.nvAvisos.getSeqCertificado()));*/
-            this.util.enviarAviso(pCer);
-        }
-        
-    public void setLoginController(LoginController loginController) {
+    }
+
+    public void enviar(NvAvisos pCer) {
+        this.nvAvisos.setSeqNvCertificadoDetalhe(pCer.getSeqNvCertificadoDetalhe());
+        this.nvAvisos.setAviso("SIM");
+        this.nvAvisos = this.nvAvisosService.salvar(this.nvAvisos);
+        this.util.enviarAviso(pCer);        
+    } 
+
+     public void setLoginController(LoginController loginController) {
         this.loginController = loginController;
     }
-    
+
     public LoginController getLoginController() {
         return this.loginController;
     }
@@ -200,7 +199,7 @@ public class NvAvisosController
     public void setNvAvisos(NvAvisos nvAvisos) {
 		this.nvAvisos = nvAvisos;
 	}    
-    
+
     
     
 }

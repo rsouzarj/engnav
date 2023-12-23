@@ -116,23 +116,31 @@
                                     <p:commandLink value="#{p.nome}"  title="#{p.nome}"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
-                                <p:column headerText="IMO" sortBy="#{p.nome}">
-                                    <p:commandLink value="#{p.imo}"  title="#{p.imo}"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                <p:column headerText="Tipo" sortBy="#{p.tipoEmbarcacaoNome}">
+                                    <h:outputText  value="#{p.tipoEmbarcacaoNome}"  title="#{p.tipoEmbarcacaoNome}"/>
                                 </p:column>
 
-                                <p:column headerText="Dt. Cadastro" sortBy="#{p.dataCadastro}">
-                                    <h:outputText value="#{p.dataCadastro}"  title="#{p.dataCadastro}"  >
-                                        <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
-                                    </h:outputText>
+                                <p:column headerText="Área de Navegação" sortBy="#{p.areaNavegacao}">
+                                    <h:outputText value="#{p.areaNavegacao}"  title="#{p.areaNavegacao}" />
+                                       <!-- <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>-->
+                                   
+                                </p:column>
+                                
+                                <p:column headerText="Comprimento" sortBy="#{p.comprimentoTotal}">
+                                    <h:outputText  value="#{p.comprimentoTotal}"  title="#{p.comprimentoTotal}"/>
+                                </p:column>
+
+                                <p:column headerText="Arqueação Bruta" sortBy="#{p.arqueacaoBruta}">
+                                    <h:outputText  value="#{p.arqueacaoBruta}"  title="#{p.arqueacaoBruta}"/>
                                 </p:column>
 
                                 <p:column headerText="Situação" sortBy="#{p.situacao}">
-                                    <p:commandLink value="#{p.situacao}"  title="#{p.situacao}"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
+                                    <h:outputText  value="#{p.situacao}"  title="#{p.situacao}"/>
                                 </p:column>
 
-                                <p:column headerText="Detalhe" width="8%">
+                                <!--<p:column headerText="Detalhe" width="8%">
                                     <p:commandButton icon="fa fa-search Fs18 white"  actionListener="#{nvEmbarcacaoController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista"/>
-                                </p:column>
+                                </p:column>-->
                             </p:dataTable>
 
                         </div>                                    
@@ -142,7 +150,7 @@
                     <h:form id="frmDetalhe" enctype="multipart/form-data">
 
                         <p:panelGrid rendered="#{nvEmbarcacaoController.tela == 1}" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                            <h2>Detalhe da Embarcação</h2>
+                            <h2>Detalhe da Embarcação - #{nvEmbarcacaoController.nvEmbarcacao.nome}</h2>
                          
                             <p:panelGrid columns="9" layout="grid" styleClass="ui-panelgrid-blank">
                                
@@ -515,7 +523,14 @@
                                         
                                         <p:ajax event="change" update="pnlTipoNavegacao"/>
                                     </p:selectOneMenu>
+                                    <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacaoTipo}" rendered="#{nvEmbarcacaoController.nvEmbarcacao.areaNavegacao eq 'Navegação Interior'}" required="true" requiredMessage="Área Navegação - Tipo é obrigatório!">
+                                        <f:selectItem itemLabel="Selecione" itemValue="#{null}" />
+                                        <f:selectItem itemLabel="1 - Interior área 01" itemValue="Área 01" />
+                                        <f:selectItem itemLabel="2 - Interior área 02" itemValue="Área 02" />
+                                        <f:selectItem itemLabel="1 - Interior área 01 | 2 - Interior área 02" itemValue="Área 01 e 02" />
+                                        <p:ajax event="change" update="marcaLinhaC1 marcaLinhaC2"/>
 
+                                    </p:selectOneMenu>
                                 </p:panelGrid>
 
 
@@ -586,23 +601,27 @@
                                 <p:panelGrid columns="8" layout="grid"  > 
                                     <h:outputText value="ÁREA RÁDIO - 1" />
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.maarea1}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                        <f:selectItem itemLabel="NÃO" itemValue="N" />    
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu>                                           
                                     <p:outputLabel value="ÁREAS RÁDIO - 1 E 2" /> 
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.maarea12}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                        <f:selectItem itemLabel="NÃO" itemValue="N" />    
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu>
                                     <p:outputLabel value="ÁREAS RÁDIO - 1,2 E 3"/> 
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.maarea123}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                        <f:selectItem itemLabel="NÃO" itemValue="N" />    
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu> 
                                     <p:outputLabel value="ÁREAS RÁDIO - 1,2,3 E 4" /> 
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.maarea1234}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                        <f:selectItem itemLabel="NÃO" itemValue="N" />    
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu>
                                     </p:panelGrid>
                                     <p:panelGrid columns="1" layout="grid"  styleClass="ui-panelgrid-blank">
@@ -612,18 +631,21 @@
                                     <p:panelGrid columns="6" layout="grid" >
                                     <p:outputLabel value="ÁREA 1"/> 
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.navarea1}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                        <f:selectItem itemLabel="NÃO" itemValue="N" />    
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu>
                                     <p:outputLabel value="ÁREA 2"/> 
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.navarea2}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                         <f:selectItem itemLabel="NÃO" itemValue="N" />   
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu>
                                     <p:outputLabel value="APOIO PORTUÁRIO"/> 
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.apoioPortuario}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                        <f:selectItem itemLabel="NÃO" itemValue="N" />    
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu>
                                     </p:panelGrid> 
                                     <p:panelGrid columns="1" layout="grid"  >
@@ -632,13 +654,15 @@
                                     <p:panelGrid columns="4" layout="grid" >
                                     <p:outputLabel value="ÁREA 1"/> 
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.aparea1}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                        <f:selectItem itemLabel="NÃO" itemValue="N" />    
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu>
                                     <p:outputLabel value="ÁREA 2"/> 
                                     <p:selectOneMenu value="#{nvEmbarcacaoController.nvEmbarcacao.aparea2}" >
-                                            <f:selectItem itemLabel="SIM" itemValue="S" />
-                                            <f:selectItem itemLabel="NÃO" itemValue="N" />
+                                        <f:selectItem itemLabel="NÃO" itemValue="N" />    
+                                        <f:selectItem itemLabel="SIM" itemValue="S" />
+                                            
                                     </p:selectOneMenu>                                                             
                                     </p:panelGrid>    
                                        

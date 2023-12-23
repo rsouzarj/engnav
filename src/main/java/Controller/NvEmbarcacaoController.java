@@ -393,6 +393,12 @@ public class NvEmbarcacaoController {
 		listarVinculo();
                 listarUpload ();
               
+                /*if (this.nvEmbarcacao.getImo() == null) {
+					FacesContext.getCurrentInstance().addMessage(null,
+							new FacesMessage(FacesMessage.SEVERITY_WARN,
+									"A embarcação não possoui cadastro do IMO isso impossibilita a emissão do certificado. Favor atualizar o cadastro da Embarcação.",
+									""));
+				}*/
                 
                 this.tela = Integer.valueOf(1);
 	}

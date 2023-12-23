@@ -1,0 +1,154 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!-- META TAGS -->
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- tag para renderizar com internet explorer recente -->
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>CONNECTISERV</title>
+        <!-- CSS -->
+        <h:outputScript name="js/layout.js" library="spark-layout" />
+        <h:outputStylesheet name="bootstrap.min.css" library="template-aws" />
+        <h:outputStylesheet name="themify-icons.css" library="template-aws"/>
+        <h:outputStylesheet name="icofont.css" library="spark-layout"/>
+        <h:outputStylesheet name="style.css" library="template-aws"/>
+        <h:outputStylesheet name="jquery.mCustomScrollbar.css" library="template-aws"/>
+        
+    </h:head>
+    <h:body>
+        <section class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <div class="page-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row"> 
+                                            <ui:fragment rendered="#{loginController.usuario.acOrgUsuario  > 0}">
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../organizacional/usuario.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-users bg-secondary card1-icon"></i>
+                                                                <h4>Cadastro de usuários</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Cadastro de usuários e acessos do sistema
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            <ui:fragment rendered="#{loginController.usuario.acOrgUnegocio > 0}">
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../organizacional/unidade_negocio.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-university bg-secondary card1-icon"></i>
+                                                                <h4>Unidade de Negócio</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Cadastro de unidades de negócio
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>                                            
+                                            <ui:fragment rendered="#{loginController.usuario.acOrgDepartamento  > 0}">
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../organizacional/departamento.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-arrows-alt bg-secondary card1-icon"></i>
+                                                                <h4>Departamentos</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Cadastro de departamentos da empresa
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>                                             
+                                            <ui:fragment rendered="#{loginController.usuario.acOrgFuncao   > 0}">
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../colaborador/tipo_colaborador.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-user-secret bg-secondary card1-icon"></i>
+                                                                <h4>Função</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Cadastro da função dos colaboradores
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>                                            
+                                            <ui:fragment rendered="#{loginController.usuario.acOrgColaborador > 0}">
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../colaborador/colaborador.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-users bg-secondary card1-icon"></i>
+                                                                <h4>Colaborador</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Cadastro dos colaboradores
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            <ui:fragment rendered="#{loginController.usuario.acOrgParametro > 0}">
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../organizacional/parametro.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-cog bg-secondary card1-icon"></i>
+                                                                <h4>Parametro</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Parametros do sistema
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>                                             
+                                        </div>   
+                                   </div> 
+                                 </div>   
+                                       
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="text-center text-lg-start">
+            <div class="text-center pb-3">© 2022 Copyright <a href="#">Connecti System</a></div>
+        </footer>
+    </h:body>
+
+</html>

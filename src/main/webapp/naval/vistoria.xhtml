@@ -257,7 +257,7 @@
                                     <p:commandLink value="#{p.identificacao}"  title="#{p.identificacao}" actionListener="#{nvVistoriaController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
-                                <p:column headerText="Embarcação" sortBy="#{p.embarcacaoNome}">
+                                <p:column headerText="Embarcação/Equipamento" sortBy="#{p.embarcacaoNome}">
                                     <p:commandLink value="#{p.embarcacaoNome}"  title="#{p.embarcacaoNome}" actionListener="#{nvVistoriaController.selecionar(p)}" ajax="false" update=":frmDetalhe :frmLista" />
                                 </p:column>
 
@@ -344,7 +344,7 @@
                                 </p:panelGrid>
 
                                 <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    <h:outputText value="Embarcação" />
+                                    <h:outputText value="Embarcação/Equipamento" />
                                     <p:selectOneMenu value="#{nvVistoriaController.nvVistoria.seqNvEmbarcacao}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[EMBARCAÇÃO] é obrigatório">
                                         <f:selectItem value="#{null}" itemLabel="Selecione a Embarcação" itemValue="#{null}" />
                                         <f:selectItems value="#{nvVistoriaController.listaNvEmbarcacao}" var="emb"  itemLabel="#{emb.nome}" itemValue="#{emb.seqNvEmbarcacao}" />

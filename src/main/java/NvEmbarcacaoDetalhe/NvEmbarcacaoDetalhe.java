@@ -14,8 +14,18 @@
 /*    */   private String detalhe3;
 /*    */   private String detalhe4;
 /*    */   private String ordem;
+           private String status;
 /*    */   
-/*    */   public String getSeqNvEmbarcacaoDetalhe()
+/*    */
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+ public String getSeqNvEmbarcacaoDetalhe()
 /*    */   {
 /* 20 */     return this.seqNvEmbarcacaoDetalhe;
 /*    */   }

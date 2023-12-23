@@ -8,14 +8,7 @@
 /*    */ import java.util.ArrayList;
 /*    */ import java.util.Date;
 /*    */ import java.util.List;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /*    */ public class ParceiroVinculoEmbarcacaoService
 /*    */ {
 /*    */   public ParceiroVinculoEmbarcacao salvar(ParceiroVinculoEmbarcacao parceiroVinculoEmbarcacao)
@@ -35,22 +28,7 @@
 /* 35 */     ClausulaWhere condicao = new ClausulaWhere();
 /* 36 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "nv_embarcacao.seq_nv_embarcacao", GeneroCondicaoWhere.igual, String.valueOf(pString), TipoCondicaoWhere.Numero);
 /* 37 */     listaParceiroVinculoEmbarcacao = dao.listar(condicao);
-/*    */     
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /* 54 */     return listaParceiroVinculoEmbarcacao;
 /*    */   }
 /*    */   
@@ -59,9 +37,3 @@
 /* 59 */     return dao.deletar(parceiroVinculoEmbarcacao);
 /*    */   }
 /*    */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/ParceiroVinculoEmbarcacao/ParceiroVinculoEmbarcacaoService.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

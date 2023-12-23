@@ -6,15 +6,7 @@
 /*    */ import java.sql.SQLException;
 /*    */ import java.util.logging.Level;
 /*    */ import java.util.logging.Logger;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /*    */ public class Sequence
 /*    */ {
 /*    */   public static String buscarNumeroSequence(String pSequence)

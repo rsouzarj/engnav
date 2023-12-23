@@ -7,6 +7,8 @@ import Parceiro.Parceiro;
 import Parceiro.ParceiroService;
 import TipoAgenda.TipoAgenda;
 import TipoAgenda.TipoAgendaService;
+import Participante.Participante;
+import Participante.ParticipanteService;
 import Usuario.Usuario;
 import Util.EventoAdicionais;
 import Util.Situacao;
@@ -44,13 +46,17 @@ public class AgendaController
   ParceiroService parceiroService = new ParceiroService();
   List<Parceiro> listaParceiro = new ArrayList();
   List<TipoAgenda> listaTipoAgenda = new ArrayList();
+  Participante participante = new Participante();
+  ParticipanteService participanteService = new ParticipanteService();
+  List<Participante> listaParticipante = new ArrayList();
+  
   
   @PostConstruct
   public void init() {
-    this.listaAgenda = this.agendaService.listarPorUsuario(this.loginController.getUsuario().getSeqUsuario());
+    /*this.listaAgenda = this.agendaService.listarPorUsuario(this.loginController.getUsuario().getSeqUsuario());*/
     
  
-    /*this.listaAgendaT = this.agendaService.listarTodosUsuarios(this.loginController.getUsuario().getSeqUsuario());*/
+    this.listaAgenda = this.agendaService.listarTodosUsuarios(this.loginController.getUsuario().getSeqUsuario());
 
     TipoAgendaService tipoAgendaService = new TipoAgendaService();
     this.listaTipoAgenda = tipoAgendaService.listar(this.loginController.getEmpresa().getSeqEmpresa(), "", Situacao.ATIVO);
@@ -79,6 +85,8 @@ public class AgendaController
       evento.setNomeParceiro(vAgenda.getNomeParceiro());
       evento.setNomeTipoAgenda(vAgenda.getSeqTipoAgendaNome());
       evento.setResponsavel(vAgenda.getNomeUsuario());
+      evento.setEmbarcacao(vAgenda.getEmbarcacao());
+      evento.setOs(vAgenda.getOs());
       
       if (vAgenda.getCor().equals("Normal")) {
         evento.setStyleClass("normal");
@@ -86,6 +94,8 @@ public class AgendaController
         evento.setStyleClass("moderado");
       } else if (vAgenda.getCor().equals("Urgente")) {
         evento.setStyleClass("urgente");
+      } else if (vAgenda.getCor().equals("Qsms")) {
+        evento.setStyleClass("qsms");
       }
       
       this.eventModel.addEvent(evento);
@@ -121,6 +131,9 @@ public class AgendaController
     this.agenda.setSeqTipoAgenda(this.event.getSeqTipoAgenda());
     this.agenda.setSeqParceiro(this.event.getSeqParceiro());
     this.agenda.setCor(this.event.getCor());
+    this.agenda.setEmbarcacao(this.event.getEmbarcacao());
+    this.agenda.setOs(this.event.getOs());
+    this.participante.setParticipante(this.event.getParticipante());
     this.agendaService.salvar(this.agenda);
     
     init();
@@ -141,6 +154,20 @@ public class AgendaController
     this.event = new EventoAdicionais();
   }
   
+    public void salvarParticipante() {
+        if (this.agenda.getSeqAgenda().equals("-1")) {
+            System.out.println(this.agenda.getSeqAgenda());
+            salvar();
+        }
+        this.participante.setSeqAgenda(this.agenda.getSeqAgenda());
+        this.participante = this.participanteService.salvar(this.participante);
+        listarParticipante();
+        novoParticipante();
+    }
+    public void listarParticipante() {
+        this.listaParticipante = this.participanteService.listar(this.agenda.getSeqAgenda());
+    }
+     
   public EventoAdicionais getEvent() {
     return this.event;
   }
@@ -229,11 +256,41 @@ public class AgendaController
     this.listaTipoAgenda = listaTipoAgenda;
   }
   
-  public List<Agenda> getListaAgendaT() {
-    return this.listaAgendaT;
+    public List<Agenda> getListaAgendaT() {
+        return this.listaAgendaT;
+    }
+
+    public void setListaAgendaT(List<Agenda> listaAgendaT) {
+        this.listaAgendaT = listaAgendaT;
+    }
+
+    public Participante getParticipante() {
+        return this.participante;
+    }
+
+    public void setParticipante(Participante participante) {
+        this.participante = participante;
+    } 
+
+  public List<Participante> getListaParticipante() {
+    return this.listaParticipante;
   }
   
-  public void setListaAgendaT(List<Agenda> listaAgendaT) {
-    this.listaAgendaT = listaAgendaT;
-  }  
+  public void setListaParticipante(List<Participante> listaParticipante) {
+    this.listaParticipante = listaParticipante;
+  }
+  
+  public void selecionarParticipante(Participante pParticipante) {
+    this.participante = pParticipante;
+  }
+
+    public void novoParticipante() {
+        this.participante = new Participante();
+    }
+
+    public void deletearParticipante() {
+        this.participanteService.deletar(this.participante);
+        listarParticipante();
+    }
+
 }

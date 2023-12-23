@@ -15,15 +15,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class CriarCRUD
 /*     */ {
 /*     */   public static void main(String[] args)
@@ -31,13 +23,7 @@
 /*     */   {
 /*  32 */     String tabela = "financeiro_ocorrencia".toUpperCase();
 /*     */   }
-/*     */   
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */   public void criarDAO(String pTabela)
 /*     */     throws IOException
 /*     */   {
@@ -599,18 +585,7 @@
 /* 599 */       Conexao conexao = new Conexao();
 /* 600 */       Connection conn = Conexao.getConnection();
 /* 601 */       String sql = "SELECT decode(COLUMN_NAME,'SEQ_" + pTabela + "','0','1') ordem, " + "COLUMN_NAME nome," + "lower(substr(replace(initCap(COLUMN_NAME),'_',''),1,1))||substr(replace(initCap(COLUMN_NAME),'_',''),2,length(replace(initCap(COLUMN_NAME),'_',''))) atributo," + "replace(initCap(COLUMN_NAME),'_','') atributoGetSet," + "lower(substr(replace(initCap(TABLE_NAME),'_',''),1,1))||substr(replace(initCap(TABLE_NAME),'_',''),2,length(replace(initCap(TABLE_NAME),'_',''))) instancia," + "Replace(initCap(TABLE_NAME),'_','') classe," + "       DATA_TYPE tipo, \n" + "       DATA_LENGTH tamanho, \n" + "       DATA_PRECISION precisao \n" + "  FROM user_TAB_COLUMNS \n" + "WHERE UPPER(TABLE_NAME)= '" + pTabela + "'" + "order by 1";
-/*     */       
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /* 614 */       System.out.println(sql);
 /*     */       
 /* 616 */       PreparedStatement ps = conn.prepareStatement(sql);

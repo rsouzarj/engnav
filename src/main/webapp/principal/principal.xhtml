@@ -1,282 +1,405 @@
-<ui:composition xmlns="http://www.w3.org/1999/xhtml"
-                xmlns:h="http://java.sun.com/jsf/html"
-                xmlns:ui="http://java.sun.com/jsf/facelets"
-                xmlns:p="http://primefaces.org/ui"
-                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
-                xmlns:f="http://xmlns.jcp.org/jsf/core"
-                template="/WEB-INF/template.xhtml"
-                    
-                xmlns:b="http://bootsfaces.net/ui">
-
-    <ui:define name="head">
-
-        <style type="text/css">
-
-
-            .normal{
-                background: #5fcf80 !important; 
-                background-color: #5fcf80 !important; 
-                border-color: #5fcf80 !important;
-                color: white !important;
-            }
-
-            .moderado{
-                background: #F7941E !important; 
-                background-color: #F7941E !important; 
-                border-color: #F7941E !important;
-                color: white !important;
-            }
-
-            .urgente{
-                background: #D0525D !important;  
-                background-color: #D0525D !important; 
-                border-color: #D0525D !important; 
-                color: white !important;
-            }
-
-        </style>
-
-
-        <script type="text/javascript">
-            PrimeFaces.widget.Schedule.prototype._oldInit = PrimeFaces.widget.Schedule.prototype.init;
-            PrimeFaces.widget.Schedule.prototype.init = function (cfg) {
-                cfg.columnFormat = {
-                    month: 'ddd',
-                    week: 'ddd d/M',
-                    day: 'dddd d/M'
-                };
-
-                this._oldInit.apply(this, arguments);
-            };
-
-            PrimeFaces.locales['pt'] = {
-                closeText: 'Fechar',
-                prevText: 'Anterior',
-                nextText: 'Próximo',
-                currentText: 'Período Atual',
-                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
-                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
-                weekHeader: 'Semana',
-                firstDay: 1,
-                isRTL: false,
-                showMonthAfterYear: false,
-                yearSuffix: '',
-                timeOnlyTitle: 'Só Horas',
-                timeText: 'Tempo',
-                hourText: 'Hora',
-                minuteText: 'Minuto',
-                secondText: 'Segundo',
-                ampm: false,
-                month: 'Mês',
-                week: 'Semana',
-                day: 'Dia',
-                allDayText: 'Todo Dia'
-            };
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <!-- META TAGS -->
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- tag para renderizar com internet explorer recente -->
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>CONNECTISERV</title>
+        <!-- CSS -->
+        <h:outputScript name="js/layout.js" library="spark-layout" />
+        <h:outputStylesheet name="bootstrap.min.css" library="template-aws" />
+        <h:outputStylesheet name="themify-icons.css" library="template-aws"/>
+        <h:outputStylesheet name="icofont.css" library="spark-layout"/>
+        <h:outputStylesheet name="style.css" library="template-aws"/>
+        <h:outputStylesheet name="jquery.mCustomScrollbar.css" library="template-aws"/>
+        
+    </h:head>
+    <h:body>
+        <section class="pcoded-wrapper">
+            <div class="pcoded-content">
+                <div class="pcoded-inner-content">
+                    <div class="main-body">
+                        <div class="page-wrapper">
+                            <div class="page-body">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="row"> 
+                                            <ui:fragment rendered="#{loginController.usuario.acParNovo == 1}">
+                                                <div class="col-md-4 col-xl-3"> 
+                                                    <div class="card widget-card-1">
+                                                        <a href="../parceiro/parceiro.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-user-plus  bg-pinterest card1-icon"></i>
+                                                                <h4>Cadastro de  Parceiros</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Clientes e fornecedores
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment> 
 
 
-        </script>
-        <f:metadata>
-            <f:viewAction  action="#{loginController.iniciarADM()}" />
-        </f:metadata>
 
+                                           <!-- <ui:fragment rendered="#{loginController.usuario.acParTodos == 1}">
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../parceiro/parceiro.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-group bg-c-blue card1-icon"></i>
+                                                                <h4>Lista Parceiros</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Listagem do cadastro de Parceiros
+                                                                    </span>
+                                                                </div>
+                                                                <div>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                          </ui:fragment>-->
 
-    </ui:define>
+                                            <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                                <div class="col-md-4 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../documento/novo.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-sellsy bg-c-yellow card1-icon"></i>
+                                                                <h4>Comercial</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Criar propostas e OSs
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            
+                                            <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
+                                                <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                                <div class="col-md-4 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../documento/documento_painel.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-files-o  bg-c-blue card1-icon"></i>
+                                                                <h4>Painel de Docs</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Listagem por tipo/status/etapa
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            
+                                            
+                                            <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
+                                                <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                                <div class="col-md-4 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../principal/operacional.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-steam  bg-facebook card1-icon"></i>
+                                                                <h4>Operacional</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Embarcações, vistorias, certificados
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>                                            
+                                            
+                                            
+                                             <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
+                                                  <div class="col-md-4 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../principal/financeiro.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa  fa-usd bg-twiter card1-icon"></i>
+                                                                <h4>Finanças</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Pagar/Receber e fluxo de caixa
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            
+                                            <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
+                                                <div class="col-md-4 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../agenda/agenda.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-calendar bg-c-orenge card1-icon"></i>
+                                                                <h4>Agenda</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Não perca nenhum compromisso 
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment> 
+                                           <ui:fragment rendered="#{loginController.usuario.acOpEquipamento  > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>                                            
+                                                <div class="col-md-4 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../principal/sistema.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-cogs bg-amazon card1-icon"></i>
+                                                                <h4>Config do Sistema</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Acesso e configurações do sistema
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            <ui:fragment rendered="#{loginController.usuario.acOpEquipamento  > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>                                            
+                                                <div class="col-md-4 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../naval/embarcacao_consulta.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-ship bg-dribble card1-icon"></i>
+                                                                <h4>Ship Life</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Histórico da Embarcação
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            <ui:fragment rendered="#{loginController.usuario.acOpEquipamento  > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>                                            
+                                                <div class="col-md-4 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../naval/janelas.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-wechat bg-viber card1-icon"></i>
+                                                                <h4>Aviso sobre janela</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Notificar o cliente
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment> 
+                                            <!-- <ui:fragment >
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../financeiro/prestacao_contas_colaborador.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-shopping-cart bg-c-yellow card1-icon"></i>
+                                                                <h4>Prestação de Contas</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Emissão do relatório para prestação de contas
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            <ui:fragment rendered="#{loginController.usuario.acOpEmbarcacao > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../naval/embarcacao.jsf?id=-1">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-ship bg-c-blue card1-icon"></i>
+                                                                <h4>Embarcações</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Cadastro de Embarcações
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                             <ui:fragment rendered="#{loginController.usuario.acOpEquipamento  > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>                                            
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../principal/dash.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-area-chart bg-secondary  card1-icon"></i>
+                                                                <h4>DashBoard</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Indicadores
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            
+                                             <ui:fragment rendered="#{loginController.usuario.acOpEquipamento  > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>                                            
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../principal/sistema.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-cogs bg-secondary card1-icon"></i>
+                                                                <h4>Configurações do Sistema</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Acesso e configurações do sistema
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>                                            
+                                            
+                                           <ui:fragment rendered="#{loginController.usuario.acOpEquipamento  > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>                                            
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../naval/equipamento.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-wrench bg-secondary card1-icon"></i>
+                                                                <h4>Equipamentos</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Cadastro de Equipamentos
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            <ui:fragment rendered="#{loginController.usuario.acOpVistoria  > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../naval/vistoria.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-check-square-o bg-secondary card1-icon"></i>
+                                                                <h4>Vistorias</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Preenchimento dos relatórios de vistoria
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                            <ui:fragment rendered="#{loginController.usuario.acOpLicenca  > 0}">
+                                            <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../naval/licenca.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-clipboard bg-secondary card1-icon"></i>
+                                                                <h4>Licenças</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Emissão de Licença para embarcações
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </ui:fragment>
+                                        <ui:fragment rendered="#{loginController.usuario.acOpCertificado  > 0}">
+                                        <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>                                            
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../naval/certificado.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-check-square-o bg-secondary card1-icon"></i>
+                                                                <h4>Certificados Estatutários</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Emissão de Certficados para as embarcações
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                        </ui:fragment>
+                                        <ui:fragment rendered="#{loginController.usuario.acOpCertificado  > 0}">
+                                        <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>                                            
+                                                <div class="col-md-6 col-xl-3">
+                                                    <div class="card widget-card-1">
+                                                        <a href="../naval/certificado_equipamento.jsf">
+                                                            <div class="card-block-small">
+                                                                <i class="fa fa-check-square-o bg-secondary card1-icon"></i>
+                                                                <h4>Certificados de Equipamentos</h4>
+                                                                <div>
+                                                                    <span class="f-left m-t-10 text-muted">
+                                                                        <i class="text-c-green f-16 icofont icofont-warning m-r-10"></i> Emissão de Certicados para equipamentos
+                                                                    </span>
+                                                                </div>
+                                                            </div>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                        </ui:fragment>-->
 
-    <ui:define name="content">
+                                        </div>   
+                                   </div> 
+                                 </div>   
+                                       
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <footer class="text-center text-lg-start">
+            <div class="text-center pb-3">© 2022 Copyright <a href="#">Connecti System</a></div>
+        </footer>
+    </h:body>
 
-
-        <!-- BOX START -->
-
-
-                <p:messages id="messages"  autoUpdate="true" closable="true" />
-               
-
-                <div style=" background-image:url(../images/backgrounderp.png);">
-                    <div class=" Responsive100"  >
-                    <div  style="  display: grid;
-  /* aqui eu determino é são 3 colunas de tamanhos iguas, cada coluna tem uma fração */
-  grid-template-columns: repeat(3, 1fr);
-  /* esssa é a altura das linhas, se vc quiser pode apaga-la caso não queira uma altura definida */
-  grid-auto-rows: 100px;
-
-  /* margem interna que afasta os elementos da borda do grid */
-  padding: 20px 10px;">
-                                    <ui:fragment rendered="#{loginController.usuario.acParNovo == 1}">
-                                        <a href="../parceiro/parceiro.jsf?id=-1" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style=" border-radius: 25px; border-bottom: 5px solid #4682B4 ;  
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(128, 174, 231, 0.91), rgba(74, 226, 208, 0.45));" >                                          
-                                                <i class="fa fa-user-plus cor Fs24" style="margin-top: 25px">Novo Parceiro</i>
-                                                </a>
-                                    </ui:fragment>
-
-                                    <ui:fragment rendered="#{loginController.usuario.acParTodos == 1}">
-                                        <a href="../parceiro/parceiro.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style=" border-radius: 25px; border-bottom: 5px solid #4682B4 ; 
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(128, 174, 231, 0.91), rgba(74, 226, 208, 0.45));" >
-                                                <i class="fa fa-group cor Fs24" style="margin-top: 25px;">Lista Parceiros</i>
-                                               
-                                        </a>
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../documento/novo.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style=" border-radius: 25px; border-bottom: 5px solid #32CD32 ; ;
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center; 
-                                                  background:linear-gradient(rgba(0,250,154, 0.91), rgba(152,251,152, 0.45));" >
-                                        <i class="fa fa-file-o cor Fs24" style="margin-top: 25px;">Nova Proposta</i>
-                                         </a>                
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../documento/documento_painel.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style="border-radius: 25px; border-bottom: 5px solid #32CD32 ;
-                                           width: 100%;
-                                           height: 80px;
-                                           max-width: 250px;
-                                           margin: 0 auto;
-                                           text-align: center;
-                                            background:linear-gradient(rgba(0,250,154, 0.91), rgba(152,251,152, 0.45));" >
-
-                                                <i class="fa fa-files-o cor Fs24" style="margin-top: 25px;" >Painel de Documentos</i>
-                                        </a>                
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../painel/documento_etapa.jsf?id=401" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style=" border-radius: 25px; border-bottom: 5px solid #32CD32 ;
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(0,250,154, 0.91), rgba(152,251,152, 0.45));">
-                                                <i class="fa fa-file-o cor Fs24" style="margin-top: 25px;">BM</i>
-                                        </a>                
-                                    </ui:fragment>                                    
-                                    <ui:fragment >
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../financeiro/prestacao_contas_colaborador.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style=" border-radius: 25px; border-bottom: 5px solid #32CD32 ; 
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(173,255,47, 0.91), rgba(152,251,152, 0.45));" >
-                                                <i class="fa fa-shopping-cart cor Fs24" style="margin-top: 25px;">Prestação de Contas</i>
-                                        </a>                
-                                    </ui:fragment>                                      
-                                    <ui:fragment rendered="#{loginController.usuario.acOpEmbarcacao > 0}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../naval/embarcacao.jsf?id=-1" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style=" border-radius: 25px; border-bottom: 5px solid #CDC9A5; 
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));" >
-                                                <i class="fa fa-ship cor Fs24" style="margin-top: 25px;">Embarcações</i>
-                                        </a>                
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{loginController.usuario.acOpEquipamento  > 0}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../naval/equipamento.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style="border-radius: 25px; border-bottom: 5px solid #CDC9A5; 
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));">
-                                                <i class="fa fa-wrench cor Fs24" style="margin-top: 25px;">Equipamentos</i>
-                                        </a>                
-                                    </ui:fragment>                                      
-                                    <ui:fragment rendered="#{loginController.usuario.acOpLicenca  > 0}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../naval/licenca.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style=" border-radius: 25px; border-bottom: 5px solid #8B8970;
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));">
-                                                <i class="fa fa-clipboard cor Fs24" style="margin-top: 25px;">Licenças</i>
-                                        </a>                
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{loginController.usuario.acOpVistoria  > 0}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../naval/vistoria.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style="border-radius: 25px; border-bottom: 5px solid #8B8970;
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));" >
-                                                <i class="fa fa-check-square-o cor Fs24" style="margin-top: 25px;">Vistorias</i>
-                                        </a>                
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{loginController.usuario.acOpCertificado  > 0}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../naval/certificado.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style="border-radius: 25px; border-bottom: 5px solid #8B8970;
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));">
-                                                <i class="fa fa-certificate cor Fs24" style="margin-top: 25px;">Certificados Estatutários</i>
-                                        </a>                
-                                    </ui:fragment>
-                                    <ui:fragment rendered="#{loginController.usuario.acOpCertificado  > 0}">
-                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
-                                        <a href="../naval/certificado_equipamento.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
-                                           style=" border-radius: 25px; border-bottom: 5px solid #8B8970;
-                                                  width: 100%;
-                                                  height: 80px;
-                                                  max-width: 250px;
-                                                  margin: 0 auto;
-                                                  text-align: center;
-                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));">
-                                                <i class="fa fa-certificate cor Fs24" style="margin-top: 25px;">Certificados de Equipamentos</i>
-                                        </a>                
-                                    </ui:fragment>                                    
-                                    </div>
-                                    </div>
-                                     </div>                         
-
-
-                     
-              
-               <!--<h:form id="frmAgenda" >
-               <a href="#{loginController.home}"> <img src="../images/logov.jpeg" width="85" height="80" alt="logo"/></a>
-     
-                </h:form>-->
-
-         
-
- 
-
-    </ui:define>
-
-</ui:composition>
+</html>

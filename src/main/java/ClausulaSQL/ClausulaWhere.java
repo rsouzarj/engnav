@@ -2,16 +2,7 @@
 /*     */ 
 /*     */ import java.util.ArrayList;
 /*     */ import java.util.List;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class ClausulaWhere
 /*     */ {
 /*  17 */   List<CondicaoWhere> condicoes = new ArrayList();
@@ -112,9 +103,3 @@
 /* 112 */     this.cs = cs;
 /*     */   }
 /*     */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/ClausulaSQL/ClausulaWhere.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

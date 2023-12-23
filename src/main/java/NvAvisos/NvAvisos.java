@@ -1,11 +1,15 @@
 package NvAvisos;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.Date;
+import java.util.Locale;
 
 public class NvAvisos
 {
     private String identificacao; /*ok*/
     private String seqCertificado; /*ok*/
+    private String seqNvCertificadoDetalhe;
     private String nome; /*ok*/
     private String embarcacao; /*ok*/
     private String cliente; /*ok*/
@@ -19,6 +23,33 @@ public class NvAvisos
     private Date dataFinal;
     private String seqEmpresa;
     private String email;
+    private String aviso;
+    private String vdate;
+    private String alerta;
+
+    public String getAlerta() {
+        return alerta;
+    }
+
+    public void setAlerta(String alerta) {
+        this.alerta = alerta;
+    }
+
+    public String getVdate() {
+        return vdate;
+    }
+
+    public void setVdate(String vdate) {
+        this.vdate = vdate;
+    }
+
+    public String getAviso() {
+        return aviso;
+    }
+
+    public void setAviso(String aviso) {
+        this.aviso = aviso;
+    }
     
      /*private Date dataEmissao;
     private Date dataValidade;
@@ -142,6 +173,13 @@ public class NvAvisos
     
     public void setEmail(String email) {
         this.email = email;
+    }
+    public String getSeqNvCertificadoDetalhe() {
+        return seqNvCertificadoDetalhe;
+    }
+
+    public void setSeqNvCertificadoDetalhe(String seqNvCertificadoDetalhe) {
+        this.seqNvCertificadoDetalhe = seqNvCertificadoDetalhe;
     }    
-    
+
 }

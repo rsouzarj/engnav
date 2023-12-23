@@ -5,15 +5,7 @@
 /*     */ import java.util.HashMap;
 /*     */ import java.util.Map;
 /*     */ import java.util.Stack;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ 
 /*     */ public class CurrencyWriter
 /*     */ {
@@ -283,8 +275,3 @@
 /*     */   }
 /*     */ }
 
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/Util/CurrencyWriter.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

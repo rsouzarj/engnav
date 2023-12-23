@@ -30,10 +30,24 @@
 /*    */     
 /* 37 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "upload.seq_nv_vistoria", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
 /* 38 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_documento", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
-             condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_financeiro", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
              condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_nv_embarcacao", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
              condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_parceiro", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
              condicao.AdicionarCondicao(OperacaoCondicaoWhere.or, "upload.seq_certificado", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
+/* 39 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "upload.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
+             
+/*    */     
+/* 41 */     listaUpload = dao.listar(condicao);
+/* 42 */     return listaUpload;
+/*    */   }
+
+/*    */   public List<Upload> listarP(String pSeqEmpresa, String pSeq)
+/*    */   {
+/* 33 */     UploadDAO dao = new UploadDAO();
+/* 34 */     List<Upload> listaUpload = new ArrayList();
+/* 35 */     ClausulaWhere condicao = new ClausulaWhere();
+/*    */     
+
+             condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "upload.seq_financeiro", GeneroCondicaoWhere.igual, pSeq, TipoCondicaoWhere.Texto);
 /* 39 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.and, "upload.seq_empresa", GeneroCondicaoWhere.igual, String.valueOf(pSeqEmpresa), TipoCondicaoWhere.Numero);
              
 /*    */     

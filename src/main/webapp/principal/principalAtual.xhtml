@@ -1,0 +1,293 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/WEB-INF/template.xhtml"
+                    
+                xmlns:b="http://bootsfaces.net/ui">
+
+    <ui:define name="head">
+
+        <style type="text/css">
+
+
+            .normal{
+                background: #5fcf80 !important; 
+                background-color: #5fcf80 !important; 
+                border-color: #5fcf80 !important;
+                color: white !important;
+            }
+
+            .moderado{
+                background: #F7941E !important; 
+                background-color: #F7941E !important; 
+                border-color: #F7941E !important;
+                color: white !important;
+            }
+
+            .urgente{
+                background: #D0525D !important;  
+                background-color: #D0525D !important; 
+                border-color: #D0525D !important; 
+                color: white !important;
+            }
+
+        </style>
+
+
+        <script type="text/javascript">
+            PrimeFaces.widget.Schedule.prototype._oldInit = PrimeFaces.widget.Schedule.prototype.init;
+            PrimeFaces.widget.Schedule.prototype.init = function (cfg) {
+                cfg.columnFormat = {
+                    month: 'ddd',
+                    week: 'ddd d/M',
+                    day: 'dddd d/M'
+                };
+
+                this._oldInit.apply(this, arguments);
+            };
+
+            PrimeFaces.locales['pt'] = {
+                closeText: 'Fechar',
+                prevText: 'Anterior',
+                nextText: 'Próximo',
+                currentText: 'Período Atual',
+                monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+                monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+                dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+                dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'],
+                dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S'],
+                weekHeader: 'Semana',
+                firstDay: 1,
+                isRTL: false,
+                showMonthAfterYear: false,
+                yearSuffix: '',
+                timeOnlyTitle: 'Só Horas',
+                timeText: 'Tempo',
+                hourText: 'Hora',
+                minuteText: 'Minuto',
+                secondText: 'Segundo',
+                ampm: false,
+                month: 'Mês',
+                week: 'Semana',
+                day: 'Dia',
+                allDayText: 'Todo Dia'
+            };
+
+
+        </script>
+        <f:metadata>
+            <f:viewAction  action="#{loginController.iniciarADM()}" />
+        </f:metadata>
+
+
+    </ui:define>
+
+    <ui:define name="content">
+
+
+        <!-- BOX START -->
+
+
+                <p:messages id="messages"  autoUpdate="true" closable="true" />
+               
+
+                <div style=" background-image:url(../images/backgrounderp.png);">
+                    <div class=" Responsive100"  >
+                    <div  style="  display: grid;
+  /* aqui eu determino é são 3 colunas de tamanhos iguas, cada coluna tem uma fração */
+  grid-template-columns: repeat(3, 1fr);
+  /* esssa é a altura das linhas, se vc quiser pode apaga-la caso não queira uma altura definida */
+  grid-auto-rows: 100px;
+
+  /* margem interna que afasta os elementos da borda do grid */
+  padding: 20px 10px;">
+                                    <ui:fragment rendered="#{loginController.usuario.acParNovo == 1}">
+                                        <a href="../parceiro/parceiro.jsf?id=-1" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style=" border-radius: 25px; border-bottom: 5px solid #4682B4 ;  
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(128, 174, 231, 0.91), rgba(74, 226, 208, 0.45));" >
+                                                <i class="fa fa-user-plus cor Fs24" style="margin-top: 25px"></i>  
+                                                <i  style="margin-top: 25px">Novo Parceiro</i>
+                                                </a>
+                                    </ui:fragment>
+
+                                    <ui:fragment rendered="#{loginController.usuario.acParTodos == 1}">
+                                        <a href="../parceiro/parceiro.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style=" border-radius: 25px; border-bottom: 5px solid #4682B4 ; 
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(128, 174, 231, 0.91), rgba(74, 226, 208, 0.45));" >
+                                                <i class="fa fa-group cor Fs24" style="margin-top: 25px;"></i>  
+                                                <i  style="margin-top: 25px;">Lista Parceiros</i>
+                                               
+                                        </a>
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../documento/novo.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style=" border-radius: 25px; border-bottom: 5px solid #32CD32 ; ;
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center; 
+                                                  background:linear-gradient(rgba(0,250,154, 0.91), rgba(152,251,152, 0.45));" >
+                                        <i class="fa fa-file-o cor Fs24" style="margin-top: 25px;"></i>    
+                                        <i style="margin-top: 25px;">Nova Proposta</i>
+                                         </a>                
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{loginController.usuario.acDocNovo == 1}">
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../documento/documento_painel.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style="border-radius: 25px; border-bottom: 5px solid #32CD32 ;
+                                           width: 100%;
+                                           height: 80px;
+                                           max-width: 250px;
+                                           margin: 0 auto;
+                                           text-align: center;
+                                            background:linear-gradient(rgba(0,250,154, 0.91), rgba(152,251,152, 0.45));" >
+                                                <i class="fa fa-files-o cor Fs24" style="margin-top: 25px;" ></i>
+                                                <i style="margin-top: 25px;" >Painel de Documentos</i>
+                                        </a>                
+                                    </ui:fragment>
+                                    <ui:fragment >
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../agenda/agenda.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style=" border-radius: 25px; border-bottom: 5px solid #32CD32 ;
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(0,250,154, 0.91), rgba(152,251,152, 0.45));">
+                                            <i class="fa fa-calendar cor Fs24" style="margin-top: 25px;"></i>    
+                                            <i  style="margin-top: 25px;">Agenda</i>
+                                        </a>                
+                                    </ui:fragment>                                    
+                                    <ui:fragment >
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../financeiro/prestacao_contas_colaborador.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style=" border-radius: 25px; border-bottom: 5px solid #32CD32 ; 
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(173,255,47, 0.91), rgba(152,251,152, 0.45));" >
+                                            <i class="fa fa-shopping-cart cor Fs24" style="margin-top: 25px;"></i>    
+                                            <i style="margin-top: 25px;">Prestação de Contas</i>
+                                        </a>                
+                                    </ui:fragment>                                      
+                                    <ui:fragment rendered="#{loginController.usuario.acOpEmbarcacao > 0}">
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../naval/embarcacao.jsf?id=-1" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style=" border-radius: 25px; border-bottom: 5px solid #CDC9A5; 
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));" >
+                                            <i class="fa fa-ship cor Fs24" style="margin-top: 25px;"></i>    
+                                            <i style="margin-top: 25px;">Embarcações</i>
+                                        </a>                
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{loginController.usuario.acOpEquipamento  > 0}">
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../naval/equipamento.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style="border-radius: 25px; border-bottom: 5px solid #CDC9A5; 
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));">
+                                            <i class="fa fa-wrench cor Fs24" style="margin-top: 25px;"></i>    
+                                            <i  style="margin-top: 25px;">Equipamentos</i>
+                                        </a>                
+                                    </ui:fragment>                                      
+                                    <ui:fragment rendered="#{loginController.usuario.acOpLicenca  > 0}">
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../naval/licenca.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style=" border-radius: 25px; border-bottom: 5px solid #8B8970;
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));">
+                                            <i class="fa fa-clipboard cor Fs24" style="margin-top: 25px;"></i>    
+                                            <i  style="margin-top: 25px;">Licenças</i>
+                                        </a>                
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{loginController.usuario.acOpVistoria  > 0}">
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../naval/vistoria.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style="border-radius: 25px; border-bottom: 5px solid #8B8970;
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));" >
+                                            <i class="fa fa-check-square-o cor Fs24" style="margin-top: 25px;"></i>    
+                                            <i  style="margin-top: 25px;">Vistorias</i>
+                                        </a>                
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{loginController.usuario.acOpCertificado  > 0}">
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../naval/certificado.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style="border-radius: 25px; border-bottom: 5px solid #8B8970;
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));">
+                                            <i class="fa fa-certificate cor Fs24" style="margin-top: 25px;"></i>    
+                                            <i style="margin-top: 25px;">Certificados Estatutários</i>
+                                        </a>                
+                                    </ui:fragment>
+                                    <ui:fragment rendered="#{loginController.usuario.acOpCertificado  > 0}">
+                                    <h:outputText value="#{loginController.tipoDocumento.proximoCodigo}"/>
+                                        <a href="../naval/certificado_equipamento.jsf" class="Wid40 Responsive BorderedBox Fleft TexAlCenter HoverEffect" 
+                                           style=" border-radius: 25px; border-bottom: 5px solid #8B8970;
+                                                  width: 100%;
+                                                  height: 80px;
+                                                  max-width: 250px;
+                                                  margin: 0 auto;
+                                                  text-align: center;
+                                                  background:linear-gradient(rgba(255,248,220, 0.91), rgba(245,245,220, 0.45));">
+                                            <i class="fa fa-certificate cor Fs24" style="margin-top: 25px;"></i>    
+                                            <i style="margin-top: 25px;">Certificados de Equipamentos</i>
+                                        </a>                
+                                    </ui:fragment>                                    
+                                    </div>
+                                    </div>
+                                     </div>                         
+
+
+                     
+              
+               <!--<h:form id="frmAgenda" >
+               <a href="#{loginController.home}"> <img src="../images/logov.jpeg" width="85" height="80" alt="logo"/></a>
+     
+                </h:form>-->
+
+         
+
+ 
+
+    </ui:define>
+
+</ui:composition>

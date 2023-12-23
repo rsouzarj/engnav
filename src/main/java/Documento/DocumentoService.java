@@ -15,10 +15,12 @@
 /*     */ import Usuario.Usuario;
 /*     */ import Usuario.UsuarioService;
 /*     */ import Util.Util;
+import java.io.IOException;
 /*     */ import java.io.PrintStream;
 /*     */ import java.util.ArrayList;
 /*     */ import java.util.Date;
 /*     */ import java.util.List;
+import javax.mail.MessagingException;
 /*     */ import javax.mail.Multipart;
 /*     */ 
 /*     */ 
@@ -267,6 +269,7 @@
 /* 279 */     Util util = new Util();
 /* 280 */     return Util.enviarEmailParceiro(pEmail, pConteudo);
 /*     */   }
+
 /*     */   
 /* 283 */   public List<Documento> listarFiltro(ClausulaWhere pCondicao) { DocumentoDAO dao = new DocumentoDAO();
 /* 284 */     List<Documento> listaDocumento = new ArrayList();
@@ -276,6 +279,10 @@
 /*     */ 
 /* 289 */     return listaDocumento;
 /*     */   }
-/*     */ }
+/*     */
+
+
+
+ }
 
 

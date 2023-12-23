@@ -6588,7 +6588,7 @@ body .pcoded[vertical-nav-type="compact"] .main-menu {
   body .pcoded[vertical-nav-type="compact"] .main-menu .pcoded-badge {
     display: none; }
 body.menu-bottom .navbar-wrapper {
-  .z-index: 1050; }
+  z-index: 1050; }
 body.menu-bottom .pcoded .pcoded-main-container {
   margin-top: 0 !important; }
 body.menu-bottom .p-chat-user,
@@ -8962,6 +8962,12 @@ table.footable-paging-center > tfoot > tr.footable-paging > td {
   background-color: #69CEC6; }
 
 .text-c-lite-green {
+  color: #69CEC6; }   	
+
+.bg-c-gray {
+  background-color: #69CEC6; }
+
+.text-c-gray {
   color: #69CEC6; }
 
 .card .card-bg-inverce {

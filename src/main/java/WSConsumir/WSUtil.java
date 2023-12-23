@@ -13,13 +13,7 @@
 /*     */ import java.util.HashMap;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class WSUtil
 /*     */ {
 /*     */   public static String executarGet(String url)

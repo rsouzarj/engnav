@@ -6,84 +6,100 @@
 	xmlns:b="http://bootsfaces.net/ui"
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:p="http://primefaces.org/ui">
-<h:head>
-	<f:facet name="first">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
-		<meta name="apple-mobile-web-app-capable" content="yes" />
-	</f:facet>
-	<title>AWS Service</title>
-	<h:outputScript name="js/layout.js" library="spark-layout" />
-	<h:outputStylesheet name="login.css" library="new-layout" />
-       	<h:outputText value="&lt;!--[if gte IE 9]&gt;" escape="false" />
-	<script
-		src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<style type="text/css">
-/* styles for IE 9 */
-</style>
-	<h:outputText value="&lt;![endif]--&gt;" escape="false" />
-	<title>AWS</title>
-	<style type="text/css">
-.form-signin {
-	margin: 0 auto;
-	max-width: 330px;
-	padding: 15px;
-}
+    <h:head>
+        <!-- META TAGS -->
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- tag para renderizar com internet explorer recente -->
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>CONNECTI</title>
+        <!-- CSS -->
+        <h:outputScript name="js/layout.js" library="spark-layout" />
+        <h:outputStylesheet name="bootstrap.min.css" library="template-aws" />
+        <h:outputStylesheet name="themify-icons.css" library="template-aws"/>
+        <h:outputStylesheet name="icofont.css" library="template-aws"/>
+        <h:outputStylesheet name="style.css" library="template-aws"/>
+        <h:outputStylesheet name="jquery.mCustomScrollbar.css" library="template-aws"/>
+    </h:head>
+    <h:body>
+        <section class="pcoded-wrapper">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                    <div class="col-lg-12">
+                    <div class="card-body p-md-5 mx-md-4">
+                        <div class="text-center">
+                        <h:graphicImage name="logo.png" library="template-aws" width="300" height="200" /> 
+                        <h4 class="mt-1 mb-5 pb-1"></h4>
+                        </div>
 
-body {
-	background-image: url(/erp/images/imglogin.jpg);
-	background-position: center; /* Center the image */
-	background-repeat: no-repeat; /* Do not repeat the image */
-	background-size: cover;
-}
-</style>
-	<ui:insert name="head" />
-</h:head>
-<h:body style="padding-top: 60px;">
-	<b:container>
-		<div class="wrapper fadeInDown">
-			<div id="formContent">
-				<h:form styleClass="form-signin" prependId="false" id="frmPrincipal">
-					<h3 class="form-signin-heading">
-						<h:graphicImage name="awsnew.png" library="new-layout" />
-					</h3>
-					<p:messages id="messages" autoUpdate="true" closable="true" />
-					<b:inputText id="login" placeholder="Login" type="text"
-						styleClass="fadeIn second" value="#{loginController.vLogin}">
-						<f:facet name="prepend">
-							<b:iconAwesome name="user" />
-						</f:facet>
-					</b:inputText>
-					<b:inputText id="password" placeholder="Senha" type="password"
-						styleClass="fadeIn second" value="#{loginController.vSenha}">
-						<f:facet name="prepend">
-							<b:iconAwesome name="key" />
-						</f:facet>
-					</b:inputText>
-					<b:selectOneMenu value="#{loginController.chave}"
-						styleClass="fadeIn second">
-						<f:facet name="prepend">
-							<b:iconAwesome name="building" />
-						</f:facet>
-
-						<f:selectItem itemLabel="Matriz" itemValue="RJ" />
-						<f:selectItem itemLabel="Manaus" itemValue="AM" />
-						<f:selectItem itemLabel="Belém" itemValue="PA" />
+                        <h:form prependId="false" id="frmPrincipal">
+                            <!-- usuario -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="login">Usuário</label>
+                                <p:messages id="messages" autoUpdate="true" closable="true" />
+                                <b:inputText id="login" type="text" styleClass="form-control" value="#{loginController.vLogin}"/>
+                            </div>
+                            <!-- senha -->
+                            <div class="form-outline mb-4">                
+                                <label class="form-label" for="password">Senha</label>
+                                <b:inputText id="password" type="password" styleClass="form-control" value="#{loginController.vSenha}"/>
+                            </div>
+                            <!-- matriz 
+                            <div class="form-outline mb-4">                
+                                 <label class="form-label" for="filial">Filial</label>
+                                  <b:selectOneMenu value="#{loginController.chave}" styleClass="form-control">
+                                    <f:selectItem itemLabel="Matriz" itemValue="RJ" />
+                                    <f:selectItem itemLabel="Manaus" itemValue="AM" />
+                                    <f:selectItem itemLabel="Belém" itemValue="PA" />
 					</b:selectOneMenu>
-					<b:commandButton action="#{loginController.logar()}"
-						update=":frmPrincipal" styleClass="fadeIn fourth"
-						look="primary btn-block" value="Logar" icon="log-in" size="lg" />
-					<div id="formFooter" class="fadeIn fourth">
-						<a href="#amodal" onclick="$('.modalPseudoClass2').modal()">Esqueceu
-							a senha?</a>
-					</div>
-				</h:form>
-			</div>
-		</div>
-	</b:container>
-	<b:form id="frmDialog">
+                            </div>-->
+
+                            <!-- botao de acesso -->
+                            <div class="text-center pt-1 mb-5 pb-1">
+                                <b:commandButton
+                                    class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" 
+                                    update=":frmPrincipal"
+                                    action="#{loginController.logar()}"
+                                    style="background-color: #4F4F4F;" 
+                                    type="button" value="Acessar"/>
+                               
+                            <!-- lembrar senha -->
+                                <a class="text-muted" href="#amodal" onclick="$('.modalPseudoClass2').modal()">Dificuldades para acessar?</a>
+                            </div>			
+                        </h:form>
+
+                    </div>
+                    </div>
+                   <!-- <div class="col-lg-6 d-flex align-items-center " style="background-color: #4F4F4F;">
+                    <div class="text-white px-3 py-4 p-md-1 mx-md-4">
+                        <h2 class="mb-1"><strong></strong></h2>
+                        <h3 class="mb-5"><strong>Sistema de Gestão Integrado</strong></h3>
+                        <p class="mb-0"> Empresa certificada pela DPC (Diretoria de Portos e Costas) em conformidade com a NORMAM-06/DPC - realização de testes, medições, cálculos, vistorias,
+                                         auditorias, outros, em empresas de navegação, embarcações e estruturas marítimas, com emissão, renovação e endosso de certificados,relatórios e licenças.
+                                         Empresa certificada pelo INMETRO em conformidade para Arqueação de Tanques</p><p>
+                                             
+</p>
+                                         <h:graphicImage name="/images/bsi_light.png" library="template-aws" width="400" height="105"/> 
+                    </div>
+                        
+                        
+                                           
+                    </div>-->
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+        <footer class="text-center text-lg-start">
+            <div class="text-center pb-3">© 2022 Copyright <a href="#">Connecti System</a></div>
+        </footer>
+        	<b:form id="frmDialog">
 		<b:modal id="amodal" title="Recuperação de Senha"
 			styleClass="modalPseudoClass2" closable="false"
 			close-on-escape="true" backdrop="false">
@@ -100,5 +116,6 @@ body {
 			</f:facet>
 		</b:modal>
 	</b:form>
-</h:body>
+    </h:body>
+
 </html>

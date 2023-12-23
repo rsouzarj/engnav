@@ -1,0 +1,770 @@
+<!--TELA NOVA DO DOCUMENTO-->
+   <ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#71CC8D', '#33AFDE', '#F7941E'];
+                this.cfg.grid = {
+                    background: '#EDF3F6',
+                    borderColor: '#D9E3E8',
+                    gridLineColor: '#D9E3E8',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+                 window.onload = function() {
+
+                
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+            /*Botão topo*/
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 100) {
+                        $('a[href="#top"]').fadeIn();
+                    } else {
+                        $('a[href="#top"]').fadeOut();
+                    }
+                });
+
+                $('a[href="#top"]').click(function () {
+                    $('html, body').animate({scrollTop: 0}, 800);
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #778D9B;
+            }
+            /*Botão topo */
+            a[href="#top"]{
+                padding:10px;
+                position:fixed;
+                top: 90%;
+                right:2px;
+                display:none;
+                font-size: 30px;
+            }
+            a[href="#top"]:hover{
+                text-decoration:none;
+            }
+        </style>
+        <style>
+            #tabs li.ui-state-disabled {
+                display: none;
+
+            }
+            .ui-tabs .ui-tabs-panel {background-color: red; border-width: 0; padding: 1em 1.4em; background: none; }                
+
+        </style>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <f:metadata>
+            <f:viewParam name="idTipoDocumento" value="#{documentoController.idTipoDocumento}" />
+            <f:viewParam name="idDocumento" value="#{documentoController.idDocumento}" />
+            <f:viewAction  action="#{documentoController.carregarTelaDocumento()}" />
+        </f:metadata>
+
+    </ui:define>
+
+    <ui:define name="content">
+
+        <div class="layout-portlets-box" >
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent"> 
+
+                    <p:messages id="messages"  autoUpdate="true" closable="true" />
+
+                    <h:form id="frmPrincipal" enctype="multipart/form-data">
+                        <!--p:growl id="growl" showDetail="true" sticky="true" /--> 
+
+                        <p:panelGrid   columns="6"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-2,ui-grid-col-2,ui-grid-col-2" >
+                            <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                <h2>Nº do Processo: #{documentoController.documento.codigo} </h2>
+                                <p:inputText value="#{documentoController.documento.codigo}" />
+                                <p:outputLabel value="Revisado nº #{documentoController.documento.idRevisao}" rendered="#{documentoController.documento.idRevisao != null and documentoController.documento.idRevisao > 0}" />
+                                <p:outputLabel value="Complementar nº #{documentoController.documento.idComplementar}" rendered="#{documentoController.documento.idComplementar != null and documentoController.documento.idComplementar > 0 }"/>
+                                <p:outputLabel value="Revisado nº #{documentoController.documento.sequencia}" rendered="#{documentoController.documento.sequencia != null and documentoController.documento.sequencia > 0 }"/>
+
+                                <p:commandLink value="Origem: Nº.: #{documentoController.documento.docDonoCodigo} - #{documentoController.documento.docDonoTipo} "  actionListener="#{documentoController.abrirDocumentoDono()}" target="_blank" immediate="true" ajax="false" rendered="#{documentoController.documento.seqDocumentoDono != null}"/>
+
+                                
+
+                                <p:commandLink value="Motivo do Cancelamento" immediate="true" rendered="#{(documentoController.documento.etapa eq 'Rejeitado' or documentoController.documento.etapa eq 'Cancelada') and documentoController.documento.comentarioEtapa != null}" onclick="PF('telaComentario').show();"/>
+                            </p:panelGrid>
+
+                            <p:commandButton value="Boleto" actionListener="#{documentoController.imprimirBoleto()}" immediate="true" ajax="false" onclick="this.form.target = '_blank'" rendered="#{documentoController.bFinanceiro}"/>
+                            <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank" rendered="#{!documentoController.bFinanceiro}"/>
+
+                            <p:menuButton value="Gerar" rendered="#{documentoController.documento.seqDocumento > 0 and documentoController.idTipoDocumento ne '381'}" disabled="#{(documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1) or (loginController.usuario.acDocNovo != 1 and documentoController.idTipoDocumento ne '401' or documentoController.documento.etapa ne 'Aprovada' and documentoController.documento.etapa ne 'Aprovado' )}">
+                                <c:forEach items="${documentoController.listaTipoDocumentoGerar}" var="td">
+                                    <p:menuitem icon="fa fa-arrow-right cor" value="#{td.tipoDocumentoFilho}" ajax="false" actionListener="#{documentoController.gerarNovoDocumento(td)}" target="_blank" process="@this,mnParceiro" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                                </c:forEach>
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Complementar" ajax="false"  actionListener="#{documentoController.gerarNovo(0)}" target="_blank" process="@this,mnParceiro"  rendered="#{documentoController.idTipoDocumento eq '401' and  loginController.usuario.acFinBoletim == 1}"/>
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Revisado" ajax="false" actionListener="#{documentoController.gerarNovo(1)}" target="_blank" process="@this,mnParceiro" rendered="#{documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim == 1}"/>                                   
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Revisado" actionListener="#{documentoController.gerarNovo(3)}" ajax="false"  target="_blank" process="@this,mnParceiro"  rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                            </p:menuButton>
+                            <p:menuButton value="Gerar" rendered="#{documentoController.documento.seqDocumento > 0 and documentoController.idTipoDocumento eq '381'}" disabled="#{(documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1) or (loginController.usuario.acDocNovo != 1 and documentoController.idTipoDocumento ne '401')}">
+                                <c:forEach items="${documentoController.listaTipoDocumentoGerar}" var="td">
+                                    <p:menuitem icon="fa fa-arrow-right cor" value="#{td.tipoDocumentoFilho}" ajax="false" actionListener="#{documentoController.gerarNovoDocumento(td)}" target="_blank" process="@this,mnParceiro" rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                                </c:forEach>
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Complementar" ajax="false"  actionListener="#{documentoController.gerarNovo(0)}" target="_blank" process="@this,mnParceiro"  rendered="#{documentoController.idTipoDocumento eq '401' and  loginController.usuario.acFinBoletim == 1}"/>
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Revisado" ajax="false" actionListener="#{documentoController.gerarNovo(1)}" target="_blank" process="@this,mnParceiro" rendered="#{documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim == 1}"/>                                   
+                                <p:menuitem icon="fa fa-arrow-right cor" value="Revisado" actionListener="#{documentoController.gerarNovo(3)}" ajax="false"  target="_blank" process="@this,mnParceiro"  rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+                            </p:menuButton> 
+
+                            <p:commandButton value="Salvar" actionListener="#{documentoController.salvar(0)}" update=":frmPrincipal" rendered="#{(loginController.usuario.acDocNovo == 1 and documentoController.documento.etapa != 'Rejeitado' and documentoController.idTipoDocumento ne '401') or (loginController.usuario.acFinBoletim == 1 and documentoController.documento.etapa != 'Rejeitado' and documentoController.idTipoDocumento eq '401')}"/>
+                            
+                            <p:menuButton value="Imprimir" rendered="#{documentoController.documento.seqDocumento > 0}"  >
+                            <p:menuitem icon="fa fa-arrow-right cor" value="Portugues" immediate="true" ajax="false" actionListener="#{documentoController.imprimir()}" target="_blank" rendered="#{documentoController.documento.seqDocumento > 0}"/>
+                            <p:menuitem icon="fa fa-arrow-right cor" value="Ingles" immediate="true" ajax="false" actionListener="#{documentoController.imprimirIngles()}" target="_blank" rendered="#{documentoController.documento.seqDocumento > 0}"/>
+                            </p:menuButton>
+                            <p:commandButton value="Cancelar" id="btnCancelar" styleClass="RedButton"  onclick="PF('telaComentario').show();"  rendered="#{(documentoController.documento.seqDocumento>0 and loginController.usuario.acDocNovo == 1 and documentoController.idTipoDocumento ne '401') or (documentoController.documento.seqDocumento>0 and loginController.usuario.acFinBoletim == 1 and documentoController.idTipoDocumento eq '401')}" process="@this,telaComentario"/>
+                            <!--p:commandButton value="Cancelar" id="btnCancelarBM" styleClass="RedButton"  onclick="PF('telaComentario').show();"  rendered="#{documentoController.documento.seqDocumento>0 and loginController.usuario.acFinBoletim == 1 and documentoController.idTipoDocumento eq '401'}" process="@this,telaComentario"/-->
+                            <!--p:commandButton value="Cancelar" id="btnCancelar" styleClass="RedButton"  onclick="PF('telaComentario').show();"  rendered="#{documentoController.documento.seqDocumento>0 and loginController.usuario.acDocNovo == 1 and (documentoController.idTipoDocumento eq '401' or documentoController.idTipoDocumento eq '301')}" process="@this,telaComentario"/-->
+
+                            <!--p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{documentoController.deletar()}" rendered="#{documentoController.documento.seqDocumento>0 and loginController.usuario.acDocNovo == 1}" update=":frmPrincipal"-->
+                            <!--p:commandButton value="Deletar" styleClass="RedButton" actionListener="#{documentoController.deletar()}" rendered="#{documentoController.documento.seqDocumento>0 and loginController.usuario.acDocNovo == 1 and (documentoController.idTipoDocumento ne '401' and documentoController.idTipoDocumento ne '301')}" update=":frmPrincipal">
+                                <p:confirm header="Confirmação" message="Deseja excluir o registro?" icon="ui-icon-alert" />
+                            </p:commandButton-->
+
+                            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+                            </p:confirmDialog>                                                              
+
+                        </p:panelGrid>
+
+                        <p:separator/>
+                        <p:accordionPanel  >
+                            <p:tab title="Detalhes do Processo" id="Detalhe">
+                                <div class="Fs16 gray FontRalewaySemiBold">Situação</div>
+                                <p:menuButton value="#{documentoController.documento.etapa}" rendered="#{documentoController.documento.seqDocumento > 0 }" disabled="#{(documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1) or (loginController.usuario.acDocNovo != 1 and documentoController.idTipoDocumento ne '401')}" >
+                                    <c:forEach items="${documentoController.listaDocumentoEtapa}" var="tp">
+                                        <p:menuitem icon="fa fa-arrow-right cor" value="#{tp.nome}"  rendered="#{tp.nome != documentoController.documento.etapa}" actionListener="#{documentoController.enviarParaProximaEtapa(tp)}" />
+                                    </c:forEach>
+                                </p:menuButton>
+
+                        <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-9,ui-grid-col-0,ui-grid-col-0,ui-grid-col-3" >
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-6" >
+                                 <div class="Fs16 gray FontRalewaySemiBold">Assunto</div>
+                                <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                 <f:selectItem value="#{null}" itemLabel="Selecione um Assunto para o processo" itemValue="#{null}" />
+                                        <f:selectItem  itemLabel="Contratos Bancários" itemValue="Contratos Bancários" />
+                                        <f:selectItem  itemLabel="Ação de Cobrança" itemValue="Ação de Cobrança" />
+                                        <f:selectItem  itemLabel="Ação Penal" itemValue="Ação Penal" />
+                                        <f:selectItem  itemLabel="Agravo de Instrumentos" itemValue="Agravo de Instrumentos"  />
+                                        <f:selectItem  itemLabel="Alimentos" itemValue="Alimentos" />
+                                        <f:selectItem  itemLabel="Alvará de Judicial" itemValue="Alvará de Judicial" />
+                                        <f:selectItem  itemLabel="Apelação" itemValue="Apelação" />
+                                        <f:selectItem  itemLabel="Cumprimento de Sentença" itemValue="Cumprimento de Sentença" />                             
+                                
+                            </p:selectOneMenu>
+                                                           
+                            
+                                <div class="Fs16 gray FontRalewaySemiBold">Cliente</div>
+                                <p:selectOneMenu id="mnParceiro" value="#{documentoController.documento.seqParceiro}" filter="true" filterMatchMode="contains"  required="true" requiredMessage="[PARCEIRO] é Obrigatório"   >
+                                    <f:selectItem value="#{null}" itemLabel="Selecione um Parceiro" itemValue="#{null}" />
+                                    <f:selectItems value="#{documentoController.listaParceiro}" var="pa"  itemLabel="#{pa.nome} - #{pa.tipoParceiro}" itemValue="#{pa.seqParceiro}" />
+                                    <p:ajax event="change" listener="#{documentoController.listarDetalheParceiro()}" update=":frmPrincipal "/>
+                                </p:selectOneMenu>
+                            
+                        
+                            <div class="Fs16 gray FontRalewaySemiBold">Advogado Responsável </div>
+                            <p:selectOneMenu id="mnColaboradorResponsavel" value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[ADVOGADO RESPONSÁVEL] é Obrigatório">
+                                <f:selectItem value="#{null}" itemLabel="Selecione um Responsável pela Assinatura" itemValue="#{null}" />
+                                <f:selectItems value="#{documentoController.listaAssColaborador}" var="tp"  itemLabel="#{tp.nome}" itemValue="#{tp.seqColaborador}" />
+                            </p:selectOneMenu>
+                        </p:panelGrid>                            
+                           
+                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"> 
+                                <div class="Fs16 gray FontRalewaySemiBold">Inicio do Processo</div>
+                                <p:inputMask mask="99/99/9999" value="#{documentoController.documento.data}">
+                                    <f:convertDateTime locale="pt_BR"  pattern="dd/MM/yyyy"/>
+                                </p:inputMask>
+                                
+                                <div class="Fs16 gray FontRalewaySemiBold">Data do Encerramento</div>
+                                <p:inputMask mask="99/99/9999" value="#{documentoController.documento.dataPrevisaoConclusao}">
+                                    <f:convertDateTime locale="pt_BR"  pattern="dd/MM/yyyy"/>
+                                </p:inputMask>                                
+
+                            </p:panelGrid>
+                            
+                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-0,ui-grid-col-0"> 
+                        <p:panelGrid columns="1" layout="grid"  >   
+                        <div class="Fs16 gray FontRalewaySemiBold">Sobre o Processo</div>
+                        <p:editor  value="#{documentoController.documento.objetivo}" required="true" requiredMessage="[Objetivo] é obrigatório"/>                           
+                        <h:outputText id="objetivop"/>  
+                        </p:panelGrid>  
+                            </p:panelGrid>
+                          
+                            </p:panelGrid>
+                            </p:tab>
+                        </p:accordionPanel>
+                        <p:accordionPanel  >
+                            <p:tab title="Endereçamento" id="enderecamento">                        
+                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-0,ui-grid-col-3" >
+                            <!--<p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" id="pnlBuscarRF" > 
+                                    <h:outputText value="." />
+                                    <p:commandButton value="Buscar Dados" actionListener="#{documentoController.buscarDadosDatajud()}" update=":frmPrincipal" />-->
+                            <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                <div class="Fs16 gray FontRalewaySemiBold">Justiça</div>
+                                <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                 <f:selectItem value="#{null}" itemLabel="Justiça" itemValue="#{null}" />
+                                        <f:selectItem  itemLabel="Conselho Nacional de Justiça" itemValue="Conselho Nacional de Justiça" />
+                                        <f:selectItem  itemLabel="Justiça dos Estados e do Distrito Federal e Territórios" itemValue="Justiça dos Estados e do Distrito Federal e Territórios" />
+                                        <f:selectItem  itemLabel="Justiça do Trabalho" itemValue="Justiça do Trabalho" />
+                                        <f:selectItem  itemLabel="Justiça Eleitoral" itemValue="Justiça Eleitoral"  />
+                                        <f:selectItem  itemLabel="Justiça Federal" itemValue="Justiça Federal" />
+                                        <f:selectItem  itemLabel="AJustiça Militar da União" itemValue="Justiça Militar da União" />
+                                        <f:selectItem  itemLabel="Justiça Militar Estadual" itemValue="Justiça Militar Estadual" />
+                                        <f:selectItem  itemLabel="Superior Tribunal de Justiça" itemValue="Superior Tribunal de Justiça" />                             
+                                        <f:selectItem  itemLabel="Supremo Tribunal Federal" itemValue="Supremo Tribunal Federal" /> 
+                            </p:selectOneMenu>
+                                </p:panelGrid>
+                            <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                <div class="Fs16 gray FontRalewaySemiBold">Instância</div>
+                                <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                 <f:selectItem value="#{null}" itemLabel="Instância" itemValue="#{null}" />
+                                        <f:selectItem  itemLabel="1ª Instância" itemValue="1ª Instância" />
+                                        <f:selectItem  itemLabel="2ª Instância" itemValue="2ª Instância" />
+                                        <f:selectItem  itemLabel="3ª Instância" itemValue="3ª Instância" />
+                                        <f:selectItem  itemLabel="4ª Instância" itemValue="4ª Instância"  />
+                            </p:selectOneMenu>
+                                </p:panelGrid>                              
+                                                        
+                                </p:panelGrid>
+                                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4,ui-grid-col-4" >
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Orgão</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Orgão" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Supremo Tribunal Federal (STF)" itemValue="Supremo Tribunal Federal (STF)"/>
+                                            <f:selectItem  itemLabel="Superior Tribunal de Justiça (STJ)" itemValue="Superior Tribunal de Justiça (STJ)"/>
+                                            <f:selectItem  itemLabel="Conselho da Justiça Federal (CJF)" itemValue="Conselho da Justiça Federal (CJF)"/>
+                                            <f:selectItem  itemLabel="Superior Tribunal Militar (STM)" itemValue="Superior Tribunal Militar (STM)"/>
+                                            <f:selectItem  itemLabel="Tribunal Superior do Trabalho (TST)" itemValue="Tribunal Superior do Trabalho (TST)"/>
+                                            <f:selectItem  itemLabel="Conselho Superior da Justiça do Trabalho (CSJT)" itemValue="Conselho Superior da Justiça do Trabalho (CSJT)"/>
+                                            <f:selectItem  itemLabel="Tribunal Superior Eleitoral (TSE)" itemValue="Tribunal Superior Eleitoral (TSE)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Federal da 1ª Região (TRF1) (AC, AM, AP, BA, DF, GO, MA, MT, PA, PI, RO, RR e TO)" itemValue="Tribunal Regional Federal da 1ª Região (TRF1) (AC, AM, AP, BA, DF, GO, MA, MT, PA, PI, RO, RR e TO)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Federal da 2ª Região (TRF2) (ES e RJ)" itemValue="Tribunal Regional Federal da 2ª Região (TRF2) (ES e RJ)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Federal da 3ª Região (TRF3) (MS e SP)" itemValue="Tribunal Regional Federal da 3ª Região (TRF3) (MS e SP)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Federal da 4ª Região (TRF4) (PR, RS e SC)" itemValue="Tribunal Regional Federal da 4ª Região (TRF4) (PR, RS e SC)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Federal da 5ª Região (TRF5) (AL, CE, PB, PE, RN e SE)" itemValue="Tribunal Regional Federal da 5ª Região (TRF5) (AL, CE, PB, PE, RN e SE)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Federal da 6ª Região (TRF6) (MG)" itemValue="Tribunal Regional Federal da 6ª Região (TRF6) (MG)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Acre (TJAC)" itemValue="Tribunal de Justiça do Acre (TJAC)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Alagoas (TJAL)" itemValue="Tribunal de Justiça de Alagoas (TJAL)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Amapá (TJAP)" itemValue="Tribunal de Justiça do Amapá (TJAP)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Amazonas (TJAM)" itemValue="Tribunal de Justiça do Amazonas (TJAM)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça da Bahia (TJBA)" itemValue="Tribunal de Justiça da Bahia (TJBA)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Ceará (TJCE)" itemValue="Tribunal de Justiça do Ceará (TJCE)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Distrito Federal e Territórios (TJDFT)" itemValue="Tribunal de Justiça do Distrito Federal e Territórios (TJDFT)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Espírito Santo (TJES)" itemValue="Tribunal de Justiça do Espírito Santo (TJES)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Goiás (TJGO)" itemValue="Tribunal de Justiça de Goiás (TJGO)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Maranhão (TJMA)" itemValue="Tribunal de Justiça do Maranhão (TJMA)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Mato Grosso (TJMT)" itemValue="Tribunal de Justiça de Mato Grosso (TJMT)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Mato Grosso do Sul (TJMS)" itemValue="Tribunal de Justiça de Mato Grosso do Sul (TJMS)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Minas Gerais (TJMG)" itemValue="Tribunal de Justiça de Minas Gerais (TJMG)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Pará (TJPA)" itemValue="Tribunal de Justiça do Pará (TJPA)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça da Paraíba (TJPB)" itemValue="Tribunal de Justiça da Paraíba (TJPB)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Paraná (TJPR)" itemValue="Tribunal de Justiça do Paraná (TJPR)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Pernambuco (TJPE)" itemValue="Tribunal de Justiça de Pernambuco (TJPE)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Piauí (TJPI)" itemValue="Tribunal de Justiça do Piauí (TJPI)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Rio de Janeiro (TJRJ)" itemValue="Tribunal de Justiça do Rio de Janeiro (TJRJ)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Rio Grande do Norte (TJRN)" itemValue="Tribunal de Justiça do Rio Grande do Norte (TJRN)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Rio Grande do Sul (TJRS)" itemValue="Tribunal de Justiça do Rio Grande do Sul (TJRS)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Rondônia (TJRO)" itemValue="Tribunal de Justiça de Rondônia (TJRO)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Roraima (TJRR)" itemValue="Tribunal de Justiça de Roraima (TJRR)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Santa Catarina (TJSC)" itemValue="Tribunal de Justiça de Santa Catarina (TJSC)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de São Paulo (TJSP)" itemValue="Tribunal de Justiça de São Paulo (TJSP)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça de Sergipe (TJSE)" itemValue="Tribunal de Justiça de Sergipe (TJSE)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça do Tocantins (TJTO)" itemValue="Tribunal de Justiça do Tocantins (TJTO)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Acre" itemValue="Tribunal Regional Eleitoral do Acre"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Alagoas" itemValue="Tribunal Regional Eleitoral de Alagoas"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Amapá" itemValue="Tribunal Regional Eleitoral do Amapá"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Amazonas" itemValue="Tribunal Regional Eleitoral do Amazonas"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral da Bahia" itemValue="Tribunal Regional Eleitoral da Bahia"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Ceará" itemValue="Tribunal Regional Eleitoral do Ceará"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Distrito Federal" itemValue="Tribunal Regional Eleitoral do Distrito Federal"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Espírito Santo" itemValue="Tribunal Regional Eleitoral do Espírito Santo"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Goiás" itemValue="Tribunal Regional Eleitoral de Goiás"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Maranhão" itemValue="Tribunal Regional Eleitoral do Maranhão"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Mato Grosso" itemValue="Tribunal Regional Eleitoral do Mato Grosso"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Mato Grosso do Sul" itemValue="Tribunal Regional Eleitoral do Mato Grosso do Sul"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Minas Gerais" itemValue="Tribunal Regional Eleitoral de Minas Gerais"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Pará" itemValue="Tribunal Regional Eleitoral do Pará"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral da Paraíba" itemValue="Tribunal Regional Eleitoral da Paraíba"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Paraná" itemValue="Tribunal Regional Eleitoral do Paraná"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Pernambuco" itemValue="Tribunal Regional Eleitoral de Pernambuco"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Piauí" itemValue="Tribunal Regional Eleitoral do Piauí"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Rio de Janeiro" itemValue="Tribunal Regional Eleitoral do Rio de Janeiro"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Rio Grande do Norte" itemValue="Tribunal Regional Eleitoral do Rio Grande do Norte"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral do Rio Grande do Sul" itemValue="Tribunal Regional Eleitoral do Rio Grande do Sul"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Rondônia" itemValue="Tribunal Regional Eleitoral de Rondônia"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Roraima" itemValue="Tribunal Regional Eleitoral de Roraima"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Santa Catarina" itemValue="Tribunal Regional Eleitoral de Santa Catarina"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de São Paulo" itemValue="Tribunal Regional Eleitoral de São Paulo"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Sergipe" itemValue="Tribunal Regional Eleitoral de Sergipe"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional Eleitoral de Tocantins" itemValue="Tribunal Regional Eleitoral de Tocantins"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 1ª Região (TRT1) (RJ)" itemValue="Tribunal Regional do Trabalho da 1ª Região (TRT1) (RJ)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 2ª Região (TRT2) (SP / Grande São Paulo e Baixada Santista)" itemValue="Tribunal Regional do Trabalho da 2ª Região (TRT2) (SP / Grande São Paulo e Baixada Santista)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 3ª Região (TRT3) (MG)" itemValue="Tribunal Regional do Trabalho da 3ª Região (TRT3) (MG)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 4ª Região (TRT4) (RS)" itemValue="Tribunal Regional do Trabalho da 4ª Região (TRT4) (RS)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 5ª Região (TRT5) (BA)" itemValue="Tribunal Regional do Trabalho da 5ª Região (TRT5) (BA)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 6ª Região (TRT6) (PE)" itemValue="Tribunal Regional do Trabalho da 6ª Região (TRT6) (PE)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 7ª Região (TRT7) (CE)" itemValue="Tribunal Regional do Trabalho da 7ª Região (TRT7) (CE)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 8ª Região (TRT8) (AP e PA)" itemValue="Tribunal Regional do Trabalho da 8ª Região (TRT8) (AP e PA)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 9ª Região (TRT9) (PR)" itemValue="Tribunal Regional do Trabalho da 9ª Região (TRT9) (PR)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 10ª Região (TRT10) (DF e TO)" itemValue="Tribunal Regional do Trabalho da 10ª Região (TRT10) (DF e TO)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 11ª Região (TRT11) (AM e RR)" itemValue="Tribunal Regional do Trabalho da 11ª Região (TRT11) (AM e RR)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 12ª Região (TRT12) (SC)" itemValue="Tribunal Regional do Trabalho da 12ª Região (TRT12) (SC)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 13ª Região (TRT13) (PB)" itemValue="Tribunal Regional do Trabalho da 13ª Região (TRT13) (PB)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 14ª Região (TRT14) (AC e RO)" itemValue="Tribunal Regional do Trabalho da 14ª Região (TRT14) (AC e RO)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 15ª Região (TRT15) (SP / Interior e Litoral Norte e Sul)" itemValue="Tribunal Regional do Trabalho da 15ª Região (TRT15) (SP / Interior e Litoral Norte e Sul)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 16ª Região (TRT16) (MA)" itemValue="Tribunal Regional do Trabalho da 16ª Região (TRT16) (MA)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 17ª Região (TRT17) (ES)" itemValue="Tribunal Regional do Trabalho da 17ª Região (TRT17) (ES)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 18ª Região (TRT18) (GO)" itemValue="Tribunal Regional do Trabalho da 18ª Região (TRT18) (GO)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 19ª Região (TRT19) (AL)" itemValue="Tribunal Regional do Trabalho da 19ª Região (TRT19) (AL)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 20ª Região (TRT20) (SE)" itemValue="Tribunal Regional do Trabalho da 20ª Região (TRT20) (SE)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 21ª Região (TRT21) (RN)" itemValue="Tribunal Regional do Trabalho da 21ª Região (TRT21) (RN)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 22ª Região (TRT22) (PI)" itemValue="Tribunal Regional do Trabalho da 22ª Região (TRT22) (PI)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 23ª Região (TRT23) (MT)" itemValue="Tribunal Regional do Trabalho da 23ª Região (TRT23) (MT)"/>
+                                            <f:selectItem  itemLabel="Tribunal Regional do Trabalho da 24ª Região (TRT24) (MS)" itemValue="Tribunal Regional do Trabalho da 24ª Região (TRT24) (MS)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça Militar de Minas Gerais (TJMMG)" itemValue="Tribunal de Justiça Militar de Minas Gerais (TJMMG)"/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça Militar do Rio Grande do Sul (TJMRS) " itemValue="Tribunal de Justiça Militar do Rio Grande do Sul (TJMRS) "/>
+                                            <f:selectItem  itemLabel="Tribunal de Justiça Militar de São Paulo (TJMSP)" itemValue="Tribunal de Justiça Militar de São Paulo (TJMSP)"/>
+
+
+                                        </p:selectOneMenu>
+                                    </p:panelGrid>
+                            <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                <div class="Fs16 gray FontRalewaySemiBold">Orgão Julgador</div>
+                                <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                 <f:selectItem value="#{null}" itemLabel="Instância" itemValue="#{null}" />
+                                        <f:selectItem  itemLabel="1º" itemValue="1º"/>
+                                        <f:selectItem  itemLabel="2º" itemValue="2º"/>
+                                        <f:selectItem  itemLabel="3º" itemValue="3º"/>
+                                        <f:selectItem  itemLabel="4º" itemValue="4º"/>
+                                        <f:selectItem  itemLabel="5º" itemValue="5º"/>
+                                        <f:selectItem  itemLabel="6º" itemValue="6º"/>
+                                        <f:selectItem  itemLabel="7º" itemValue="7º"/>
+                                        <f:selectItem  itemLabel="8º" itemValue="8º"/>
+                                        <f:selectItem  itemLabel="9º" itemValue="9º"/>
+                                        <f:selectItem  itemLabel="Única" itemValue="Única"/>
+                            </p:selectOneMenu>
+                                </p:panelGrid>
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Tipo de Orgão Julgador</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Tipo de Orgão" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Acidentes de Trabalho" itemValue="Acidentes de Trabalho"/>
+                                            <f:selectItem  itemLabel="Bancária" itemValue="Bancária"/>
+                                            <f:selectItem  itemLabel="Cívil" itemValue="Cívil"/>
+                                            <f:selectItem  itemLabel="Comercial" itemValue="Comercial"/>
+                                            <f:selectItem  itemLabel="Criminal" itemValue="Criminal"/>
+                                            <f:selectItem  itemLabel="Execuções Criminais" itemValue="Execuções Criminais"/>
+                                            <f:selectItem  itemLabel="Execuções Fiscais" itemValue="Execuções Fiscais"/>
+                                            <f:selectItem  itemLabel="Família" itemValue="Família"/>
+                                            <f:selectItem  itemLabel="Família Sucessões" itemValue="Família Sucessões"/>
+                                            <f:selectItem  itemLabel="Fazenda Pública" itemValue="Fazenda Pública"/>
+                                            <f:selectItem  itemLabel="Infância e Juventude" itemValue="Infância e Juventude"/>
+                                            <f:selectItem  itemLabel="Juizado especial Cívil" itemValue="Juizado especial Cívil"/>
+                                            <f:selectItem  itemLabel="Sucessões" itemValue="Sucessões"/>
+                                            <f:selectItem  itemLabel="Trabalho" itemValue="Trabalho"/>
+                                            <f:selectItem  itemLabel="Única" itemValue="Única"/>
+                                        </p:selectOneMenu>
+                                 
+                                </p:panelGrid>
+                                <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >    
+                                <div class="Fs16 gray FontRalewaySemiBold">Complemento </div>
+                                <p:inputText id="req" value="#{documentoController.documento.boletimMedicao}" />
+                                </p:panelGrid>
+                                </p:panelGrid>
+                                <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4"  >              
+                                <div class="Fs16 gray FontRalewaySemiBold">Comarca </div>
+                                <p:inputText id="com" value="#{documentoController.documento.datasParcelado}" />
+                                <div class="Fs16 gray FontRalewaySemiBold">Vara </div>
+                                <p:inputText id="vara" value="#{documentoController.documento.comentarioEtapa}" />
+                                <div class="Fs16 gray FontRalewaySemiBold">Competência </div>
+                                <p:inputText id="compt" value="#{documentoController.documento.descRemuneracao}" />                                    
+                                 </p:panelGrid>                                 
+                        <!--</p:panelGrid>-->
+                       </p:tab>
+                        </p:accordionPanel>    
+                         <p:accordionPanel>
+                            <p:tab title="Autos">
+                                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4" >
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Área</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Área" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Administrativa" itemValue="Administrativa"/>
+                                            <f:selectItem  itemLabel="Cível" itemValue="Cível"/>
+                                            <f:selectItem  itemLabel="Civil" itemValue="Civil"/>
+                                            <f:selectItem  itemLabel="Comercial" itemValue="Comercial"/>
+                                            <f:selectItem  itemLabel="Criminal" itemValue="Criminal"/>
+                                            <f:selectItem  itemLabel="Família" itemValue="Família"/>
+                                            <f:selectItem  itemLabel="Penal" itemValue="Penal"/>
+                                            <f:selectItem  itemLabel="Trabalhista" itemValue="Trabalhista"/>
+                                            <f:selectItem  itemLabel="Tributária" itemValue="Tributária"/>
+                                        </p:selectOneMenu>
+                                        </p:panelGrid>
+                                        <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Fase</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Fase" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Conciliação" itemValue="Conciliação"/>
+                                            <f:selectItem  itemLabel="Execução" itemValue="Execução"/>
+                                            <f:selectItem  itemLabel="Inicial" itemValue="Inicial"/>
+                                            <f:selectItem  itemLabel="Instrução" itemValue="Instrução"/>
+                                            <f:selectItem  itemLabel="Julgamento" itemValue="Julgamento"/>
+                                            <f:selectItem  itemLabel="Liquidação" itemValue="Liquidação"/>
+                                            <f:selectItem  itemLabel="Recursal" itemValue="Recursal"/>
+                                            <f:selectItem  itemLabel="Penal" itemValue="Penal"/>
+                                            <f:selectItem  itemLabel="Encerrado" itemValue="Encerrado"/>
+                                            </p:selectOneMenu>                                 
+                                        </p:panelGrid>
+                                        </p:panelGrid>
+                                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-7,ui-grid-col-7,ui-grid-col-7"> 
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Instância CNJ</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Instância" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="1º Grau" itemValue="1º Grau"/>
+                                            <f:selectItem  itemLabel="2º Grau" itemValue="2º Grau"/>
+                                            <f:selectItem  itemLabel="Juizado Especial" itemValue="Juizado Especial"/>
+                                            <f:selectItem  itemLabel="Juizado Especial da Fazenda Pública" itemValue="Juizado Especial da Fazenda Pública"/>
+                                            <f:selectItem  itemLabel="Turma Estadual de Uniformização" itemValue="Turma Estadual de Uniformização"/>
+                                            <f:selectItem  itemLabel="Turmas Recursais" itemValue="Turmas Recursais"/>
+                                        </p:selectOneMenu>                                 
+                                    </p:panelGrid>                                    
+                                    
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <div class="Fs16 gray FontRalewaySemiBold">Classe CNJ</div>
+                                        <p:inputText value="#{documentoController.documentoItemFinanceiro.valor}" required="FALSE" requiredMessage="[VALOR] é obrigatório">
+                                            <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <div class="Fs16 gray FontRalewaySemiBold">Assunto CNJ</div>
+                                        <p:inputText value="#{documentoController.documentoItemFinanceiro.valor}" required="FALSE" requiredMessage="[VALOR] é obrigatório">
+                                            <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                    </p:panelGrid>                            
+                            </p:tab>       
+                        </p:accordionPanel>
+                        <p:accordionPanel>
+                            <p:tab title="Qualificação">
+                                <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4" >
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Pessoa</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Área" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Silvio" itemValue="Silvio"/>
+                                            <f:selectItem  itemLabel="Haroldo" itemValue="Haroldo"/>
+                                            <f:selectItem  itemLabel="Abílio" itemValue="Abílio"/>
+                                        </p:selectOneMenu>
+                                        </p:panelGrid>
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Envolvimento</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Envolvimento" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Autor" itemValue="Autor"/>
+                                            <f:selectItem  itemLabel="Denunciante" itemValue="Denunciante"/>
+                                            <f:selectItem  itemLabel="Embargante" itemValue="Embargante"/>
+                                            <f:selectItem  itemLabel="Excipiente" itemValue="Excipiente"/>
+                                            <f:selectItem  itemLabel="Exequente" itemValue="Exequente"/>
+                                            <f:selectItem  itemLabel="Impetrante" itemValue="Impetrante"/>
+                                            <f:selectItem  itemLabel="Impugnante" itemValue="Impugnante"/>
+                                            <f:selectItem  itemLabel="Interpelante" itemValue="Interpelante"/>
+                                            <f:selectItem  itemLabel="Inventariante" itemValue="Inventariante"/>
+                                            <f:selectItem  itemLabel="Notificante" itemValue="Notificante"/>
+                                            <f:selectItem  itemLabel="Opoente" itemValue="Opoente"/>
+                                            <f:selectItem  itemLabel="Reclamante" itemValue="Reclamante"/>
+                                            <f:selectItem  itemLabel="Reconvinte" itemValue="Reconvinte"/>
+                                            <f:selectItem  itemLabel="Recorrente" itemValue="Recorrente"/>
+                                            <f:selectItem  itemLabel="Requerente" itemValue="Requerente"/>
+                                            <f:selectItem  itemLabel="Sujeito Ativo" itemValue="Sujeito Ativo"/>
+
+                                        </p:selectOneMenu>                                 
+                                    </p:panelGrid>
+                                        </p:panelGrid>      
+                            </p:tab>       
+                        </p:accordionPanel>
+                        <p:accordionPanel>
+                            <p:tab title="Valores do Processo">
+                                   <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-7,ui-grid-col-7,ui-grid-col-7"> 
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <div class="Fs16 gray FontRalewaySemiBold">Valor da Ação</div>
+                                        <p:inputText value="#{documentoController.documentoItemFinanceiro.valor}" required="FALSE" requiredMessage="[VALOR] é obrigatório">
+                                            <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <div class="Fs16 gray FontRalewaySemiBold">Valor provisionado</div>
+                                        <p:inputText value="#{documentoController.documentoItemFinanceiro.valor}" required="FALSE" requiredMessage="[VALOR] é obrigatório">
+                                            <f:convertNumber locale="pt_BR" pattern="#,##0.00" maxFractionDigits="2" groupingUsed="true" maxIntegerDigits="20" type="currency" currencySymbol="R$" />
+                                        </p:inputText>
+                                    </p:panelGrid>
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Provisionamento</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Provisionamento" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Contingência Ativa" itemValue="Contingência Ativa"/>
+                                            <f:selectItem  itemLabel="Contingência Passiva" itemValue="Contingência Passiva"/>
+                                            <f:selectItem  itemLabel="Passivo" itemValue="Passivo"/>
+                                            <f:selectItem  itemLabel="Provisão" itemValue="Provisão"/>
+                                            </p:selectOneMenu>                                 
+                                    </p:panelGrid>
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                        <div class="Fs16 gray FontRalewaySemiBold">Risco</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Provisionamento" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Possível" itemValue="Possível"/>
+                                            <f:selectItem  itemLabel="Provável" itemValue="Provável"/>
+                                            <f:selectItem  itemLabel="Remoto" itemValue="Remoto"/>
+                                            </p:selectOneMenu>                                 
+                                    </p:panelGrid>
+                                    <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4">  
+                                        <div class="Fs16 gray FontRalewaySemiBold">Probabilidade</div>
+                                        <p:selectOneMenu  value="#{documentoController.documento.seqAssColaborador}" filter="true" filterMatchMode="contains" required="true" requiredMessage="[SITUAÇÃO] é Obrigatório">
+                                            <f:selectItem value="#{null}" itemLabel="Probabilidade" itemValue="#{null}" />
+                                            <f:selectItem  itemLabel="Êxito" itemValue="Êxito"/>
+                                            <f:selectItem  itemLabel="Perda" itemValue="Perda"/>
+                                            </p:selectOneMenu>                                 
+                                    </p:panelGrid>                                        
+                                    </p:panelGrid>                            
+                            </p:tab>       
+                        </p:accordionPanel>
+                        <p:accordionPanel  rendered="#{documentoController.idTipoDocumento ne '401' and documentoController.idTipoDocumento ne 381}">
+                            <p:tab title="Movimentações do Processo" id="comentario">
+                                <p:dataTable id="tbComentario" var="c" value="#{documentoController.listaDocumentoComentario}" emptyMessage="Lista vazia" reflow="true" >
+
+                                    <p:column headerText="Comentário" sortBy="#{c.comentario}">
+                                        <!--p:commandLink value="#{c.comentario}" actionListener="#{documentoController.selecionarComentario(c)}" update=":frmPrincipal"  /-->
+                                        <p:outputLabel value="#{c.comentario}"/>
+                                    </p:column>
+                                    <p:column headerText="Usuário"  width="25%" sortBy="#{c.usuario}">
+                                        <p:outputLabel value="#{c.usuario}"/>
+                                    </p:column>
+                                    <p:column headerText="Data" width="11%" sortBy="#{c.dataCadastro}">
+                                        <p:outputLabel value="#{c.dataCadastro}"  title="#{c.dataCadastro}"  >
+                                            <f:convertDateTime type="date" pattern="dd/MM/yyyy" dateStyle="medium" locale="pt_BR" timeZone="GMT-3"/>
+                                        </p:outputLabel>
+                                    </p:column>
+                                    <!--p:column headerText="Remover" width="8%" rendered="#{loginController.usuario.acDocNovo == 1}">
+                                        <p:commandButton icon="fa fa-eraser Fs18 white"   actionListener="#{documentoController.removerComentario(c)}" immediate="true" update=":frmPrincipal" >
+                                            <p:confirm header="Confirmação" message="Deseja excluir o Vínculo?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                    </p:column-->
+                                </p:dataTable>     
+
+                                <p:separator/>
+
+                                <p:panelGrid id="pnlComentario"  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:outputLabel value="Comentários"/>
+                                        <p:inputTextarea value="#{documentoController.documentoComentario.comentario}"/>
+                                    </p:panelGrid>
+                                    <p:panelGrid  columns="1" layout="grid" styleClass="ui-panelgrid-blank"  columnClasses="ui-grid-col-3" rendered="#{loginController.usuario.acDocNovo == 1}" > 
+                                        <p:commandButton value="Salvar"  actionListener="#{documentoController.adicionarComentario()}" update="comentario" disabled="#{documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1}"/>
+                                    </p:panelGrid>
+                                </p:panelGrid>
+                            </p:tab>
+                        </p:accordionPanel>
+
+                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{documentoController.bFinanceiro  and documentoController.idTipoDocumento ne '381'}"> 
+                            <h:outputText value="Data Ajuizado"/>
+                            <p:inputMask mask="99/99/9999" value="#{documentoController.documento.dataPrevisaoConclusao}" required="true" requiredMessage="[PREVISÃO DE BAIXA] é obrigatório">
+                                <f:convertDateTime locale="pt_BR" dateStyle="long" pattern="dd/MM/yyyy" timeZone="GMT-3"/>
+                            </p:inputMask>
+                        </p:panelGrid>
+                        <p:separator/>
+                        <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.idTipoDocumento ne '401'}"  >
+
+
+                          
+                            
+                            
+                            
+                            
+                                          
+                       <p:panelGrid columns="1" layout="grid" rendered="#{documentoController.documento.seqTipoDocumento ne '381' and documentoController.documento.seqTipoDocumento ne '401'}">    
+                        <h:outputText value="Observações Gerais"/>
+                        <p:inputTextarea  value="#{documentoController.documento.observacao}" rows="10" cols="50" completeMethod="#{documentoController.completeArea}" queryDelay="750"
+                         minQueryLength="1" required="false"/> 
+                        <h:outputText id="descricaoG"/>
+                        </p:panelGrid>
+  
+                     </p:panelGrid>
+                        <br/>
+
+                        <p:separator rendered="#{documentoController.idTipoDocumento eq '401'}"/>
+
+                      
+      
+                        <h:outputText value="Descrição" rendered="#{documentoController.idTipoDocumento ne '401' and documentoController.idTipoDocumento ne 381}"/>
+                        <p:editor controls="" value="#{documentoController.documento.descricao}" rendered="#{documentoController.idTipoDocumento ne '401' and documentoController.idTipoDocumento ne '381'}"/>
+                        <h:outputText id="descricao"/>
+
+                            <p:separator rendered="#{documentoController.idTipoDocumento ne '401'}"/>
+
+                           
+                            <h:outputText value="Observações" rendered="#{documentoController.idTipoDocumento eq '381'}"/>
+                            <p:inputTextarea counter="observacaoOC" counterTemplate="{0} caracteres restantes." maxlength="1000"  value="#{documentoController.documento.observacao}" rendered="#{documentoController.idTipoDocumento eq '381'}"/>
+                            <h:outputText id="observacaoOC" rendered="#{documentoController.idTipoDocumento eq '381'}"/>
+                            <h:outputText value="Observações" rendered="#{documentoController.idTipoDocumento eq '401'}"/>
+                            <p:inputTextarea counter="observacaoBM" counterTemplate="{0} caracteres restantes." maxlength="1000"  value="#{documentoController.documento.observacao}" rendered="#{documentoController.idTipoDocumento eq '401'}"/>
+                            <h:outputText id="observacaoBM" rendered="#{documentoController.idTipoDocumento eq '401'}"/>
+                     
+
+
+                        <p:separator rendered="#{documentoController.bAssinaturaColaborador}" />
+
+
+
+                        <p:separator/>
+
+                        <h2 class="BigTopic">Anexos</h2>
+                        <p:accordionPanel >
+                            <p:tab title="Anexos" id="tabAnexos" rendered="#{documentoController.idDocumento != 0}">
+                                <p:panelGrid id="pnlAnexos" columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                    <p:growl id="messagesg" showDetail="true" />
+                                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-4,ui-grid-col-4"> 
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <p:outputLabel value="Tipo de Arquivo"/>
+                                            <p:inputText value="#{documentoController.upload.tipoArquivo}" />
+                                                <h:outputText value="Data de Emissão do Documento" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{documentoController.upload.dataEmissao}"/>
+                                                <h:outputText value="Data de Validade" />
+                                                <p:calendar locale="pt" pattern="dd/MM/yyyy"  value="#{documentoController.upload.dataValidade}"/>                                              
+                                        </p:panelGrid>                            
+                                        <p:fileUpload label="Selecionar Arquivo" value="#{documentoController.arquivo}" mode="simple" skinSimple="true"/>
+                                        <p:commandButton value="Adicionar" ajax="false" actionListener="#{documentoController.upload}" rendered="#{loginController.usuario.acDocNovo == 1}" update="tabAnexos"/>
+                                    </p:panelGrid>                            
+                                </p:panelGrid>
+                                <p:dataTable id="tblAnexos" var="a" rowIndexVar="id" value="#{documentoController.listaUpload}" emptyMessage="Lista vazia" reflow="true">
+                                    <p:column headerText="ID" width="8%" style="text-align: center">
+                                        <p:outputLabel value="#{id+1}"/>
+                                    </p:column>
+                                    <p:column headerText="Nome" style="text-align: center">
+                                        <p:outputLabel value="#{a.nomeArquivo}"/>
+                                    </p:column>
+                                    <p:column headerText="Tipo" style="text-align: center">
+                                        <p:outputLabel value="#{a.tipoArquivo}"/>
+                                    </p:column>
+                                    <p:column headerText="Usuário" style="text-align: center">
+                                        <p:outputLabel value="#{a.nomeUsuario}"/>
+                                    </p:column>
+                                    <!--p:column headerText="Visualizar" width="8%" style="text-align: center" >
+                                        <p:commandButton actionListener="#{documentoController.visualizar(a)}" style="width: 50px" immediate="true" ajax="false"  onclick="this.form.target = '_blank'" icon="fa fa-eye white"/>
+                                    </p:column-->
+                                    <p:column headerText="Download" width="8%" style="text-align: center" >
+                                        <p:commandButton actionListener="#{documentoController.download(a)}" style="width: 50px" ajax="false" onclick="this.form.target = '_blank'" icon="fa fa-arrow-circle-down white">
+                                            <p:fileDownload value="#{documentoController.fileDownload}" />
+                                        </p:commandButton>
+                                    </p:column>
+                                    <p:column headerText="Remover" width="8%" style="text-align: center">
+                                        <p:commandButton icon="fa fa-eraser white" style="width: 50px" styleClass="RedButton" actionListener="#{documentoController.removerAnexo(a)}" rendered="#{documentoController.idDocumento !=0 and loginController.usuario.acDocNovo == 1}" update="tblAnexos">
+                                            <p:confirm header="Confirmação" message="Deseja excluir o anexo?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+                                        <p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+                                            <p:commandButton value="Sim" type="button" styleClass="ui-confirmdialog-yes" />
+                                            <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" />
+                                        </p:confirmDialog> 
+                                    </p:column>
+                                </p:dataTable>
+
+                            </p:tab>
+                        </p:accordionPanel >
+                       
+
+                        
+                        <h2 class="BigTopic">Documentos Gerados</h2>
+                        <p:accordionPanel >
+                            <p:tab title="Documentos Gerados" >
+
+                                <p:dataTable var="i" value="#{documentoController.listaDocumentoFilho}" emptyMessage="Lista vazia" reflow="true" >
+
+                                    <p:column headerText="Documento" sortBy="#{i.tipoDocumento}">
+                                        <p:commandLink value="#{i.codigo} - #{i.tipoDocumento}" actionListener="#{documentoController.abrirDocumentoFilho(i.seqDocumento)}" target="_blank" immediate="true" ajax="false" />
+                                    </p:column>
+
+                                    <p:column headerText="Etapa" sortBy="#{i.etapa}">
+                                        <p:commandLink value="#{i.etapa}" actionListener="#{documentoController.abrirDocumentoFilho(i.seqDocumento)}" target="_blank" immediate="true" ajax="false" />
+                                    </p:column>
+
+                                </p:dataTable>                   
+
+                            </p:tab>
+                        </p:accordionPanel>
+
+                        <h2 class="BigTopic">Ocorrências</h2>
+                        <p:accordionPanel id="acdOcorrencias" value="#{documentoController.documento.listaDocumentoOcorrencia}" var="o" >
+                            <p:tab title="#{o.tipo} -  #{o.dataFmt} - #{o.usuario}"  >
+                                <h:outputText value="#{o.descricao}" escape="false" style="color: black;"/>
+                            </p:tab>
+                        </p:accordionPanel>
+
+                        <p:dialog id="telaComentario" header="Tela de Comentário" widgetVar="telaComentario" modal="true" height="150" >
+                            <p:selectOneMenu id="lblComentario" value="#{documentoController.documento.comentarioEtapa}" filter="true" filterMatchMode="contains" >
+                                    <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                    <f:selectItem itemLabel="PREÇO" itemValue="PREÇO" />
+                                    <f:selectItem itemLabel="MELHOR OFERTA DO CONCORRENTE" itemValue="MELHOR OFERTA DO CONCORRENTE" />
+                                    <f:selectItem itemLabel="SERVIÇO ADIADO OU NÃO REALIZADO PELO CLIENTE" itemValue="SERVIÇO ADIADO OU NÃO REALIZADO PELO CLIENTE" />
+                                    <f:selectItem itemLabel="CAPACIDADE E CERTIFICAÇÕES TÉCNICAS" itemValue="CAPACIDADE E CERTIFICAÇÕES TÉCNICAS" />
+                                    <f:selectItem itemLabel="FALTA DE PRESENÇA NO LOCAL" itemValue="FALTA DE PRESENÇA NO LOCAL" />
+                                    <f:selectItem itemLabel="MOTIVO NÃO DEFINIDO PELO CLIENTE" itemValue="MOTIVO NÃO DEFINIDO PELO CLIENTE" />
+                                    </p:selectOneMenu>                                 
+                            
+
+
+
+
+<!--p:inputTextarea id="lblComentario" value="#{documentoController.documento.comentarioEtapa}" rows="6" cols="15" placeholder="Informe o Motivo do Cancelamento" required="true" requiredMessage="Informe o Motivo do Cancelamento"/-->
+                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank"> 
+                                <p:commandButton value="Salvar"  actionListener="#{documentoController.salvarComentario()}" disabled="#{documentoController.idTipoDocumento eq '401' and loginController.usuario.acFinBoletim != 1}" onclick="PF('telaComentario').hide();" update="acdOcorrencias" process="@this,lblComentario"/>
+                                <p:commandButton value="Cancelar" onclick="PF('telaComentario').hide();"/>
+                            </p:panelGrid>
+                        </p:dialog>
+
+                    </h:form>
+
+                </div>
+            </div>
+        </div>
+
+
+
+    </ui:define>
+
+</ui:composition>

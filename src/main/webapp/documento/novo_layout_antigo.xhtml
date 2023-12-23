@@ -1,0 +1,126 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#71CC8D', '#33AFDE', '#F7941E'];
+                this.cfg.grid = {
+                    background: '#EDF3F6',
+                    borderColor: '#D9E3E8',
+                    gridLineColor: '#D9E3E8',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+            /*Botão topo*/
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 100) {
+                        $('a[href="#top"]').fadeIn();
+                    } else {
+                        $('a[href="#top"]').fadeOut();
+                    }
+                });
+
+                $('a[href="#top"]').click(function () {
+                    $('html, body').animate({scrollTop: 0}, 800);
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #778D9B;
+            }
+            /*Botão topo rodape*/
+            a[href="#top"]{
+                padding:10px;
+                position:fixed;
+                top: 90%;
+                right:2px;
+                display:none;
+                font-size: 30px;
+            }
+            a[href="#top"]:hover{
+                text-decoration:none;
+            }
+        </style>
+        <style>
+            #tabs li.ui-state-disabled {
+                display: none;
+
+            }
+            .ui-tabs .ui-tabs-panel {background-color: red; border-width: 0; padding: 1em 1.4em; background: none; }                
+
+        </style>
+
+        <f:metadata>
+            <f:viewAction  action="#{documentoController.carregarTelaNovoDocumento()}" />
+        </f:metadata>
+
+    </ui:define>
+
+    <ui:define name="content"  >
+
+        <div class="layout-portlets-box" >
+
+            <a href="#top"><p:commandButton icon="fa fa-arrow-up Fs18 white"/></a>
+
+            <h:form id="frmPrincipal" >
+
+                <h2 class="BigTopic">Clique para criar um novo documento</h2>
+
+                <h:panelGrid  columns="4"  >
+
+                    <c:forEach items="${documentoController.listaTipoDocumento}" var="tp"  varStatus="status">
+                        <h:panelGrid  columns="4" rendered="#{tp.seqTipoDocumento != 381 and tp.seqTipoDocumento != 301 and tp.seqTipoDocumento != 401}" >
+                        <!--h:panelGrid  columns="4" rendered="#{tp.seqTipoDocumento != 381 and tp.seqTipoDocumento != 301 and tp.seqTipoDocumento != 401}" -->
+                            <a href="../documento/documento.jsf?idDocumento=0&#38;idTipoDocumento=#{tp.seqTipoDocumento}" title="#{tp.nome}" >
+                                <img src="../images/logov.jpeg" width="15" height="20"/>
+                                #{tp.nome}
+                            </a>
+                        </h:panelGrid>
+
+                    </c:forEach>
+                </h:panelGrid>
+            </h:form>
+
+
+        </div>
+
+
+
+
+
+    </ui:define>
+
+</ui:composition>

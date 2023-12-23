@@ -1,0 +1,104 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<f:facet name="first">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+	</f:facet>
+	<title>AWS Service</title>
+	<h:outputScript name="js/layout.js" library="spark-layout" />
+	<h:outputStylesheet name="login.css" library="new-layout" />
+       	<h:outputText value="&lt;!--[if gte IE 9]&gt;" escape="false" />
+	<script
+		src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<style type="text/css">
+/* styles for IE 9 */
+</style>
+	<h:outputText value="&lt;![endif]--&gt;" escape="false" />
+	<title>AWS</title>
+	<style type="text/css">
+.form-signin {
+	margin: 0 auto;
+	max-width: 330px;
+	padding: 15px;
+}
+
+body {
+	background-image: url(/erp/images/imglogin.jpg);
+	background-position: center; /* Center the image */
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover;
+}
+</style>
+	<ui:insert name="head" />
+</h:head>
+<h:body style="padding-top: 60px;">
+	<b:container>
+		<div class="wrapper fadeInDown">
+			<div id="formContent">
+				<h:form styleClass="form-signin" prependId="false" id="frmPrincipal">
+					<h3 class="form-signin-heading">
+						<h:graphicImage name="awsnew.png" library="new-layout" />
+					</h3>
+					<p:messages id="messages" autoUpdate="true" closable="true" />
+					<b:inputText id="login" placeholder="Login" type="text"
+						styleClass="fadeIn second" value="#{loginController.vLogin}">
+						<f:facet name="prepend">
+							<b:iconAwesome name="user" />
+						</f:facet>
+					</b:inputText>
+					<b:inputText id="password" placeholder="Senha" type="password"
+						styleClass="fadeIn second" value="#{loginController.vSenha}">
+						<f:facet name="prepend">
+							<b:iconAwesome name="key" />
+						</f:facet>
+					</b:inputText>
+					<b:selectOneMenu value="#{loginController.chave}"
+						styleClass="fadeIn second">
+						<f:facet name="prepend">
+							<b:iconAwesome name="building" />
+						</f:facet>
+
+						<f:selectItem itemLabel="Matriz" itemValue="RJ" />
+						<f:selectItem itemLabel="Manaus" itemValue="AM" />
+						<f:selectItem itemLabel="Belém" itemValue="PA" />
+					</b:selectOneMenu>
+					<b:commandButton action="#{loginController.logar()}"
+						update=":frmPrincipal" styleClass="fadeIn fourth"
+						look="primary btn-block" value="Logar" icon="log-in" size="lg" />
+					<div id="formFooter" class="fadeIn fourth">
+						<a href="#amodal" onclick="$('.modalPseudoClass2').modal()">Esqueceu
+							a senha?</a>
+					</div>
+				</h:form>
+			</div>
+		</div>
+	</b:container>
+	<b:form id="frmDialog">
+		<b:modal id="amodal" title="Recuperação de Senha"
+			styleClass="modalPseudoClass2" closable="false"
+			close-on-escape="true" backdrop="false">
+
+			<b:panelGrid columns="1">
+				<h:outputLabel value="Informe seu email cadastrado" />
+				<b:inputText value="#{loginController.vEmail}" size="50" />
+			</b:panelGrid>
+
+			<f:facet name="footer">
+				<b:button value="Fechar" dismiss="modal" />
+				<b:commandButton look="primary"  value="Enviar senha"
+					actionListener="#{loginController.enviarSenhaEmail()}" />
+			</f:facet>
+		</b:modal>
+	</b:form>
+</h:body>
+</html>

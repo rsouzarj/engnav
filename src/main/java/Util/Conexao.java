@@ -33,14 +33,23 @@
 /*    */     try
              {
 
-/*Local*/  String url = "jdbc:oracle:thin:@localhost:1521:AWS";
+/*Produção/   String url = "jdbc:oracle:thin:@10.100.28.179:1521:XE";
+               String usuario = "aws";      
+               String senha = "suporte";*/
+/*Local*/      String url = "jdbc:oracle:thin:@192.168.0.9:1521:AWS";
                String usuario = "aws";      
                String senha = "suporte";
-/*Produção  String url = "jdbc:oracle:thin:@191.252.59.211:1521:XE";
-               String usuario = "aws_erp_user";      
-               String senha = "ltGZCEfw";*/
+/*Local-remoto/  String url = "jdbc:oracle:thin:@node163304-env-engnav.jelastic.saveincloud.net:11088:XE";
+               String usuario = "aws";      
+               String senha = "suporte";*/              
                
-/* 46 */       Class.forName("oracle.jdbc.driver.OracleDriver");
+/*MySql  String url = "jdbc:mysql://localhost:3306/connectinav";
+               String usuario = "root";    node163304-env-engnav.jelastic.saveincloud.net:11088  
+               String senha = "123456";*/
+
+               
+/* 46 */     /*  Class.forName("oracle.jdbc.driver.OracleDriver");*/
+               Class.forName("com.mysql.cj.jdbc.Driver");
 /* 47 */       Connection con = null;
 /* 48 */       con = DriverManager.getConnection(url, usuario, senha);
 /* 49 */       conn = con;
@@ -50,5 +59,3 @@
 /* 53 */     return null;
 /*    */   }
 /*    */ }
-
-

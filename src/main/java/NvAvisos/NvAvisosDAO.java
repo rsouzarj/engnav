@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import ClausulaSQL.ClausulaWhere;
+import NvCertificadoDetalhe.NvCertificadoDetalheDAO;
 import java.sql.PreparedStatement;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -41,6 +42,7 @@ public class NvAvisosDAO
                 NvAvisos.setDataInicial(rs.getDate("DATA_INICIAL"));
                 NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));
                 NvAvisos.setEmail(rs.getString("EMAIL"));
+                NvAvisos.setVdate(rs.getString("ALERTA"));
                 listaNvAvisos.add(NvAvisos);
             }
             ps.execute();
@@ -141,6 +143,7 @@ public class NvAvisosDAO
                 final NvAvisos NvAvisos = new NvAvisos();
                 NvAvisos.setSeqEmpresa(rs.getString("SEQ_EMPRESA"));
                 NvAvisos.setSeqCertificado(rs.getString("SEQ_NV_CERTIFICADO"));
+                NvAvisos.setSeqNvCertificadoDetalhe(rs.getString("SEQ_NV_CERTIFICADO_DETALHE"));
                 NvAvisos.setIdentificacao(rs.getString("IDENTIFICACAO"));
                 NvAvisos.setTipoCertificado(rs.getString("NOME"));
                 NvAvisos.setEmbarcacao(rs.getString("EMBARCACAO"));
@@ -154,6 +157,8 @@ public class NvAvisosDAO
                 NvAvisos.setDataInicial(rs.getDate("DATA_INICIAL"));
                 NvAvisos.setDataFinal(rs.getDate("DATA_FINAL"));
                 NvAvisos.setEmail(rs.getString("EMAIL"));
+                NvAvisos.setAviso(rs.getString("AVISO"));
+                NvAvisos.setVdate(rs.getString("ALERTA"));
                 listaNvAvisosJanelas.add(NvAvisos);
             }
             ps.execute();
@@ -244,8 +249,27 @@ public class NvAvisosDAO
             System.out.println(ex.getMessage());
             return null;
         }
-    
-      }
+
+    }
+
+    public NvAvisos inserirAviso(NvAvisos nvAvisos) {
+        try {
+            Conexao conexao = new Conexao();
+            Connection conn = Conexao.getConnection();
+            String sql = "insert into NV_CERTIFICADO_AVISO (seq_nv_certificado_detalhe,aviso) values (?,?)";
+            PreparedStatement ps = conn.prepareStatement(sql);
+            ps.setString(1, nvAvisos.getSeqNvCertificadoDetalhe());
+            ps.setString(2,nvAvisos.getAviso());
+            ps.execute();
+            ps.close();
+        } catch (SQLException ex) {
+            Logger.getLogger(NvAvisos.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+        }
+        return nvAvisos;
+    }
+       
+       
            
 }
 

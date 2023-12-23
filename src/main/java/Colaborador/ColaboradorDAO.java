@@ -12,12 +12,7 @@
 /*     */ import java.util.List;
 /*     */ import java.util.logging.Level;
 /*     */ import java.util.logging.Logger;
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
-/*     */ 
+
 /*     */ public class ColaboradorDAO
 /*     */ {
 /*     */   public Colaborador inserir(Colaborador colaborador)
@@ -44,7 +39,7 @@
 /*  44 */       ps.setString(4, colaborador.getSeqTipoColaborador());
 /*  45 */       ps.setString(5, colaborador.getNomeAssinatura());
 /*  46 */       ps.setString(6, colaborador.getDocumento());
-/*  47 */       ps.setString(7, colaborador.getInformacao());
+/*  47 */       ps.setBlob(7, colaborador.getInformacao());
 /*  48 */       ps.setString(8, colaborador.getSeqEmpresa());
 /*  49 */       ps.setString(9, colaborador.getNome());
                 ps.setString(10, colaborador.getVistoriador());
@@ -76,7 +71,7 @@
 /*  75 */       ps.setString(3, colaborador.getSeqTipoColaborador());
 /*  76 */       ps.setString(4, colaborador.getNomeAssinatura());
 /*  77 */       ps.setString(5, colaborador.getDocumento());
-/*  78 */       ps.setString(6, colaborador.getInformacao());
+/*  78 */       ps.setBlob(6, colaborador.getInformacao());
 /*  79 */       ps.setString(7, colaborador.getSeqEmpresa());
 /*  80 */       ps.setString(8, colaborador.getNome());
                 ps.setString(9, colaborador.getVistoriador());
@@ -111,7 +106,7 @@
 /* 109 */         colaborador.setSeqTipoColaborador(rs.getString("SEQ_TIPO_COLABORADOR"));
 /* 110 */         colaborador.setNomeAssinatura(rs.getString("NOME_ASSINATURA"));
 /* 111 */         colaborador.setDocumento(rs.getString("DOCUMENTO"));
-/* 112 */         colaborador.setInformacao(rs.getString("INFORMACAO"));
+/* 112 */         colaborador.setInformacao(rs.getBlob("INFORMACAO"));
 /* 113 */         colaborador.setSeqEmpresa(rs.getString("SEQ_EMPRESA"));
 /* 114 */         colaborador.setNome(rs.getString("NOME"));
 /* 115 */         listaColaborador.add(colaborador);
@@ -147,7 +142,7 @@
 /* 109 */         colaborador.setSeqTipoColaborador(rs.getString("SEQ_TIPO_COLABORADOR"));
 /* 110 */         colaborador.setNomeAssinatura(rs.getString("NOME_ASSINATURA"));
 /* 111 */         colaborador.setDocumento(rs.getString("DOCUMENTO"));
-/* 112 */         colaborador.setInformacao(rs.getString("INFORMACAO"));
+/* 112 */         colaborador.setInformacao(rs.getBlob("INFORMACAO"));
 /* 113 */         colaborador.setSeqEmpresa(rs.getString("SEQ_EMPRESA"));
 /* 114 */         colaborador.setNome(rs.getString("NOME"));
                   colaborador.setVistoriador(rs.getString("VISTORIADOR"));

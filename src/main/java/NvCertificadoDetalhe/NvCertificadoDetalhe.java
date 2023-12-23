@@ -19,8 +19,19 @@
 /*     */   private String centroDiscoProa;
 /*     */   private String documentoVistoriador;
             private String seqNvEmbarcacao;
+            private String aviso;
+            
 /*     */   
-/*     */   public String getSeqNvCertificadoDetalhe()
+/*     */
+
+    public String getAviso() {
+        return aviso;
+    }
+
+    public void setAviso(String aviso) {
+        this.aviso = aviso;
+    }
+ public String getSeqNvCertificadoDetalhe()
 /*     */   {
 /*  32 */     return this.seqNvCertificadoDetalhe;
 /*     */   }

@@ -1,4 +1,4 @@
-﻿<project xmlns="http://maven.apache.org/POM/4.0.0"
+    <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -8,14 +8,14 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>AwsErp</name>
+	<name>ENGNAV</name>
 	<url>http://maven.apache.org</url>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 	<repositories>
-		<!-- Repositório JRimum -->
+		<!-- Reposit�rio JRimum -->
 		<repository>
 			<id>jrimum.org</id>
 			<url>http://jrimum.org/maven/content/groups/public/</url>
@@ -97,10 +97,24 @@
 			<exclusions>
 				<exclusion>
 					<groupId>com.lowagie</groupId>
-					<artifactId>itext</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
+                                        <artifactId>itext</artifactId>
+                                </exclusion>
+                        </exclusions>
+                </dependency>
+                <!--<dependency>
+                    <groupId>com.lowagie</groupId>
+                    <artifactId>itext</artifactId>
+                    <version>4.2.2</version>
+                </dependency>-->
+                <!-- https://mvnrepository.com/artifact/com.sun.jersey/jersey-client -->
+                <dependency>
+                    <groupId>com.sun.jersey</groupId>
+                    <artifactId>jersey-client</artifactId>
+                    <version>1.19.4</version>
+                    <scope>system</scope>
+                    <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/jersey-client-1.19.4.jar</systemPath>
+                </dependency>
+
 
 		<dependency>
 			<artifactId>activation-local</artifactId>
@@ -279,14 +293,23 @@
 			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/log4j-1.2.15.jar</systemPath>
 		</dependency>
 
-		<dependency>
-			<artifactId>ojdbc14-local</artifactId>
-			<groupId>ojdbc14-local</groupId>
-			<version>14</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc14.jar</systemPath>
-		</dependency>
-
+                <dependency>
+                    <artifactId>ojdbc14-local</artifactId>
+                    <groupId>ojdbc14-local</groupId>
+                    <version>14</version>
+                    <scope>system</scope>
+                    <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/ojdbc14.jar</systemPath>
+                    
+                </dependency>
+                
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>8.0.21</version>
+                    <scope>system</scope>
+                    <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/mysql-connector-java-8.0.21.jar</systemPath> 
+                </dependency>
+                <!-- Substitua pela vers�o mais recente -->
 		<!-- <dependency> <artifactId>PEDIDO-local</artifactId> <groupId>PEDIDO-local</groupId> 
 			<version>1.0</version> <scope>system</scope> <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/PEDIDO.jar</systemPath> 
 			</dependency> -->
@@ -342,10 +365,19 @@
 		<dependency>
 			<artifactId>spark-theme-local</artifactId>
 			<groupId>spark-theme-local</groupId>
-			<version>2.1</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/src/main/webapp/WEB-INF/lib/spark-theme-2.1.jar</systemPath>
-		</dependency>
+                        <version>2.1</version>
+                        <scope>system</scope>
+                        <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/spark-theme-2.1.jar</systemPath>
+                </dependency>
+                
+                   <!-- <dependency>serenity-theme-2.0.1.jar
+                        <groupId>groupId</groupId>
+                        <artifactId>artifactId</artifactId>
+                        <version>1.0</version>
+                        <scope>system</scope>
+                        <systemPath>${basedir}/src/main/webapp/WEB-INF/lib/sentinel-theme-1.1.jar</systemPath>
+                    </dependency>-->
+               
 
 		<!-- <dependency> -->
 		<!-- <groupId>org.primefaces.themes</groupId> -->
@@ -527,7 +559,12 @@
 		<!-- <artifactId>primefaces</artifactId> -->
 		<!-- <version>5.3</version> -->
 		<!-- </dependency> -->
-
+	 <dependency>
+	  <groupId>javax</groupId>
+	  <artifactId>javaee-web-api</artifactId>
+	  <version>7.0</version>
+	  <type>jar</type>
+	 </dependency>
 	</dependencies>
 
 	<build>
@@ -537,7 +574,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.1</version>
+				<version>3.6.2</version>
 				<configuration>
 					<source>1.8</source>
 					<target>1.8</target>

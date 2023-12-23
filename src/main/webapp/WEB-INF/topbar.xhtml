@@ -14,15 +14,16 @@
             <a href="#" id="mobile-menu-button" class="BordRad3 white ShowOnMobile"><i class="fa fa-bars"></i> Menu</a>
             <a href="#" id="mobile-menu-button-gray" class="BordRad3 white ShowOnMobile"><i class="fa fa-caret-down"></i> Top Menu</a>
             <ul id="layout-topbar-menu">
-                <a href="#{loginController.home}"> <img src="../images/logov.jpeg" width="39" height="34" alt="logo"/></a>
-                
+            <!--<a href="#{loginController.home}"> <img src="../images/logov.jpeg" width="39" height="34" alt="logo"/></a>-->
+              
                 <li>                    
+                    <a href="#" class="Animated05"><i class="fa cor fa-home"></i> <p:commandLink styleClass="Fs14" value="Inicio" actionListener="#{loginController.irparaHome()}" /> </a>
                     <a href="#" class="Animated05"><i class="fa cor fa-sign-out"></i> <p:commandLink styleClass="Fs14" value="Sair" actionListener="#{loginController.sair()}" /> </a>
                 </li>
-                <li class="fa fa-ellipsis-v menu-separator"></li>
+                  <!--<li class="fa fa-ellipsis-v menu-separator"></li>
 
 
-                <!--li class="fa fa-ellipsis-v menu-separator"></li>
+              li class="fa fa-ellipsis-v menu-separator"></li>
                 <li>
                         <a href="#" class="Animated05"><i class="fa fa-gear fa-spin"></i> Settings</a>
                 </li>
@@ -47,6 +48,8 @@
                         <li><a href="#" class="Animated05"><i class="fa fa-envelope Fs18 orange"></i> <span class="Fright Fs16 TexAlRight">Sarah White<span class="Fs10 DispBlock">Marketing News</span></span></a></li>
                     </ul>
                 </li-->
+                
+                
                 <li class="fa fa-ellipsis-v menu-separator"></li>
                 <li>
                     <a class="Animated05 CursPointer"><i class="fa cor fa-user"></i> Bem Vindo, #{loginController.usuario.usuario}  [ #{loginController.usuario.nivel}]<i class="fa fa-chevron-down Fs14 Fright ShowOnMobile"></i></a>

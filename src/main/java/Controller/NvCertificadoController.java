@@ -909,10 +909,10 @@ public class NvCertificadoController {
 				//feito
 				caminho = "/relatorio/CSN/NAVEGAÇÃO INTERIOR/02/02 - PROV-COND.jasper";
 			}
-                       /* else if (this.nvCertificado.getSeqNvTipoCertificado().equals("201")) {
+                        else if (this.nvCertificado.getSeqNvTipoCertificado().equals("201")) {
 				//feito
 				caminho = "/relatorio/CERTIFICADO HELIDEQUE/RH.jasper";
-			}*/       
+			}       
                         
                         else {
 				FacesContext.getCurrentInstance().addMessage(null,
@@ -960,7 +960,7 @@ public class NvCertificadoController {
 		parametro.put("pImagem", "../../images/brasao.gif");
 		parametro.put("pEmissao",
 				this.util.DataPorExtenso(
-						"Expedido em: " + this.nvCertificado.getLocalEmissao() + ", ",
+						"Emitido em: " + this.nvCertificado.getLocalEmissao() + ", ",
 						this.nvCertificado.getDataEmissao()));
 		Date data = new Date();
 		Locale local = new Locale("pt", "BR");
@@ -1040,7 +1040,7 @@ public class NvCertificadoController {
 		parametro.put("pLinhaForm", b);
 		parametro.put("pVistoriaInicial",
 				this.util.DataToString(this.nvVistoria.getDataVistoria()));
-		parametro.put("pReportURL", "http://191.252.59.211//erp/operacional/certificado/"+this.nvCertificado.getSeqEmpresa()+"/"+uuidCertificado);
+		parametro.put("pReportURL", "http://node163304-env-engnav.jelastic.saveincloud.net:12006//"+this.nvCertificado.getSeqEmpresa()+"/"+uuidCertificado);
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 
 		facesContext.responseComplete();

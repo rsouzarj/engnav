@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:b="http://bootsfaces.net/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+     <h:head>
+        <!-- META TAGS -->
+        <f:facet name="first">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge"/> <!-- tag para renderizar com internet explorer recente -->
+            <meta charset="utf-8"/>
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui"/>
+            <meta name="apple-mobile-web-app-capable" content="yes" />
+        </f:facet>
+        <title>AWS Service</title>
+        <!-- CSS -->
+        <h:outputStylesheet name="assets/css/bootstrap/css/bootstrap.min.css" library="template-aws" />
+        <h:outputStylesheet name="assets/icon/themify-icons/themify-icons.css" library="template-aws"/>
+        <h:outputStylesheet name="assets/icon/icofont/css/icofont.css" library="template-aws"/>
+        <h:outputStylesheet name="assets/css/style.css" library="template-aws"/>
+        <h:outputStylesheet name="assets/css/jquery.mCustomScrollbar.css" library="template-aws"/>
+    </h:head>
+    <h:body>
+        <section class="pcoded-wrapper">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col-xl-10">
+                <div class="card rounded-3 text-black">
+                <div class="row g-0">
+                    <div class="col-lg-6">
+                    <div class="card-body p-md-5 mx-md-4">
+                        <div class="text-center">
+                        <h:graphicImage value = "assets/images/logo_aws.PNG" library="template-aws" /> 
+                        <h4 class="mt-1 mb-5 pb-1">AWS Engenharia</h4>
+                        </div>
+
+                        <h:form prependId="false" id="frmPrincipal">
+                            <!-- usuario -->
+                            <div class="form-outline mb-4">
+                                <label class="form-label" for="login">Usuário</label>
+                                <p:messages id="messages" autoUpdate="true" closable="true" />
+                                <b:inputText id="login" type="text" styleClass="form-control" value="#{loginController.vLogin}"/>
+                            </div>
+                            <!-- senha -->
+                            <div class="form-outline mb-4">                
+                                <label class="form-label" for="password">Senha</label>
+                                <b:inputText id="password" type="password" styleClass="form-control" value="#{loginController.vSenha}"/>
+                            </div>
+                            <!-- matriz -->
+                            <div class="form-outline mb-4">                
+                                <label class="form-label" for="password">Senha</label>
+                                
+
+                                <select name="select" value="#{loginController.chave}" class="form-control">
+                                    <option itemValue="RJ">Matriz</option>
+                                    <option itemValue="AM">Manaus</option>
+                                    <option itemValue="PA">Belém</option>
+                                </select>
+                            </div>
+                            <!-- botao de acesso -->
+                            <div class="text-center pt-1 mb-5 pb-1">
+                                <button 
+                                    class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" 
+                                    action="#{loginController.logar()}"
+                                    style="background-color: #0088c7;" 
+                                    type="button">Acessar
+                                </button>
+                            <!-- lembrar senha -->
+                                <a class="text-muted" href="#amodal" onclick="$('.modalPseudoClass2').modal()">Dificuldades para acessar?</a>
+                            </div>		
+                        </h:form>
+
+                    </div>
+                    </div>
+                    <div class="col-lg-6 d-flex align-items-center " style="background-color: #003563;">
+                    <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                        <h2 class="mb-1"><strong>Connecti</strong></h2>
+                        <h3 class="mb-5"><strong>Sistema de Gestão Integrado</strong></h3>
+                        <p class="mb-0">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+                    </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
+        </section>
+        <footer class="text-center text-lg-start">
+            <div class="text-center pb-3">© 2022 Copyright <a href="#">Connecti System</a></div>
+        </footer>
+    </h:body>
+
+</html>

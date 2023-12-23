@@ -9,9 +9,9 @@
         <style type="text/css">
 
             .normal{
-                background: #5fcf80 !important; 
-                background-color: #5fcf80 !important; 
-                border-color: #5fcf80 !important;
+                background: #4F94CD !important; 
+                background-color: #4F94CD !important; 
+                border-color: #4F94CD  !important;
                 color: white !important;
             }
 
@@ -23,11 +23,18 @@
             }
 
             .urgente{
-                background: #D0525D !important;  
-                background-color: #D0525D !important; 
-                border-color: #D0525D !important; 
+                background: #5fcf80 !important;  
+                background-color: #5fcf80 !important; 
+                border-color: #5fcf80 !important; 
                 color: white !important;
             }
+            
+            .qsms{
+                background: #B5B5B5 !important;  
+                background-color: #B5B5B5 !important; 
+                border-color: #B5B5B5!important; 
+                color: white !important;
+            }            
 
         </style>
 
@@ -163,30 +170,18 @@
 
         <div class="Container100 ui-fluid">
             <div class="ContainerIndent"> 
-                <p:dialog width="50%"  appendTo="@(body)" modal="true" id="eventDialog1" widgetVar="eventDialog" header="Detalhe do Agendamento" showEffect="clip" hideEffect="clip">
+                <p:dialog width="100%"  appendTo="@(body)" modal="true" id="eventDialog1" widgetVar="eventDialog" header="Detalhe do Agendamento" showEffect="clip" hideEffect="clip">
 
                     <div class="Container100 ui-fluid">
                         <div class="ContainerIndent"> 
                             <h:form id="frmDetalhe" >
-
+                                
+                                
+                                
                                 <p:panelGrid id="eventDetails" columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
-                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" >
-                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
-                                            <p:outputLabel for="title" value="Assunto" />
-                                            <p:inputText id="title" value="#{agendaController.event.title}" />
-                                        </p:panelGrid>
-
-                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
-                                            <p:outputLabel value="Prioridade" />
-                                            <p:selectOneMenu value="#{agendaController.event.cor}" >
-                                                <f:selectItem itemLabel="Normal" itemValue="Normal"/>
-                                                <f:selectItem itemLabel="Moderado" itemValue="Moderado"/>
-                                                <f:selectItem itemLabel="Urgente" itemValue="Urgente"/>
-                                            </p:selectOneMenu>
-
-                                        </p:panelGrid>
-                                    </p:panelGrid>
-
+                                    <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" >
+                                        
+                                        
                                     <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-5,ui-grid-col-5,ui-grid-col-10">
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                                             <p:outputLabel for="from" value="Início" />
@@ -197,7 +192,23 @@
                                             <p:outputLabel for="to" value="Até" />
                                             <p:calendar id="to" value="#{agendaController.event.endDate}" timeZone="GMT-2" pattern="dd/MM/yyyy HH:mm" locale="pt"/>
                                         </p:panelGrid>
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                            <p:outputLabel for="title" value="Assunto" />
+                                            <p:inputText id="title" value="#{agendaController.event.title}" />
+                                        </p:panelGrid>
 
+
+                                    </p:panelGrid>
+                                            <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                            <p:outputLabel value="Setor" />
+                                            <p:selectOneMenu value="#{agendaController.event.cor}" >
+                                                <f:selectItem itemLabel="Certificação Estatutária" itemValue="Normal"/>
+                                                <f:selectItem itemLabel="Equipamentos" itemValue="Moderado"/>
+                                                <f:selectItem itemLabel="Comercial" itemValue="Urgente"/>
+                                                <f:selectItem itemLabel="Qsms" itemValue="Qsms"/>
+                                            </p:selectOneMenu>
+
+                                        </p:panelGrid>
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                                             <p:outputLabel for="to" value="Tipo de Agendamento" />
                                             <p:selectOneMenu value="#{agendaController.event.seqTipoAgenda}" disabled="#{agendaController.event.seqTipoAgenda != null}" >
@@ -207,10 +218,6 @@
                                            </p:panelGrid>
                                     </p:panelGrid>
                                         
-                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
-                                    
-                                </p:panelGrid>
-
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                                             <p:outputLabel for="to" value="Parceiro"/>
@@ -219,13 +226,96 @@
                                                 <f:selectItems value="#{agendaController.listaParceiro}" var="par"  itemLabel="#{par.nome}" itemValue="#{par.seqParceiro}" />
                                                 </p:selectOneMenu>
                                                 </p:panelGrid>
+                                        
+                                       <!-- <p:dataTable id="particip" widgetVar="participante" var="pa" value="#{agendaController.listaParticipante}" editable="true"  >
+                                            
+                                        <p:column headerText="Participante" sortBy="#{pa.participante}">
+                                            <p:outputLabel value="#{pa.participante}"/>
+                                        </p:column>
+                                    </p:dataTable> 
+                              
+                                        <p:dataTable id="products1" widgetVar="products1" var="product" value="#{dtAddRowView.products1}"
+                     editable="true">
+            <f:facet name="header">
+                Row Editing with add functionality
+            </f:facet>
+
+            <p:ajax event="rowEdit" listener="#{dtAddRowView.onRowEdit}" update=":form:msgs"/>
+            <p:ajax event="rowEditCancel" listener="#{dtAddRowView.onRowCancel}" update=":form:msgs"/>
+
+            <p:column headerText="Code">
+                <p:cellEditor>
+                    <f:facet name="output"><h:outputText value="#{product.code}"/></f:facet>
+                    <f:facet name="input"><p:inputText id="modelInput" value="#{product.code}"
+                                                       style="width:100%"/></f:facet>
+                </p:cellEditor>
+            </p:column>-->
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                        
+                                            <!--<p:accordionPanel  >
+                                <p:tab title="Participantes">
+                                    <p:dataTable var="pa" value="#{agendaController.listaParticipante}" editable="true" reflow="true" >
+                                        <p:column headerText="Participante" sortBy="#{pa.participante}">
+                                            <p:outputLabel value="#{pa.participante}"/>
+                                        </p:column>
+
+                                        <p:column headerText="Detalhe" width="8%">
+                                            <p:commandButton icon="fa fa-search Fs18 white" actionListener="#{agendaController.selecionarParticipante(pa)}" update=":frmDetalhe" />
+                                        </p:column>
+
+                                    </p:dataTable>     
+
+                                    <p:separator/>
+
+                                    <p:panelGrid columns="7" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                            <h:outputText value="Participante" style="font-size: 90%"/>
+                                            <p:inputText value="#{agendaController.participante.participante}" />
+                                        </p:panelGrid>
                                     </p:panelGrid>
 
+                                    <p:panelGrid  columns="3" layout="grid" styleClass="ui-panelgrid-blank" > 
+                                        <p:commandButton  value="Salvar" actionListener="#{agendaController.salvarParticipante()}" update=":frmDetalhe" />
+                                        <p:commandButton icon="fa fa-eraser Fs18 white"   actionListener="#{agendaController.deletearParticipante()}" immediate="true" update=":frmDetalhe" styleClass="RedButton" rendered="#{agendaController.participante.seqParticipante != null}">
+                                            <p:confirm header="Confirmação" message="Deseja excluir o Vínculo?" icon="ui-icon-alert" />
+                                        </p:commandButton>
+
+
+                                    </p:panelGrid>                                    
+
+                                </p:tab>
+                            </p:accordionPanel>-->
+                                                       
+    
+                                    </p:panelGrid>
+                                    
                                     <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
                                         <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
-                                            <p:outputLabel value="Descrição da tarefa"/>
-                                            <p:inputText value="#{agendaController.event.description}"/>
+                                            <p:outputLabel value="Embarcação"/>
+                                            <p:inputText value="#{agendaController.event.embarcacao}"/>
+                                            <p:outputLabel value="OS"/>
+                                            <p:inputText value="#{agendaController.event.os}"/>
                                         </p:panelGrid>
+                                    </p:panelGrid>
+                                    <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                       
+                                            <p:outputLabel value="Descrição da tarefa"/>
+                                            <p:inputTextarea rows="2" cols="23"  value="#{agendaController.event.description}"/>
+                                        
                                     </p:panelGrid>
 
                                     <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" >

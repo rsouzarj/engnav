@@ -66,9 +66,3 @@
 /* 66 */     this.atributoGetSet = atributoGetSet;
 /*    */   }
 /*    */ }
-
-
-/* Location:              /Users/diogo.lima/Documents/PEDIDO.jar!/CRUD/Campo.class
- * Java compiler version: 7 (51.0)
- * JD-Core Version:       0.7.1
- */

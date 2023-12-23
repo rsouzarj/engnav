@@ -80,7 +80,7 @@
 /*     */     try {
 /*  85 */       Conexao conexao = new Conexao();
 /*  86 */       Connection conn = Conexao.getConnection();
-/*  87 */       String sql = "update NV_CERTIFICADO set IDENTIFICACAO = ?,SEQ_EMPRESA = ?,DATA_CADASTRO = ?,SITUACAO = ?,SEQ_NV_TIPO_CERTIFICADO = ?,SEQ_NV_EMBARCACAO = ?,DATA_EMISSAO = ?,DATA_VALIDADE = ?, local_emissao = ?, seq_colaborador = ?, observacao = ?, status = ?, prazo = ?, prazo_total = ?, ASSINATURA_DIGITAL = ?, filial = ?, SEQ_UNIDADE_NEGOCIO = ?, MARABERTO = ?, NAVINT = ?, AREA1 = ?, AREA2 = ? where SEQ_NV_CERTIFICADO = ?";
+/*  87 */       String sql = "update NV_CERTIFICADO set IDENTIFICACAO = ?,SEQ_EMPRESA = ?,DATA_CADASTRO = ?,SITUACAO = ?,SEQ_NV_TIPO_CERTIFICADO = ?,SEQ_NV_EMBARCACAO = ?,DATA_EMISSAO = ?,DATA_VALIDADE = ?, local_emissao = ?, seq_colaborador = ?, observacao = ?, status = ?, prazo = ?, prazo_total = ?, ASSINATURA_DIGITAL = ?, filial = ?, SEQ_UNIDADE_NEGOCIO = ?, MARABERTO = ?, NAVINT = ?, AREA1 = ?, AREA2 = ?, DATA_EMS_LAUDO = ? where SEQ_NV_CERTIFICADO = ?";
 
 /*  93 */       PreparedStatement ps = conn.prepareStatement(sql);
 /*     */       
@@ -120,7 +120,12 @@
                 ps.setString(19, nvCertificado.getNavint());
                 ps.setString(20, nvCertificado.getArea1());
                 ps.setString(21, nvCertificado.getArea2());
-                ps.setString(22, nvCertificado.getSeqNvCertificado());
+/*     */       try {
+/*  98 */         ps.setDate(22, new java.sql.Date(nvCertificado.getDataEmissaoLaudo().getTime()));
+/*     */       } catch (NullPointerException ex) {
+/* 100 */         ps.setDate(22, null);
+/*     */       }                
+                ps.setString(23, nvCertificado.getSeqNvCertificado());
 /* 127 */       ps.execute();
 /* 128 */       ps.close();
 /*     */     }

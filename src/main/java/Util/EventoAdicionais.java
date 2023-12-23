@@ -14,6 +14,9 @@ public class EventoAdicionais
   String nomeParceiro;
   String nomeTipoAgenda;
   String responsavel;
+  String embarcacao;
+  String os;
+  String participante; 
   
   public EventoAdicionais() {}
   
@@ -69,8 +72,32 @@ public class EventoAdicionais
 
     public void setResponsavel(String responsavel) {
         this.responsavel = responsavel;
-    } 
-  
+    }
+
+    public String getEmbarcacao() {
+        return this.embarcacao;
+    }
+
+    public void setEmbarcacao(String embarcacao) {
+        this.embarcacao = embarcacao;
+    }
+
+    public String getOs() {
+        return this.os;
+    }
+
+    public void setOs(String os) {
+        this.os = os;
+    }
+
+    public String getParticipante() {
+        return this.participante;
+    }
+
+    public void setParticipante(String participante) {
+        this.participante = participante;
+    }
+
 }
 
 

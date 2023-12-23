@@ -53,7 +53,7 @@
 /* 53 */     List<Empresa> listaEmpresa = new ArrayList();
 /* 54 */     ClausulaWhere condicao = new ClausulaWhere();
 /*    */     
-/* 56 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "chave", GeneroCondicaoWhere.igual, pChave, TipoCondicaoWhere.Texto);
+/* 56 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "chave", GeneroCondicaoWhere.igual, "RJ", TipoCondicaoWhere.Texto);
 /*    */     
 /* 58 */     listaEmpresa = dao.listar(condicao);
 /* 59 */     return (Empresa)listaEmpresa.get(0);

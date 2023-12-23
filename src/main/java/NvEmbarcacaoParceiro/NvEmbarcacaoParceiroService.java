@@ -47,6 +47,18 @@
 /* 47 */     listaNvEmbarcacaoParceiro = dao.listar(condicao);
 /* 48 */     return listaNvEmbarcacaoParceiro;
 /*    */   }
+
+/*    */   public List<NvEmbarcacaoParceiro> listarPorArmador(String pSeqParceiro) {
+/* 41 */     NvEmbarcacaoParceiroDAO dao = new NvEmbarcacaoParceiroDAO();
+/* 42 */     List<NvEmbarcacaoParceiro> listaNvEmbarcacaoParceiro = new ArrayList();
+/* 43 */     ClausulaWhere condicao = new ClausulaWhere();
+/*    */     
+/* 45 */     condicao.AdicionarCondicao(OperacaoCondicaoWhere.vazio, "parceiro.seq_parceiro", GeneroCondicaoWhere.igual, String.valueOf(pSeqParceiro), TipoCondicaoWhere.Numero);
+/*    */     
+/* 47 */     listaNvEmbarcacaoParceiro = dao.listar(condicao);
+/* 48 */     return listaNvEmbarcacaoParceiro;
+/*    */   }
+
 /*    */   
 /*    */   public List<NvEmbarcacaoParceiro> listarPorDono(String pSeqDono) {
 /* 52 */     NvEmbarcacaoParceiroDAO dao = new NvEmbarcacaoParceiroDAO();

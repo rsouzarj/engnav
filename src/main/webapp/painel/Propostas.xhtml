@@ -1,0 +1,309 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:p="http://primefaces.org/ui"
+                template="/WEB-INF/template.xhtml">
+
+    <ui:define name="head">
+        <script type="text/javascript">
+            function skinChart() {
+                this.cfg.shadow = false;
+                this.cfg.seriesColors = ['#71CC8D', '#33AFDE', '#F7941E'];
+                this.cfg.grid = {
+                    background: '#EDF3F6',
+                    borderColor: '#D9E3E8',
+                    gridLineColor: '#D9E3E8',
+                    shadow: false
+                };
+                this.cfg.axesDefaults = {
+                    rendererOptions: {
+                        textColor: '#778D9B'
+                    }
+                };
+                this.cfg.seriesDefaults = {
+                    shadow: false,
+                    markerOptions: {
+                        shadow: false
+                    }
+                }
+            }
+
+            function skinPie() {
+                this.cfg.seriesColors = ['#dae8ef', '#27aae1', '#33ccff', '#9fadb5'];
+                this.cfg.grid = {
+                    background: '#ffffff',
+                    borderColor: '#eaeaea',
+                    gridLineColor: '#e5ebf0',
+                    shadow: false,
+                    borderWidth: 0
+                };
+                this.cfg.seriesDefaults.shadow = false;
+            }
+            /*Botão topo*/
+            $(document).ready(function () {
+                $(window).scroll(function () {
+                    if ($(this).scrollTop() > 100) {
+                        $('a[href="#top"]').fadeIn();
+                    } else {
+                        $('a[href="#top"]').fadeOut();
+                    }
+                });
+
+                $('a[href="#top"]').click(function () {
+                    $('html, body').animate({scrollTop: 0}, 800);
+                    return false;
+                });
+            });
+        </script>
+        <style type="text/css">
+            .jqplot-target, .jqplot-axis {
+                color: #778D9B;
+            }
+            /*Botão topo */
+            a[href="#top"]{
+                padding:10px;
+                position:fixed;
+                top: 90%;
+                right:2px;
+                display:none;
+                font-size: 30px;
+            }
+            a[href="#top"]:hover{
+                text-decoration:none;
+            }
+            h2{color:black}
+        </style>
+        <f:metadata>
+            <f:viewAction  action="#{painelDocumentocontroller.iniciar()}" />
+        </f:metadata>
+
+
+    </ui:define>
+
+    <ui:define name="content"  >
+
+        <div class="layout-portlets-box" >
+            <div class="Container100 ui-fluid">
+                <div class="ContainerIndent"> 
+
+                    <a href="#top"><p:commandButton icon="fa fa-arrow-up Fs18 white"/></a>
+
+
+                    <h:form id="frmPrincipal" >
+                        <div class="Container100 Responsive100">
+                            <p:messages id="messages"  autoUpdate="true" closable="true" />
+
+                            <p:panelGrid   columns="8"  layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-10,ui-grid-col-2" >
+                                <p:panelGrid   columns="1"  layout="grid" styleClass="ui-panelgrid-blank"  >
+                                    <h2>Painel de Documento</h2>
+                                </p:panelGrid>
+
+                                <p:commandButton value="Filtrar" actionListener="#{painelDocumentocontroller.filtrar()}" update=":frmPrincipal"/>
+
+                                <h:commandLink>
+                                    <img src="../images/excel.png" alt="Smiley face" height="35" width="35"/>
+                                    <p:dataExporter type="xls" target="DtPrincipal" fileName="Documento" pageOnly="false"/>
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <img src="../images/csv.png" alt="Smiley face" height="35" width="35"/>
+                                    <p:dataExporter type="csv" target="DtPrincipal" fileName="Documento" pageOnly="false" />
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <img src="../images/pdf.png" alt="exportar pdf" height="35" width="35"/>
+                                    <p:dataExporter type="pdf" target="DtPrincipal" fileName="Documento" pageOnly="false" />
+                                </h:commandLink>
+
+                                <h:commandLink>
+                                    <img src="../images/xml.png" alt="Smiley face" height="35" width="35"/>
+                                    <p:dataExporter type="xml" target="DtPrincipal" fileName="Documento" pageOnly="false" />
+                                </h:commandLink>
+
+
+
+                            </p:panelGrid>                        
+
+                            <p:separator/>
+
+
+                            <p:panelGrid columns="3" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Tipo de Documento"/>
+                                    <p:selectOneMenu value="#{painelDocumentocontroller.seqTipoDocumentoSelecionado}" filter="true" filterMatchMode="contains"  >
+                                        <f:selectItem  itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItems value="#{painelDocumentocontroller.listaTipoDocumento}" var="td"  itemLabel="#{td.nome} - #{td.situacao}"  itemValue="#{td.seqTipoDocumento}"/>
+                                        <p:ajax event="change" listener="#{painelDocumentocontroller.carregarEtapa()}" update="pnlEtapa"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid id="pnlEtapa" columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Etapa"/>
+                                    <p:selectOneMenu value="#{painelDocumentocontroller.seqDocumentoEtapaSelecionado}" filter="true" filterMatchMode="contains"  >
+                                        <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItems value="#{painelDocumentocontroller.listaDocumentoEtapa}" var="te"  itemLabel="#{te.nome}"  itemValue="#{te.seqDocumentoEtapa}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Parceiro"/>
+                                    <p:selectOneMenu value="#{painelDocumentocontroller.seqParceiroSelecionado}" filter="true" filterMatchMode="contains"  >
+                                        <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItems value="#{painelDocumentocontroller.listaParceiro}" var="pa"  itemLabel="#{pa.nome}"  itemValue="#{pa.seqParceiro}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                            </p:panelGrid>
+
+                            <p:panelGrid columns="4" layout="grid" styleClass="ui-panelgrid-blank" columnClasses="ui-grid-col-4,ui-grid-col-4,ui-grid-col-4,ui-grid-col-4">
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Embarcação"/>
+                                    <p:selectOneMenu value="#{painelDocumentocontroller.seqEmbarcacaoSelecionada}" filter="true" filterMatchMode="contains"  >
+                                        <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItems value="#{painelDocumentocontroller.listaNvEmbarcacao}" var="e"  itemLabel="#{e.nome}"  itemValue="#{e.seqNvEmbarcacao}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Equipamento/Acessórios"/>
+                                    <p:selectOneMenu value="#{painelDocumentocontroller.seqEquipamentoAcessorioSelecionada}" filter="true" filterMatchMode="contains"  >
+                                        <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItems value="#{painelDocumentocontroller.listaEquipamento}" var="ea"  itemLabel="#{ea.nome}"  itemValue="#{ea.seqEquipamento}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Unidade de Negócio"/>
+                                    <p:selectOneMenu value="#{painelDocumentocontroller.seqUnidadeNegocioSelecionado}" filter="true" filterMatchMode="contains"  >
+                                        <f:selectItem value="#{null}" itemLabel="Todos" itemValue="#{null}" />
+                                        <f:selectItems value="#{painelDocumentocontroller.listaUnidadeNegocio}" var="un"  itemLabel="#{un.identificacao}"  itemValue="#{un.seqUnidadeNegocio}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+
+                                
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:outputLabel value="Código"/>
+                                    <p:inputText value="#{painelDocumentocontroller.codigoSelecionado}"/>
+                                </p:panelGrid>
+                            </p:panelGrid>
+
+                            <p:separator/>
+
+                            <p:panelGrid id="pnlFiltroData" columns="2" layout="grid" styleClass="ui-panelgrid-blank" >
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:selectBooleanCheckbox  itemLabel="Informar Dt. Prevista Conclusão / Baixa" value="#{painelDocumentocontroller.porPrevisaoBaixa}">
+                                        <p:ajax event="change" update="pnlFiltroData"/>
+                                    </p:selectBooleanCheckbox>
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{painelDocumentocontroller.porPrevisaoBaixa}">
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                            <h:outputText value="Data Inicial" />
+                                            <p:inputMask mask="99/99/9999"    value="#{painelDocumentocontroller.dataPrevBaixaInicial}" required="true" requiredMessage="[DATA DE PREVISÃO] é obrigatório!" >
+                                            </p:inputMask>
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                            <h:outputText value="Data Final" />
+                                            <p:inputMask mask="99/99/9999"   value="#{painelDocumentocontroller.dataPrevBaixaFinal}"  required="true" requiredMessage="[DATA PREVISÃO] é obrigatório!" >
+                                            </p:inputMask>
+                                        </p:panelGrid>                                
+                                    </p:panelGrid>                                
+
+                                </p:panelGrid>
+
+
+                                <!--p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:selectBooleanCheckbox  itemLabel="Informar Data do Documento" value="#{painelDocumentocontroller.porDataDocumento}">
+                                        <p:ajax event="change" update="pnlFiltroData"/>
+                                    </p:selectBooleanCheckbox>
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{painelDocumentocontroller.porDataDocumento}">
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                            <h:outputText value="Data Inicial" />
+                                            <p:inputMask mask="99/99/9999"    value="#{painelDocumentocontroller.dataDocumentoInicial}" required="true" requiredMessage="[DATA DO DOCUMENTO] é obrigatório!" >
+                                            </p:inputMask>
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                            <h:outputText value="Data Final"/>
+                                            <p:inputMask mask="99/99/9999"   value="#{painelDocumentocontroller.dataDocumentoFinal}"  required="true" requiredMessage="[DATA DE CADASTRO] é obrigatório!" >
+                                            </p:inputMask>
+                                        </p:panelGrid>                                
+                                    </p:panelGrid>                                
+
+                                </p:panelGrid-->
+
+
+
+                                <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                    <p:selectBooleanCheckbox  itemLabel="Informar Data de Cadastro" value="#{painelDocumentocontroller.porDataCadastro}" >
+                                        <p:ajax event="change" update="pnlFiltroData"/>
+                                    </p:selectBooleanCheckbox>
+                                    <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" rendered="#{painelDocumentocontroller.porDataCadastro}">
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                            <h:outputText value="Data Inicial" />
+                                            <p:inputMask mask="99/99/9999"   value="#{painelDocumentocontroller.dataCadastroInicial}"  required="true" requiredMessage="[DATA DE CADASTRO] é obrigatório!" >
+                                            </p:inputMask>
+                                        </p:panelGrid>
+
+                                        <p:panelGrid columns="1" layout="grid" styleClass="ui-panelgrid-blank" >
+                                            <h:outputText value="Data Final" />
+                                            <p:inputMask mask="99/99/9999"   value="#{painelDocumentocontroller.dataCadastroFinal}"  required="true" requiredMessage="[DATA DE CADASTRO] é obrigatório!" >
+                                            </p:inputMask>
+                                        </p:panelGrid>                                
+                                    </p:panelGrid>                                
+
+                                </p:panelGrid>                                    
+
+                            </p:panelGrid>
+
+
+
+
+                            <p:separator/>
+                            <p:panelGrid columns="2" layout="grid" styleClass="ui-panelgrid-blank" >
+                                <p:selectBooleanCheckbox value="#{painelDocumentocontroller.bParceiro}" itemLabel="Parceiro" >
+                                    <p:ajax event="change" update="DtPrincipal" />
+                                </p:selectBooleanCheckbox>
+
+                                <p:selectBooleanCheckbox value="#{painelDocumentocontroller.bDataCadastro}" itemLabel="Data de Cadastro">
+                                    <p:ajax event="change" update="DtPrincipal" />
+                                </p:selectBooleanCheckbox>
+
+                                <!--p:selectBooleanCheckbox value="#{painelDocumentocontroller.bDataPrevisao}" itemLabel="Data de Prev. Conclusão / Baixa">
+                                    <p:ajax event="change" update="DtPrincipal" />
+                                </p:selectBooleanCheckbox-->
+                            </p:panelGrid>
+                            <p:separator/>
+
+                                    <p:dashboard id="board" model="#{dashboardView.model}">
+            <p:ajax event="reorder" listener="#{dashboardView.handleReorder}" update="msgs"/>
+
+            <p:panel id="sports" header="Sports">
+                <h:outputText value="Sports Content"/>
+            </p:panel>
+
+            <p:panel id="finance" header="Finance">
+                <h:outputText value="Finance Content"/>
+            </p:panel>
+
+            <p:panel id="lifestyle" header="Lifestyle">
+                <h:outputText value="Lifestyle Content"/>
+            </p:panel>
+
+            <p:panel id="weather" header="Weather">
+                <h:outputText value="Weather Content"/>
+            </p:panel>
+
+            <p:panel id="politics" header="Politics">
+                <h:outputText value="Politics Content"/>
+            </p:panel>
+        </p:dashboard>
+
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </div>
+    </ui:define>
+
+</ui:composition>

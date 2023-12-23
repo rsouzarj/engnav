@@ -1,0 +1,1157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.6.0.final using JasperReports Library version 6.6.0  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="PROPOSTA DE PRESTAÇÃO DE SERVIÇOS " pageWidth="595" pageHeight="842" whenNoDataType="NoPages" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="985c1e67-9c03-47dd-bdd7-3c6a0b73a2f3">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="816"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="aws"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<style name="table">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1">
+		<box>
+			<topPen lineWidth="1.0" lineColor="#000000"/>
+			<bottomPen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 1_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<topPen lineWidth="0.5" lineColor="#000000"/>
+			<bottomPen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TH" mode="Opaque" backcolor="#FAEBD7">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_CH" mode="Opaque" backcolor="#FFE4BF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 2_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 3_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[new Boolean($V{REPORT_COUNT}.intValue()%2==0)]]></conditionExpression>
+			<style backcolor="#EFF7FF"/>
+		</conditionalStyle>
+	</style>
+	<style name="table 4">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 4_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 5_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 6_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7">
+		<box>
+			<pen lineWidth="1.0" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TH" mode="Opaque" backcolor="#F0F8FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_CH" mode="Opaque" backcolor="#BFE1FF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<style name="table 7_TD" mode="Opaque" backcolor="#FFFFFF">
+		<box>
+			<pen lineWidth="0.5" lineColor="#000000"/>
+		</box>
+	</style>
+	<subDataset name="Equipamentos" uuid="e31516e6-1e6a-4cb4-868e-870365859a1f">
+		<parameter name="pSeqDocumentoEquipamento" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select
+documento_item_equipamento.seq_documento,
+equipamento.nome
+From
+documento_item_equipamento
+inner join equipamento on equipamento.seq_equipamento = documento_item_equipamento.seq_equipamento
+where
+documento_item_equipamento.seq_documento =  $P{pSeqDocumentoEquipamento}]]>
+		</queryString>
+		<field name="SEQ_DOCUMENTO" class="java.math.BigDecimal"/>
+		<field name="NOME" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="Escopo_Servico" uuid="51663f6a-6249-4831-9ece-83b014e3c2ff">
+		<parameter name="pSeqDocumentoEscopoServico" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select
+  servico_escopo.nome
+from
+  documento_item_servico
+inner join servico_escopo on servico_escopo.seq_servico_escopo = documento_item_servico.seq_servico_escopo
+where
+documento_item_servico.seq_documento = $P{pSeqDocumentoEscopoServico}]]>
+		</queryString>
+		<field name="NOME" class="java.lang.String"/>
+	</subDataset>
+	<subDataset name="Tabela_Preco" uuid="17d176ae-cd64-41fd-be6a-ad8daeb1e242">
+		<property name="com.jaspersoft.studio.data.defaultdataadapter" value="awsprod"/>
+		<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+		<parameter name="pSeqDocumentoPreco" class="java.lang.Integer">
+			<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+		</parameter>
+		<queryString>
+			<![CDATA[select
+material.codigo,
+material.referencia,
+material.nome,
+documento_item_material.vl_unitario,
+documento_item_material.qtde,
+documento_item_material.preco_total,
+documento_item_material.vl_desconto,
+documento.moeda,
+tipo_unidade.descricao,
+documento.mostra_total,
+documento_item_material.descricao complemento
+ From
+documento_item_material
+inner join material on material.seq_material = documento_item_material.seq_material
+inner join documento on documento.seq_documento = documento_item_material.seq_documento
+inner join tipo_unidade on tipo_unidade.seq_tipo_unidade = documento_item_material.unidade
+where
+documento_item_material.seq_documento = $P{pSeqDocumentoPreco}]]>
+		</queryString>
+		<field name="CODIGO" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="CODIGO"/>
+		</field>
+		<field name="REFERENCIA" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="REFERENCIA"/>
+		</field>
+		<field name="NOME" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="NOME"/>
+		</field>
+		<field name="VL_UNITARIO" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="VL_UNITARIO"/>
+		</field>
+		<field name="QTDE" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="QTDE"/>
+		</field>
+		<field name="PRECO_TOTAL" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="PRECO_TOTAL"/>
+		</field>
+		<field name="VL_DESCONTO" class="java.math.BigDecimal">
+			<property name="com.jaspersoft.studio.field.label" value="VL_DESCONTO"/>
+		</field>
+		<field name="MOEDA" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="MOEDA"/>
+		</field>
+		<field name="DESCRICAO" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="DESCRICAO"/>
+		</field>
+		<field name="MOSTRA_TOTAL" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="MOSTRA_TOTAL"/>
+		</field>
+		<field name="COMPLEMENTO" class="java.lang.String">
+			<property name="com.jaspersoft.studio.field.label" value="COMPLEMENTO"/>
+		</field>
+		<variable name="TotalGeral" class="java.math.BigDecimal" calculation="Sum">
+			<variableExpression><![CDATA[$F{PRECO_TOTAL}]]></variableExpression>
+		</variable>
+	</subDataset>
+	<parameter name="pSeqDocumento" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[261]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select
+documento.codigo, parceiro.nome,parceiro.pessoa_contato,tipo_documento.nome tpDoc,
+condicao_pagamento.nome condicao_pagamento,colaborador.nome as nome_c, colaborador.nome_assinatura,colaborador.documento,
+parceiro_contato.nome nomeRequisitante,parceiro_contato.email emailRequisicao,
+parceiro_contato.telefone telefoneRequisitante,parceiro_contato.info infoRequisitante,parceiro.documento cnpj_cpf,
+documento.*
+from
+documento
+left join parceiro on parceiro.seq_parceiro = documento.seq_parceiro
+left join parceiro_contato on documento.seq_parceiro_contato = parceiro_contato.seq_parceiro_contato
+left join colaborador on colaborador.seq_colaborador = documento.seq_ass_colaborador
+left join condicao_pagamento on condicao_pagamento.SEQ_CONDICAO_PAGAMENTO = documento.seq_condicao_pagamento
+left join tipo_documento on tipo_documento.seq_tipo_documento = documento.seq_tipo_documento
+where
+documento.seq_documento = $P{pSeqDocumento}]]>
+	</queryString>
+	<field name="CODIGO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CODIGO"/>
+	</field>
+	<field name="NOME" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME"/>
+	</field>
+	<field name="PESSOA_CONTATO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="PESSOA_CONTATO"/>
+	</field>
+	<field name="TPDOC" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TPDOC"/>
+	</field>
+	<field name="CONDICAO_PAGAMENTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CONDICAO_PAGAMENTO"/>
+	</field>
+	<field name="NOME_C" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME_C"/>
+	</field>
+	<field name="NOME_ASSINATURA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOME_ASSINATURA"/>
+	</field>
+	<field name="DOCUMENTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DOCUMENTO"/>
+	</field>
+	<field name="NOMEREQUISITANTE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="NOMEREQUISITANTE"/>
+	</field>
+	<field name="EMAILREQUISICAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EMAILREQUISICAO"/>
+	</field>
+	<field name="TELEFONEREQUISITANTE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="TELEFONEREQUISITANTE"/>
+	</field>
+	<field name="INFOREQUISITANTE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="INFOREQUISITANTE"/>
+	</field>
+	<field name="CNPJ_CPF" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CNPJ_CPF"/>
+	</field>
+	<field name="SEQ_DOCUMENTO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_DOCUMENTO"/>
+	</field>
+	<field name="COLUMN_15" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CODIGO"/>
+	</field>
+	<field name="SEQ_EMPRESA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_EMPRESA"/>
+	</field>
+	<field name="SEQ_PARCEIRO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_PARCEIRO"/>
+	</field>
+	<field name="SEQ_TIPO_DOCUMENTO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_TIPO_DOCUMENTO"/>
+	</field>
+	<field name="SEQ_DOCUMENTO_ETAPA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_DOCUMENTO_ETAPA"/>
+	</field>
+	<field name="DATA_CADASTRO" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_CADASTRO"/>
+	</field>
+	<field name="SEQ_USUARIO_CADASTRO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_USUARIO_CADASTRO"/>
+	</field>
+	<field name="DESCRICAO" class="oracle.sql.CLOB">
+		<property name="com.jaspersoft.studio.field.label" value="DESCRICAO"/>
+	</field>
+	<field name="DATA" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA"/>
+	</field>
+	<field name="SEQ_LUGAR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_LUGAR"/>
+	</field>
+	<field name="DATA_PREVISAO_CONCLUSAO" class="java.sql.Timestamp">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_PREVISAO_CONCLUSAO"/>
+	</field>
+	<field name="SEQ_FORMA_PAGAMENTO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_FORMA_PAGAMENTO"/>
+	</field>
+	<field name="SEQ_CONTA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_CONTA"/>
+	</field>
+	<field name="SEQ_CONDICAO_PAGAMENTO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_CONDICAO_PAGAMENTO"/>
+	</field>
+	<field name="SEQ_TIPO_MOVIMENTO_FINANCEIRO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_TIPO_MOVIMENTO_FINANCEIRO"/>
+	</field>
+	<field name="SEQ_DOCUMENTO_DONO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_DOCUMENTO_DONO"/>
+	</field>
+	<field name="SEQ_ASS_COLABORADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_ASS_COLABORADOR"/>
+	</field>
+	<field name="N_CONTRATO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="N_CONTRATO"/>
+	</field>
+	<field name="REEMBOLSO_TRANSPORTE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="REEMBOLSO_TRANSPORTE"/>
+	</field>
+	<field name="REEMBOLSO_ALIMENTACAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="REEMBOLSO_ALIMENTACAO"/>
+	</field>
+	<field name="REEMBOLSO_HOSPEDAGEM" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="REEMBOLSO_HOSPEDAGEM"/>
+	</field>
+	<field name="REEMBOLSO_PLOTAGENS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="REEMBOLSO_PLOTAGENS"/>
+	</field>
+	<field name="REEMBOLSO_OUTROS" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="REEMBOLSO_OUTROS"/>
+	</field>
+	<field name="LOCAL_SERVICO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="LOCAL_SERVICO"/>
+	</field>
+	<field name="QTDE_PARCELA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="QTDE_PARCELA"/>
+	</field>
+	<field name="VL_ENTRADA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_ENTRADA"/>
+	</field>
+	<field name="DATA_PAGAMENTO_PARCELADO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="DATA_PAGAMENTO_PARCELADO"/>
+	</field>
+	<field name="VL_TOTAL_DOCUMENTO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_TOTAL_DOCUMENTO"/>
+	</field>
+	<field name="TRIBUTOS_IMPOSTOS" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="TRIBUTOS_IMPOSTOS"/>
+	</field>
+	<field name="SEQ_PARCEIRO_CONTATO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_PARCEIRO_CONTATO"/>
+	</field>
+	<field name="SEQ_PARCEIRO_CONTA_PAGAR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_PARCEIRO_CONTA_PAGAR"/>
+	</field>
+	<field name="ORIGEM_PARCEIRO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ORIGEM_PARCEIRO"/>
+	</field>
+	<field name="SEQ_UNIDADE_NEGOCIO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_UNIDADE_NEGOCIO"/>
+	</field>
+	<field name="COMENTARIO_ETAPA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="COMENTARIO_ETAPA"/>
+	</field>
+	<field name="ID_REVISAO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ID_REVISAO"/>
+	</field>
+	<field name="RETENCAO_ISSQN" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="RETENCAO_ISSQN"/>
+	</field>
+	<field name="SEQ_PROJECAO_TRIBUTARIA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_PROJECAO_TRIBUTARIA"/>
+	</field>
+	<field name="ALIQUOTA_ISSQN_RETIDO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ALIQUOTA_ISSQN_RETIDO"/>
+	</field>
+	<field name="SEQ_ALIQUOTA_FEDERAL" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQ_ALIQUOTA_FEDERAL"/>
+	</field>
+	<field name="VL_ACUMULADO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_ACUMULADO"/>
+	</field>
+	<field name="VL_TRIBUTO_N_INCLUSO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_TRIBUTO_N_INCLUSO"/>
+	</field>
+	<field name="VL_BRUTO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_BRUTO"/>
+	</field>
+	<field name="VL_ISSQN_RETIDO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_ISSQN_RETIDO"/>
+	</field>
+	<field name="VL_RETENCAO_FEDERAL" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_RETENCAO_FEDERAL"/>
+	</field>
+	<field name="VL_LIQUIDO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_LIQUIDO"/>
+	</field>
+	<field name="SEQUENCIA" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="SEQUENCIA"/>
+	</field>
+	<field name="GRUPO_SERVICO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="GRUPO_SERVICO"/>
+	</field>
+	<field name="MOEDA" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MOEDA"/>
+	</field>
+	<field name="ID_COMPLEMENTAR" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="ID_COMPLEMENTAR"/>
+	</field>
+	<field name="OBSERVACAO" class="oracle.sql.CLOB">
+		<property name="com.jaspersoft.studio.field.label" value="OBSERVACAO"/>
+	</field>
+	<field name="MOEDA_DESTINO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MOEDA_DESTINO"/>
+	</field>
+	<field name="EMBARCACAO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="EMBARCACAO"/>
+	</field>
+	<field name="ARMADOR" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ARMADOR"/>
+	</field>
+	<field name="ESCOPO" class="oracle.sql.CLOB">
+		<property name="com.jaspersoft.studio.field.label" value="ESCOPO"/>
+	</field>
+	<field name="VL_TOTALCAMBIO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="VL_TOTALCAMBIO"/>
+	</field>
+	<field name="TAXA_CAMBIO" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.label" value="TAXA_CAMBIO"/>
+	</field>
+	<field name="MOSTRA_TOTAL" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="MOSTRA_TOTAL"/>
+	</field>
+	<field name="CAMINHO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="CAMINHO"/>
+	</field>
+	<field name="OBJETIVO" class="oracle.sql.CLOB">
+		<property name="com.jaspersoft.studio.field.label" value="OBJETIVO"/>
+	</field>
+	<field name="VALIDADE" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="VALIDADE"/>
+	</field>
+	<field name="DESC_REMUNERACAO" class="oracle.sql.CLOB">
+		<property name="com.jaspersoft.studio.field.label" value="DESC_REMUNERACAO"/>
+	</field>
+	<field name="COND_GERAIS" class="oracle.sql.CLOB">
+		<property name="com.jaspersoft.studio.field.label" value="COND_GERAIS"/>
+	</field>
+	<field name="CONDPAG" class="oracle.sql.CLOB">
+		<property name="com.jaspersoft.studio.field.label" value="CONDPAG"/>
+	</field>
+	<field name="ASSUNTO" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ASSUNTO"/>
+	</field>
+	<variable name="cEntrada" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$F{VL_ENTRADA}]]></variableExpression>
+	</variable>
+	<variable name="parcela" class="java.math.BigDecimal">
+		<variableExpression><![CDATA[$V{cEntrada}]]></variableExpression>
+	</variable>
+	<background>
+		<band height="802">
+			<frame>
+				<reportElement x="0" y="0" width="555" height="802" uuid="d968904a-bd68-4ab4-9a96-d508562aec7c"/>
+				<box>
+					<topPen lineWidth="0.75"/>
+					<leftPen lineWidth="0.75"/>
+					<bottomPen lineWidth="0.75"/>
+					<rightPen lineWidth="0.75"/>
+				</box>
+			</frame>
+		</band>
+	</background>
+	<detail>
+		<band height="802">
+			<staticText>
+				<reportElement x="14" y="317" width="153" height="20" uuid="a2e34785-c954-4644-8314-f4310aa97125"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[1.  INTRODUCTION
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="340" width="530" height="134" uuid="6aa06f39-1334-47cf-82c0-2cc7204c2ea2"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[AWS Service was created in 2010, being a company with extensive experience in the field of certification of vessels and equipment, naval and mechanical engineering, specialized advice in the naval and offshore industry, among others.
+ 
+With great enthusiasm and relentless pursuit of excellence in quality, AWS expands its horizons and commercial partnerships, investing in the training and improvement of employees, applicability techniques, engineering and equipment, compliance policy, quality management, health, safety and environment.
+ 
+AWS has its headquarters in Niterói - RJ, branches in Manaus and Belém, operating throughout the national territory.
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="14" y="467" width="167" height="20" uuid="bf49c0be-fe38-4cf2-b834-9771b620e135"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[2.  OBJECTIVE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="14" y="539" width="167" height="20" uuid="093ce0f3-8236-49a5-bf1a-d7c05d60e9b1"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[3.  SCOPE
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="16" y="590" width="158" height="20" uuid="561cf94d-6407-4142-9895-bc60ee3c8cbb"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[4.  REMUNERATION]]></text>
+			</staticText>
+			<elementGroup/>
+			<elementGroup/>
+			<componentElement>
+				<reportElement key="table 4" style="table 4" positionType="Float" x="630" y="359" width="537" height="20" isRemoveLineWhenBlank="true" forecolor="#FFFFFF" uuid="23f99377-b928-4f08-b33d-e50130707056"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
+					<datasetRun subDataset="Equipamentos" uuid="adaaf17e-a8a9-40ef-bb22-82bd984cec23">
+						<datasetParameter name="pSeqDocumentoEquipamento">
+							<datasetParameterExpression><![CDATA[$P{pSeqDocumento}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="525" uuid="5abfa69c-e01b-47e7-8fa9-9743580e1d7f">
+						<jr:detailCell height="20" rowSpan="1">
+							<textField>
+								<reportElement x="6" y="0" width="495" height="20" uuid="38c39f49-c4ec-49c6-b97d-0db828d3e8dc"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<componentElement>
+				<reportElement key="table 5" style="table 5" positionType="Float" isPrintRepeatedValues="false" x="631" y="439" width="534" height="20" isPrintInFirstWholeBand="true" uuid="f60cc82b-868a-479f-a7e9-455aaae8ba02"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
+					<datasetRun subDataset="Escopo_Servico" uuid="24df2e4f-c408-4d48-92af-aa98b343caba">
+						<datasetParameter name="pSeqDocumentoEscopoServico">
+							<datasetParameterExpression><![CDATA[$P{pSeqDocumento}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="525" uuid="ce443aaa-8ad4-4d4b-9831-e357a7801262">
+						<jr:detailCell style="table 5_TD" height="20" rowSpan="1">
+							<textField isStretchWithOverflow="true">
+								<reportElement isPrintRepeatedValues="false" x="10" y="0" width="455" height="20" isPrintInFirstWholeBand="true" uuid="f126803e-d114-468c-af3e-37fdb508faa8"/>
+								<textElement verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{NOME}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<staticText>
+				<reportElement x="10" y="179" width="59" height="19" uuid="5e44d1e9-5176-4109-aa52-667962a3b090"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Proposal]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="217" width="387" height="19" uuid="486a1ceb-8616-41c2-b9fd-70cbdba0138a"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NOME}==null?"-":$F{NOME}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="256" width="59" height="19" uuid="3c7d87af-5a76-4b5e-9c51-3e9d5ac5d309"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Contact:]]></text>
+			</staticText>
+			<textField pattern="dd/MM/yyyy">
+				<reportElement x="69" y="198" width="387" height="19" uuid="470b63b8-a285-49da-b81d-ff3abaea99ab"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="10" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DATA_CADASTRO}==null?"-":$F{DATA_CADASTRO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="69" y="179" width="211" height="19" uuid="ed1894ab-6aa5-4d88-9936-4eb95846aeea"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CODIGO}==null?"-":$F{CODIGO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="118" width="555" height="25" uuid="966b83f7-671e-445a-959d-165a21fb9ff1"/>
+				<box>
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold"/>
+				</textElement>
+				<text><![CDATA[SERVICE PROPOSAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="198" width="59" height="19" uuid="f6eadb86-a460-4f1d-b396-f94d50dcee83"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Date:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="10" y="217" width="59" height="19" uuid="8f0a5cad-f7fd-43eb-8ef7-ebbe36984761"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Customer: ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="256" width="387" height="19" uuid="9f032aff-776d-454d-8492-3bd682e4e4f0"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{NOMEREQUISITANTE}==null?"-":$F{NOMEREQUISITANTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="14" y="738" width="385" height="20" uuid="cb9cbfb8-c24f-468c-bd35-786d620f2990"/>
+				<box topPadding="1"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[6.  GENERAL CONDITIONS OF EXPENSES]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="15" y="703" width="537" height="27" uuid="46a060b1-c2ad-41a4-9689-c59b6eae043f"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OBSERVACAO}==null?"-":$F{OBSERVACAO}.getSubString( new Long(01), new Long($F{OBSERVACAO}.length()).intValue())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="15" y="683" width="194" height="20" uuid="b21f41ac-18b9-4f7a-9ca4-596b5ac38eac"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[5. REMARKS
+]]></text>
+			</staticText>
+			<image>
+				<reportElement x="190" y="10" width="178" height="107" uuid="e1718f3f-28b6-4ee2-999d-065a7635e988"/>
+				<imageExpression><![CDATA["..\\logoh.png"]]></imageExpression>
+			</image>
+			<componentElement>
+				<reportElement key="table 6" style="table 6" positionType="Float" isPrintRepeatedValues="false" x="16" y="614" width="529" height="30" isPrintInFirstWholeBand="true" uuid="4f206b6f-973a-448f-83db-bab0133e1319"/>
+				<jr:table xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" whenNoDataType="Blank">
+					<datasetRun subDataset="Tabela_Preco" uuid="28a54ec5-9725-4660-af1e-93b547783dce">
+						<datasetParameter name="pSeqDocumentoPreco">
+							<datasetParameterExpression><![CDATA[$P{pSeqDocumento}]]></datasetParameterExpression>
+						</datasetParameter>
+						<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					</datasetRun>
+					<jr:column width="160" uuid="af2e6f8b-4266-43e6-b0dd-48a3156dda46">
+						<jr:tableHeader style="table 6_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="160" height="30" uuid="57bbdecf-6ea2-4832-98d6-59e8371d8083"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Service]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 6_TH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 6_TD" height="49" rowSpan="1">
+							<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="160" height="49" isPrintInFirstWholeBand="true" uuid="8423e1a9-b068-467e-bb75-a1f9c4e4b800"/>
+								<box leftPadding="3"/>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{NOME}+" "+$F{COMPLEMENTO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="68" uuid="31c35d81-edbb-4243-86a4-5df088dd25d9">
+						<jr:tableHeader style="table 6_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="68" height="15" uuid="f19b2a27-baed-4f89-9b7f-8eb494649b26"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Unit]]></text>
+							</staticText>
+							<staticText>
+								<reportElement x="0" y="15" width="68" height="15" uuid="4956da7e-e227-4ab7-912f-c8b8a7788e81"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Price]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 6_TH" height="30" rowSpan="1"/>
+						<jr:detailCell style="table 6_TD" height="49" rowSpan="1">
+							<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="68" height="17" uuid="7b3b1c59-0531-4159-9df4-47ac0a8c6c71"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{VL_UNITARIO}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="17" width="68" height="16" uuid="750059c6-4907-4a32-b622-0e0900a8f993">
+									<printWhenExpression><![CDATA[$F{MOEDA}.equals("€")?true:false]]></printWhenExpression>
+								</reportElement>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MOEDA}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="33" width="68" height="16" uuid="edb1df1b-0183-4374-8429-d92a207cad9f">
+									<printWhenExpression><![CDATA[$F{MOEDA}.equals("€")?false:true]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MOEDA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="70" uuid="be1ad908-005b-4e68-8ce1-8ed0314a48bb">
+						<jr:tableHeader style="table 6_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="30" uuid="68975512-f159-419f-ac7a-babce8a675ec"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Qtty]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 6_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="70" height="30" uuid="c426c186-3eab-4987-b6e0-f49c0aaf4fc8">
+									<printWhenExpression><![CDATA[$F{MOSTRA_TOTAL}=="S"]]></printWhenExpression>
+								</reportElement>
+								<box rightPadding="3"/>
+								<textElement textAlignment="Right" verticalAlignment="Middle"/>
+								<text><![CDATA[Total:]]></text>
+							</staticText>
+						</jr:tableFooter>
+						<jr:detailCell style="table 6_TD" height="49" rowSpan="1">
+							<textField isBlankWhenNull="true">
+								<reportElement x="0" y="0" width="70" height="49" uuid="de9f2475-468f-4d5e-b091-6380b59eb521"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<textFieldExpression><![CDATA[$F{QTDE}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="73" uuid="93479ec5-88dc-4fdf-a569-9767142ac19e">
+						<jr:tableHeader style="table 6_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="73" height="30" uuid="0e968d12-31ae-40ba-9669-f7249a71cde2"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Unity]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 6_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_TH" height="0" rowSpan="1"/>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell style="table 6_TD" height="49" rowSpan="1">
+							<textField>
+								<reportElement x="0" y="0" width="73" height="49" uuid="1dc1f40f-262e-418e-94a3-3046c035e284"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8" isStrikeThrough="false"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{DESCRICAO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="77" uuid="e059385a-8815-4705-a175-6a0d03e92888">
+						<jr:tableHeader style="table_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement style="table_TH" x="0" y="0" width="77" height="30" uuid="df8468c1-3095-492b-9cc7-a2b6db949d63"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Discount]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 6_TH" height="30" rowSpan="1"/>
+						<jr:columnHeader style="table_TH" height="0" rowSpan="1"/>
+						<jr:columnFooter height="0" rowSpan="1"/>
+						<jr:detailCell style="table 6_TD" height="49" rowSpan="1">
+							<textField>
+								<reportElement mode="Transparent" x="0" y="0" width="77" height="49" forecolor="#000000" backcolor="#FFFFFF" uuid="6ae49637-8558-48c4-bc73-c52f3d062bc0"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle" rotation="None" markup="none">
+									<font fontName="SansSerif" size="8" isBold="false" isItalic="false" isUnderline="false" isStrikeThrough="false" pdfEncoding="Cp1252" isPdfEmbedded="false"/>
+									<paragraph lineSpacing="Single"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{VL_DESCONTO}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+					<jr:column width="82" uuid="59a2175c-a7db-4a5e-b362-84d8b9b345cd">
+						<jr:tableHeader style="table 6_TH" height="30" rowSpan="1">
+							<staticText>
+								<reportElement x="0" y="0" width="82" height="30" uuid="d6603202-2e2d-444e-9dbb-333479df0837"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle"/>
+								<text><![CDATA[Total]]></text>
+							</staticText>
+						</jr:tableHeader>
+						<jr:tableFooter style="table 6_TH" height="30" rowSpan="1">
+							<textField pattern="#,##0.00;-#,##0.00">
+								<reportElement x="0" y="0" width="82" height="10" uuid="215a24f1-e4fc-455f-927e-3ef1e5fe9a6a">
+									<printWhenExpression><![CDATA[$F{MOSTRA_TOTAL}.equals("S")]]></printWhenExpression>
+								</reportElement>
+								<box rightPadding="3"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$V{TotalGeral}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="10" width="82" height="10" uuid="63c6bcb0-c74f-450e-a16a-cfe0bf87bc67">
+									<printWhenExpression><![CDATA[$F{MOEDA}.equals("€")?false:true]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MOEDA}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="20" width="82" height="10" uuid="57f2c33b-c52f-4f3b-b5a9-bac2d5e49d91">
+									<printWhenExpression><![CDATA[$F{MOEDA}.equals("€")?true:false]]></printWhenExpression>
+								</reportElement>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MOEDA}]]></textFieldExpression>
+							</textField>
+						</jr:tableFooter>
+						<jr:detailCell style="table 6_TD" height="49" rowSpan="1">
+							<textField pattern="#,##0.00;-#,##0.00" isBlankWhenNull="false">
+								<reportElement x="0" y="0" width="82" height="17" uuid="f2d838b6-336f-46c3-96a1-647194228f9d"/>
+								<textElement textAlignment="Center" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{PRECO_TOTAL}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="17" width="82" height="16" uuid="91f1567c-0b57-42c9-931e-38237a01e851">
+									<printWhenExpression><![CDATA[$F{MOEDA}.equals("€")?false:true]]></printWhenExpression>
+								</reportElement>
+								<textElement textAlignment="Right" verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MOEDA}]]></textFieldExpression>
+							</textField>
+							<textField>
+								<reportElement x="0" y="33" width="82" height="16" uuid="3d91245a-f953-455d-bce1-1bc5d9e13167">
+									<printWhenExpression><![CDATA[$F{MOEDA}.equals("€")?true:false]]></printWhenExpression>
+								</reportElement>
+								<textElement verticalAlignment="Middle">
+									<font size="8"/>
+								</textElement>
+								<textFieldExpression><![CDATA[$F{MOEDA}]]></textFieldExpression>
+							</textField>
+						</jr:detailCell>
+					</jr:column>
+				</jr:table>
+			</componentElement>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="15" y="559" width="537" height="27" uuid="1badfc0c-aa25-44bd-b0fe-9eeb61d7fe57"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ESCOPO}==null?"-":$F{ESCOPO}.getSubString( new Long(01), new Long($F{ESCOPO}.length()).intValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="14" y="485" width="537" height="50" uuid="8a80f1bd-645d-4763-a697-8a4f5875bbfe"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{OBJETIVO}.getSubString( new Long(01), new Long($F{OBJETIVO}.length()).intValue())]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="236" width="59" height="19" uuid="15e7518a-2e38-48db-adaa-734d0bac1637"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[CNPJ:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="236" width="387" height="19" uuid="01e2cf18-9e1d-43ae-80a4-f25cbeb03d41"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{CNPJ_CPF}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="10" y="276" width="59" height="19" uuid="6c49d4e4-1c60-44a7-b8fd-cc4930701b25"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Subject:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="69" y="276" width="387" height="19" uuid="3878e8f4-5baf-4a49-8b71-37512165d797"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{ASSUNTO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="15" y="649" width="537" height="27" uuid="f6de4f10-280b-46d6-ab71-be70717b4869"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DESC_REMUNERACAO}==null?"-":$F{DESC_REMUNERACAO}.getSubString( new Long(01), new Long($F{DESC_REMUNERACAO}.length()).intValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="15" y="759" width="537" height="27" uuid="88e2b559-4ba8-456b-8f16-7ab34de41499"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{COND_GERAIS}==null?"-":$F{COND_GERAIS}.getSubString( new Long(01), new Long($F{COND_GERAIS}.length()).intValue())]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="340" y="180" width="116" height="19" uuid="d010e862-4c80-46fe-a90c-d031ac728a20"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" pdfFontName="Times-Roman" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{SEQUENCIA}.equals(0)?"-":$F{SEQUENCIA}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="179" width="59" height="19" uuid="7bdf77c5-b5f1-450a-aeee-6e4101236965"/>
+				<box leftPadding="3">
+					<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Revisão:]]></text>
+			</staticText>
+		</band>
+		<band height="411">
+			<staticText>
+				<reportElement positionType="Float" x="13" y="69" width="100" height="20" uuid="8e05dee9-b0bc-4a38-9087-ea57d1a9f8a2"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[8.  VALIDITY]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="14" y="6" width="214" height="20" uuid="f37ec329-9171-4d6c-b70e-0d561d88ffd0"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[7.  PAYMENT CONDITIONS
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="13" y="122" width="256" height="20" uuid="a1d662f6-66d6-4a3a-a00f-79da708ceed3"/>
+				<textElement>
+					<font fontName="Arial" size="12" isBold="true" pdfFontName="Times-Bold" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[9.   PROPOSAL  APPROVAL
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="16" y="142" width="537" height="46" uuid="9830998c-1da4-404f-8cd5-0d2b592a6404"/>
+				<textElement textAlignment="Justified">
+					<font fontName="Arial"/>
+				</textElement>
+				<text><![CDATA[This proposal represents the understanding as to the nature of the services to be provided and the proposed remuneration . The services will be performed by simple approval of this document through email or by purchase order issued in accordance with this proposal and existing rules.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="13" y="301" width="538" height="20" uuid="b22ad2b8-5fb2-400c-96f2-98aebb7f50eb"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{NOME_ASSINATURA}==null?"-":$F{NOME_ASSINATURA}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="318" width="538" height="20" uuid="deb7eddf-de6f-4783-88b9-0f74838732d5"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{DOCUMENTO}==null?"-":$F{DOCUMENTO}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="13" y="283" width="539" height="20" uuid="8241abae-d7ee-4e53-982e-094652880878"/>
+				<box leftPadding="0"/>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{NOME_C}==null?"-":$F{NOME_C}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement positionType="Float" x="13" y="89" width="537" height="27" uuid="a6901583-0f25-468d-8f3f-4c1ce1cc58db"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{VALIDADE}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="13" y="28" width="537" height="27" uuid="335a1090-efa7-4ade-bcd8-bd529ced49fb"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Justified" verticalAlignment="Top" markup="html">
+					<font fontName="Arial" size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CONDPAG}==null?"-":$F{CONDPAG}.getSubString( new Long(01), new Long($F{CONDPAG}.length()).intValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

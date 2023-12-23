@@ -6,15 +6,7 @@
 /*    */ import ClausulaSQL.TipoCondicaoWhere;
 /*    */ import java.util.ArrayList;
 /*    */ import java.util.List;
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
-/*    */ 
+
 /*    */ public class NvCertificadoDetalheService
 /*    */ {
 /*    */   public NvCertificadoDetalhe salvar(NvCertificadoDetalhe nvCertificadoDetalhe)
